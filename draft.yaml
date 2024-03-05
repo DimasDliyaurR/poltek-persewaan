@@ -1,0 +1,224 @@
+models:
+  Profile :
+    User_id : id foreign:users
+    nama_lengkap : string
+    foto_ktp : string
+    alamat : text
+    no_telp : string
+  
+  # KENDARAAN
+
+  Merk_kendaraan :
+    mk_foto : string
+    mk_nama_merk : string
+    mk_nama_seri : string
+    mk_tarif : decimal:8,2
+    mk_kapasitas : string
+    mk_deskripsi : text
+    mk_bahan_bakar : string
+    relationships :
+      hasMany : Kendaraan
+    
+  Kendaraan :
+    Merk_kendaraan_id : id foreign:merk_kendaraans
+    k_plat : string
+    k_status : enum:tersedia,tidak terpakai
+    relationships:
+      hasMany: R_detail_transaksi_kendaraan
+  
+  Transaksi_kendaraan :
+    user_id : id foreign:users
+    foto_sim : string
+    tk_durasi : int
+    tk_tanggal_sewa : timestamp
+    tk_tanggal_kembali : dateTime
+    relationships :
+      hasMany : H_detail_transaksi_kendaraan
+  
+  H_detail_transaksi_kendaraan :
+    Transaksi_kendaraan_id : foreign
+    hdtk_sub_total : integer
+    relationships:
+      hasOne : R_detail_transaksi_kendaraan
+    
+  R_detail_transaksi_kendaraan:
+    detail_transaksi_id : id foreign:H_detail_transaksi_kendaraans
+    Kendaraan_id : id foreign:Kendaraans
+
+  # KENDARAAN END
+
+  # LAYANAN START
+
+  Layanan:
+    foto_layanan : string
+    l_nama : string
+    l_tarif : integer
+    l_personil : boolean
+    l_satuan : enum:jam,minggu,bulan
+    l_status : enum:tersedia,tidak melayani
+    relationships:
+      hasMany : Video_layanan , Tim_layanan
+
+  Video_layanan:
+    Layanan_id : id foreign:layanans
+    vl_link : string
+
+  Tim_layanan :
+    Layanan_id : id foreign:layanans
+    tl_nama : string
+    tl_status : enum:tersedia,tidak tersedia
+    tl_deskripsi : string
+  
+  Transaksi_layanan:
+    user_id : id foreign:users
+    tl_tanggal_sewa : dateTime
+    tl_tanggal_pelaksanaan : dateTime
+    tl_durasi_sewa : time
+    tl_tujuan : string
+    tl_is_only_property : boolean
+    relationships:
+      hasMany : R_detail_transaksi_layanan
+  
+  H_detail_transaksi_layanan:
+    Transaksi_layanan_id : id foreign:Transaksi_layanans
+    hdtl_sub_total : integer
+    relationships:
+      hasOne : R_detail_transaksi_layanan
+  
+  R_detail_transaksi_layanan :
+    detail_transaksi_id : id foreign:H_detail_transaksi_layanans
+    Transaksi_layanan_id : id foreign:Transaksi_layanans
+
+  # LAYANAN END
+
+  # GEDUNG START
+
+  Property_gedung:
+    pg_nama : string
+    pg_status : enum:tersedia,tidak tersedia
+    relationships:
+      hasOne : R_detail_transaksi_gedung
+    
+  Gedung_lap :
+    gl_foto : string
+    gl_nama : string
+    gl_keterangan : string
+    gl_tarif : string
+    gl_satuan_gedung : string
+    gl_kapasitas_gedung : integer
+    gl_ukuran_gedung : string
+    relationships:
+      hasMany : Transaksi_gedung
+    
+  Transaksi_gedung :
+    User_id : id foreign:users
+    Gedung_lap_id : id foreign:gedung_laps
+    tg_tujuan : string
+    tg_tanggal_sewa : dateTime
+    tg_tanggal_kembali : dateTime
+    tg_tanggal_pelaksanaan : timestamp
+    relationships:
+      hasMany : H_detail_transaksi_gedung
+  
+  H_detail_transaksi_gedung:
+    Transaksi_gedung_id : id foreign:transaksi_gedungs
+    hdtg_sub_total : decimal:10,2
+    relationships:
+      hasOne : R_detail_transaksi_gedung
+
+  R_detail_transaksi_gedung:
+    detail_transaksi_id : id foreign:h_detail_transaksi_gedungs
+    Property_gedung_id : id foreign:property_gedungs
+  # GEDUNG END
+
+  # ASRAMA START
+
+  Fasilitas_asrama :
+    fa_icon : string 
+    fa_nama : string 
+    fa_status : enum:tersedia,tidak tersedia
+    relationships: 
+      hasMany : Detail_fasilitas_asrama
+
+  Detail_fasilitas_asrama :
+    Asrama_id : id foreign:asramas
+    Fasilitas_asrama_id : id foreign:fasilitas_asramas
+  
+  Asrama_id :
+    s_nama_ruangan : string
+    s_status : enum:tersedia,tidak tersedia
+    s_tarif : decimal:10,2
+    relationships:
+      hasMany : Detail_transaksi_id , Transaksi_asrama , R_detail_transaksi_asrama
+  
+  Transaksi_asrama :
+    User_id : id foreign:users
+    ta_tanggal_sewa : dateTime
+    ta_check_in : dateTime
+    ta_check_out : dateTime
+    relationships:
+      hasMany : H_detail_transaksi_asrama , H_detail_transaksi_fasilitas
+  
+  # Detail Transaksi
+  H_detail_transaksi_asrama :
+    Transaksi_asrama_id : id foreign:transaksi_asramas
+    hdta_sub_total : decimal:10,2
+    relationships:
+      hasOne : R_detail_transaksi_asrama
+  
+  R_detail_transaksi_asrama :
+    detail_transaksi_id : id foreign:H_detail_transaksi_asramas
+    Asrama_id : id foreign:asramas
+  
+  # Detail Transaksi Fasilitas
+  H_detail_transaksi_fasilitas :
+    Transaksi_asrama_id : id foreign:transaksi_asramas
+    hdta_sub_total : decimal:10,2
+    relationships:
+      hasOne : R_detail_transaksi_asrama
+  
+  R_detail_transaksi_fasilitas :
+    detail_fasilitas_id : id foreign:H_detail_transaksi_asramas
+    Fasilitas_asrama_id : id foreign:fasilitas_asramas
+
+  # ASRAMA END
+
+  # ALAT BARANG START
+
+  foto_alat_barang :
+    Alat_barang_id : id foreign:alat_barangs
+    fab_foto : string
+  
+  Alat_barang :
+    a_nama : string
+    a_foto : string
+    a_keterangan : string
+    a_tarif : string
+    a_status : enum:tersedia,tidak tersedia
+    a_satuan : string
+    relationships:
+      hasMany : Foto_alat_barang , Transaksi_alat_barang
+    
+  Transaksi_alat_barang:
+    User_id : id foreign:users
+    a_nama : string
+    a_foto : string
+    a_keterangan : string
+    a_tarif : decimal:10,2
+    a_status : enum:tersedia,tidak tersedia
+    a_satuan : string
+    relationships:
+      hasMany : H_detail_transaksi_alat_barang
+  
+  H_detail_transaksi_alat_barang :
+    Transaksi_alat_barang_id : id foreign:transaksi_alat_barangs
+    hdtab_sub_total : decimal:10,2
+  
+  R_detail_transaksi_alat_barang :
+    detail_transaksi_id : id foreign:H_detail_transaksi_alat_barangs
+    Alat_barang_id : id foreign:alat_barangs
+
+  # ALAT BARANG END
+
+controllers:
+  
