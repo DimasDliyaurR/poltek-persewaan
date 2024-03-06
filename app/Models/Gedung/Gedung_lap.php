@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Models\Gedung;
+namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
-class Profile extends Model
+class GedungLap extends Model
 {
     use HasFactory;
 
@@ -16,11 +16,13 @@ class Profile extends Model
      * @var array
      */
     protected $fillable = [
-        'User_id',
-        'nama_lengkap',
-        'foto_ktp',
-        'alamat',
-        'no_telp',
+        'gl_foto',
+        'gl_nama',
+        'gl_keterangan',
+        'gl_tarif',
+        'gl_satuan_gedung',
+        'gl_kapasitas_gedung',
+        'gl_ukuran_gedung',
     ];
 
     /**
@@ -30,11 +32,10 @@ class Profile extends Model
      */
     protected $casts = [
         'id' => 'integer',
-        'User_id' => 'integer',
     ];
 
-    public function user(): BelongsTo
+    public function rDetailTransaksiGedungs(): HasMany
     {
-        return $this->belongsTo(User::class);
+        return $this->hasMany(RDetailTransaksiGedung::class);
     }
 }

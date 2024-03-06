@@ -1,12 +1,13 @@
 <?php
 
-namespace App\Models\Gedung;
+namespace App\Models\Kendaraan;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
-class Profile extends Model
+class Kendaraan extends Model
 {
     use HasFactory;
 
@@ -16,11 +17,9 @@ class Profile extends Model
      * @var array
      */
     protected $fillable = [
-        'User_id',
-        'nama_lengkap',
-        'foto_ktp',
-        'alamat',
-        'no_telp',
+        'Merk_kendaraan_id',
+        'k_plat',
+        'k_status',
     ];
 
     /**
@@ -30,11 +29,16 @@ class Profile extends Model
      */
     protected $casts = [
         'id' => 'integer',
-        'User_id' => 'integer',
+        'Merk_kendaraan_id' => 'integer',
     ];
 
-    public function user(): BelongsTo
+    public function rDetailTransaksiKendaraans(): HasMany
     {
-        return $this->belongsTo(User::class);
+        return $this->hasMany(RDetailTransaksiKendaraan::class);
+    }
+
+    public function merkKendaraan(): BelongsTo
+    {
+        return $this->belongsTo(MerkKendaraan::class);
     }
 }

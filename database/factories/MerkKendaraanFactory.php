@@ -22,8 +22,8 @@ class MerkKendaraanFactory extends Factory
     {
         return [
             'mk_foto' => $this->faker->word(),
-            'mk_nama_merk' => $this->faker->word(),
-            'mk_nama_seri' => $this->faker->word(),
+            'mk_merk' => $this->faker->word(),
+            'mk_seri' => $this->faker->word(),
             'mk_tarif' => $this->faker->randomFloat(2, 0, 999999.99),
             'mk_kapasitas' => $this->faker->word(),
             'mk_deskripsi' => $this->faker->text(),

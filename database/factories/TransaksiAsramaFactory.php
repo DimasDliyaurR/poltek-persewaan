@@ -26,6 +26,7 @@ class TransaksiAsramaFactory extends Factory
             'ta_tanggal_sewa' => $this->faker->dateTime(),
             'ta_check_in' => $this->faker->dateTime(),
             'ta_check_out' => $this->faker->dateTime(),
+            'ta_is_sarapan' => $this->faker->boolean(),
         ];
     }
 }

@@ -4,17 +4,16 @@ namespace Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Str;
-use App\Models\AlatBarang;
-use App\Models\Foto_alat_barang;
+use App\Models\Asrama;
 
-class FotoAlatBarangFactory extends Factory
+class AsramaFactory extends Factory
 {
     /**
      * The name of the factory's corresponding model.
      *
      * @var string
      */
-    protected $model = FotoAlatBarang::class;
+    protected $model = Asrama::class;
 
     /**
      * Define the model's default state.
@@ -22,8 +21,9 @@ class FotoAlatBarangFactory extends Factory
     public function definition(): array
     {
         return [
-            'Alat_barang_id' => AlatBarang::factory(),
-            'fab_foto' => $this->faker->word(),
+            'a_nama_ruangan' => $this->faker->word(),
+            'a_status' => $this->faker->randomElement(["tersedia","tidak"]),
+            'a_tarif' => $this->faker->randomFloat(2, 0, 99999999.99),
         ];
     }
 }

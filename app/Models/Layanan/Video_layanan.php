@@ -1,12 +1,13 @@
 <?php
 
-namespace App\Models\Gedung;
+namespace App\Models\Layanan;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
-class Profile extends Model
+class VideoLayanan extends Model
 {
     use HasFactory;
 
@@ -16,11 +17,8 @@ class Profile extends Model
      * @var array
      */
     protected $fillable = [
-        'User_id',
-        'nama_lengkap',
-        'foto_ktp',
-        'alamat',
-        'no_telp',
+        'Layanan_id',
+        'vl_link',
     ];
 
     /**
@@ -30,11 +28,16 @@ class Profile extends Model
      */
     protected $casts = [
         'id' => 'integer',
-        'User_id' => 'integer',
+        'Layanan_id' => 'integer',
     ];
 
-    public function user(): BelongsTo
+    public function layanans(): BelongsToMany
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsToMany(Layanan::class);
+    }
+
+    public function layanan(): BelongsTo
+    {
+        return $this->belongsTo(Layanan::class);
     }
 }

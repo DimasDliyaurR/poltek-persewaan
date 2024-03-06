@@ -4,6 +4,7 @@ namespace Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Str;
+use App\Models\GedungLap;
 use App\Models\H_detail_transaksi_gedung;
 use App\Models\TransaksiGedung;
 
@@ -23,6 +24,7 @@ class HDetailTransaksiGedungFactory extends Factory
     {
         return [
             'Transaksi_gedung_id' => TransaksiGedung::factory(),
+            'Gedung_lap_id' => GedungLap::factory(),
             'hdtg_sub_total' => $this->faker->randomFloat(2, 0, 99999999.99),
         ];
     }

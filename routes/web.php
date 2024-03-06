@@ -14,5 +14,11 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('welcome', [
+        "title" => "Home",
+    ]);
 });
+
+Route::view('/admin/kendaraans', 'admin.kendaraan.lihat', [
+    "title" => "Kendaraan-admin",
+]);

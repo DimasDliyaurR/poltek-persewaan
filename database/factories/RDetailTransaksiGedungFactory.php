@@ -25,6 +25,7 @@ class RDetailTransaksiGedungFactory extends Factory
         return [
             'detail_transaksi_id' => HDetailTransaksiGedung::factory(),
             'Property_gedung_id' => PropertyGedung::factory(),
+            'qty' => $this->faker->numberBetween(-10000, 10000),
         ];
     }
 }

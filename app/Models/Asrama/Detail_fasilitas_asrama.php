@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Models\Gedung;
+namespace App\Models\Asrama;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
-class Profile extends Model
+class DetailFasilitasAsrama extends Model
 {
     use HasFactory;
 
@@ -16,11 +16,8 @@ class Profile extends Model
      * @var array
      */
     protected $fillable = [
-        'User_id',
-        'nama_lengkap',
-        'foto_ktp',
-        'alamat',
-        'no_telp',
+        'Asrama_id',
+        'Fasilitas_asrama_id',
     ];
 
     /**
@@ -30,11 +27,17 @@ class Profile extends Model
      */
     protected $casts = [
         'id' => 'integer',
-        'User_id' => 'integer',
+        'Asrama_id' => 'integer',
+        'Fasilitas_asrama_id' => 'integer',
     ];
 
-    public function user(): BelongsTo
+    public function asrama(): BelongsTo
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(Asrama::class);
+    }
+
+    public function fasilitasAsrama(): BelongsTo
+    {
+        return $this->belongsTo(FasilitasAsrama::class);
     }
 }

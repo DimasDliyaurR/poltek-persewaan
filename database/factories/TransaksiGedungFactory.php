@@ -4,7 +4,6 @@ namespace Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Str;
-use App\Models\GedungLap;
 use App\Models\Transaksi_gedung;
 use App\Models\User;
 
@@ -24,7 +23,6 @@ class TransaksiGedungFactory extends Factory
     {
         return [
             'User_id' => User::factory(),
-            'Gedung_lap_id' => GedungLap::factory(),
             'tg_tujuan' => $this->faker->word(),
             'tg_tanggal_sewa' => $this->faker->dateTime(),
             'tg_tanggal_kembali' => $this->faker->dateTime(),
