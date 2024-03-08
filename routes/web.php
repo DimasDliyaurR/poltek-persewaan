@@ -18,7 +18,12 @@ Route::get('/', function () {
         "title" => "Home",
     ]);
 });
-
+// BackEnd
 Route::view('/admin/kendaraans', 'admin.kendaraan.lihat', [
     "title" => "Kendaraan-admin",
+]);
+
+// FrontEnd
+Route::view('/index', 'index', [
+    "title" => "Home",
 ]);
