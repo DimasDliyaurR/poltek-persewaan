@@ -26,7 +26,8 @@ models:
     k_plat : string
     k_status : enum:tersedia,tidak terpakai
     relationships:
-      hasMany: R_detail_transaksi_kendaraan
+      hasMany: Detail_transaksi_kendaraan
+      belongsTo : Merk_kendaraan
   
   Transaksi_kendaraan :
     user_id : id foreign:users
@@ -35,18 +36,16 @@ models:
     tk_tanggal_sewa : timestamp
     tk_tanggal_kembali : dateTime
     relationships :
-      hasMany : H_detail_transaksi_kendaraan
+      hasMany : Detail_transaksi_kendaraan
       belongsToMany : Merk_kendaraan
   
-  H_detail_transaksi_kendaraan :
+  Detail_transaksi_kendaraan :
     Transaksi_kendaraan_id : foreign
+    Kendaraan_id : id foreign:Kendaraans
     hdtk_sub_total : integer
     relationships:
-      hasOne : R_detail_transaksi_kendaraan
-    
-  R_detail_transaksi_kendaraan:
-    detail_transaksi_id : id foreign:H_detail_transaksi_kendaraans
-    Kendaraan_id : id foreign:Kendaraans
+      belongsTo : Kendaraan
+  
 
   # KENDARAAN END
 
