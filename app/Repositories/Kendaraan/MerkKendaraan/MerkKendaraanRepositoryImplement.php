@@ -2,46 +2,46 @@
 
 namespace App\Repositories\Kendaraan;
 
-use App\Repositories\Kendaraan\KendaraanRepository;
-use App\Models\Kendaraan;
+use App\Models\MerkKendaraan;
+use App\Repositories\Kendaraan\MerkKendaraanRepository;
 
-class KendaraanRepositoryImplement implements KendaraanRepository
+class MerkKendaraanRepositoryImplement implements MerkKendaraanRepository
 {
-    private $kendaraan;
+    private $merkKendaraan;
 
-    public function __construct(Kendaraan $kendaraan)
+    public function __construct(MerkKendaraan $merkKendaraan)
     {
-        $this->kendaraan = $kendaraan;
+        $this->merkKendaraan = $merkKendaraan;
     }
 
     /**
-     * 
+     *  Get Data Merk Kendaraan By Id
      * @param Id
      * @return Mixed
      */
     public function getDataById($id)
     {
-        return $this->kendaraan::whereId($id)->get();
+        return $this->merkKendaraan::whereId($id)->get();
     }
 
     /**
-     * Get All Data Kendaraan
+     * Get All Data Merk Kendaraan
      * @param
      * @return Mixed
      */
     public function getAll()
     {
-        return $this->kendaraan::all();
+        return $this->merkKendaraan::all();
     }
 
     /**
-     * Store data kendaraan
+     * Store data Merk Kendaraan
      * @param Data
      * @return Mixed
      */
     public function store($data)
     {
-        $dataKendaraan = $this->kendaraan::create($data);
+        $dataKendaraan = $this->merkKendaraan::create($data);
         return $dataKendaraan;
     }
 
@@ -52,19 +52,19 @@ class KendaraanRepositoryImplement implements KendaraanRepository
      */
     public function update($data, $id)
     {
-        $dataKendaraan = $this->kendaraan::finOrFail($id);
+        $dataKendaraan = $this->merkKendaraan::finOrFail($id);
         $dataKendaraan->update($data);
         return $dataKendaraan;
     }
 
     /**
-     * Delete data kendaraan
+     * Delete data Merk Kendaraan
      * @param id
      * @return Mixed
      */
     public function delete($id)
     {
-        $dataKendaraan = $this->kendaraan::findOrFail($id);
+        $dataKendaraan = $this->merkKendaraan::findOrFail($id);
         $dataKendaraan->delete();
 
         return $dataKendaraan;

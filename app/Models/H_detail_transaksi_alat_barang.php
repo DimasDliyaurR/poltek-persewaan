@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
-class Profile extends Model
+class HDetailTransaksiAlatBarang extends Model
 {
     use HasFactory;
 
@@ -16,11 +16,8 @@ class Profile extends Model
      * @var array
      */
     protected $fillable = [
-        'User_id',
-        'nama_lengkap',
-        'foto_ktp',
-        'alamat',
-        'no_telp',
+        'Transaksi_alat_barang_id',
+        'hdtab_sub_total',
     ];
 
     /**
@@ -30,11 +27,12 @@ class Profile extends Model
      */
     protected $casts = [
         'id' => 'integer',
-        'User_id' => 'integer',
+        'Transaksi_alat_barang_id' => 'integer',
+        'hdtab_sub_total' => 'decimal:2',
     ];
 
-    public function user(): BelongsTo
+    public function transaksiAlatBarang(): BelongsTo
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(TransaksiAlatBarang::class);
     }
 }

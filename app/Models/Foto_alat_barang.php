@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
-class Profile extends Model
+class FotoAlatBarang extends Model
 {
     use HasFactory;
 
@@ -16,11 +16,8 @@ class Profile extends Model
      * @var array
      */
     protected $fillable = [
-        'User_id',
-        'nama_lengkap',
-        'foto_ktp',
-        'alamat',
-        'no_telp',
+        'Alat_barang_id',
+        'fab_foto',
     ];
 
     /**
@@ -30,11 +27,11 @@ class Profile extends Model
      */
     protected $casts = [
         'id' => 'integer',
-        'User_id' => 'integer',
+        'Alat_barang_id' => 'integer',
     ];
 
-    public function user(): BelongsTo
+    public function alatBarang(): BelongsTo
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(AlatBarang::class);
     }
 }

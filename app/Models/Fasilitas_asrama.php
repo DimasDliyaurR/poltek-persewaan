@@ -4,9 +4,10 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
-class Profile extends Model
+class FasilitasAsrama extends Model
 {
     use HasFactory;
 
@@ -16,11 +17,9 @@ class Profile extends Model
      * @var array
      */
     protected $fillable = [
-        'User_id',
-        'nama_lengkap',
-        'foto_ktp',
-        'alamat',
-        'no_telp',
+        'fa_icon',
+        'fa_nama',
+        'fa_status',
     ];
 
     /**
@@ -30,11 +29,15 @@ class Profile extends Model
      */
     protected $casts = [
         'id' => 'integer',
-        'User_id' => 'integer',
     ];
 
-    public function user(): BelongsTo
+    public function detailFasilitasAsramas(): HasMany
     {
-        return $this->belongsTo(User::class);
+        return $this->hasMany(DetailFasilitasAsrama::class);
+    }
+
+    public function asramas(): BelongsToMany
+    {
+        return $this->belongsToMany(Asrama::class);
     }
 }

@@ -5,8 +5,9 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
-class Profile extends Model
+class TransaksiGedung extends Model
 {
     use HasFactory;
 
@@ -17,10 +18,10 @@ class Profile extends Model
      */
     protected $fillable = [
         'User_id',
-        'nama_lengkap',
-        'foto_ktp',
-        'alamat',
-        'no_telp',
+        'tg_tujuan',
+        'tg_tanggal_sewa',
+        'tg_tanggal_kembali',
+        'tg_tanggal_pelaksanaan',
     ];
 
     /**
@@ -31,7 +32,15 @@ class Profile extends Model
     protected $casts = [
         'id' => 'integer',
         'User_id' => 'integer',
+        'tg_tanggal_sewa' => 'datetime',
+        'tg_tanggal_kembali' => 'datetime',
+        'tg_tanggal_pelaksanaan' => 'timestamp',
     ];
+
+    public function hDetailTransaksiGedungs(): HasMany
+    {
+        return $this->hasMany(HDetailTransaksiGedung::class);
+    }
 
     public function user(): BelongsTo
     {

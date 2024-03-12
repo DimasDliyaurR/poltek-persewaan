@@ -5,8 +5,9 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 
-class Profile extends Model
+class HDetailTransaksiLayanan extends Model
 {
     use HasFactory;
 
@@ -16,11 +17,8 @@ class Profile extends Model
      * @var array
      */
     protected $fillable = [
-        'User_id',
-        'nama_lengkap',
-        'foto_ktp',
-        'alamat',
-        'no_telp',
+        'Transaksi_layanan_id',
+        'hdtl_sub_total',
     ];
 
     /**
@@ -30,11 +28,16 @@ class Profile extends Model
      */
     protected $casts = [
         'id' => 'integer',
-        'User_id' => 'integer',
+        'Transaksi_layanan_id' => 'integer',
     ];
 
-    public function user(): BelongsTo
+    public function rDetailTransaksiLayanan(): HasOne
     {
-        return $this->belongsTo(User::class);
+        return $this->hasOne(RDetailTransaksiLayanan::class);
+    }
+
+    public function transaksiLayanan(): BelongsTo
+    {
+        return $this->belongsTo(TransaksiLayanan::class);
     }
 }

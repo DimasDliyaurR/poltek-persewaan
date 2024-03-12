@@ -1,15 +1,15 @@
 <?php
 
-namespace App\Repositories\Layanan;
+namespace App\Repositories\Layanan\TransaksiLayanan;
 
-use App\Models\Layanan;
-use App\Repositories\Layanan\LayananRepository;
+use App\Models\TransaksiLayanan;
+use App\Repositories\Layanan\TransaksiLayanan\TransaksiLayananRepository;
 
-class LayananRepositoryImplement implements LayananRepository
+class TransaksiLayananRepositoryImplement implements TransaksiLayananRepository
 {
     private $layanan;
 
-    public function __construct(Layanan $layanan)
+    public function __construct(TransaksiLayanan $layanan)
     {
         $this->layanan = $layanan;
     }

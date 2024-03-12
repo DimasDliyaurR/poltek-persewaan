@@ -1,15 +1,15 @@
 <?php
 
-namespace App\Repositories\Layanan;
+namespace App\Repositories\Layanan\VideoLayanan;
 
-use App\Models\Layanan;
-use App\Repositories\Layanan\LayananRepository;
+use App\Models\VideoLayanan;
+use App\Repositories\Kendaraan\TransaksiKendaraan\TransaksiKendaraanRepository;
 
-class LayananRepositoryImplement implements LayananRepository
+class VideoLayananRepositoryImplement implements TransaksiKendaraanRepository
 {
     private $layanan;
 
-    public function __construct(Layanan $layanan)
+    public function __construct(VideoLayanan $layanan)
     {
         $this->layanan = $layanan;
     }

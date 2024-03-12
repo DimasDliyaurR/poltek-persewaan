@@ -1,15 +1,15 @@
 <?php
 
-namespace App\Repositories\Layanan;
+namespace App\Layanan\DetailFotoLayanan;
 
-use App\Models\Layanan;
-use App\Repositories\Layanan\LayananRepository;
+use App\Layanan\DetailFotoLayanan\DetailFotoLayananRepository;
+use App\Models\DetailFotoLayanan;
 
-class LayananRepositoryImplement implements LayananRepository
+class DetailFotoLayananRepositoryImplement implements DetailFotoLayananRepository
 {
     private $layanan;
 
-    public function __construct(Layanan $layanan)
+    public function __construct(DetailFotoLayanan $layanan)
     {
         $this->layanan = $layanan;
     }

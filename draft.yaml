@@ -163,7 +163,7 @@ models:
     a_status : enum:tersedia,tidak tersedia
     a_tarif : decimal:10,2
     relationships:
-      hasMany : Detail_fasilitas_asrama , R_detail_transaksi_asrama
+      hasMany : Detail_fasilitas_asrama , Detail_transaksi_asrama
       belongsToMany : Fasilitas_asrama , Transaksi_asrama
   
   Transaksi_asrama :
@@ -173,18 +173,12 @@ models:
     ta_check_out : dateTime
     ta_is_sarapan : boolean
     relationships:
-      hasMany : H_detail_transaksi_asrama
+      hasMany : Detail_transaksi_asrama
       belongsToMany : Asrama
 
   # Detail Transaksi
-  H_detail_transaksi_asrama :
+  Detail_transaksi_asrama :
     Transaksi_asrama_id : id foreign:transaksi_asramas
-    hdta_sub_total : decimal:10,2
-    relationships:
-      hasOne : R_detail_transaksi_asrama
-  
-  R_detail_transaksi_asrama :
-    detail_transaksi_id : id foreign:H_detail_transaksi_asramas
     Asrama_id : id foreign:asramas
 
   # ASRAMA END

@@ -25,6 +25,7 @@ class KendaraanFactory extends Factory
             'Merk_kendaraan_id' => MerkKendaraan::factory(),
             'k_plat' => $this->faker->word(),
             'k_status' => $this->faker->randomElement(["tersedia","tidak"]),
+            'merk_kendaraan_id' => MerkKendaraan::factory(),
         ];
     }
 }

@@ -2,7 +2,7 @@
 
 namespace App\Repositories\AlatBarang;
 
-use App\Models\alatBarang\AlatBarang;
+use App\Models\AlatBarang;
 use App\Repositories\AlatBarang\AlatBarangRepository;
 
 class AlatBarangRepositoryImplement implements AlatBarangRepository

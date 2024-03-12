@@ -22,3 +22,9 @@ Route::get('/', function () {
 Route::view('/admin/kendaraans', 'admin.kendaraan.lihat', [
     "title" => "Kendaraan-admin",
 ]);
+
+
+Route::resource('kendaraan', App\Http\Controllers\kendaraanController::class)->only('index', 'create', 'store');
+
+
+Route::resource('kendaraan', App\Http\Controllers\kendaraanController::class)->only('index', 'create', 'store');

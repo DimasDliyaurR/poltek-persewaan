@@ -1,17 +1,17 @@
 <?php
 
-namespace App\Repositories\Kendaraan;
+namespace App\Repositories\Kendaraan\TransaksiKendaraan;
 
-use App\Repositories\Kendaraan\KendaraanRepository;
-use App\Models\Kendaraan;
+use App\Models\TransaksiKendaraan;
+use App\Repositories\Kendaraan\TransaksiKendaraan\TransaksiKendaraanRepository;
 
-class KendaraanRepositoryImplement implements KendaraanRepository
+class TransaksiKendaraanRepositoryImplement implements TransaksiKendaraanRepository
 {
-    private $kendaraan;
+    private $transaksiKendaraan;
 
-    public function __construct(Kendaraan $kendaraan)
+    public function __construct(TransaksiKendaraan $transaksiKendaraan)
     {
-        $this->kendaraan = $kendaraan;
+        $this->transaksiKendaraan = $transaksiKendaraan;
     }
 
     /**
@@ -21,7 +21,7 @@ class KendaraanRepositoryImplement implements KendaraanRepository
      */
     public function getDataById($id)
     {
-        return $this->kendaraan::whereId($id)->get();
+        return $this->transaksiKendaraan::whereId($id)->get();
     }
 
     /**
@@ -31,7 +31,7 @@ class KendaraanRepositoryImplement implements KendaraanRepository
      */
     public function getAll()
     {
-        return $this->kendaraan::all();
+        return $this->transaksiKendaraan::all();
     }
 
     /**
@@ -41,7 +41,7 @@ class KendaraanRepositoryImplement implements KendaraanRepository
      */
     public function store($data)
     {
-        $dataKendaraan = $this->kendaraan::create($data);
+        $dataKendaraan = $this->transaksiKendaraan::create($data);
         return $dataKendaraan;
     }
 
@@ -52,7 +52,7 @@ class KendaraanRepositoryImplement implements KendaraanRepository
      */
     public function update($data, $id)
     {
-        $dataKendaraan = $this->kendaraan::finOrFail($id);
+        $dataKendaraan = $this->transaksiKendaraan::finOrFail($id);
         $dataKendaraan->update($data);
         return $dataKendaraan;
     }
@@ -64,7 +64,7 @@ class KendaraanRepositoryImplement implements KendaraanRepository
      */
     public function delete($id)
     {
-        $dataKendaraan = $this->kendaraan::findOrFail($id);
+        $dataKendaraan = $this->transaksiKendaraan::findOrFail($id);
         $dataKendaraan->delete();
 
         return $dataKendaraan;

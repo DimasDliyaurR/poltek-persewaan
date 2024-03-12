@@ -1,17 +1,17 @@
 <?php
 
-namespace App\Repositories\Kendaraan;
+namespace App\Repositories\Kendaraan\DetailTransaksiKendaraan;
 
-use App\Repositories\Kendaraan\KendaraanRepository;
-use App\Models\Kendaraan;
+use App\Models\DetailTransaksiKendaraan;
+use App\Repositories\Kendaraan\DetailTransaksiKendaraan\DetailTransaksiKendaraanRepository;
 
-class KendaraanRepositoryImplement implements KendaraanRepository
+class DetailTransaksiKendaraanRepositoryImplement implements DetailTransaksiKendaraanRepository
 {
     private $kendaraan;
 
-    public function __construct(Kendaraan $kendaraan)
+    public function __construct(DetailTransaksiKendaraan $detailTransaksiKendaraan)
     {
-        $this->kendaraan = $kendaraan;
+        $this->kendaraan = $detailTransaksiKendaraan;
     }
 
     /**
