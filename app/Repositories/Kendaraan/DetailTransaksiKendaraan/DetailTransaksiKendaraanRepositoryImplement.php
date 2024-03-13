@@ -21,7 +21,7 @@ class DetailTransaksiKendaraanRepositoryImplement implements DetailTransaksiKend
      */
     public function getDataById($id)
     {
-        return $this->kendaraan::whereId($id)->get();
+        return $this->kendaraan::whereId($id)->first();
     }
 
     /**

@@ -45,9 +45,14 @@ class Layanan extends Model
         return $this->hasMany(DetailFotoLayanan::class);
     }
 
-    public function videoLayanans(): BelongsToMany
+    public function detailTransaksiLayanans(): HasMany
     {
-        return $this->belongsToMany(VideoLayanan::class);
+        return $this->hasMany(DetailTransaksiLayanan::class);
+    }
+
+    public function videoLayanans(): HasMany
+    {
+        return $this->hasMany(VideoLayanan::class);
     }
 
     public function transaksiLayanans(): BelongsToMany

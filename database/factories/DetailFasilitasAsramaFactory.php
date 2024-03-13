@@ -5,8 +5,8 @@ namespace Database\Factories;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Str;
 use App\Models\Asrama;
-use App\Models\Detail_fasilitas_asrama;
-use App\Models\FasilitasAsrama;
+use App\Models\DetailFasilitasAsrama;
+use App\Models\Fasilitasasrama;
 
 class DetailFasilitasAsramaFactory extends Factory
 {
@@ -23,8 +23,8 @@ class DetailFasilitasAsramaFactory extends Factory
     public function definition(): array
     {
         return [
-            'Asrama_id' => Asrama::factory(),
-            'Fasilitas_asrama_id' => FasilitasAsrama::factory(),
+            'asrama_id' => Asrama::factory(),
+            'fasilitas_asrama_id' => Fasilitasasrama::factory(),
         ];
     }
 }

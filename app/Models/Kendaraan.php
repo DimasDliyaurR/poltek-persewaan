@@ -17,10 +17,9 @@ class Kendaraan extends Model
      * @var array
      */
     protected $fillable = [
-        'Merk_kendaraan_id',
+        'merk_kendaraan_id',
         'k_plat',
         'k_status',
-        'merk_kendaraan_id',
     ];
 
     /**
@@ -30,18 +29,12 @@ class Kendaraan extends Model
      */
     protected $casts = [
         'id' => 'integer',
-        'Merk_kendaraan_id' => 'integer',
         'merk_kendaraan_id' => 'integer',
     ];
 
     public function detailTransaksiKendaraans(): HasMany
     {
         return $this->hasMany(DetailTransaksiKendaraan::class);
-    }
-
-    public function merkKendaraan(): BelongsTo
-    {
-        return $this->belongsTo(MerkKendaraan::class);
     }
 
     public function merkKendaraan(): BelongsTo

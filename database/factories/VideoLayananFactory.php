@@ -5,7 +5,7 @@ namespace Database\Factories;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Str;
 use App\Models\Layanan;
-use App\Models\Video_layanan;
+use App\Models\VideoLayanan;
 
 class VideoLayananFactory extends Factory
 {
@@ -22,7 +22,7 @@ class VideoLayananFactory extends Factory
     public function definition(): array
     {
         return [
-            'Layanan_id' => Layanan::factory(),
+            'layanan_id' => Layanan::factory(),
             'vl_link' => $this->faker->word(),
         ];
     }

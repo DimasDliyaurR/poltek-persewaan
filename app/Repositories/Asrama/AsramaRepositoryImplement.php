@@ -21,7 +21,7 @@ class AsramaRepositoryImplement implements AsramaRepository
      */
     public function getDataById($id)
     {
-        $asramaData = $this->asrama::whereId($id)->get();
+        $asramaData = $this->asrama->whereId($id)->first();
 
         return $asramaData;
     }
@@ -32,7 +32,7 @@ class AsramaRepositoryImplement implements AsramaRepository
      */
     public function getAll()
     {
-        $asramaData = $this->asrama::all();
+        $asramaData = $this->asrama->all();
 
         return $asramaData;
     }
@@ -40,11 +40,11 @@ class AsramaRepositoryImplement implements AsramaRepository
     /**
      * Store data to Asrama
      * @param data
-     * @return Array
+     * @return array
      */
     public function store($data)
     {
-        $asramaData = $this->asrama::create($data);
+        $asramaData = $this->asrama->create($data);
 
         return $asramaData;
     }
@@ -56,7 +56,7 @@ class AsramaRepositoryImplement implements AsramaRepository
      */
     public function update($data, $id)
     {
-        $asramaData = $this->asrama::findOrFail();
+        $asramaData = $this->asrama->findOrFail();
         $asramaData->update($data);
 
         return $asramaData;
@@ -69,7 +69,7 @@ class AsramaRepositoryImplement implements AsramaRepository
      */
     public function delete($id)
     {
-        $asramaData = $this->asrama::findOrFail($id);
+        $asramaData = $this->asrama->findOrFail($id);
         $asramaData->delete();
 
         return $asramaData;

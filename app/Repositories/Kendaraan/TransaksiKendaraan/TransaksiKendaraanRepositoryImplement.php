@@ -21,7 +21,7 @@ class TransaksiKendaraanRepositoryImplement implements TransaksiKendaraanReposit
      */
     public function getDataById($id)
     {
-        return $this->transaksiKendaraan::whereId($id)->get();
+        return $this->transaksiKendaraan::whereId($id)->first();
     }
 
     /**

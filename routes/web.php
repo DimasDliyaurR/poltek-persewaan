@@ -1,5 +1,6 @@
 <?php
 
+use App\Services\Asrama\AsramaService;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -23,8 +24,6 @@ Route::view('/admin/kendaraans', 'admin.kendaraan.lihat', [
     "title" => "Kendaraan-admin",
 ]);
 
-
-Route::resource('kendaraan', App\Http\Controllers\kendaraanController::class)->only('index', 'create', 'store');
-
-
-Route::resource('kendaraan', App\Http\Controllers\kendaraanController::class)->only('index', 'create', 'store');
+Route::get("asrama/{id}", function ($id, AsramaService $service) {
+    dd($service->getDataAsramaById($id));
+});

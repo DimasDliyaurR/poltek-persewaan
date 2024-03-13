@@ -21,7 +21,7 @@ class MerkKendaraanRepositoryImplement implements MerkKendaraanRepository
      */
     public function getDataById($id)
     {
-        return $this->merkKendaraan::whereId($id)->get();
+        return $this->merkKendaraan::whereId($id)->first();
     }
 
     /**
@@ -46,7 +46,7 @@ class MerkKendaraanRepositoryImplement implements MerkKendaraanRepository
     }
 
     /**
-     * 
+     * Update data Merk Kendaraan
      * @param data ,id
      * @return Mixed
      */

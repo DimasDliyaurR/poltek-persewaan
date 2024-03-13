@@ -4,7 +4,7 @@ namespace Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Str;
-use App\Models\Merk_kendaraan;
+use App\Models\MerkKendaraan;
 
 class MerkKendaraanFactory extends Factory
 {

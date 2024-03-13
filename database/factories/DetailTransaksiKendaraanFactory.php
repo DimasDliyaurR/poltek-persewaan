@@ -4,9 +4,9 @@ namespace Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Str;
-use App\Models\Detail_transaksi_kendaraan;
+use App\Models\DetailTransaksiKendaraan;
 use App\Models\Kendaraan;
-use App\Models\TransaksiKendaraan;
+use App\Models\Transaksikendaraan;
 
 class DetailTransaksiKendaraanFactory extends Factory
 {
@@ -23,9 +23,7 @@ class DetailTransaksiKendaraanFactory extends Factory
     public function definition(): array
     {
         return [
-            'Transaksi_kendaraan_id' => TransaksiKendaraan::factory(),
-            'Kendaraan_id' => Kendaraan::factory(),
-            'hdtk_sub_total' => $this->faker->numberBetween(-10000, 10000),
+            'transaksi_kendaraan_id' => Transaksikendaraan::factory(),
             'kendaraan_id' => Kendaraan::factory(),
         ];
     }

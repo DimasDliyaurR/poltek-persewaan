@@ -4,7 +4,7 @@ namespace Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Str;
-use App\Models\Fasilitas_asrama;
+use App\Models\FasilitasAsrama;
 
 class FasilitasAsramaFactory extends Factory
 {
