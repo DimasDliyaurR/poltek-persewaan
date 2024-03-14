@@ -120,4 +120,124 @@ class AsramaServiceImplement implements AsramaService
 
         return $data;
     }
+
+    /**
+     * Store Data Detail Fasilitas Asrama
+     * @param data array
+     * @return array
+     * @throws InvalidArgumentException Jika terdapat kesalahan Exception
+     */
+    public function storeDetailFasilitasAsrama($data)
+    {
+        try {
+            $data = $this->detailFasilitasAsramaRepository->store($data);
+        } catch (\Exception $th) {
+            throw new InvalidArgumentException();
+        }
+
+        return $data;
+    }
+
+    /**
+     * Update Asrama
+     * @param data
+     * @return array
+     * @throws InvalidArgumentException Jika terdapat kesalahan Exception
+     */
+    public function updateAsrama($data, $id)
+    {
+        try {
+            $data = $this->asramaRepository->update($data, $id);
+        } catch (\Exception $th) {
+            throw new InvalidArgumentException();
+        }
+
+        return $data;
+    }
+
+    /**
+     * Update Fasilitas Asrama
+     * @param data
+     * @return array
+     * @throws InvalidArgumentException Jika terdapat kesalahan Exception
+     */
+    public function updateFasilitasAsrama($data, $id)
+    {
+        try {
+            $data = $this->fasilitasAsramaRepository->update($data, $id);
+        } catch (\Exception $th) {
+            throw new InvalidArgumentException();
+        }
+
+        return $data;
+    }
+
+    /**
+     * Update Detail Fasilitas Asrama
+     * @param data array
+     * @param id string
+     * @return array
+     * @throws InvalidArgumentException Jika terdapat kesalahan Exception
+     */
+    public function updateDetailFasilitasAsrama($data, $id)
+    {
+        try {
+            $data = $this->detailFasilitasAsramaRepository->update($data, $id);
+        } catch (\Exception $th) {
+            throw new InvalidArgumentException();
+        }
+
+        return $data;
+    }
+
+    /**
+     * Delete Asrama
+     * @param id
+     * @return array
+     * @throws InvalidArgumentException Jika terdapat kesalahan Exception
+     */
+    public function destroyAsrama($id)
+    {
+        try {
+            $data = $this->asramaRepository->delete($id);
+        } catch (\Exception $th) {
+            throw new InvalidArgumentException();
+        }
+
+        return $data;
+    }
+
+    /**
+     * Delete Fasilitas Asrama
+     * @param id
+     * @return array
+     * @throws InvalidArgumentException Jika terdapat kesalahan Exception
+     */
+    public function destroyFasilitasAsrama($id)
+    {
+        try {
+            $data = $this->fasilitasAsramaRepository->delete($id);
+        } catch (\Exception $th) {
+            throw new InvalidArgumentException();
+        }
+
+        return $data;
+    }
+
+    /**
+     * Delete Fasilitas Asrama
+     * @param id
+     * @return array
+     * @throws InvalidArgumentException Jika terdapat kesalahan Exception
+     */
+    public function destroyDetailFasilitasAsrama($id)
+    {
+        try {
+            $data = $this->detailFasilitasAsramaRepository->delete($id);
+        } catch (\Exception $th) {
+            throw new InvalidArgumentException();
+        }
+
+        return $data;
+    }
 }

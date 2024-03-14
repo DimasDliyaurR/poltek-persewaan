@@ -5,7 +5,7 @@ namespace App\Repositories\Asrama\DetailFasilitasAsrama;
 use App\Models\DetailFasilitasAsrama;
 use App\Repositories\Asrama\DetailFasilitasAsrama\DetailFasilitasAsramaRepository;
 
-class DetailFasilitasAsramaRepositoryimplement implements DetailFasilitasAsramaRepository
+class DetailFasilitasAsramaRepositoryImplement implements DetailFasilitasAsramaRepository
 {
     private $detailFasilitasAsrama;
 

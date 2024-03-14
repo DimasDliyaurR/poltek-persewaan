@@ -41,7 +41,7 @@ use App\Repositories\GedungLap\DetailTransaksiGedung\DetailTransaksiGedungReposi
 use App\Repositories\Layanan\DetailTransaksiLayanan\DetailTransaksiLayananRepository;
 use App\Repositories\Kendaraan\TransaksiKendaraan\TransaksiKendaraanRepositoryImplement;
 use App\Repositories\AlatBarang\TransaksiAlatBarang\TransaksiAlatBarangRepositoryImplement;
-use App\Repositories\Asrama\DetailFasilitasAsrama\DetailFasilitasAsramaRepositoryimplement;
+use App\Repositories\Asrama\DetailFasilitasAsrama\DetailFasilitasAsramaRepositoryImplement;
 use App\Repositories\Asrama\DetailTransaksiAsrama\DetailTransaksiAsramaRepositoryImplement;
 use App\Repositories\Kendaraan\DetailTransaksiKendaraan\DetailTransaksiKendaraanRepository;
 use App\Repositories\AlatBarang\DetailTransaksiAlatBarang\DetailTransaksiAlatBarangRepository;
@@ -51,8 +51,14 @@ use App\Repositories\Kendaraan\DetailTransaksiKendaraan\DetailTransaksiKendaraan
 use App\Repositories\GedungLap\DetailTransaksiPropertyGedung\DetailTransaksiPropertyGedungRepository;
 use App\Repositories\AlatBarang\DetailTransaksiAlatBarang\DetailTransaksiAlatBarangRepositoryImplement;
 use App\Repositories\GedungLap\DetailTransaksiPropertyGedung\DetailTransaksiPropertyGedungRepositoryImplement;
+use App\Services\AlatBarang\AlatBarangService;
+use App\Services\AlatBarang\AlatBarangServiceImplement;
 use App\Services\Asrama\AsramaService;
 use App\Services\Asrama\AsramaServiceImplement;
+use App\Services\GedungLap\GedungLapService;
+use App\Services\GedungLap\GedungLapServiceImplement;
+use App\Services\Layanan\LayananService;
+use App\Services\Layanan\LayananServiceImplement;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -74,7 +80,7 @@ class AppServiceProvider extends ServiceProvider
          */
         $this->app->bind(AsramaRepository::class, AsramaRepositoryImplement::class);
         $this->app->bind(FasilitasAsramaRepository::class, FasilitasAsramaRepositoryImplement::class);
-        $this->app->bind(DetailFasilitasAsramaRepository::class, DetailFasilitasAsramaRepositoryimplement::class);
+        $this->app->bind(DetailFasilitasAsramaRepository::class, DetailFasilitasAsramaRepositoryImplement::class);
         $this->app->bind(TransaksiAsramaRepository::class, TransaksiAsramaRepositoryImplement::class);
         $this->app->bind(DetailTransaksiAsramaRepository::class, DetailTransaksiAsramaRepositoryImplement::class);
 
@@ -114,6 +120,21 @@ class AppServiceProvider extends ServiceProvider
          * Bind Kendaraan Service
          */
         $this->app->bind(AsramaService::class, AsramaServiceImplement::class);
+
+        /**
+         * Bind Gedung Lapangan Service
+         */
+        $this->app->bind(GedungLapService::class, GedungLapServiceImplement::class);
+
+        /**
+         * Bind Alat Barang Service
+         */
+        $this->app->bind(AlatBarangService::class, AlatBarangServiceImplement::class);
+
+        /**
+         * Bind Layanan Service
+         */
+        $this->app->bind(LayananService::class, LayananServiceImplement::class);
     }
 
     /**

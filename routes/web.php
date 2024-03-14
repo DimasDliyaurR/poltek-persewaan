@@ -1,7 +1,9 @@
 <?php
 
-use App\Services\Asrama\AsramaService;
 use Illuminate\Support\Facades\Route;
+use App\Services\Asrama\AsramaService;
+use App\Services\GedungLap\GedungLapService;
+use App\Services\AlatBarang\AlatBarangService;
 
 /*
 |--------------------------------------------------------------------------
@@ -24,6 +26,6 @@ Route::view('/admin/kendaraans', 'admin.kendaraan.lihat', [
     "title" => "Kendaraan-admin",
 ]);
 
-Route::get("asrama/{id}", function ($id, AsramaService $service) {
-    dd($service->getDataAsramaById($id));
+Route::get("asrama/{id}", function ($id, AlatBarangService $service) {
+    $service->getDataAlatBarangById($id);
 });
