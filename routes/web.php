@@ -27,3 +27,12 @@ Route::view('/admin/kendaraans', 'admin.kendaraan.lihat', [
 Route::view('/index', 'index', [
     "title" => "Home",
 ]);
+Route::view('/detailbus', 'detail.detail_bus', ["title"=>"Detail Bus "])
+->name('detailbus');
+Route::view('/login', 'login',[
+    "title" => "Login",
+]);
+Route::view('/transportasi', 'kategori.transportasi',
+[
+    "title" => "Transportasi"
+]);
