@@ -1,6 +1,9 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Services\Asrama\AsramaService;
+use App\Services\GedungLap\GedungLapService;
+use App\Services\AlatBarang\AlatBarangService;
 
 /*
 |--------------------------------------------------------------------------
@@ -18,6 +21,11 @@ Route::get('/', function () {
         "title" => "Home",
     ]);
 });
+
+Route::get("asrama/{id}", function ($id, AlatBarangService $service) {
+    $service->getDataAlatBarangById($id);
+});
+
 // BackEnd
 Route::view('/admin/kendaraans', 'admin.kendaraan.lihat', [
     "title" => "Kendaraan-admin",
