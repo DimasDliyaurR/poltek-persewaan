@@ -20,13 +20,15 @@ class AlatBarangFactory extends Factory
      */
     public function definition(): array
     {
+
         return [
             'a_nama' => $this->faker->word(),
             'a_foto' => $this->faker->word(),
             'a_keterangan' => $this->faker->word(),
             'a_tarif' => $this->faker->word(),
-            'a_status' => $this->faker->randomElement(["tersedia","tidak"]),
+            'a_status' => $this->faker->randomElement(["tersedia", "tidak"]),
             'a_satuan' => $this->faker->word(),
+            'a_slug' => $this->faker->word(),
         ];
     }
 }

@@ -26,6 +26,7 @@ class TimLayananFactory extends Factory
             'tl_nama' => $this->faker->word(),
             'tl_status' => $this->faker->randomElement(["tersedia","tidak"]),
             'tl_deskripsi' => $this->faker->word(),
+            'tl_slug' => $this->faker->word(),
         ];
     }
 }

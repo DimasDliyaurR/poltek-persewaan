@@ -1,9 +1,10 @@
 <?php
 
+use App\Http\Controllers\KendaraanController;
 use Illuminate\Support\Facades\Route;
-use App\Services\Asrama\AsramaService;
 use App\Services\GedungLap\GedungLapService;
 use App\Services\AlatBarang\AlatBarangService;
+use Illuminate\Http\Request;
 
 /*
 |--------------------------------------------------------------------------
@@ -22,25 +23,30 @@ Route::get('/', function () {
     ]);
 });
 
-Route::get("asrama/{id}", function ($id, AlatBarangService $service) {
-    $service->getDataAlatBarangById($id);
-});
-
 // BackEnd
-Route::view('/admin/kendaraans', 'admin.kendaraan.lihat', [
-    "title" => "Kendaraan-admin",
-]);
+
+Route::group(["prefix" => "admin"], function () {
+    Route::controller(KendaraanController::class)->group(function () {
+        Route::get("merkKendaraans", "indexMerkKendaraan");
+
+        // Store
+        Route::post("merkKendaraans/create", "storeMerkKendaraan");
+    });
+});
 
 // FrontEnd
 Route::view('/index', 'index', [
     "title" => "Home",
 ]);
-Route::view('/detailbus', 'detail.detail_bus', ["title"=>"Detail Bus "])
-->name('detailbus');
-Route::view('/login', 'login',[
+Route::view('/detailbus', 'detail.detail_bus', ["title" => "Detail Bus "])
+    ->name('detailbus');
+Route::view('/login', 'login', [
     "title" => "Login",
 ]);
-Route::view('/transportasi', 'kategori.transportasi',
-[
-    "title" => "Transportasi"
-]);
+Route::view(
+    '/transportasi',
+    'kategori.transportasi',
+    [
+        "title" => "Transportasi"
+    ]
+);

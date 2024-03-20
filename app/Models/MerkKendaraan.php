@@ -24,6 +24,7 @@ class MerkKendaraan extends Model
         'mk_kapasitas',
         'mk_deskripsi',
         'mk_bahan_bakar',
+        'mk_slug',
     ];
 
     /**

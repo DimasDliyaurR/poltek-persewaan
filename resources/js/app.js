@@ -1,5 +1,6 @@
 import "./bootstrap";
 import "preline";
+import 'flowbite';
 // navbar fixed
 window.onscroll = function () {
     const header = document.querySelector("header");

@@ -4,7 +4,7 @@ namespace App\Services\Kendaraan;
 
 use App\Models\DetailTransaksiKendaraan;
 use App\Repositories\Kendaraan\KendaraanRepository;
-use App\Repositories\Kendaraan\MerkKendaraanRepository;
+use App\Repositories\Kendaraan\MerkKendaraan\MerkKendaraanRepository;
 use App\Services\Kendaraan\KendaraanService;
 use InvalidArgumentException;
 
@@ -30,7 +30,7 @@ class KendaraanServiceImplement implements KendaraanService
     public function getDataKendaraanById($id)
     {
         try {
-            $data = $this->kendaraanRepository::getDataById($id);
+            $data = $this->kendaraanRepository->getDataById($id);
         } catch (\Exception $th) {
             throw new InvalidArgumentException();
         }
@@ -47,7 +47,7 @@ class KendaraanServiceImplement implements KendaraanService
     public function getDataMerkKendaraanById($id)
     {
         try {
-            $data = $this->merkKendaraanRepository::getDataById($id);
+            $data = $this->merkKendaraanRepository->getDataById($id);
         } catch (\Exception $th) {
             throw new InvalidArgumentException();
         }
@@ -62,7 +62,7 @@ class KendaraanServiceImplement implements KendaraanService
     public function getAllDataKendaraan()
     {
         try {
-            $data = $this->kendaraanRepository::getAll();
+            $data = $this->kendaraanRepository->getAll();
         } catch (\Exception $th) {
             throw new InvalidArgumentException();
         }
@@ -77,7 +77,7 @@ class KendaraanServiceImplement implements KendaraanService
     public function getAllDataMerkKendaraan()
     {
         try {
-            $data = $this->merkKendaraanRepository::getAll();
+            $data = $this->merkKendaraanRepository->getAll();
         } catch (\Exception $th) {
             throw new InvalidArgumentException();
         }

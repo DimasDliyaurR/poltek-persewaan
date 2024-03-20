@@ -20,6 +20,7 @@ class Kendaraan extends Model
         'merk_kendaraan_id',
         'k_plat',
         'k_status',
+        'k_slug',
     ];
 
     /**

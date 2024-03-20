@@ -17,6 +17,7 @@ return new class extends Migration
             $table->id();
             $table->string('a_nama_ruangan');
             $table->string('a_foto');
+            $table->string('a_slug');
             $table->enum('a_status', ["tersedia","tidak"]);
             $table->decimal('a_tarif', 10, 2);
             $table->timestamps();

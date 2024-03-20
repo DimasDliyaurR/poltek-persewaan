@@ -13,13 +13,15 @@ return new class extends Migration
     {
         Schema::disableForeignKeyConstraints();
 
-        Schema::create('profiles', function (Blueprint $table) {
+        Schema::create('layanans', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id')->constrained();
-            $table->string('nama_lengkap');
-            $table->string('foto_ktp');
-            $table->text('alamat');
-            $table->string('no_telp');
+            $table->string('foto_layanan');
+            $table->string('l_nama');
+            $table->integer('l_tarif');
+            $table->boolean('l_personil');
+            $table->enum('l_satuan', ["jam","minggu","bulan"]);
+            $table->enum('l_status', ["tersedia","tidak"]);
+            $table->string('l_slug');
             $table->timestamps();
         });
 
@@ -31,6 +33,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('profiles');
+        Schema::dropIfExists('layanans');
     }
 };

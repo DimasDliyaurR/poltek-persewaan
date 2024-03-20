@@ -28,6 +28,7 @@ class GedungLapFactory extends Factory
             'gl_satuan_gedung' => $this->faker->word(),
             'gl_kapasitas_gedung' => $this->faker->numberBetween(-10000, 10000),
             'gl_ukuran_gedung' => $this->faker->word(),
+            'gl_slug' => $this->faker->word(),
         ];
     }
 }

@@ -23,6 +23,7 @@ class Layanan extends Model
         'l_personil',
         'l_satuan',
         'l_status',
+        'l_slug',
     ];
 
     /**

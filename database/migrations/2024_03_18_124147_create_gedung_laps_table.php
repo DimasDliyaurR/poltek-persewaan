@@ -13,14 +13,16 @@ return new class extends Migration
     {
         Schema::disableForeignKeyConstraints();
 
-        Schema::create('layanans', function (Blueprint $table) {
+        Schema::create('gedung_laps', function (Blueprint $table) {
             $table->id();
-            $table->string('foto_layanan');
-            $table->string('l_nama');
-            $table->integer('l_tarif');
-            $table->boolean('l_personil');
-            $table->enum('l_satuan', ["jam","minggu","bulan"]);
-            $table->enum('l_status', ["tersedia","tidak"]);
+            $table->string('gl_foto');
+            $table->string('gl_nama');
+            $table->string('gl_keterangan');
+            $table->string('gl_tarif');
+            $table->string('gl_satuan_gedung');
+            $table->integer('gl_kapasitas_gedung');
+            $table->string('gl_ukuran_gedung');
+            $table->string('gl_slug');
             $table->timestamps();
         });
 
@@ -32,6 +34,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('layanans');
+        Schema::dropIfExists('gedung_laps');
     }
 };

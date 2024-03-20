@@ -11,13 +11,13 @@ use App\Repositories\Kendaraan\KendaraanRepository;
 use App\Repositories\AlatBarang\AlatBarangRepository;
 use App\Services\Kendaraan\KendaraanServiceImplement;
 use App\Repositories\Asrama\AsramaRepositoryImplement;
-use App\Repositories\Kendaraan\MerkKendaraanRepository;
+use App\Repositories\Kendaraan\MerkKendaraan\MerkKendaraanRepository;
 use App\Repositories\Layanan\LayananRepositoryImplement;
 use App\Repositories\GedungLap\GedungLapRepositoryImplement;
 use App\Repositories\Kendaraan\KendaraanRepositoryImplement;
 use App\Repositories\Layanan\TimLayanan\TimLayananRepository;
 use App\Repositories\AlatBarang\AlatBarangRepositoryImplement;
-use App\Repositories\Kendaraan\MerkKendaraanRepositoryImplement;
+use App\Repositories\Kendaraan\MerkKendaraan\MerkKendaraanRepositoryImplement;
 use App\Repositories\Layanan\VideoLayanan\VideoLayananRepository;
 use App\Repositories\Asrama\FasilitasAsrama\FasilitasAsramaRepository;
 use App\Repositories\Asrama\TransaksiAsrama\TransaksiAsramaRepository;
@@ -59,6 +59,7 @@ use App\Services\GedungLap\GedungLapService;
 use App\Services\GedungLap\GedungLapServiceImplement;
 use App\Services\Layanan\LayananService;
 use App\Services\Layanan\LayananServiceImplement;
+use Illuminate\Pagination\Paginator;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -142,6 +143,6 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        //
+        Paginator::defaultView("pagination::default");
     }
 }

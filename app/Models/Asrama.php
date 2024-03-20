@@ -19,6 +19,7 @@ class Asrama extends Model
     protected $fillable = [
         'a_nama_ruangan',
         'a_foto',
+        'a_slug',
         'a_status',
         'a_tarif',
     ];

@@ -23,6 +23,7 @@ class AlatBarang extends Model
         'a_tarif',
         'a_status',
         'a_satuan',
+        'a_slug',
     ];
 
     /**

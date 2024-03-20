@@ -27,6 +27,7 @@ class LayananFactory extends Factory
             'l_personil' => $this->faker->boolean(),
             'l_satuan' => $this->faker->randomElement(["jam","minggu","bulan"]),
             'l_status' => $this->faker->randomElement(["tersedia","tidak"]),
+            'l_slug' => $this->faker->word(),
         ];
     }
 }

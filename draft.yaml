@@ -1,6 +1,7 @@
 models:
   Profile :
     user_id : id foreign:users
+    slug : string
     nama_lengkap : string
     foto_ktp : string
     alamat : text
@@ -16,6 +17,7 @@ models:
     mk_kapasitas : string
     mk_deskripsi : text
     mk_bahan_bakar : string
+    mk_slug : string
     relationships :
       hasMany : Kendaraan
       belongsToMany : Transaksi_kendaraan
@@ -25,6 +27,7 @@ models:
     merk_kendaraan_id : id foreign:merkkendaraans
     k_plat : string
     k_status : enum:tersedia,tidak terpakai
+    k_slug : string
     relationships:
       hasMany: DetailTransaksiKendaraan
       belongsTo : MerkKendaraan
@@ -57,6 +60,7 @@ models:
     l_personil : boolean
     l_satuan : enum:jam,minggu,bulan
     l_status : enum:tersedia,tidak melayani
+    l_slug : string
     relationships:
       hasMany : TimLayanan , DetailFotoLayanan , DetailTransaksiLayanan , VideoLayanan
       belongsToMany : TransaksiLayanan
@@ -73,6 +77,7 @@ models:
     tl_nama : string
     tl_status : enum:tersedia,tidak tersedia
     tl_deskripsi : string
+    tl_slug : string
     relationships:
       belongsTo : Layanan
   
@@ -115,6 +120,7 @@ models:
     gl_satuan_gedung : string
     gl_kapasitas_gedung : integer
     gl_ukuran_gedung : string
+    gl_slug : string
     relationships:
       hasMany : DetailTransaksiGedung
     
@@ -161,6 +167,7 @@ models:
   Asrama :
     a_nama_ruangan : string
     a_foto : string
+    a_slug : string
     a_status : enum:tersedia,tidak tersedia
     a_tarif : decimal:10,2
     relationships:
@@ -201,6 +208,7 @@ models:
     a_tarif : string
     a_status : enum:tersedia,tidak tersedia
     a_satuan : string
+    a_slug : string
     relationships:
       hasMany : FotoAlatBarang , DetailTransaksiAlatBarang
       belongsToMany : TransaksiAlatBarang
