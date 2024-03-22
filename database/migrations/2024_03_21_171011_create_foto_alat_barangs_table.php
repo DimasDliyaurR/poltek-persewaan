@@ -15,7 +15,7 @@ return new class extends Migration
 
         Schema::create('foto_alat_barangs', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('alat_barang_id')->constrained('alatbarangs');
+            $table->foreignId('alat_barang_id')->constrained('alat_barangs');
             $table->string('fab_foto');
             $table->timestamps();
         });

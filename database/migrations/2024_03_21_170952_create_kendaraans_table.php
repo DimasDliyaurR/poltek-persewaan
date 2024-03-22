@@ -15,9 +15,9 @@ return new class extends Migration
 
         Schema::create('kendaraans', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('merk_kendaraan_id')->constrained('merkkendaraans');
+            $table->foreignId('merk_kendaraan_id')->constrained('merk_kendaraans');
             $table->string('k_plat');
-            $table->enum('k_status', ["tersedia","tidak"]);
+            $table->enum('k_status', ["tersedia", "tidak"]);
             $table->string('k_slug');
             $table->timestamps();
         });

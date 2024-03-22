@@ -6,6 +6,12 @@
     </x-title-component>
 
     <x-inner-layout>
+        @session('successForm')
+            <x-alert-success>
+                {{ $value }}
+            </x-alert-success>
+        @endsession
+
         <form action="{{ asset('admin/merkKendaraan/update/' . $merkKendaraan->id) }}" method="post"
             enctype="multipart/form-data">
             @csrf

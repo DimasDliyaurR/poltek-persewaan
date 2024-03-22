@@ -15,7 +15,7 @@ return new class extends Migration
 
         Schema::create('detail_transaksi_asramas', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('transaksi_asrama_id')->constrained('transaksiasramas');
+            $table->foreignId('transaksi_asrama_id')->constrained('transaksi_asramas');
             $table->foreignId('asrama_id')->constrained();
             $table->timestamps();
         });

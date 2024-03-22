@@ -2,6 +2,13 @@
 
 @section('content')
     <x-inner-layout>
+
+        @session('successForm')
+        <x-alert-success>
+            {{ $value }}
+        </x-alert-success>
+        @session
+
         <x-title-component>
             Foto Merk Kendaraan
         </x-title-component>

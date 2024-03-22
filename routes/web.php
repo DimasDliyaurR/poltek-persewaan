@@ -27,23 +27,38 @@ Route::get('/', function () {
 
 Route::group(["prefix" => "admin"], function () {
     Route::controller(KendaraanController::class)->group(function () {
-        // Index
+        // Index Merk Kendaraan
         Route::get("merkKendaraans", "indexMerkKendaraan");
 
-        // Create
+        // Create Merk Kendaraan
         Route::post("merkKendaraans/create", "createMerkKendaraan");
 
-        // store
+        // store Merk Kendaraan
         Route::get("merkKendaraan/store/{id}", "storeMerkKendaraan");
 
-        // Show
+        // Show Merk Kendaraan
         Route::get("merkKendaraan/show/{id}", "showMerkKendaraan");
 
-        // Update
+        // Update Merk Kendaraan
         Route::put("merkKendaraan/update/{id}", "updateMerkKendaraan");
 
-        // Destroy
+        // Destroy Merk Kendaraan
         Route::delete("merkKendaraan/delete/{id}", "destroyMerkKendaraan");
+
+        // Index Kendaraan
+        Route::get("kendaraans", "indexKendaraan");
+
+        // Create Kendaraan
+        Route::post("kendaraans/create", "createKendaraan");
+
+        // Show Kendaraan
+        Route::get("kendaraan/show/{id}", "showKendaraan");
+
+        // Update Kendaraan
+        Route::put("kendaraan/update/{id}", "updateKendaraan")->name("kendaraan");
+
+        // Destroy Kendaraan
+        Route::delete("kendaraan/delete/{id}", "destroyKendaraan");
     });
 
     // Route::view("merkKendaraans/show", "admin.kendaraan.detail", [

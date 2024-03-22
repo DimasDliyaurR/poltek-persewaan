@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\kendaraan\RequestKendaraan;
+use App\Http\Requests\kendaraan\RequestKendaraanUpdate;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use InvalidArgumentException;
@@ -29,7 +31,7 @@ class KendaraanController extends Controller
 
         return view("admin.kendaraan.merkKendaraan.lihat", [
             "title" => "Merk Kendaraan",
-            "action" => "merkKendaraan.show",
+            "action" => "kendaraan",
             "merkKendaraans" => $kendaraans,
         ]);
     }
@@ -77,6 +79,7 @@ class KendaraanController extends Controller
 
         return view("admin.kendaraan.merkKendaraan.detail", [
             "title" => "Detail",
+            "action" => "kendaraan",
             "merkKendaraan" => $merkKendaraan,
         ]);
     }
@@ -95,6 +98,7 @@ class KendaraanController extends Controller
 
         return view("admin.kendaraan.merkKendaraan.edit", [
             "title" => "Merk Kendaraan",
+            "action" => "kendaraan",
             "merkKendaraan" => $merkKendaraan,
         ]);
     }
@@ -148,5 +152,101 @@ class KendaraanController extends Controller
         }
 
         return back()->with("successTable", "Berhasil Menghapus " . $merkKendaraan['mk_merk']);
+    }
+
+    /**
+     * Kendaraan
+     * Index
+     */
+    public function indexKendaraan()
+    {
+        try {
+            $kendaraans = $this->kendaraanService->getAllDataKendaraanWithMerkKendaraan();
+            $merkKendaraans = $this->kendaraanService->getAllDataMerkKendaraan();
+        } catch (\Exception $th) {
+            throw new InvalidArgumentException();
+        }
+
+        return view("admin.kendaraan.lihat", [
+            "title" => "Kendaraan",
+            "action" => "kendaraan",
+            "kendaraans" => $kendaraans,
+            "merkKendaraans" => $merkKendaraans,
+        ]);
+    }
+
+    /**
+     * Kendaraan
+     * Create
+     */
+    public function createKendaraan(RequestKendaraan $request)
+    {
+        $validation = $request->validated();
+
+        $validation["k_slug"] = Str::slug($validation["k_plat"]);
+        try {
+            $this->kendaraanService->storeKendaraan($validation);
+        } catch (\Exception $th) {
+            throw new InvalidArgumentException();
+        }
+
+        return back()->with("successForm", "Berhasil Menambahkan Merek Kendaraan");
+    }
+
+    /**
+     * Kendaraan
+     * Show
+     */
+    public function showKendaraan($id)
+    {
+        try {
+            $kendaraan = $this->kendaraanService->getDataKendaraanById($id);
+            $merkKendaraan = $this->kendaraanService->getAllDataMerkKendaraan();
+        } catch (\Exception $th) {
+            return abort(404);
+        }
+
+        return view("admin.kendaraan.edit", [
+            "title" => "Kendaraan",
+            "action" => "kendaraan",
+            "kendaraan" => $kendaraan,
+            "merkKendaraans" => $merkKendaraan,
+        ]);
+    }
+
+    /**
+     * Merk Kendaraan
+     * Update
+     */
+    public function updateKendaraan(RequestKendaraanUpdate $request, $id)
+    {
+        $validation = $request->validated();
+
+        $validation['k_slug'] = Str::slug($validation["k_plat"]);
+
+        try {
+            $this->kendaraanService->updateKendaraan($validation, $id);
+        } catch (\Exception $th) {
+            throw new InvalidArgumentException();
+        }
+
+        return back()->with("successForm", "Berhasil Menambahkan Kendaraan");
+    }
+
+    /**
+     * Merk Kendaraan
+     * Destroy
+     */
+    public function destroyKendaraan($id)
+    {
+        $kendaraan = $this->kendaraanService->getDataKendaraanById($id);
+
+        try {
+            $this->kendaraanService->destroyKendaraan($id);
+        } catch (\Exception $th) {
+            throw new InvalidArgumentException();
+        }
+
+        return back()->with("successTable", "Berhasil Menghapus " . $kendaraan['k_plat']);
     }
 }

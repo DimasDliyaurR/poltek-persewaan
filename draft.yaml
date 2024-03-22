@@ -40,7 +40,7 @@ models:
     tk_tanggal_kembali : dateTime
     relationships :
       hasMany : Detail_transaksi_kendaraan
-      belongsToMany : Merk_kendaraan
+      belongsToMany : MerkKendaraan
   
   DetailTransaksiKendaraan :
     transaksi_kendaraan_id : id foreign:transaksikendaraans

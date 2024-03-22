@@ -15,8 +15,8 @@ return new class extends Migration
 
         Schema::create('detail_transaksi_property_gedungs', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('transaksi_gedung_id')->constrained('transaksigedungs');
-            $table->foreignId('property_gedung_id')->constrained('propertygedungs');
+            $table->foreignId('transaksi_gedung_id')->constrained('transaksi_gedungs');
+            $table->foreignId('property_gedung_id')->constrained('property_gedungs');
             $table->integer('qty');
             $table->timestamps();
         });

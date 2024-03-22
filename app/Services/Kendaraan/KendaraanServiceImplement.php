@@ -70,6 +70,21 @@ class KendaraanServiceImplement implements KendaraanService
     }
 
     /**
+     * Get All Data Kendaraan
+     * @return array
+     * @throws InvalidArgumentException Jika ada error pada argument
+     */
+    public function getAllDataKendaraanWithMerkKendaraan()
+    {
+        try {
+            $data = $this->kendaraanRepository->getAllDataWithMerkKendaraan();
+        } catch (\Exception $th) {
+            throw new InvalidArgumentException();
+        }
+        return $data;
+    }
+
+    /**
      * Get All Data Merk Kendaraan
      * @return array
      * @throws InvalidArgumentException Jika ada error pada argument

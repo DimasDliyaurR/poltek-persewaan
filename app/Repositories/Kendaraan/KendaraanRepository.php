@@ -15,6 +15,12 @@ interface KendaraanRepository
     public function getAll();
 
     /**
+     * Get All Data With Merk Kendaraan Data
+     * @return array
+     */
+    public function getAllDataWithMerkKendaraan();
+
+    /**
      * Store data kendaraan
      * @param Data
      * @return Mixed
