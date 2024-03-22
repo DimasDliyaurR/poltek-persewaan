@@ -66,19 +66,19 @@ Route::group(["prefix" => "admin"], function () {
         // Index Fasilitas Asrama
         Route::get("fasilitasAsramas", "indexFasilitasAsrama");
 
-        // Create Merk Kendaraan
+        // Create Fasilitas Asrama
         Route::post("fasilitasAsramas/create", "createFasilitasAsrama");
 
-        // store Merk Kendaraan
+        // store Fasilitas Asrama
         Route::get("fasilitasAsrama/store/{id}", "storeFasilitasAsrama");
 
-        // Show Merk Kendaraan
+        // Show Fasilitas Asrama
         Route::get("fasilitasAsrama/show/{id}", "showFasilitasAsrama");
 
-        // Update Merk Kendaraan
+        // Update Fasilitas Asrama
         Route::put("fasilitasAsrama/update/{id}", "updateFasilitasAsrama");
 
-        // Destroy Merk Kendaraan
+        // Destroy Fasilitas Asrama
         Route::delete("fasilitasAsrama/delete/{id}", "destroyFasilitasAsrama");
     });
     // Route::view("merkKendaraans/show", "admin.kendaraan.detail", [

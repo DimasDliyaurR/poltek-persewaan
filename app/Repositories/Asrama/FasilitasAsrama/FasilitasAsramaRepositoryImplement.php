@@ -56,7 +56,7 @@ class FasilitasAsramaRepositoryImplement implements FasilitasAsramaRepository
      */
     public function update($data, $id)
     {
-        $FasilitasAsramaData = $this->fasilitasAsrama::findOrFail();
+        $FasilitasAsramaData = $this->fasilitasAsrama::findOrFail($id);
         $FasilitasAsramaData->update($data);
 
         return $FasilitasAsramaData;
@@ -69,7 +69,7 @@ class FasilitasAsramaRepositoryImplement implements FasilitasAsramaRepository
      */
     public function delete($id)
     {
-        $FasilitasAsramaData = $this->fasilitasAsrama::findOrFail($id);
+        $FasilitasAsramaData = $this->fasilitasAsrama::whereId($id);
         $FasilitasAsramaData->delete();
 
         return $FasilitasAsramaData;

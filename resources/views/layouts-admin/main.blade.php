@@ -35,6 +35,8 @@
     {{-- CKEditor --}}
     <script src="https://cdn.ckeditor.com/ckeditor5/41.2.1/super-build/ckeditor.js"></script>
     <script src="{{ asset('js/feature/editor.js') }}"></script>
+    {{-- boxicons --}}
+    <script src="https://unpkg.com/boxicons@2.1.4/dist/boxicons.js"></script>
 </body>
 
 </html>

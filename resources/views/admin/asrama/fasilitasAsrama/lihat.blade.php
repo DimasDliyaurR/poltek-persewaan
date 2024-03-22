@@ -65,15 +65,15 @@
                                 {{ $row->fa_nama }}
                             </th>
                             <td class="px-6 py-4 dark:text-white">
-                                {{ $row->fa_icon }}
+                                <box-icon name="{{ $row->fa_icon }}"></box-icon>
                             </td>
                             <td class="px-6 py-4 text-right">
-                                <a href="{{ asset('admin/kendaraan/show/' . $row->id) }}"
+                                <a href="{{ asset('admin/fasilitasAsrama/show/' . $row->id) }}"
                                     class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit</a>
                             </td>
                             <td class="px-6 py-4 text-right">
-                                <x-delete-button action="fasilitasAsrama/delete/{{ $row->id }}"
-                                    id="{{ $row->id }}" nama="{{ $row->k_plat }}"></x-delete-button>
+                                <x-delete-button action="admin/fasilitasAsrama/delete/{{ $row->id }}"
+                                    id="{{ $row->id }}" nama="{{ $row->fa_nama }}"></x-delete-button>
                             </td>
                         </tr>
                     @empty
