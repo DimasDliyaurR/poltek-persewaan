@@ -21,7 +21,7 @@ class FasilitasAsramaRepositoryImplement implements FasilitasAsramaRepository
      */
     public function getDataById($id)
     {
-        $FasilitasAsramaData = $this->fasilitasAsrama->whereId($id)->first();
+        $FasilitasAsramaData = $this->fasilitasAsrama::findOrFail($id);
 
         return $FasilitasAsramaData;
     }
@@ -32,7 +32,7 @@ class FasilitasAsramaRepositoryImplement implements FasilitasAsramaRepository
      */
     public function getAll()
     {
-        $FasilitasAsramaData = $this->fasilitasAsrama->all();
+        $FasilitasAsramaData = $this->fasilitasAsrama::paginate(5);
 
         return $FasilitasAsramaData;
     }
@@ -44,7 +44,7 @@ class FasilitasAsramaRepositoryImplement implements FasilitasAsramaRepository
      */
     public function store($data)
     {
-        $FasilitasAsramaData = $this->fasilitasAsrama->create($data);
+        $FasilitasAsramaData = $this->fasilitasAsrama::create($data);
 
         return $FasilitasAsramaData;
     }
@@ -56,7 +56,7 @@ class FasilitasAsramaRepositoryImplement implements FasilitasAsramaRepository
      */
     public function update($data, $id)
     {
-        $FasilitasAsramaData = $this->fasilitasAsrama->findOrFail();
+        $FasilitasAsramaData = $this->fasilitasAsrama::findOrFail();
         $FasilitasAsramaData->update($data);
 
         return $FasilitasAsramaData;
@@ -69,7 +69,7 @@ class FasilitasAsramaRepositoryImplement implements FasilitasAsramaRepository
      */
     public function delete($id)
     {
-        $FasilitasAsramaData = $this->fasilitasAsrama->findOrFail($id);
+        $FasilitasAsramaData = $this->fasilitasAsrama::findOrFail($id);
         $FasilitasAsramaData->delete();
 
         return $FasilitasAsramaData;

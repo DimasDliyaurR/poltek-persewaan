@@ -66,13 +66,13 @@
                             d="m1 1 4 4 4-4" />
                     </svg>
                 </button>
-                <ul id="dropdown-example-asrama" class="hidden py-2 space-y-2">
+                <ul id="dropdown-example-asrama" class="{{ $action == 'asrama' ? '' : 'hidden' }} py-2 space-y-2">
                     <li>
-                        <a href="{{ asset('admin/merkKendaraans') }}"
+                        <a href="{{ asset('admin/asramas') }}"
                             class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">Asrama</a>
                     </li>
                     <li>
-                        <a href="{{ asset('admin/kendaraans') }}"
+                        <a href="{{ asset('admin/fasilitasAsramas') }}"
                             class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">Fasilitas
                             Asrama</a>
                     </li>

@@ -45,7 +45,6 @@ class KendaraanController extends Controller
         $validation = $request->validated();
 
         if ($request->hasFile('mk_foto')) {
-
             $file_merk_kendaraan = $request->file('mk_foto');
             $foto_kendaraan = $file_merk_kendaraan->hashName();
 

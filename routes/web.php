@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AsramaController;
 use App\Http\Controllers\KendaraanController;
 use Illuminate\Support\Facades\Route;
 use App\Services\GedungLap\GedungLapService;
@@ -61,6 +62,25 @@ Route::group(["prefix" => "admin"], function () {
         Route::delete("kendaraan/delete/{id}", "destroyKendaraan");
     });
 
+    Route::controller(AsramaController::class)->group(function () {
+        // Index Fasilitas Asrama
+        Route::get("fasilitasAsramas", "indexFasilitasAsrama");
+
+        // Create Merk Kendaraan
+        Route::post("fasilitasAsramas/create", "createFasilitasAsrama");
+
+        // store Merk Kendaraan
+        Route::get("fasilitasAsrama/store/{id}", "storeFasilitasAsrama");
+
+        // Show Merk Kendaraan
+        Route::get("fasilitasAsrama/show/{id}", "showFasilitasAsrama");
+
+        // Update Merk Kendaraan
+        Route::put("fasilitasAsrama/update/{id}", "updateFasilitasAsrama");
+
+        // Destroy Merk Kendaraan
+        Route::delete("fasilitasAsrama/delete/{id}", "destroyFasilitasAsrama");
+    });
     // Route::view("merkKendaraans/show", "admin.kendaraan.detail", [
     //     "title" => "update",
     // ]);
