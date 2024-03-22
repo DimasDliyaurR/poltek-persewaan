@@ -33,7 +33,11 @@
 
 
         <div class="relative overflow-x-auto sm:rounded-lg">
-
+            @session('successTable')
+                <x-alert-success>
+                    {{ $value }}
+                </x-alert-success>
+            @endsession
             <table class="w-full text-sm text-left rtl:text-right text-gray-800 dark:text-gray-400 border-solid">
                 <thead class="text-md text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-white">
                     <tr>
@@ -70,7 +74,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @forelse($kendaraans as $row)
+                    @forelse($merkKendaraans as $row)
                         <tr class="bg-white border-b dark:bg-gray-700 dark:border-gray-700 dark:hover:bg-gray-400">
                             <th scope="row"
                                 class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
@@ -80,15 +84,22 @@
                                 {{ $row->mk_seri }}
                             </td>
                             <td class="px-6 py-4 dark:text-white">
-                                {{ $row->mk_foto }}
+                                <img src="{{ Storage::url($row->mk_foto) }}" alt="Foto Kendaraan"
+                                    class="h-72 max-w-xl rounded-lg shadow-xl dark:shadow-gray-800">
+
                             </td>
                             <td class="px-6 py-4 text-right">
-                                <a href="#" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Lihat
+                                <a href="{{ asset('admin/merkKendaraan/store/' . $row->id) }}"
+                                    class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Lihat
                                     Detail</a>
                             </td>
                             <td class="px-6 py-4 text-right">
-                                <a href="#"
+                                <a href="{{ asset('admin/merkKendaraan/show/' . $row->id) }}"
                                     class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit</a>
+                            </td>
+                            <td class="px-6 py-4 text-right">
+                                <x-delete-button action="admin/merkKendaraan/delete/{{ $row->id }}"
+                                    id="{{ $row->id }}" nama="{{ $row->mk_merk }}"></x-delete-button>
                             </td>
                         </tr>
                     @empty
@@ -101,9 +112,7 @@
                 </tbody>
             </table>
 
-            <nav role="navigation" aria-label="Pagination Navigation">
-                {{ $kendaraans->links() }}
-            </nav>
+            {{ $merkKendaraans->links() }}
         </div>
 
     </x-inner-layout>
@@ -116,7 +125,14 @@
     </div>
 
     <x-inner-layout>
-        <form action="{{ asset('admin/merkKendaraans/create') }}" method="post">
+
+        @session('successForm')
+            <x-alert-success>
+                {{ $value }}
+            </x-alert-success>
+        @endsession
+
+        <form action="{{ asset('admin/merkKendaraans/create') }}" method="post" enctype="multipart/form-data">
             @csrf
             <div class="mb-5">
                 <label for="mk_foto" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Foto
@@ -175,12 +191,12 @@
             </div>
 
             <div class="mb-5">
-                <label for="mk_bahanbakar" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Bahan
+                <label for="mk_bahan_bakar" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Bahan
                     Bakar</label>
-                <input name="mk_bahanbakar"
-                    class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-4 @error('mk_bahanbakar') border-red-500 @enderror"
-                    value="{{ old('mk_bahanbakar') }}" type="text">
-                @error('mk_bahanbakar')
+                <input name="mk_bahan_bakar"
+                    class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-4 @error('mk_bahan_bakar') border-red-500 @enderror"
+                    value="{{ old('mk_bahan_bakar') }}" type="text">
+                @error('mk_bahan_bakar')
                     <span class="text-red-600 text-sm">{{ $message }}</span>
                 @enderror
             </div>

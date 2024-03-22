@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class RequestMerkKendaraan extends FormRequest
+class RequestMerkKendaraanUpdate extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -22,7 +22,7 @@ class RequestMerkKendaraan extends FormRequest
     public function rules(): array
     {
         return [
-            "mk_foto" => "required|image|extensions:jpg,png",
+            "mk_foto" => "image|extensions:jpg,png",
             "mk_merk" => "required",
             "mk_seri" => "required|",
             "mk_tarif" => "required|numeric|max_digits:10",
@@ -32,13 +32,10 @@ class RequestMerkKendaraan extends FormRequest
         ];
     }
 
-
-
     public function messages()
     {
         return [
             // Foto Kendaraan
-            "mk_foto.required" => "Foto Kendaraan belum diisi !",
             "mk_foto.image" => "Foto Kendaraan tidak berupa gambar !",
             "mk_foto.extensions" => "Foto Kendaraan gunakan extension jpg , png !",
 

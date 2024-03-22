@@ -21,7 +21,8 @@ class MerkKendaraanRepositoryImplement implements MerkKendaraanRepository
      */
     public function getDataById($id)
     {
-        return $this->merkKendaraan::whereId($id)->first();
+
+        return $this->merkKendaraan::findOrFail($id);
     }
 
     /**
@@ -52,7 +53,7 @@ class MerkKendaraanRepositoryImplement implements MerkKendaraanRepository
      */
     public function update($data, $id)
     {
-        $dataKendaraan = $this->merkKendaraan::finOrFail($id);
+        $dataKendaraan = $this->merkKendaraan::findOrFail($id);
         $dataKendaraan->update($data);
         return $dataKendaraan;
     }

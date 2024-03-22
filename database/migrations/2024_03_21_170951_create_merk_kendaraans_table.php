@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('mk_foto');
             $table->string('mk_merk');
             $table->string('mk_seri');
-            $table->decimal('mk_tarif', 8, 2);
+            $table->string('mk_tarif');
             $table->string('mk_kapasitas');
             $table->text('mk_deskripsi');
             $table->string('mk_bahan_bakar');

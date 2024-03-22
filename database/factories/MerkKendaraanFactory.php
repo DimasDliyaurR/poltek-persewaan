@@ -20,17 +20,15 @@ class MerkKendaraanFactory extends Factory
      */
     public function definition(): array
     {
-        $merkKendaraan = $this->faker->word(2);
-
         return [
-            'mk_foto' => $merkKendaraan,
+            'mk_foto' => $this->faker->word(),
             'mk_merk' => $this->faker->word(),
             'mk_seri' => $this->faker->word(),
-            'mk_tarif' => $this->faker->randomFloat(2, 0, 999999.99),
+            'mk_tarif' => $this->faker->word(),
             'mk_kapasitas' => $this->faker->word(),
             'mk_deskripsi' => $this->faker->text(),
             'mk_bahan_bakar' => $this->faker->word(),
-            'mk_slug' => Str::slug($merkKendaraan),
+            'mk_slug' => $this->faker->word(),
         ];
     }
 }

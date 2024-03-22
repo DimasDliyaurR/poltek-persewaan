@@ -27,12 +27,30 @@ Route::get('/', function () {
 
 Route::group(["prefix" => "admin"], function () {
     Route::controller(KendaraanController::class)->group(function () {
+        // Index
         Route::get("merkKendaraans", "indexMerkKendaraan");
 
-        // Store
-        Route::post("merkKendaraans/create", "storeMerkKendaraan");
+        // Create
+        Route::post("merkKendaraans/create", "createMerkKendaraan");
+
+        // store
+        Route::get("merkKendaraan/store/{id}", "storeMerkKendaraan");
+
+        // Show
+        Route::get("merkKendaraan/show/{id}", "showMerkKendaraan");
+
+        // Update
+        Route::put("merkKendaraan/update/{id}", "updateMerkKendaraan");
+
+        // Destroy
+        Route::delete("merkKendaraan/delete/{id}", "destroyMerkKendaraan");
     });
+
+    // Route::view("merkKendaraans/show", "admin.kendaraan.detail", [
+    //     "title" => "update",
+    // ]);
 });
+
 
 // FrontEnd
 Route::view('/index', 'index', [

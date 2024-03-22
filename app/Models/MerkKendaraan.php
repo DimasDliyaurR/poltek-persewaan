@@ -34,7 +34,6 @@ class MerkKendaraan extends Model
      */
     protected $casts = [
         'id' => 'integer',
-        'mk_tarif' => 'decimal:2',
     ];
 
     public function kendaraans(): HasMany

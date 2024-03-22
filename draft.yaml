@@ -13,7 +13,7 @@ models:
     mk_foto : string
     mk_merk : string
     mk_seri : string
-    mk_tarif : decimal:8,2
+    mk_tarif : int
     mk_kapasitas : string
     mk_deskripsi : text
     mk_bahan_bakar : string
