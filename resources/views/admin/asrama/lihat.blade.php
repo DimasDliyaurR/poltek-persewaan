@@ -42,15 +42,20 @@
                 <thead class="text-md text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-white">
                     <tr>
                         <th scope="col" class="px-6 py-3">
-                            Nama Asrama
+                            Nama Ruangan
                         </th>
                         <th scope="col" class="px-6 py-3">
                             <div class="flex items-center">
-                                Icon
+                                Foto Ruangan
                             </div>
                         </th>
                         <th scope="col" class="px-6 py-3">
-                            <span class="sr-only">Lihat Detail</span>
+                            <div class="flex items-center">
+                                Tarif Harga
+                            </div>
+                        </th>
+                        <th scope="col" class="px-6 py-3">
+                            <span class="sr-only">Tambah Properti</span>
                         </th>
                         <th scope="col" class="px-6 py-3">
                             <span class="sr-only">Edit</span>
@@ -58,22 +63,31 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @forelse($fasilitasAsramas as $row)
+                    @forelse($asramas as $row)
                         <tr class="bg-white border-b dark:bg-gray-700 dark:border-gray-700 dark:hover:bg-gray-400">
                             <th scope="row"
                                 class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                {{ $row->fa_nama }}
+                                <img src="{{ Storage::url($row->a_foto) }}" alt="Foto Asrama"
+                                    class="h-72 max-w-xl rounded-lg shadow-xl dark:shadow-gray-800">
                             </th>
                             <td class="px-6 py-4 dark:text-white">
-                                <box-icon name="{{ $row->fa_icon }}"></box-icon>
+                                {{ $row->a_nama_ruangan }}
+                            </td>
+                            </th>
+                            <td class="px-6 py-4 dark:text-white">
+                                {{ $row->a_tarif }}
                             </td>
                             <td class="px-6 py-4 text-right">
-                                <a href="{{ asset('admin/fasilitasAsrama/show/' . $row->id) }}"
+                                <a href="{{ asset('admin/asrama/show/' . $row->id) }}"
+                                    class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Tambah Properti</a>
+                            </td>
+                            <td class="px-6 py-4 text-right">
+                                <a href="{{ asset('admin/asrama/show/' . $row->id) }}"
                                     class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit</a>
                             </td>
                             <td class="px-6 py-4 text-right">
-                                <x-delete-button action="admin/fasilitasAsrama/delete/{{ $row->id }}"
-                                    id="{{ $row->id }}" nama="{{ $row->fa_nama }}"></x-delete-button>
+                                <x-delete-button action="admin/asrama/delete/{{ $row->id }}" id="{{ $row->id }}"
+                                    nama="{{ $row->a_nama_ruangan }}"></x-delete-button>
                             </td>
                         </tr>
                     @empty
@@ -86,7 +100,7 @@
                 </tbody>
             </table>
 
-            {{ $fasilitasAsramas->links() }}
+            {{ $asramas->links() }}
         </div>
 
     </x-inner-layout>
@@ -106,30 +120,40 @@
             </x-alert-success>
         @endsession
 
-        <form action="{{ asset('admin/fasilitasAsramas/create') }}" method="post" enctype="multipart/form-data">
+        <form action="{{ asset('admin/asramas/create') }}" method="post" enctype="multipart/form-data">
             @csrf
 
             <div class="mb-5">
-                <label for="fa_nama" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Nama
-                    Fasilitas Asrama</label>
-                <input name="fa_nama"
-                    class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-4 @error('fa_nama') border-red-500 @enderror"
-                    value="{{ old('fa_nama') }}" type="text">
-
-                @error('fa_nama')
+                <label for="a_foto" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Foto
+                    Asrama</label>
+                <input name="a_foto"
+                    class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-blue file:text-violet-700 hover:file:bg-blue-400 @error('a_foto') border-red-500 @enderror"
+                    id="multiple_files" type="file">
+                @error('a_foto')
                     <span class="text-red-600 text-sm">{{ $message }}</span>
                 @enderror
             </div>
 
             <div class="mb-5">
-                <label for="" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Icon</label>
-                <input name="fa_icon"
-                    class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-4 @error('fa_icon') border-red-500 @enderror"
-                    value="{{ old('fa_icon') }}" type="text">
-                <p class="text-sm">Gunakan Icon pada website <a class="underline text-blue-400"
-                        href="https://boxicons.com/">Boxicons</a></p>
+                <label for="a_nama_ruangan" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Nama
+                    Ruangan Asrama</label>
+                <input name="a_nama_ruangan"
+                    class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-4 @error('a_nama_ruangan') border-red-500 @enderror"
+                    value="{{ old('a_nama_ruangan') }}" type="text">
 
-                @error('fa_icon')
+                @error('a_nama_ruangan')
+                    <span class="text-red-600 text-sm">{{ $message }}</span>
+                @enderror
+            </div>
+
+            <div class="mb-5">
+                <label for="a_tarif" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Harga
+                    Tarif (N)</label>
+                <input name="a_tarif"
+                    class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-4 @error('a_tarif') border-red-500 @enderror"
+                    value="{{ old('a_tarif') }}" type="text">
+
+                @error('a_tarif')
                     <span class="text-red-600 text-sm">{{ $message }}</span>
                 @enderror
             </div>

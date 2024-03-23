@@ -56,7 +56,7 @@ Route::group(["prefix" => "admin"], function () {
         Route::get("kendaraan/show/{id}", "showKendaraan");
 
         // Update Kendaraan
-        Route::put("kendaraan/update/{id}", "updateKendaraan")->name("kendaraan");
+        Route::put("kendaraan/update/{id}", "updateKendaraan");
 
         // Destroy Kendaraan
         Route::delete("kendaraan/delete/{id}", "destroyKendaraan");
@@ -80,6 +80,27 @@ Route::group(["prefix" => "admin"], function () {
 
         // Destroy Fasilitas Asrama
         Route::delete("fasilitasAsrama/delete/{id}", "destroyFasilitasAsrama");
+
+        // Index Asrama
+        Route::get("asramas", "indexAsrama");
+
+        // Create Asrama
+        Route::post("asramas/create", "createAsrama");
+
+        // store Asrama
+        Route::get("asrama/store/{id}", "storeAsrama");
+
+        // Show Fasilitas Asrama
+        Route::get("asrama/show/{id}", "showAsrama");
+
+        // Update Fasilitas Asrama
+        Route::put("asrama/update/{id}", "updateAsrama");
+
+        // Destroy Fasilitas Asrama
+        Route::delete("asrama/delete/{id}", "destroyAsrama");
+
+        // Add Fasilitas Asrama
+        Route::post("asramas/create/Fasilitas", "createAsrama");
     });
     // Route::view("merkKendaraans/show", "admin.kendaraan.detail", [
     //     "title" => "update",

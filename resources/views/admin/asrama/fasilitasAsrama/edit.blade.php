@@ -34,8 +34,8 @@
                 @error('fa_icon')
                     <span class="text-red-600 text-sm">{{ $message }}</span>
                 @enderror
-                <span class="text-sm">Gunakan Icon pada website <a class="underline text-blue-400"
-                        href="https://boxicons.com/">Boxicons</a></span>
+                <p class="text-sm">Gunakan Icon pada website <a class="underline text-blue-400"
+                        href="https://boxicons.com/">Boxicons</a></p>
                 <div class="py-2">
                     <box-icon name='{{ $fasilitasAsrama->fa_icon }}'></box-icon>
                 </div>
