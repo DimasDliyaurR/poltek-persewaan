@@ -228,12 +228,12 @@ class AsramaController extends Controller
     {
         $asrama = $this->asramaService->getDataAsramaById($id);
 
-        try {
-            Storage::disk("public")->delete($asrama['a_foto']);
-            $this->asramaService->destroyAsrama($id);
-        } catch (\Exception $th) {
-            throw new InvalidArgumentException();
-        }
+        // try {
+        $this->asramaService->destroyAsrama($id);
+        Storage::disk("public")->delete($asrama['a_foto']);
+        // } catch (\Exception $th) {
+        //     throw new InvalidArgumentException();
+        // }
 
         return back()->with("successTable", "Berhasil Menghapus " . $asrama['a_nama_ruangan']);
     }
