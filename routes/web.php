@@ -99,8 +99,14 @@ Route::group(["prefix" => "admin"], function () {
         // Destroy Fasilitas Asrama
         Route::delete("asrama/delete/{id}", "destroyAsrama");
 
+        // Index Detail Fasilitas Asrama
+        Route::get("detailFasilitasAsrama/{id}", "indexDetailFasilitasAsrama");
+
         // Add Fasilitas Asrama
-        Route::post("asramas/create/Fasilitas", "createAsrama");
+        Route::post("detailFasilitasAsrama/create/fasilitas/{id}", "createDetailFasilitasAsrama");
+
+        // Delete Detail Fasilitas Asrama
+        Route::delete("detailFasilitasAsrama/delete/{id}", "destroyDetailFasilitas");
     });
     // Route::view("merkKendaraans/show", "admin.kendaraan.detail", [
     //     "title" => "update",

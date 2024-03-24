@@ -27,6 +27,18 @@ class DetailFasilitasAsramaRepositoryImplement implements DetailFasilitasAsramaR
     }
 
     /**
+     * Get Data Detail Fasilitas Asrama By Asrama Id
+     * @param Id
+     * @return Mixed
+     */
+    public function getAllDataByAsramaId($id)
+    {
+        $detailFasilitasAsramaData = $this->detailFasilitasAsrama::whereAsramaId($id)->with(["asrama", "fasilitasAsrama"])->latest()->get();
+
+        return $detailFasilitasAsramaData;
+    }
+
+    /**
      * Get all data Detail fasilitas Asrama
      * @return Mixed
      */
@@ -69,5 +81,22 @@ class DetailFasilitasAsramaRepositoryImplement implements DetailFasilitasAsramaR
         $detailFasilitasAsramaData = $this->detailFasilitasAsrama::whereId($id)->delete();
 
         return $detailFasilitasAsramaData;
+    }
+
+    /**
+     * Delete Data Detail Fasilitas Asrama
+     * @param id
+     * @param dataFasilitasId
+     * @return boolean
+     */
+    public function IsExistFasilitasTransaksi($dataFasilitasId, $id)
+    {
+        $existDetail = DetailFasilitasAsrama::whereFasilitasAsramaId($dataFasilitasId)
+            ->whereAsramaId($id)
+            ->get();
+
+        if (count($existDetail) > 0) return false;
+
+        return true;
     }
 }

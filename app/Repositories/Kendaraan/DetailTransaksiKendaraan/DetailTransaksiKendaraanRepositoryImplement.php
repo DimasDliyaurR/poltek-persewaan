@@ -52,7 +52,7 @@ class DetailTransaksiKendaraanRepositoryImplement implements DetailTransaksiKend
      */
     public function update($data, $id)
     {
-        $dataKendaraan = $this->kendaraan::finOrFail($id);
+        $dataKendaraan = $this->kendaraan::findOrFail($id);
         $dataKendaraan->update($data);
         return $dataKendaraan;
     }

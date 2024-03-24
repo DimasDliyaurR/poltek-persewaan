@@ -78,7 +78,7 @@
                                 {{ $row->a_tarif }}
                             </td>
                             <td class="px-6 py-4 text-right">
-                                <a href="{{ asset('admin/asrama/show/' . $row->id) }}"
+                                <a href="{{ asset('admin/detailFasilitasAsrama/' . $row->id) }}"
                                     class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Tambah Properti</a>
                             </td>
                             <td class="px-6 py-4 text-right">

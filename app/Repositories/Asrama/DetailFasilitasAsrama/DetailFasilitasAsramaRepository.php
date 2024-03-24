@@ -18,6 +18,13 @@ interface DetailFasilitasAsramaRepository
     public function getAll();
 
     /**
+     * Get Data Detail Fasilitas Asrama By Asrama Id
+     * @param Id
+     * @return Mixed
+     */
+    public function getAllDataByAsramaId($id);
+
+    /**
      * Store Data Detail Fasilitas Asrama
      * @param data
      * @return Mixed
@@ -37,4 +44,12 @@ interface DetailFasilitasAsramaRepository
      * @return Mixed
      */
     public function delete($id);
+
+    /**
+     * Delete Data Detail Fasilitas Asrama
+     * @param id
+     * @param dataFasilitasId
+     * @return boolean
+     */
+    public function IsExistFasilitasTransaksi($dataFasilitasId, $id);
 }

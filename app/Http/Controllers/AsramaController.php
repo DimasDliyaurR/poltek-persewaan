@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\asrama\detailFasilitasAsrama\RequestDetailFasilitasAsrama;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use InvalidArgumentException;
@@ -9,6 +10,7 @@ use App\Services\Asrama\AsramaService;
 use Illuminate\Support\Facades\Storage;
 use App\Http\Requests\asrama\fasilitasAsrama\RequestFasilitasAsrama;
 use App\Http\Requests\asrama\RequestAsrama;
+use App\Models\DetailFasilitasAsrama;
 
 class AsramaController extends Controller
 {
@@ -227,12 +229,64 @@ class AsramaController extends Controller
         $asrama = $this->asramaService->getDataAsramaById($id);
 
         try {
-            Storage::disk("public")->delete($asrama['mk_foto']);
+            Storage::disk("public")->delete($asrama['a_foto']);
             $this->asramaService->destroyAsrama($id);
         } catch (\Exception $th) {
             throw new InvalidArgumentException();
         }
 
         return back()->with("successTable", "Berhasil Menghapus " . $asrama['a_nama_ruangan']);
+    }
+
+    /**
+     * Detail Fasilitas Asrama
+     * Index
+     */
+    public function indexDetailFasilitasAsrama($id)
+    {
+
+        $asrama = $this->asramaService->getDataAsramaById($id);
+        $fasilitasAsramas = $this->asramaService->getAllDataFasilitasAsrama();
+        $detailFasilitasAsrama = $this->asramaService->getDataDetailFasilitasByAsramaId($id);
+
+        return view("admin.asrama.detailFasilitasAsrama.lihat", [
+            "title" => "Detail Fasilitas Asrama",
+            "action" => "asrama",
+            "asrama" => $asrama,
+            "fasilitasAsramas" => $fasilitasAsramas,
+            "detailFasilitasAsrama" => $detailFasilitasAsrama,
+        ]);
+    }
+
+    /**
+     * Detail Fasilitas Asrama
+     * Create
+     */
+    public function createDetailFasilitasAsrama(RequestDetailFasilitasAsrama $request, $id)
+    {
+        $validation = $request->validated();
+
+        $existDetail = $this->asramaService->IsExistFasilitasTransaksi($validation["fasilitas_asrama_id"], $id);
+
+        if (!$existDetail) {
+            return back()->withErrors(["fasilitas_asrama_id" => "Fasilitas Sudah digunakan"]);
+        }
+
+        $validation["asrama_id"] = $id;
+
+        $this->asramaService->storeDetailFasilitasAsrama($validation);
+
+        return back()->with("successForm", "Berhasil Menambahkan Fasilitas");
+    }
+
+    public function destroyDetailFasilitas($id)
+    {
+        try {
+            $this->asramaService->destroyDetailFasilitasAsrama($id);
+        } catch (\Exception $th) {
+            throw new InvalidArgumentException();
+        }
+
+        return back()->with("successTable", "Berhasil Menghapus");
     }
 }

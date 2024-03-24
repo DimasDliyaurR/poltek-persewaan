@@ -56,6 +56,23 @@ class AsramaServiceImplement implements AsramaService
     }
 
     /**
+     * Get Data Detail Fasilitas By Asrama Id
+     * @param Id
+     * @return array
+     * @throws InvalidArgumentException Jika Terdapat Kesalahan Exception
+     */
+    public function getDataDetailFasilitasByAsramaId($id)
+    {
+        try {
+            $data = $this->detailFasilitasAsramaRepository->getAllDataByAsramaId($id);
+        } catch (\Exception $th) {
+            throw new InvalidArgumentException();
+        }
+
+        return $data;
+    }
+
+    /**
      * Get All Data Fasilitas Asrama
      * @return array
      * @throws InvalidArgumentException Jika terdapat kesalahan Exception
@@ -129,11 +146,11 @@ class AsramaServiceImplement implements AsramaService
      */
     public function storeDetailFasilitasAsrama($data)
     {
-        try {
-            $data = $this->detailFasilitasAsramaRepository->store($data);
-        } catch (\Exception $th) {
-            throw new InvalidArgumentException();
-        }
+        // try {
+        $data = $this->detailFasilitasAsramaRepository->store($data);
+        // } catch (\Exception $th) {
+        //     throw new InvalidArgumentException();
+        // }
 
         return $data;
     }
@@ -235,6 +252,24 @@ class AsramaServiceImplement implements AsramaService
         try {
             $data = $this->detailFasilitasAsramaRepository->delete($id);
         } catch (\Exception $th) {
+            throw new InvalidArgumentException();
+        }
+
+        return $data;
+    }
+
+    /**
+     * Delete Data Detail Fasilitas Asrama
+     * @param id
+     * @param dataFasilitasId
+     * @return boolean
+     * @throws InvalidArgumentException Jika terdapat kesalahan Exception
+     */
+    public function IsExistFasilitasTransaksi($dataFasilitasId, $id)
+    {
+        try {
+            $data = $this->detailFasilitasAsramaRepository->IsExistFasilitasTransaksi($dataFasilitasId, $id);
+        } catch (\Throwable $th) {
             throw new InvalidArgumentException();
         }
 
