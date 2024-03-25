@@ -118,16 +118,16 @@ Route::group(["prefix" => "admin"], function () {
         // Create Alat Barang
         Route::post("alatBarangs/create", "createAlatBarang");
 
-        // store Asrama
+        // store Alat Barang
         Route::get("alatBarang/store/{id}", "storeAlatBarang");
 
-        // Show Fasilitas Asrama
+        // Show Alat Barang
         Route::get("alatBarang/show/{id}", "showAlatBarang");
 
-        // Update Fasilitas Asrama
+        // Update Alat Barang
         Route::put("alatBarang/update/{id}", "updateAlatBarang");
 
-        // Destroy Fasilitas Asrama
+        // Destroy Alat Barang
         Route::delete("alatBarang/delete/{id}", "destroyAlatBarang");
 
         // Index Alat Barang
@@ -138,23 +138,32 @@ Route::group(["prefix" => "admin"], function () {
     });
 
     Route::controller(GedungLapController::class)->group(function () {
-        // Index Alat Barang
+        // Index Gedung Lapangan
         Route::get("gedungLaps", "indexGedungLap");
 
-        // Create Alat Barang
+        // Create Gedung Lapangan
         Route::post("gedungLaps/create", "createGedungLap");
 
-        // store Asrama
+        // store Gedung Lapangan
         Route::get("gedungLap/store/{id}", "storeGedungLap");
 
-        // Show Fasilitas Asrama
+        // Show Gedung Lapangan
         Route::get("gedungLap/show/{id}", "showGedungLap");
 
-        // Update Fasilitas Asrama
+        // Update Gedung Lapangan
         Route::put("gedungLap/update/{id}", "updateGedungLap");
 
-        // Destroy Fasilitas Asrama
+        // Destroy Gedung Lapangan
         Route::delete("gedungLap/delete/{id}", "destroyGedungLap");
+
+        // Index Property Gedung Lapangan
+        Route::get("propertyGedungLaps", "indexPropertyGedungLap");
+
+        // Create Property Gedung Lapangan
+        Route::post("propertyGedungLaps/create", "createPropertyGedungLap");
+
+        // Destroy Property Gedung Lapangan
+        Route::delete("propertyGedungLap/delete/{id}", "destroyPropertyGedungLap");
     });
 });
 

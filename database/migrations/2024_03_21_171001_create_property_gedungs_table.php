@@ -16,7 +16,6 @@ return new class extends Migration
         Schema::create('property_gedungs', function (Blueprint $table) {
             $table->id();
             $table->string('pg_nama');
-            $table->enum('pg_status', ["tersedia","tidak"]);
             $table->timestamps();
         });
 

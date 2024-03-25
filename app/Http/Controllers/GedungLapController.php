@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\gedungLap\propertyGedungLap\RequestPropertyGedungLap;
 use App\Http\Requests\gedungLap\RequestGedungLap;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
@@ -152,5 +153,98 @@ class GedungLapController extends Controller
         }
 
         return back()->with("successTable", "Berhasil Menghapus " . $gedungLap['gl_nama']);
+    }
+
+    /**
+     * Property Gedung Lapangan
+     * Index
+     */
+    public function indexPropertyGedungLap()
+    {
+        try {
+            $propertyGedungLaps = $this->gedungLapService->getAllPropertyGedung();
+        } catch (\Exception $th) {
+            throw new InvalidArgumentException();
+        }
+
+        return view("admin.gedungLap.propertyGedungLap.lihat", [
+            "title" => "Properti Gedung Lapangan",
+            "action" => "gedunglap",
+            "propertyGedungLaps" => $propertyGedungLaps,
+        ]);
+    }
+
+    /**
+     * Property Gedung Lapangan
+     * Create
+     */
+    public function createPropertyGedungLap(RequestPropertyGedungLap $request)
+    {
+        $validation = $request->validated();
+
+        try {
+            $this->gedungLapService->storePropertyGedung($validation);
+        } catch (\Exception $th) {
+            throw new InvalidArgumentException();
+        }
+
+        return back()->with("successForm", "Berhasil Menambahkan Property Gedung Lapangan");
+    }
+
+    // /**
+    //  * Kendaraan
+    //  * Show
+    //  */
+    // public function showKendaraan($id)
+    // {
+    //     try {
+    //         $kendaraan = $this->kendaraanService->getDataKendaraanById($id);
+    //         $merkKendaraan = $this->kendaraanService->getAllDataMerkKendaraan();
+    //     } catch (\Exception $th) {
+    //         return abort(404);
+    //     }
+
+    //     return view("admin.kendaraan.edit", [
+    //         "title" => "Kendaraan",
+    //         "action" => "kendaraan",
+    //         "kendaraan" => $kendaraan,
+    //         "merkKendaraans" => $merkKendaraan,
+    //     ]);
+    // }
+
+    // /**
+    //  * Merk Kendaraan
+    //  * Update
+    //  */
+    // public function updateKendaraan(RequestKendaraanUpdate $request, $id)
+    // {
+    //     $validation = $request->validated();
+
+    //     $validation['k_slug'] = Str::slug($validation["k_plat"]);
+
+    //     try {
+    //         $this->kendaraanService->updateKendaraan($validation, $id);
+    //     } catch (\Exception $th) {
+    //         throw new InvalidArgumentException();
+    //     }
+
+    //     return back()->with("successForm", "Berhasil Menambahkan Kendaraan");
+    // }
+
+    /**
+     * Property Gedung Lapangan
+     * Destroy
+     */
+    public function destroyPropertyGedungLap($id)
+    {
+        $gedungLap = $this->gedungLapService->getDataPropertyGedungById($id);
+
+        try {
+            $this->gedungLapService->destroyPropertyGedung($id);
+        } catch (\Exception $th) {
+            throw new InvalidArgumentException();
+        }
+
+        return back()->with("successTable", "Berhasil Menghapus " . $gedungLap['pg_nama']);
     }
 }
