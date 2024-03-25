@@ -44,7 +44,24 @@ class AlatBarangServiceImplement implements AlatBarangService
     public function getDataFotoAlatBarangById($id)
     {
         try {
-            $data = $this->fotoAlatBarangRepository->getDataById($id);
+            $data = $this->fotoAlatBarangRepository->getDataByAlatBarangId($id);
+        } catch (\Exception $th) {
+            throw new InvalidArgumentException();
+        }
+
+        return $data;
+    }
+
+    /**
+     * Get Data Foto Alat Barang By Id
+     * @param id integer
+     * @return array
+     * @throws InvalidArgumentException Jika terdapat Exception
+     */
+    public function getDataFotoAlatBarangByAlatBarangId($id)
+    {
+        try {
+            $data = $this->fotoAlatBarangRepository->getDataByAlatBarangId($id);
         } catch (\Exception $th) {
             throw new InvalidArgumentException();
         }

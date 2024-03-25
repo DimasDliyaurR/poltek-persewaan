@@ -38,7 +38,7 @@ class RequestMerkKendaraan extends FormRequest
     {
         return [
             // Foto Kendaraan
-            "mk_foto.required" => "Foto Kendaraan belum diisi !",
+            "mk_foto.required" => "Foto Kendaraan mohon diisi !",
             "mk_foto.image" => "Foto Kendaraan tidak berupa gambar !",
             "mk_foto.extensions" => "Foto Kendaraan gunakan extension jpg , png !",
 

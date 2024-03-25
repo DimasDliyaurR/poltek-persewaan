@@ -94,16 +94,12 @@
                             d="m1 1 4 4 4-4" />
                     </svg>
                 </button>
-                <ul id="dropdown-example-alat-barang" class="hidden py-2 space-y-2">
+                <ul id="dropdown-example-alat-barang"
+                    class="{{ $action == 'alat barang' ? '' : 'hidden' }} py-2 space-y-2">
                     <li>
-                        <a href="{{ asset('admin/merkKendaraans') }}"
+                        <a href="{{ asset('admin/alatBarangs') }}"
                             class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">Alat
                             Barang</a>
-                    </li>
-                    <li>
-                        <a href="{{ asset('admin/kendaraans') }}"
-                            class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">Fasilitas
-                            Asrama</a>
                     </li>
                 </ul>
             </li>

@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AlatBarangController;
 use App\Http\Controllers\AsramaController;
 use App\Http\Controllers\KendaraanController;
 use Illuminate\Support\Facades\Route;
@@ -108,9 +109,32 @@ Route::group(["prefix" => "admin"], function () {
         // Delete Detail Fasilitas Asrama
         Route::delete("detailFasilitasAsrama/delete/{id}", "destroyDetailFasilitas");
     });
-    // Route::view("merkKendaraans/show", "admin.kendaraan.detail", [
-    //     "title" => "update",
-    // ]);
+
+    Route::controller(AlatBarangController::class)->group(function () {
+        // Index Alat Barang
+        Route::get("alatBarangs", "indexAlatBarang");
+
+        // Create Alat Barang
+        Route::post("alatBarangs/create", "createAlatBarang");
+
+        // store Asrama
+        Route::get("alatBarang/store/{id}", "storeAlatBarang");
+
+        // Show Fasilitas Asrama
+        Route::get("alatBarang/show/{id}", "showAlatBarang");
+
+        // Update Fasilitas Asrama
+        Route::put("alatBarang/update/{id}", "updateAlatBarang");
+
+        // Destroy Fasilitas Asrama
+        Route::delete("alatBarang/delete/{id}", "destroyAlatBarang");
+
+        // Index Alat Barang
+        Route::get("detailFotoAlatBarangs/{id}", "indexFotoAlatBarang");
+
+        // Create Alat Barang
+        Route::post("detailFotoAlatBarang/create/{id}", "createFotoAlatBarang");
+    });
 });
 
 

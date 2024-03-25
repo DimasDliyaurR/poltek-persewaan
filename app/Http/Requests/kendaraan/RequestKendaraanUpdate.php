@@ -39,7 +39,7 @@ class RequestKendaraanUpdate extends FormRequest
         return [
             "merk_kendaraan_id.required" => "Merk Kendaraan Belum diisi",
             "k_plat.required" => "Plat Nomor Belum diisi",
-            "k_plat.unique" => "Plat Nomor :value Sudah digunakan",
+            "k_plat.unique" => "Plat Nomor Sudah digunakan",
         ];
     }
 }
