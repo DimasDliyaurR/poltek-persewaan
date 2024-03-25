@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AlatBarangController;
 use App\Http\Controllers\AsramaController;
+use App\Http\Controllers\GedungLapController;
 use App\Http\Controllers\KendaraanController;
 use Illuminate\Support\Facades\Route;
 use App\Services\GedungLap\GedungLapService;
@@ -134,6 +135,26 @@ Route::group(["prefix" => "admin"], function () {
 
         // Create Alat Barang
         Route::post("detailFotoAlatBarang/create/{id}", "createFotoAlatBarang");
+    });
+
+    Route::controller(GedungLapController::class)->group(function () {
+        // Index Alat Barang
+        Route::get("gedungLaps", "indexGedungLap");
+
+        // Create Alat Barang
+        Route::post("gedungLaps/create", "createGedungLap");
+
+        // store Asrama
+        Route::get("gedungLap/store/{id}", "storeGedungLap");
+
+        // Show Fasilitas Asrama
+        Route::get("gedungLap/show/{id}", "showGedungLap");
+
+        // Update Fasilitas Asrama
+        Route::put("gedungLap/update/{id}", "updateGedungLap");
+
+        // Destroy Fasilitas Asrama
+        Route::delete("gedungLap/delete/{id}", "destroyGedungLap");
     });
 });
 
