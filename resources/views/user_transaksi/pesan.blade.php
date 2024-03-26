@@ -39,8 +39,7 @@
                 <h4 class="font-semibold">Rincian Harga</h4>
                 <button class=" mt-4 h-6 w-full bg-primary rounded-lg hover:opacity-50"><a href="/bayar" class=" text-sm   text-white    " >Lanjutkan Pembayaran</a></button>
 
-              </form>
-
+            </form>
                 
         </div>
       </div>

@@ -27,11 +27,11 @@
               </svg>
         </div>
         <div id="dropdown" class="rounded border-[2px] border-white bg-white p-2 absolute top-[50px] w-[185px] right-6 shadow-md hidden">
-          <div class="cursor-pointer hover:bg-gray-300 p-2">Transportasi</div>
-          <div class="cursor-pointer hover:bg-gray-30 p-2">Gedung</div>
-          <div class="cursor-pointer hover:bg-gray-300 p-2">Penginapan</div>
-          <div class="cursor-pointer hover:bg-gray-300 p-2">Layanan</div>
-          <div class="cursor-pointer hover:bg-gray-300 p-2">Asset</div>
+          <div class="cursor-pointer hover:bg-gray-300 p-2"><a href="/transportasi">Transportasi</a></div>
+          <div class="cursor-pointer hover:bg-gray-30 p-2"><a href="/gedung">Gedung</a></div>
+          <div class="cursor-pointer hover:bg-gray-300 p-2"><a href="/penginapan">Penginapan</a></div>
+          <div class="cursor-pointer hover:bg-gray-300 p-2"><a href="/layanan">Layanan</a></div>
+          <div class="cursor-pointer hover:bg-gray-300 p-2"><a href="/aset">Asset</a></div>
         </div>
       <script>
         function toggleDropdown() {
