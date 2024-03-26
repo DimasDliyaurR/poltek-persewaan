@@ -5,7 +5,7 @@ namespace Database\Factories;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Str;
 use App\Models\Layanan;
-use App\Models\Tim_layanan;
+use App\Models\TimLayanan;
 
 class TimLayananFactory extends Factory
 {
@@ -22,7 +22,7 @@ class TimLayananFactory extends Factory
     public function definition(): array
     {
         return [
-            'Layanan_id' => Layanan::factory(),
+            'layanan_id' => Layanan::factory(),
             'tl_nama' => $this->faker->word(),
             'tl_status' => $this->faker->randomElement(["tersedia","tidak"]),
             'tl_deskripsi' => $this->faker->word(),

@@ -4,7 +4,7 @@ namespace Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Str;
-use App\Models\Alat_barang;
+use App\Models\AlatBarang;
 
 class AlatBarangFactory extends Factory
 {

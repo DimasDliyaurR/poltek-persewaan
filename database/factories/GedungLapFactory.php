@@ -4,7 +4,7 @@ namespace Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Str;
-use App\Models\Gedung_lap;
+use App\Models\GedungLap;
 
 class GedungLapFactory extends Factory
 {
