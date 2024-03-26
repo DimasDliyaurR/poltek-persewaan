@@ -2,6 +2,8 @@
 
 namespace App\Providers;
 
+use App\Repositories\Layanan\DetailFotoLayanan\DetailFotoLayananRepository;
+use App\Repositories\Layanan\DetailFotoLayanan\DetailFotoLayananRepositoryImplement;
 use Illuminate\Support\ServiceProvider;
 use App\Services\Kendaraan\KendaraanService;
 use App\Repositories\Asrama\AsramaRepository;
@@ -94,6 +96,7 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(VideoLayananRepository::class, VideoLayananRepositoryImplement::class);
         $this->app->bind(TransaksiLayananRepository::class, TransaksiLayananRepositoryImplement::class);
         $this->app->bind(DetailTransaksiLayananRepository::class, DetailTransaksiLayananRepositoryImplement::class);
+        $this->app->bind(DetailFotoLayananRepository::class, DetailFotoLayananRepositoryImplement::class);
 
         /**
          * Bind Alat Barang Repository And Service

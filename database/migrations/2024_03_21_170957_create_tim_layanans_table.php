@@ -15,10 +15,9 @@ return new class extends Migration
 
         Schema::create('tim_layanans', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('layanan_id')->constrained();
+            $table->foreignId('layanan_id')->constrained("layanans")->onDelete("cascade");
             $table->string('tl_nama');
-            $table->enum('tl_status', ["tersedia","tidak"]);
-            $table->string('tl_deskripsi');
+            $table->enum('tl_status', ["tersedia", "tidak"])->default("tersedia");
             $table->string('tl_slug');
             $table->timestamps();
         });

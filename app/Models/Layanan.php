@@ -17,13 +17,14 @@ class Layanan extends Model
      * @var array
      */
     protected $fillable = [
-        'foto_layanan',
+        'l_foto',
         'l_nama',
         'l_tarif',
         'l_personil',
         'l_satuan',
         'l_status',
         'l_slug',
+        'l_deskripsi',
     ];
 
     /**

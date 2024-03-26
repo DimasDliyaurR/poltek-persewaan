@@ -31,7 +31,7 @@ class LayananRepositoryImplement implements LayananRepository
      */
     public function getAll()
     {
-        return $this->layanan::all();
+        return $this->layanan::paginate(5);
     }
 
     /**

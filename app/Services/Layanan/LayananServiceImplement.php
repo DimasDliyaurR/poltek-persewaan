@@ -2,7 +2,7 @@
 
 namespace App\Services\Layanan;
 
-use App\Layanan\DetailFotoLayanan\DetailFotoLayananRepository;
+use App\Repositories\Layanan\DetailFotoLayanan\DetailFotoLayananRepository;
 use App\Repositories\Layanan\LayananRepository;
 use App\Repositories\Layanan\TimLayanan\TimLayananRepository;
 use App\Repositories\Layanan\VideoLayanan\VideoLayananRepository;
@@ -63,6 +63,23 @@ class LayananServiceImplement implements LayananService
     }
 
     /**
+     * Get Data Detail Foto Layanan By Layanan Id
+     * @param id integer
+     * @return array
+     * @throws InvalidArgumentException Jika terdapat Exception
+     */
+    public function getDataDetailFotoLayananByLayananId($id)
+    {
+        try {
+            $data = $this->detailFotoLayananRepository->getDataByLayananId($id);
+        } catch (\Exception $th) {
+            throw new InvalidArgumentException();
+        }
+
+        return $data;
+    }
+
+    /**
      * Get Data Detail Foto Layanan By Id
      * @param id integer
      * @return array
@@ -89,6 +106,23 @@ class LayananServiceImplement implements LayananService
     {
         try {
             $data = $this->videoLayananRepository->getDataById($id);
+        } catch (\Exception $th) {
+            throw new InvalidArgumentException();
+        }
+
+        return $data;
+    }
+
+    /**
+     * Get Data Detail Foto Layanan By Layanan Id
+     * @param id integer
+     * @return array
+     * @throws InvalidArgumentException Jika terdapat Exception
+     */
+    public function getDataVideoLayananByLayananId($id)
+    {
+        try {
+            $data = $this->videoLayananRepository->getDataByLayananId($id);
         } catch (\Exception $th) {
             throw new InvalidArgumentException();
         }
@@ -137,6 +171,22 @@ class LayananServiceImplement implements LayananService
     {
         try {
             $data = $this->timLayananRepository->getAll();
+        } catch (\Exception $th) {
+            throw new InvalidArgumentException();
+        }
+
+        return $data;
+    }
+
+    /**
+     * Get All data Tim Layanan By Layanan Id
+     * @return array
+     * @throws InvalidArgumentException Jika terdapat Exception
+     */
+    public function getAllTimLayananByLayananId($id)
+    {
+        try {
+            $data = $this->timLayananRepository->getDataByLayananId($id);
         } catch (\Exception $th) {
             throw new InvalidArgumentException();
         }

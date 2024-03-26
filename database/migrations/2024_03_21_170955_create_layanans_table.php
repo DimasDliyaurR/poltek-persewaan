@@ -15,12 +15,13 @@ return new class extends Migration
 
         Schema::create('layanans', function (Blueprint $table) {
             $table->id();
-            $table->string('foto_layanan');
+            $table->string('l_foto');
             $table->string('l_nama');
             $table->integer('l_tarif');
-            $table->boolean('l_personil');
-            $table->enum('l_satuan', ["jam","minggu","bulan"]);
-            $table->enum('l_status', ["tersedia","tidak"]);
+            $table->boolean('l_personil')->nullable();
+            $table->enum('l_satuan', ["jam", "minggu", "bulan"]);
+            $table->enum('l_status', ["tersedia", "tidak"])->default("tersedia");
+            $table->text('l_deskripsi');
             $table->string('l_slug');
             $table->timestamps();
         });

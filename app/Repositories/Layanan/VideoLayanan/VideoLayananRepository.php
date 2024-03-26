@@ -12,6 +12,13 @@ interface VideoLayananRepository
     public function getDataById($id);
 
     /**
+     *  Get Data By id
+     * @param Id
+     * @return Mixed
+     */
+    public function getDataByLayananId($id);
+
+    /**
      * Get All Data layanan
      * @param
      * @return Mixed

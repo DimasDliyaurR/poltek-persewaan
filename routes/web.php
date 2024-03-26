@@ -4,6 +4,7 @@ use App\Http\Controllers\AlatBarangController;
 use App\Http\Controllers\AsramaController;
 use App\Http\Controllers\GedungLapController;
 use App\Http\Controllers\KendaraanController;
+use App\Http\Controllers\LayananController;
 use Illuminate\Support\Facades\Route;
 use App\Services\GedungLap\GedungLapService;
 use App\Services\AlatBarang\AlatBarangService;
@@ -164,6 +165,62 @@ Route::group(["prefix" => "admin"], function () {
 
         // Destroy Property Gedung Lapangan
         Route::delete("propertyGedungLap/delete/{id}", "destroyPropertyGedungLap");
+    });
+
+    Route::controller(LayananController::class)->group(function () {
+        // Index Layanan
+        Route::get("layanans", "indexLayanan");
+
+        // Create Layanan
+        Route::post("layanans/create", "createLayanan");
+
+        // store Layanan
+        Route::get("layanan/store/{id}", "storeLayanan");
+
+        // Show Layanan
+        Route::get("layanan/show/{id}", "showLayanan");
+
+        // Update Layanan
+        Route::put("layanan/update/{id}", "updateLayanan");
+
+        // Destroy Layanan
+        Route::delete("layanan/delete/{id}", "destroyLayanan");
+
+        // Index Tim Layanan
+        Route::get("timLayanans/{id}", "indexTimLayanan");
+
+        // Create Tim Layanan
+        Route::post("timLayanans/create/{id}", "createTimLayanan");
+
+        // update Tim Layanan
+        Route::put("timLayanan/update/{id}", "updateTimLayanan");
+
+        // Destroy Tim Layanan
+        Route::delete("timLayanan/delete/{id}", "destroyTimLayanan");
+
+        // Index Video Layanan
+        Route::get("videoLayanans/{id}", "indexVideoLayanan");
+
+        // Create Video Layanan
+        Route::post("videoLayanans/create/{id}", "createVideoLayanan");
+
+        // update Video Layanan
+        Route::put("videoLayanan/update/{id}", "updateVideoLayanan");
+
+        // Destroy Video Layanan
+        Route::delete("videoLayanan/delete/{id}", "destroyVideoLayanan");
+
+        // Index Detail Foto Layanan
+        Route::get("detailFotoLayanans/{id}", "indexDetailFotoLayanan");
+
+        // Create Detail Foto Layanan
+        Route::post("detailFotoLayanans/create/{id}", "createDetailFotoLayanan");
+
+        // update Detail Foto Layanan
+        Route::put("detailFotoLayanan/update/{id}", "updateDetailFotoLayanan");
+
+        // Destroy Detail Foto Layanan
+        Route::delete("detailFotoLayanan/delete/{id}", "destroyDetailFotoLayanan");
     });
 });
 

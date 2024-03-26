@@ -24,6 +24,16 @@ class TimLayananRepositoryImplement implements TimLayananRepository
     }
 
     /**
+     * Get Data Tim Layanan
+     * @param id
+     * @return Mixed
+     */
+    public function getDataByLayananId($id)
+    {
+        return $this->timLayanan::whereLayananId($id)->get();
+    }
+
+    /**
      * Get All Data Tim Layanan
      * @return Mixed
      */
@@ -51,7 +61,7 @@ class TimLayananRepositoryImplement implements TimLayananRepository
      */
     public function update($data, $id)
     {
-        $timLayananData = $this->timLayanan::whereId($id)->update($data);
+        $timLayananData = $this->timLayanan::findOrFail($id)->update($data);
         return $timLayananData;
     }
 
@@ -62,7 +72,7 @@ class TimLayananRepositoryImplement implements TimLayananRepository
      */
     public function delete($id)
     {
-        $timLayananData = $this->timLayanan::whereId($id)->delete();
+        $timLayananData = $this->timLayanan::findOrFail($id)->delete();
 
         return $timLayananData;
     }
