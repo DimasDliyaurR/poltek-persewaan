@@ -3,11 +3,11 @@
 <div class="  bg-plaster">
   <div class="w-full  pb-36 pt-36  flex flex-wrap justify-center  xl:mx-auto">
     <div class=" container grid grid-cols-1 sm:grid-cols-2  lg:grid-cols-3 xl:gap-36 gap-6 md:gap-10 ">
-      <div class="bg-white col-span-2  shadow-md p-4 w-full h-screen xl:ml-36  mx-auto rounded-md ">
+      <div class="bg-white col-span-2  shadow-md p-4 w-full h-auto xl:ml-36  mx-auto rounded-md ">
         <div class="relative">
             <h4 class="  font-semibold mb-6 ">Pemesanan Transportasi</h4>
             <form action="">
-                <div class="mb-2">
+                <div class="mb-2 lg">
                     <label for="">Tanggal mulai</label>
                     <input type="date">
                     <label for="">Durasi</label>
@@ -25,19 +25,25 @@
                 </div>
                 <div>
                 <br><label for="penjemputan">Metode Pembayaran</label>
-                <br><input id="penjemputan" placeholder="2023VOUCHER" type="text" class="shadow-md border-gray-100">
+                <br><input id="penjemputan" placeholder="2023VOUCHER" type="text" class="shadow-md border-gray-100 mb-4">
                 </div>
                 <div>
-                <h4 class="font-semibold">Rincian Harga</h4>
+                <h4 class="font-semibold mb-2">Rincian Harga</h4>
                 </div>
                 <div class="flex justify-between">
                 <p>Harga item</p>
                 <p>Rp 2.000.000</p>
                 </div>
                 <p class="text-xs text-gray-300">(1x) Bus dengan sopir 24 jam</p>
+                <div class="flex justify-between mb-2 mt-2">
                 <p>Voucher</p>
-                <h4 class="font-semibold">Rincian Harga</h4>
-                <button class=" mt-4 h-6 w-full bg-primary rounded-lg hover:opacity-50"><a href="/bayar" class=" text-sm   text-white    " >Lanjutkan Pembayaran</a></button>
+                <p>0</p>
+                </div>
+                <div class="flex justify-between mb-2 mt-2">
+                  <h4 class="font-semibold">Harga Total</h4>
+                  <p>Rp 2.000.000</p>
+                </div>
+                <button class="  mt-3 h-7 w-full bg-primary rounded-lg hover:opacity-50"><a href="/bayar" class=" text-sm   text-white    " >Lanjutkan Pembayaran</a></button>
 
             </form>
                 

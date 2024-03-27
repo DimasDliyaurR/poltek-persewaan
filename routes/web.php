@@ -45,7 +45,7 @@ Route::view('/signup','signup',[
 ]);
 Route::view('/transportasi', 'kategori.transportasi',[
     "title" => "Transportasi"
-<<<<<<< HEAD
+
 ]);
 Route::view('/gedung', 'kategori.gedung',[
     "title" => "Gedung"
@@ -74,7 +74,3 @@ Route::view('/bayar', 'user_transaksi.bayar',[
 Route::view('/invoice', 'user_transaksi.invoice',[
     "title" => "Invoice",
 ]);
-
-=======
-]);
->>>>>>> 78f92f7338520161dcca202922064121ea4df8d8

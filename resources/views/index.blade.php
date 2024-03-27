@@ -49,19 +49,9 @@
         </svg>
       </div>
       <div id="dropdownKal" class="rounded border-[2px] border-white bg-white p-2 absolute top-[50px] w-[185px]  shadow-md hidden">
-              <div class="cursor-pointer hover:bg-gray-300 p-2">
-                
-             
-              <div class="relative max-w-sm">
-                <div class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
-                  <svg class="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
-                      <path d="M20 4a2 2 0 0 0-2-2h-2V1a1 1 0 0 0-2 0v1h-3V1a1 1 0 0 0-2 0v1H6V1a1 1 0 0 0-2 0v1H2a2 2 0 0 0-2 2v2h20V4ZM0 18a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V8H0v10Zm5-8h10a1 1 0 0 1 0 2H5a1 1 0 0 1 0-2Z"/>
-                    </svg>
+              <div class="cursor-pointer hover:bg-gray-300 p-2 rounded-lg">
+                <div class="flex bg-white rounded-md shadow-lg">
                 </div>
-                <input datepicker datepicker-autohide type="text" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full ps-10 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Select date">
-              </div>
-
-
               </div>
       </div>
       <script>
@@ -127,34 +117,145 @@
       </div>
     </div>
     <div class="flex flex-wrap">
-            <div class="w-full px-4 lg:w-1/2 xl:w-1/3 mb-2">
+    <div class="w-full px-4 lg:w-1/2 xl:w-1/3 mb-3">
                 <div class="bg-white  rounded-xl shadow-lg overflow-hidden ">
                     <div class="py-8 px-6">
-                        <img class="shadow-lg rounded-md" src="{{ ('img/transportasi/bus.JPG')}}" alt="">
+                        <div id="default-carousel" class="relative w-full" data-carousel="slide">
+                            <!-- Carousel wrapper -->
+                            <!-- <div class="relative h-56 overflow-hidden rounded-lg md:h-96"> -->
+                            <div class="relative h-56 overflow-hidden rounded-md ">
+                                <!-- Item 1 -->
+                                <div class="hidden duration-700 ease-in-out" data-carousel-item>
+                                    <img src="{{ ('img/transportasi/bus.JPG')}}" class="absolute block  w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2 shadow-lg rounded-md" alt="...">
+                                </div>
+                                <!-- Item 2 -->
+                                <div class="hidden duration-700 ease-in-out" data-carousel-item>
+                                    <img src="{{ ('img/transportasi/bus_depan.JPG')}}" class="absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2 shadow-lg rounded-md" alt="...">
+                                </div>
+                                <!-- Item 3 -->
+                                <div class="hidden duration-700 ease-in-out" data-carousel-item>
+                                    <img src="{{ ('img/transportasi/bus_kiri.JPG')}}" class="absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2 shadow-lg rounded-md" alt="...">
+                                </div>
+                                <!-- Item 4 -->
+                                <div class="hidden duration-700 ease-in-out" data-carousel-item>
+                                    <img src="{{ ('img/transportasi/bus_kanan.JPG')}}" class="absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2 shadow-lg rounded-md" alt="...">
+                                </div>
+                            </div>
+                            <!-- Slider indicators -->
+                            <div class="absolute z-30 flex -translate-x-1/2  left-1/2 space-x-3 rtl:space-x-reverse -mt-7">
+                                <button type="button" class="w-2 h-2 rounded-full " aria-current="true" aria-label="Slide 1" data-carousel-slide-to="0"></button>
+                                <button type="button" class="w-2 h-2 rounded-full" aria-current="false" aria-label="Slide 2" data-carousel-slide-to="1"></button>
+                                <button type="button" class="w-2 h-2 rounded-full" aria-current="false" aria-label="Slide 3" data-carousel-slide-to="2"></button>
+                                <button type="button" class="w-2 h-2 rounded-full" aria-current="false" aria-label="Slide 4" data-carousel-slide-to="3"></button>
+                    
+                            </div>
+                            <!-- Slider controls -->
+                            <button type="button" class="absolute top-0 start-0 z-30 flex items-center justify-center h-full px-4 cursor-pointer group focus:outline-none" data-carousel-prev>
+                                <span class="inline-flex items-center justify-center w-6 h-6 rounded-full bg-white/30 dark:bg-gray-800/30 group-hover:bg-white/50 dark:group-hover:bg-gray-800/60 group-focus:ring-4 group-focus:ring-white dark:group-focus:ring-gray-800/70 group-focus:outline-none">
+                                    <svg class="w-4 h-4 text-white dark:text-gray-800 rtl:rotate-180" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
+                                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 1 1 5l4 4"/>
+                                    </svg>
+                                    <span class="sr-only">Previous</span>
+                                </span>
+                            </button>
+                            <button type="button" class="absolute top-0 end-0 z-30 flex items-center justify-center h-full px-4 cursor-pointer group focus:outline-none" data-carousel-next>
+                                <span class="inline-flex items-center justify-center w-6 h-6 rounded-full bg-white/30 dark:bg-gray-800/30 group-hover:bg-white/50 dark:group-hover:bg-gray-800/60 group-focus:ring-4 group-focus:ring-white dark:group-focus:ring-gray-800/70 group-focus:outline-none">
+                                    <svg class="w-4 h-4 text-white dark:text-gray-800 rtl:rotate-180" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
+                                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 9 4-4-4-4"/>
+                                    </svg>
+                                    <span class="sr-only">Next</span>
+                                </span>
+                            </button>
+                        </div>
                         <h3>
-                        <a href=" /detailbus" class="block mb-3 mt-3 font-semibold text-xl text-black hover:text-primary truncate">Bus</a>
+                        <a href=" /detailbus" class="block mb-3 mt-3 font-semibold text-xl text-black hover:text-primary truncate">Exclusive Bus
+                        </a>
                         </h3>
-                        <p>Kapasitas</p>
-                        <p class="font-medium text-sm text-gray-500 mb-1">Harga termasuk Driver</p>
-                        <p><span class="icon-[material-symbols--person-add-rounded]" style="color: #FF7417;"></span> <iconify-icon icon="material-symbols:person-add-rounded"  style="color: #FF7417"></iconify-icon></p>
-                        <p class="font-medium text-sm text-black mb-1  flex justify-between">Status : Available <span class="font-bold">Rp 500.000</span></p>
+                        <div class="flex mb-2"> 
+                            <svg class="w-6 h-6 text-primary" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
+                            <path fill-rule="evenodd" d="M9 4a4 4 0 1 0 0 8 4 4 0 0 0 0-8Zm-2 9a4 4 0 0 0-4 4v1a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2v-1a4 4 0 0 0-4-4H7Zm8-1a1 1 0 0 1 1-1h1v-1a1 1 0 1 1 2 0v1h1a1 1 0 1 1 0 2h-1v1a1 1 0 1 1-2 0v-1h-1a1 1 0 0 1-1-1Z" clip-rule="evenodd"/>
+                            </svg>
+                            <p class="text-sm font-semibold ml-1">45</p>
+                            <sup class="text-xs text-gray-500"> Kapasitas </sup>
+                        </div>
+                        <div class="flex mb-2">
+                            <img src="{{ ('img/transportasi/bensin.png') }}" alt="bbm" class="w-5 h-5">
+                            <p class="text-sm font-semibold ml-2">Bensin</p>
+                            <sup class="text-xs text-gray-500"> Fuel </sup>
+                        </div>
+                        <p class="text-sm text-gray-500 mb-1  flex justify-between">status : Available <span class=" text-black font-bold text-base">Rp 2.500.000</span></p>
                         <p class=" text-sm text-gray-500 mb-1 float-right "> unit / Hari</p>
-                        <button class=" h-8 w-full bg-primary rounded-lg hover:opacity-50"><a href="/sewaBus" class=" text-sm   text-white    " >Sewa</a></button>
+                        <button class=" h-8 w-full bg-primary rounded-lg hover:opacity-50"><a href="#" class=" text-sm   text-white    " >Sewa</a></button>
                     </div>
                 </div>
             </div>
-            <div class="w-full px-4 lg:w-1/2 xl:w-1/3 mb-2">
+            <div class="w-full px-4 lg:w-1/2 xl:w-1/3 mb-5">
                 <div class="bg-white  rounded-xl shadow-lg overflow-hidden ">
                     <div class="py-8 px-6">
-                        <img class="shadow-lg rounded-md" src="{{ ('img/transportasi/bus.JPG')}}" alt="">
+                        <div id="default-carousel" class="relative w-full" data-carousel="slide">
+                            <!-- Carousel wrapper -->
+                            <!-- <div class="relative h-56 overflow-hidden rounded-lg md:h-96"> -->
+                            <div class="relative h-56 overflow-hidden rounded-md ">
+                                <!-- Item 1 -->
+                                <div class="hidden duration-700 ease-in-out" data-carousel-item>
+                                    <img src="{{ ('img/penginapan/bad_2.jpg')}}" class="absolute block  w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2 shadow-lg rounded-md" alt="...">
+                                </div>
+                                <!-- Item 2 -->
+                                <div class="hidden duration-700 ease-in-out" data-carousel-item>
+                                    <img src="{{ ('img/penginapan/lemari_2.jpg')}}" class="absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2 shadow-lg rounded-md" alt="...">
+                                </div>
+                                <!-- Item 3 -->
+                                <div class="hidden duration-700 ease-in-out" data-carousel-item> 
+                                    <img src="{{ ('img/penginapan/toilet.jpg')}}" class="absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2 shadow-lg rounded-md" alt="...">
+                                </div>
+                                <!-- Item 4 -->
+                                <!-- <div class="hidden duration-700 ease-in-out" data-carousel-item>
+                                    <img src="{{ ('img/penginapan/truk_kanan.JPG')}}" class="absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2 shadow-lg rounded-md" alt="...">
+                                </div> -->
+                            </div>
+                            <!-- Slider indicators -->
+                            <div class="absolute z-30 flex -translate-x-1/2  left-1/2 space-x-3 rtl:space-x-reverse -mt-7">
+                                <button type="button" class="w-2 h-2 rounded-full " aria-current="true" aria-label="Slide 1" data-carousel-slide-to="0"></button>
+                                <button type="button" class="w-2 h-2 rounded-full" aria-current="false" aria-label="Slide 2" data-carousel-slide-to="1"></button>
+                                <button type="button" class="w-2 h-2 rounded-full" aria-current="false" aria-label="Slide 3" data-carousel-slide-to="2"></button>
+                                <!-- <button type="button" class="w-2 h-2 rounded-full" aria-current="false" aria-label="Slide 4" data-carousel-slide-to="3"></button> -->
+                    
+                            </div>
+                            <!-- Slider controls -->
+                            <button type="button" class="absolute top-0 start-0 z-30 flex items-center justify-center h-full px-4 cursor-pointer group focus:outline-none" data-carousel-prev>
+                                <span class="inline-flex items-center justify-center w-6 h-6 rounded-full bg-white/30 dark:bg-gray-800/30 group-hover:bg-white/50 dark:group-hover:bg-gray-800/60 group-focus:ring-4 group-focus:ring-white dark:group-focus:ring-gray-800/70 group-focus:outline-none">
+                                    <svg class="w-4 h-4 text-white dark:text-gray-800 rtl:rotate-180" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
+                                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 1 1 5l4 4"/>
+                                    </svg>
+                                    <span class="sr-only">Previous</span>
+                                </span>
+                            </button>
+                            <button type="button" class="absolute top-0 end-0 z-30 flex items-center justify-center h-full px-4 cursor-pointer group focus:outline-none" data-carousel-next>
+                                <span class="inline-flex items-center justify-center w-6 h-6 rounded-full bg-white/30 dark:bg-gray-800/30 group-hover:bg-white/50 dark:group-hover:bg-gray-800/60 group-focus:ring-4 group-focus:ring-white dark:group-focus:ring-gray-800/70 group-focus:outline-none">
+                                    <svg class="w-4 h-4 text-white dark:text-gray-800 rtl:rotate-180" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
+                                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 9 4-4-4-4"/>
+                                    </svg>
+                                    <span class="sr-only">Next</span>
+                                </span>
+                            </button>
+                        </div>
                         <h3>
-                        <a href=" /detailbus" class="block mb-3 mt-3 font-semibold text-xl text-black hover:text-primary truncate">Bus</a>
+                        <a href=" /detailbus" class="block mb-3 mt-3 font-semibold text-xl text-black hover:text-primary truncate">Sewa Asrama (Umum)</a>
                         </h3>
-                        <p>Kapasitas</p>
-                        <p class="font-medium text-sm text-gray-500 mb-1">Harga termasuk Driver</p>
-                        <p><span class="icon-[material-symbols--person-add-rounded]" style="color: #FF7417;"></span> <iconify-icon icon="material-symbols:person-add-rounded"  style="color: #FF7417"></iconify-icon></p>
-                        <p class="font-medium text-sm text-black mb-1  flex justify-between">Status : Available <span class="font-bold">Rp 500.000</span></p>
-                        <p class=" text-sm text-gray-500 mb-1 float-right "> unit / Hari</p>
+                        <div class="flex mb-2"> 
+                            <svg class="w-6 h-6 text-primary" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
+                            <path fill-rule="evenodd" d="M9 4a4 4 0 1 0 0 8 4 4 0 0 0 0-8Zm-2 9a4 4 0 0 0-4 4v1a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2v-1a4 4 0 0 0-4-4H7Zm8-1a1 1 0 0 1 1-1h1v-1a1 1 0 1 1 2 0v1h1a1 1 0 1 1 0 2h-1v1a1 1 0 1 1-2 0v-1h-1a1 1 0 0 1-1-1Z" clip-rule="evenodd"/>
+                            </svg>
+                            <p class="text-sm font-semibold ml-1">2</p>
+                            <sup class="text-xs text-gray-500"> Orang / kamar </sup>
+                        </div>
+                        <div class="flex mb-2">
+                            <img src="{{ ('img/penginapan/bensin.png') }}" alt="bbm" class="w-5 h-5">
+                            <p class="text-sm font-semibold ml-2">Wifi </p>
+                            <sup class="text-xs text-gray-500"> Free </sup>
+                        </div>
+                        <p class="text-xs text-gray-500 mb-1  flex justify-between">*pembayaran tanpa DP  <span class=" text-black font-bold text-base">Rp 125.000</span></p>
+                        <p class=" text-sm text-gray-500 mb-1 float-right "> orang / Hari</p>
                         <button class=" h-8 w-full bg-primary rounded-lg hover:opacity-50"><a href="#" class=" text-sm   text-white    " >Sewa</a></button>
                     </div>
                 </div>
@@ -234,16 +335,11 @@
         <div class="w-full px-4 ">
           <div class="max-w-xl mx-auto text-center mb-12">
             <h4 class="font-semibold text-2xl text-primary mb-2">PROMO</h4>
-            <!-- <h2 class="font-bold text-black text-xl mb-4">Promo Terbaru</h2> -->
-            <!-- <p class="font-medium text-medium">
-              Lorem ipsum dolor sit amet consectetur adipisicing elit.
-              Minus quas corrupti ducimus, explicabo possimus tenetur tempore repellat obcaecati aperiam voluptatibus.
-            </p> -->
           </div>
         </div>
         <div id="buttonpromo" class=" relative  mb-4">
           <div onclick="toggleDropdownPromo()" 
-            class="text-sm flex cursor-pointer rounded justify-between bg-white   px-4 ml-36  p-2 h-10 w-[185px] ">Semua kategori 
+            class="text-sm flex cursor-pointer rounded justify-between bg-white  mx-auto px-4 xl:ml-36  p-2 h-10 w-[185px] ">Semua kategori 
             <svg class="w-5 " xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
             <path stroke-linecap="round" stroke-linejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5" />
             </svg>
@@ -266,24 +362,40 @@
         <div class="w-full px-4 flex flex-wrap justify-center xl:w-10/12 xl:mx-auto">
           <div class="mb-6 p-4 pb-28 bg-softblue w-full rounded-lg relative">
             <div class="flex mt-2 mb-3">
-              <img src="{{ ('img/landingpage/sale.png') }}" alt="logo sale" class="h-20 w-15 ">
-                <div class="ml-3 items-center">
-                  <h3 class="font-semibold text-xl text-black ">Dapatkan Voucher Diskon hingga jutaan rupiah ! </h3>
-                  <p class="font-medium text-base text-gray-500">Lorem ipsum dolor sit amet consectetur adipisicing elit. Quod, quasi!</p>
-                    <div class=" sm: ">
-                    <img src="{{ ('img/layanan/marching band.jpg') }}" alt=""  class="absolute rounded-full shadow-md overflow-hidden h-15 w-40 right-8 top-2 "/>
-                    <img src="{{ ('img/layanan/marching band.jpg') }}" alt=""  class="relative rounded-full shadow-md overflow-hidden h-15 w-40 right-8 bottom-2 "/>
-                    <img src="{{ ('img/layanan/marching band.jpg') }}" alt=""  class="absolute rounded-3xl  h-56 w-80 right-40 top-0 "/>
-                    </div>
+              <img src="{{ ('img/landingpage/sale.png') }}" alt="logo sale" class="h-20 w-15 mb-4 sm:mb-0 sm:mr-3 ">
+                <div class="ml-3 flex flex-col justify-center ">
+                  <div>
+                    <h3 class="font-semibold text-xl text-black ">Dapatkan Voucher Diskon hingga jutaan rupiah ! </h3>
+                    <p class="font-medium text-base text-gray-500">Lorem ipsum dolor sit amet consectetur adipisicing elit. Quod, quasi!</p>
+                  </div>
+                    <!-- <div class="  justify-center items-center ml-auto mt-4  ">
+                    <img src="{{ ('img/layanan/marching band.jpg') }}" alt=""  class=" absolute rounded-full  shadow-md overflow-hidden xl:right-4 xl:h-15 xl:w-40 sm:w-20 sm:top-4 sm:left-72 mt-20 "/>
+                    <img src="{{ ('img/layanan/marching band.jpg') }}" alt=""  class="absolute rounded-full shadow-md overflow-hidden  xl:right-4 xl:h-15 xl:w-40 sm:w-20 sm:bottom-8 left-72 mt-10"/>
+                    <img src="{{ ('img/layanan/marching band.jpg') }}" alt=""  class="absolute rounded-3xl  xl:h-48 xl:w-80 w-40  sm:right-40 left-32 mt-20 top-4 "/>
+                    </div> -->
                 </div>
             </div>
           </div>
-          <div class="mb-10 p-4 bg-softblue w-full rounded-lg relative">
+          <div class="mb-6 p-4 pb-28 bg-softblue w-full rounded-lg relative grid xl:grid-cols-2 grid-cols-1 xl:grid-rows-1 grid-rows-2 ">
+            <div class="flex">
+            <img src="{{ ('img/landingpage/sale.png') }}" alt="logo sale" class="h-20 w-15 mb-4 sm:mb-0 sm:mr-3 ">
+                    <div>
+                    <h3 class="font-semibold text-xl text-black ">Dapatkan Voucher Diskon hingga jutaan rupiah ! </h3>
+                    <p class="font-medium text-base text-gray-500">Lorem ipsum dolor sit amet consectetur adipisicing elit. Quod, quasi!</p>
+                    </div>
+            </div>
+            <div class ="justify-center sm:flex items-center  ml-auto mt-4" >
+              <img src="{{ ('img/layanan/marching band.jpg') }}" alt=""  class="absolute rounded-3xl  xl:h-48 xl:w-80 w-40  sm:right-40 top-2 "/>
+              <img src="{{ ('img/layanan/marching band.jpg') }}" alt=""  class="absolute rounded-full shadow-md overflow-hidden  xl:right-4 xl:h-15 xl:w-40 sm:w-20 mt-2 "/>
+            <img src="{{ ('img/layanan/marching band.jpg') }}" alt=""  class=" absolute rounded-full  shadow-md overflow-hidden xl:right-4 xl:h-15 xl:w-40 sm:w-20 sm:top-4 mt-20 "/>
+            </div>
+          </div>
+          <div class="xl:mb-10 p-4 bg-softblue w-full rounded-lg relative pb-12">
             <div class="flex  mt-2 mb-3">
               <img src="{{ ('img/landingpage/sale.png') }}" alt="logo sale" class="h-20 w-15">
               <div class="ml-3">
                 <h3 class="font-semibold text-xl text-black ">Voucher Idul Fitri 30% </h3>
-                <p class= "absolute  right-8 top-8 bg-plaster rounded-lg h-6 w-60 text-center mt-1  ">  2024SEWA </p>
+                <p class= "absolute  right-8 xl:top-8 bg-plaster rounded-lg h-6 w-60 text-center mt-1 bottom-4 ">  2024SEWA </p>
                 <p class=" text-base">Lorem ipsum dolor sit amet consectetur adipisicing elit. Quod, quasi!</p>
                 <p class="text-sm">* batas akhir promo 2 Mei 2024</p>
               </div>
@@ -364,7 +476,7 @@
             <div class="pb-4 pt-4">
               <h2 id="accordion-color-heading-2">
                 <button type="button" class="flex items-center justify-between w-full p-5 font-medium rtl:text-right text-gray-500 border  border-grecianblue focus:ring-4 focus:ring-blue-200 dark:focus:ring-blue-800 dark:border-gray-700 dark:text-gray-400 hover:bg-blue-100 dark:hover:bg-gray-800 gap-3" data-accordion-target="#accordion-color-body-2" aria-expanded="false" aria-controls="accordion-color-body-2">
-                <span class="flex gap-2 " > <img width="23" height="23" class="lg:h-15 lg:w-15" src="https://img.icons8.com/ios/50/help--v2.png" alt="help--v2"/> Bagaimana saya melakukan sewa transportasi dari lokasi yang berbeda?</span>
+                <span class="flex gap-2 " > <img width="23" height="23"  class="p-" src="https://img.icons8.com/ios/50/help--v2.png" alt="help--v2"/> Bagaimana saya melakukan sewa transportasi dari lokasi yang berbeda?</span>
                   <svg data-accordion-icon class="w-3 h-3 rotate-180 shrink-0" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
                     <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5 5 1 1 5"/>
                   </svg>
