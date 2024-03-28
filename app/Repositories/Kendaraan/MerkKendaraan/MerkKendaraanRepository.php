@@ -38,4 +38,19 @@ interface MerkKendaraanRepository
      * @return Mixed
      */
     public function delete($id);
+
+    /**
+     * Order By ? Data Merk Kendaraan
+     * @param column
+     * @param order
+     * @return array
+     */
+    public function orderBy($column, $order);
+
+    /**
+     * Search Data Merk Kendaraan
+     * @param search
+     * @return array
+     */
+    public function search($search);
 }

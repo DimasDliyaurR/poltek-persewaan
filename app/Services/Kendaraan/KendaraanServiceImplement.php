@@ -201,4 +201,38 @@ class KendaraanServiceImplement implements KendaraanService
 
         return $data;
     }
+
+    /**
+     * Order By Data Merk Kendaraan
+     * @param column
+     * @param order
+     * @return array
+     * @throws InvalidArgumentException Jika terdapat kesalahan pada Exception 
+     */
+    public function orderByMerkKendaraan($column, $order)
+    {
+        try {
+            $data = $this->merkKendaraanRepository->orderBy($column, $order);
+        } catch (\Exception $th) {
+            throw new InvalidArgumentException();
+        }
+
+        return $data;
+    }
+
+    /**
+     * Search Data Merk Kendaraan
+     * @param data
+     * @return array
+     */
+    public function searchMerkKendaraan($data)
+    {
+        try {
+            $data = $this->merkKendaraanRepository->search($data);
+        } catch (\Exception $th) {
+            throw new InvalidArgumentException();
+        }
+
+        return $data;
+    }
 }

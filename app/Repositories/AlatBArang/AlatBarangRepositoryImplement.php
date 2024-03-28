@@ -32,7 +32,7 @@ class AlatBarangRepositoryImplement implements AlatBarangRepository
      */
     public function getAll()
     {
-        $alatBarangData = $this->alatBarang::paginate(5);
+        $alatBarangData = $this->alatBarang::latest()->paginate(5);
 
         return $alatBarangData;
     }

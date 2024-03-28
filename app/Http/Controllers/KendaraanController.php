@@ -10,6 +10,7 @@ use InvalidArgumentException;
 use Illuminate\Support\Facades\Storage;
 use App\Http\Requests\RequestMerkKendaraan;
 use App\Http\Requests\RequestMerkKendaraanUpdate;
+use App\Models\MerkKendaraan;
 use App\Services\Kendaraan\KendaraanService;
 
 class KendaraanController extends Controller
@@ -25,15 +26,28 @@ class KendaraanController extends Controller
      * Merk Kendaraan
      * Index
      */
-    public function indexMerkKendaraan()
+    public function indexMerkKendaraan(Request $request)
     {
         $kendaraans = $this->kendaraanService->getAllDataMerkKendaraan();
+        $properties = [];
 
-        return view("admin.kendaraan.merkKendaraan.lihat", [
+        if (request("hasSearch") == "search") {
+            $search = $request["search"];
+
+            $kendaraans = $this->kendaraanService->searchMerkKendaraan($search);
+
+            $properties += [
+                "search" => $search
+            ];
+        }
+
+        $properties += [
             "title" => "Merk Kendaraan",
             "action" => "kendaraan",
             "merkKendaraans" => $kendaraans,
-        ]);
+        ];
+
+        return view("admin.kendaraan.merkKendaraan.lihat", $properties);
     }
 
     /**
@@ -159,18 +173,15 @@ class KendaraanController extends Controller
      */
     public function indexKendaraan()
     {
-        try {
-            $kendaraans = $this->kendaraanService->getAllDataKendaraanWithMerkKendaraan();
-            $merkKendaraans = $this->kendaraanService->getAllDataMerkKendaraan();
-        } catch (\Exception $th) {
-            throw new InvalidArgumentException();
-        }
+        $kendaraans = $this->kendaraanService->getAllDataKendaraanWithMerkKendaraan();
+
+        $merkKendaraans = $this->kendaraanService->getAllDataMerkKendaraan();
 
         return view("admin.kendaraan.lihat", [
             "title" => "Kendaraan",
             "action" => "kendaraan",
             "kendaraans" => $kendaraans,
-            "merkKendaraans" => $merkKendaraans,
+            "merkKendaraans" => $merkKendaraans->get(),
         ]);
     }
 

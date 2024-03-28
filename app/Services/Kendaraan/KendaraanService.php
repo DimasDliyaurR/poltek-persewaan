@@ -88,4 +88,20 @@ interface KendaraanService
      * @throws InvalidArgumentException Jika terdapat kesalahan pada Exception 
      */
     public function destroyMerkKendaraan($id);
+
+    /**
+     * Order By Data Merk Kendaraan
+     * @param column
+     * @param order
+     * @return array
+     * @throws InvalidArgumentException Jika terdapat kesalahan pada Exception 
+     */
+    public function orderByMerkKendaraan($column, $order);
+
+    /**
+     * Search Data Merk Kendaraan
+     * @param data
+     * @return array
+     */
+    public function searchMerkKendaraan($data);
 }

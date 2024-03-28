@@ -7,6 +7,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>{{ $title }} | PERSEWAAN ASET</title>
     @vite('resources/css/app.css')
+    @livewireStyles
 </head>
 
 <body class="dark:bg-gray-800">
@@ -37,6 +38,7 @@
     <script src="{{ asset('js/feature/editor.js') }}"></script>
     {{-- boxicons --}}
     <script src="https://unpkg.com/boxicons@2.1.4/dist/boxicons.js"></script>
+    @livewireScripts
 </body>
 
 </html>
