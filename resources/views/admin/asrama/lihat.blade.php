@@ -75,7 +75,7 @@
                             </td>
                             </th>
                             <td class="px-6 py-4 dark:text-white">
-                                {{ $row->a_tarif }}
+                                Rp. {{ number_format($row->a_tarif, 0, ',', '.') }}
                             </td>
                             <td class="px-6 py-4 text-right">
                                 <a href="{{ asset('admin/detailFasilitasAsrama/' . $row->id) }}"

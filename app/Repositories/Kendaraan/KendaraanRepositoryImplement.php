@@ -30,12 +30,11 @@ class KendaraanRepositoryImplement implements KendaraanRepository
      */
     public function getAllDataWithMerkKendaraan()
     {
-        return $this->kendaraan::with("merkKendaraan")->paginate(5);
+        return $this->kendaraan::with("merkKendaraan");
     }
 
     /**
      * Get All Data Kendaraan
-     * @param
      * @return Mixed
      */
     public function getAll()
@@ -86,10 +85,11 @@ class KendaraanRepositoryImplement implements KendaraanRepository
      */
     public function search($search)
     {
-        return $this->kendaraan::with("merkKendaraan")->where(function ($q) use ($search) {
-            $q->where('k_plat', "LIKE", "%$search%")
-                ->orWhere('mk_seri', "LIKE", "%$search%")
-                ->orWhere('mk_tarif', "LIKE", "%$search%");
+        return $this->kendaraan::join("merk_kendaraans", "kendaraans.merk_kendaraan_id", "=", "merk_kendaraans.id")->where(function ($q) use ($search) {
+            $q->where('kendaraans.k_plat', "LIKE", "%$search%")
+                ->orWhere('merk_kendaraans.mk_seri', "LIKE", "%$search%")
+                ->orWhere('merk_kendaraans.mk_merk', "LIKE", "%$search%")
+                ->orWhere('merk_kendaraans.mk_tarif', "LIKE", "%$search%");
         });
     }
 }

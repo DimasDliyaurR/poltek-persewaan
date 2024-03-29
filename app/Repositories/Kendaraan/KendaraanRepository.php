@@ -40,4 +40,11 @@ interface KendaraanRepository
      * @return Mixed
      */
     public function delete($id);
+
+    /**
+     * Search Data Kendaraan
+     * @param search
+     * @return array
+     */
+    public function search($search);
 }

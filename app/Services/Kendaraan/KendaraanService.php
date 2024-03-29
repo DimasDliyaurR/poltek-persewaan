@@ -104,4 +104,11 @@ interface KendaraanService
      * @return array
      */
     public function searchMerkKendaraan($data);
+
+    /**
+     * Search Data Merk Kendaraan
+     * @param data
+     * @return array
+     */
+    public function searchKendaraan($data);
 }

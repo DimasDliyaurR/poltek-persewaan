@@ -12,31 +12,26 @@ class MerkKendaraanTable extends Component
     use WithPagination, WithoutUrlPagination;
     public $search = "";
 
-    public $order = "mk";
-    public $orderAction = 0;
+    public $order = ""; // This Column
+    public $orderAction = 0; // Action untuk menentukan ASC atau Descending
 
     public function render(KendaraanService $kendaraanService)
     {
-        if ($this->search != "") {
-            $merkKendaraans = $kendaraanService->searchMerkKendaraan($this->search);
-        } else {
-            $merkKendaraans = $kendaraanService->getAllDataMerkKendaraan();
-        }
+        $merkKendaraans = $kendaraanService->getAllDataMerkKendaraan(); // Inisialisasi Semua Data Merk Kendaraan
+
+        if ($this->search != "") $merkKendaraans = $kendaraanService->searchMerkKendaraan($this->search); // Search 
 
         $this->orderAction = $this->orderAction == 2 ? -1 : $this->orderAction; // Reset Order Action Max 2
 
         switch ($this->order) {
-            case 'mk_merek':
+            case 'mk_merk':
                 $this->orderAction += 1;
                 switch ($this->orderAction) {
                     case 1:
-                        $merkKendaraans = $merkKendaraans->orderBy("mk_merk", "asc");
+                        $sorted = "asc";
                         break;
                     case 2:
-                        $merkKendaraans = $merkKendaraans->orderBy("mk_merk", "desc");
-                        break;
-                    default:
-                        $merkKendaraans = $kendaraanService->getAllDataMerkKendaraan();
+                        $sorted = "desc";
                         break;
                 }
                 break;
@@ -44,19 +39,18 @@ class MerkKendaraanTable extends Component
                 $this->orderAction += 1;
                 switch ($this->orderAction) {
                     case 1:
-                        $merkKendaraans = $merkKendaraans->orderBy("mk_seri", "asc");
+                        $sorted = "asc";
                         break;
                     case 2:
-                        $merkKendaraans = $merkKendaraans->orderBy("mk_seri", "desc");
-                        break;
-                    default:
-                        $merkKendaraans = $kendaraanService->getAllDataMerkKendaraan();
+                        $sorted = "desc";
                         break;
                 }
                 break;
-                break;
         }
-        // $merkKendaraans = $this->merek ? $merkKendaraans->orderBy("mk_merk", "asc") : $merkKendaraans->orderBy("mk_merk", "desc");
+
+        $this->order = $this->orderAction != 0 ? $this->order : "";
+
+        if ($this->orderAction != 0) $merkKendaraans = $merkKendaraans->orderBy($this->order, $sorted);
 
         return view('livewire.merk-kendaraan-table', [
             "merkKendaraans" => $merkKendaraans->paginate(5),

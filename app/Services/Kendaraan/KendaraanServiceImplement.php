@@ -235,4 +235,20 @@ class KendaraanServiceImplement implements KendaraanService
 
         return $data;
     }
+
+    /**
+     * Search Data Merk Kendaraan
+     * @param data
+     * @return array
+     */
+    public function searchKendaraan($data)
+    {
+        try {
+            $data = $this->kendaraanRepository->search($data);
+        } catch (\Exception $th) {
+            throw new InvalidArgumentException();
+        }
+
+        return $data;
+    }
 }
