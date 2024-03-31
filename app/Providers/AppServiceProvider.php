@@ -53,6 +53,8 @@ use App\Repositories\Kendaraan\DetailTransaksiKendaraan\DetailTransaksiKendaraan
 use App\Repositories\GedungLap\DetailTransaksiPropertyGedung\DetailTransaksiPropertyGedungRepository;
 use App\Repositories\AlatBarang\DetailTransaksiAlatBarang\DetailTransaksiAlatBarangRepositoryImplement;
 use App\Repositories\GedungLap\DetailTransaksiPropertyGedung\DetailTransaksiPropertyGedungRepositoryImplement;
+use app\Repositories\Promo\PromoRepository;
+use app\Repositories\Promo\PromoRepositoryImplement;
 use App\Services\AlatBarang\AlatBarangService;
 use App\Services\AlatBarang\AlatBarangServiceImplement;
 use App\Services\Asrama\AsramaService;
@@ -114,6 +116,11 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(TransaksiGedungRepository::class, TransaksiGedungRepositoryImplement::class);
         $this->app->bind(DetailTransaksiPropertyGedungRepository::class, DetailTransaksiPropertyGedungRepositoryImplement::class);
         $this->app->bind(DetailTransaksiGedungRepository::class, DetailTransaksiGedungRepositoryImplement::class);
+
+        /**
+         * Bind Promo Repository
+         */
+        $this->app->bind(PromoRepository::class, PromoRepositoryImplement::class);
 
         /**
          * Bind Kendaraan Service

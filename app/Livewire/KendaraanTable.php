@@ -4,6 +4,7 @@ namespace App\Livewire;
 
 use App\Models\Kendaraan;
 use App\Services\Kendaraan\KendaraanService;
+use Livewire\Attributes\Locked;
 use Livewire\Component;
 use Livewire\WithoutUrlPagination;
 use Livewire\WithPagination;
@@ -11,17 +12,30 @@ use Livewire\WithPagination;
 class KendaraanTable extends Component
 {
     use WithPagination, WithoutUrlPagination;
-
-    public $search = "";
+    public $searchInput = "";
+    public $searchAction = [0 => ""];
 
     public $order = "";
     public $orderAction = 0;
 
+    public function searchTrigger()
+    {
+        // if ($this->searchInput != "") {
+        //     $this->searchAction["search"] = $this->searchInput;
+        // } else {
+        //     $this->searchAction = "";
+        // }
+
+        $this->searchAction[0] = $this->searchInput != "" ? $this->searchInput : "";
+        // dd($this->searchAction[0]);
+    }
+
     public function render(KendaraanService $kendaraanService)
     {
-        $kendaraans = $kendaraanService->getAllDataKendaraan()->join("merk_kendaraans", "merk_kendaraans.id", "=", "kendaraans.merk_kendaraan_id"); // Inisialisasi Semua Data Kendaraan
+        // if (!isset($this->searchAction[0])) $kendaraans = $kendaraanService->getAllDataKendaraanWithMerkKendaraan()->join("merk_kendaraans", "merk_kendaraans.id", "=", "kendaraans.merk_kendaraan_id"); // Inisialisasi Semua Data Kendaraan
+        if (($this->searchAction[0] == "")) $kendaraans = $kendaraanService->getAllDataKendaraanWithMerkKendaraan()->join("merk_kendaraans", "merk_kendaraans.id", "=", "kendaraans.merk_kendaraan_id"); // Inisialisasi Semua Data Kendaraan
 
-        if ($this->search != "") $kendaraans = $kendaraanService->searchKendaraan($this->search); // Search 
+        if ($this->searchAction[0] != "") $kendaraans = $kendaraanService->searchKendaraan($this->searchAction[0]); // Search
 
         $this->orderAction = $this->orderAction == 2 ? -1 : $this->orderAction; // Reset Order Action Max 2
 

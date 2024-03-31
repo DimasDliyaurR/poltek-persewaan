@@ -32,7 +32,7 @@ class AsramaRepositoryImplement implements AsramaRepository
      */
     public function getAll()
     {
-        $asramaData = $this->asrama->paginate(5);
+        $asramaData = $this->asrama;
 
         return $asramaData;
     }
@@ -71,6 +71,21 @@ class AsramaRepositoryImplement implements AsramaRepository
     {
         $asramaData = $this->asrama->findOrFail($id);
         $asramaData->delete();
+
+        return $asramaData;
+    }
+
+    /**
+     * Search data dari data asrama
+     * @param search
+     * @return array
+     */
+    public function search($search)
+    {
+        $asramaData = $this->asrama::where(function ($q) use ($search) {
+            $q->where("a_nama_ruangan", "LIKE", "%$search%")
+                ->orWhere("a_tarif", "LIKE", "%$search%");
+        });
 
         return $asramaData;
     }

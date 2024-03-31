@@ -123,4 +123,13 @@ interface AsramaService
      * @throws InvalidArgumentException Jika terdapat kesalahan Exception
      */
     public function IsExistFasilitasTransaksi($dataFasilitasId, $id);
+
+    /**
+     * Delete Data Detail Fasilitas Asrama
+     * @param id
+     * @param dataFasilitasId
+     * @return boolean
+     * @throws InvalidArgumentException Jika terdapat kesalahan Exception
+     */
+    public function searchAsrama($data);
 }

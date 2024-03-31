@@ -49,4 +49,9 @@ class AlatBarang extends Model
     {
         return $this->belongsToMany(TransaksiAlatBarang::class);
     }
+
+    public function detailKategoriPromo(): HasMany
+    {
+        return $this->hasMany(DetailKategoriPromo::class);
+    }
 }

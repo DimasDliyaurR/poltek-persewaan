@@ -275,4 +275,21 @@ class AsramaServiceImplement implements AsramaService
 
         return $data;
     }
+
+    /**
+     * Search Data Detail Fasilitas Asrama
+     * @param data
+     * @return array
+     * @throws InvalidArgumentException Jika terdapat kesalahan Exception
+     */
+    public function searchAsrama($data)
+    {
+        try {
+            $data = $this->asramaRepository->search($data);
+        } catch (\Throwable $th) {
+            throw new InvalidArgumentException();
+        }
+
+        return $data;
+    }
 }

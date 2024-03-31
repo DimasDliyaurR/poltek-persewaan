@@ -53,7 +53,7 @@ class AlatBarangServiceImplement implements AlatBarangService
     }
 
     /**
-     * Get Data Foto Alat Barang By Id
+     * Mendapatkan semua data pada tabel Foto Alat Barang By Id
      * @param id integer
      * @return array
      * @throws InvalidArgumentException Jika terdapat Exception
