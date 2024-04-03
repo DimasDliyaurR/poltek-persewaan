@@ -28,6 +28,13 @@ interface KendaraanService
     public function getAllDataKendaraan();
 
     /**
+     * Get All Data Kendaraan
+     * @return array
+     * @throws InvalidArgumentException Jika ada error pada argument
+     */
+    public function getAllDataKendaraanWithMerkKendaraan();
+
+    /**
      * Get All Data Merk Kendaraan
      * @return array
      * @throws InvalidArgumentException Jika ada error pada argument

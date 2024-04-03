@@ -27,6 +27,7 @@ class AlatBarangFactory extends Factory
             'a_tarif' => $this->faker->word(),
             'a_status' => $this->faker->randomElement(["tersedia","tidak"]),
             'a_satuan' => $this->faker->word(),
+            'a_slug' => $this->faker->word(),
         ];
     }
 }

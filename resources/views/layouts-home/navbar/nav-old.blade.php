@@ -17,7 +17,7 @@
         <div class="flex items-center justify-between relative">
           <div class="px-4 flex items-center">
             <!-- <img src="./dist/img/Logo Poltekbang.png" width="50" alt="" /> -->
-            <img src="{{ ('img/LogoPoltekbang.png') }}" class="h-11 w-15" alt="Logo ">  
+            <img src="{{ asset('img/LogoPoltekbang.png') }}" class="h-11 w-15" alt="Logo ">  
             <div class="ml-1">
             <a href="/index #home" class="font-bold text-lg text-black">
             SEWA ASET<br>
@@ -147,7 +147,7 @@
           <div class="lg:col-span-5 col-span-12 " >
             <div class="flex">
               <a href="/">
-              <img src="{{ ('img/LogoPoltekbang.png') }}" class="h-11 w-15 " alt="Logo ">  
+              <img src="{{ asset('img/LogoPoltekbang.png') }}" class="h-11 w-15 " alt="Logo ">  
               </a>
               <p class="font-bold text-4xl ">SEWA ASET  <br>
               <span class="text-xl">POLITEKNIK PENERBANGAN SURABAYA</span>

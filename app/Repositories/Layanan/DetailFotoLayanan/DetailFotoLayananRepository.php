@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Layanan\DetailFotoLayanan;
+namespace App\Repositories\Layanan\DetailFotoLayanan;
 
 interface DetailFotoLayananRepository
 {
@@ -10,6 +10,13 @@ interface DetailFotoLayananRepository
      * @return Mixed
      */
     public function getDataById($id);
+
+    /**
+     *  Get Data By Layanan id
+     * @param Id
+     * @return Mixed
+     */
+    public function getDataByLayananId($id);
 
     /**
      * Get All Data layanan

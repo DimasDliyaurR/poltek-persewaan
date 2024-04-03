@@ -23,6 +23,7 @@ class ProfileFactory extends Factory
     {
         return [
             'user_id' => User::factory(),
+            'slug' => $this->faker->slug(),
             'nama_lengkap' => $this->faker->word(),
             'foto_ktp' => $this->faker->word(),
             'alamat' => $this->faker->text(),

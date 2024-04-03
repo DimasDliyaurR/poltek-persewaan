@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Layanan\DetailFotoLayanan;
+namespace App\Repositories\Layanan\DetailFotoLayanan;
 
-use App\Layanan\DetailFotoLayanan\DetailFotoLayananRepository;
+use App\Repositories\Layanan\DetailFotoLayanan\DetailFotoLayananRepository;
 use App\Models\DetailFotoLayanan;
 
 class DetailFotoLayananRepositoryImplement implements DetailFotoLayananRepository
@@ -22,6 +22,16 @@ class DetailFotoLayananRepositoryImplement implements DetailFotoLayananRepositor
     public function getDataById($id)
     {
         return $this->layanan::whereId($id)->first();
+    }
+
+    /**
+     *  Get Data By Layanan id
+     * @param Id
+     * @return Mixed
+     */
+    public function getDataByLayananId($id)
+    {
+        return $this->layanan::whereLayananId($id)->get();
     }
 
     /**
@@ -52,7 +62,7 @@ class DetailFotoLayananRepositoryImplement implements DetailFotoLayananRepositor
      */
     public function update($data, $id)
     {
-        $dataLayanan = $this->layanan::finOrFail($id);
+        $dataLayanan = $this->layanan::findOrFail($id);
         $dataLayanan->update($data);
         return $dataLayanan;
     }

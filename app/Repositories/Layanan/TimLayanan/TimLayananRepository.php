@@ -12,6 +12,13 @@ interface TimLayananRepository
     public function getDataById($id);
 
     /**
+     * Get Data Tim Layanan By Asrama Id
+     * @param id
+     * @return Mixed
+     */
+    public function getDataByLayananId($id);
+
+    /**
      * Get All Data Tim Layanan
      * @return Mixed
      */

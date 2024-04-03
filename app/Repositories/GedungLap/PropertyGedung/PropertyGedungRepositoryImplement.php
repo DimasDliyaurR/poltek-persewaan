@@ -32,7 +32,7 @@ class PropertyGedungRepositoryImplement implements PropertyGedungRepository
      */
     public function getAll()
     {
-        $gedungData = $this->gedung::all();
+        $gedungData = $this->gedung::paginate(5);
 
         return $gedungData;
     }
@@ -56,7 +56,7 @@ class PropertyGedungRepositoryImplement implements PropertyGedungRepository
      */
     public function update($data, $id)
     {
-        $gedungData = $this->gedung::findOrFail();
+        $gedungData = $this->gedung::findOrFail($id);
         $gedungData->update($data);
 
         return $gedungData;

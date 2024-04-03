@@ -21,6 +21,14 @@ interface LayananService
     public function getDataDetailFotoLayananById($id);
 
     /**
+     * Get Data Detail Foto Layanan By Layanan Id
+     * @param id integer
+     * @return array
+     * @throws InvalidArgumentException Jika terdapat Exception
+     */
+    public function getDataDetailFotoLayananByLayananId($id);
+
+    /**
      * Get Data Detail Foto Layanan By Id
      * @param id integer
      * @return array
@@ -35,6 +43,14 @@ interface LayananService
      * @throws InvalidArgumentException Jika terdapat Exception
      */
     public function getDataVideoLayananById($id);
+
+    /**
+     * Get Data Detail Foto Layanan By Layanan Id
+     * @param id integer
+     * @return array
+     * @throws InvalidArgumentException Jika terdapat Exception
+     */
+    public function getDataVideoLayananByLayananId($id);
 
     /**
      * Get All data Layanan
@@ -56,6 +72,13 @@ interface LayananService
      * @throws InvalidArgumentException Jika terdapat Exception
      */
     public function getAllTimLayanan();
+
+    /**
+     * Get All data Tim Layanan By Layanan Id
+     * @return array
+     * @throws InvalidArgumentException Jika terdapat Exception
+     */
+    public function getAllTimLayananByLayananId($id);
 
     /**
      * Get All data Video Layanan

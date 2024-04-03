@@ -12,6 +12,13 @@ interface FotoAlatBarangRepository
     public function getDataById($id);
 
     /**
+     *  Get Data By Alat Barang id
+     * @param Id
+     * @return Mixed
+     */
+    public function getDataByAlatBarangId($id);
+
+    /**
      * Get All data Alat Barang
      * @return Array
      */

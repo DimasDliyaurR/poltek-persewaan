@@ -19,7 +19,9 @@ class Kendaraan extends Model
     protected $fillable = [
         'merk_kendaraan_id',
         'k_plat',
+        'k_nama',
         'k_status',
+        'k_slug',
     ];
 
     /**

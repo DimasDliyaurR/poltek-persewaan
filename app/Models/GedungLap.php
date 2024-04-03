@@ -23,6 +23,7 @@ class GedungLap extends Model
         'gl_satuan_gedung',
         'gl_kapasitas_gedung',
         'gl_ukuran_gedung',
+        'gl_slug',
     ];
 
     /**

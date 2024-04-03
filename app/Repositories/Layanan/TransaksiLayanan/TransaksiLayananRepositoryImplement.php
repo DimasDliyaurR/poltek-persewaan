@@ -52,7 +52,7 @@ class TransaksiLayananRepositoryImplement implements TransaksiLayananRepository
      */
     public function update($data, $id)
     {
-        $dataLayanan = $this->layanan::finOrFail($id);
+        $dataLayanan = $this->layanan::findOrFail($id);
         $dataLayanan->update($data);
         return $dataLayanan;
     }

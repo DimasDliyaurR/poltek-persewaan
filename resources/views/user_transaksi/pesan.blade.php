@@ -7,25 +7,43 @@
         <div class="relative">
             <h4 class="  font-semibold mb-6 ">Pemesanan Transportasi</h4>
             <form action="">
-                <div class="mb-2 lg">
+                <div class="grid grid-cols-3 mb-2 lg  ">
                     <label for="">Tanggal mulai</label>
-                    <input type="date">
-                    <label for="">Durasi</label>
-                    <input type="dropdown">
+                    <label for="durasi">Durasi</label>
                     <label for="" >Tanggal akhir</label>
-                    <input type="date">
+                    <input type="date" class="shadow-md border">
+                    <select name="durasi" id="durasi">
+                      <optgroup label="Durasi Hari">
+                      <option value="1hari">1 Hari</option>
+                      <option value="1hari">2 Hari</option>
+                      <option value="1hari">3 Hari</option>
+                      <option value="1hari">4 Hari</option>
+                      <option value="1hari">5 Hari</option>
+                      <option value="1hari">6 Hari</option>
+                      <option value="1hari">7 Hari</option>
+                      </optgroup>
+                      <optgroup label="Durasi Bulan">
+                        <option value="1bulan">1 Bulan</option>
+                      </optgroup>
+                    </select>
+                    
+                    <input type="date" class="shadow-md border">
                 </div>
-                <div>
+                <div class="grid grid-cols-2">
                     <label for="penjemputan">Lokasi Penjemputan</label><br>
                     <input id="penjemputan" type="text" class="shadow-md border-gray-100">
                 </div>
-                <div>
-                <br><label for="penjemputan">Kode Voucher</label>
-                <br><input id="penjemputan" placeholder="2023VOUCHER" type="text" class="shadow-md border-gray-100">
+                <div class="mb-2">
+                <br><label for="voucher">Kode Voucher</label>
+                <br><input id="voucher" placeholder="2023VOUCHER" type="text" class="shadow-md border-gray-100">
                 </div>
-                <div>
-                <br><label for="penjemputan">Metode Pembayaran</label>
-                <br><input id="penjemputan" placeholder="2023VOUCHER" type="text" class="shadow-md border-gray-100 mb-4">
+                <div class="mb-2">
+                <br><label for="metode_bayar">Metode Pembayaran</label><br>
+                  <select name="metode_bayar" id="metode_bayar" class="shadow-md border-gray-100">
+                    <option value="transfer">Tunai</option>
+                    <option value="transfer">Transfer</option>
+                  </select>
+                <!-- <br><input id="penjemputan" placeholder="2023VOUCHER" type="text" class="shadow-md border-gray-100 mb-4"> -->
                 </div>
                 <div>
                 <h4 class="font-semibold mb-2">Rincian Harga</h4>
@@ -43,14 +61,14 @@
                   <h4 class="font-semibold">Harga Total</h4>
                   <p>Rp 2.000.000</p>
                 </div>
-                <button class="  mt-3 h-7 w-full bg-primary rounded-lg hover:opacity-50"><a href="/bayar" class=" text-sm   text-white    " >Lanjutkan Pembayaran</a></button>
+                <button class="mt-5 h-7 w-full bg-primary rounded-lg hover:opacity-50"><a href="/bayar" class=" text-sm   text-white    " >Lanjutkan Pembayaran</a></button>
 
             </form>
                 
         </div>
       </div>
       <!-- ... -->
-      <div class=" grid md:grid-rows-2 md:grid-flow-col  xl:gap-3 gap-8 xl:w-56 p-4   md:gap-52 w-full  ">
+      <div class=" grid md:grid-rows-2 md:grid-flow-col  xl:gap-3 gap-1 xl:w-56 p-4   md:gap-52 w-full  ">
         <div class="bg-white w-56 relative -mt-4 p-3  pb-2 rounded-md" >
         <h4 class="font-semibold mb-2">Executive Bus</h4>
           <img src="{{ ('img/transportasi/bus.jpg') }}" alt="">
@@ -77,7 +95,7 @@
               <sup class="text-xs text-gray-500"> Fuel </sup>
           </div>
         </div>
-        <div class=" top-12 bg-white h-36 w-56 bottom-0  gap-4 p-3 rounded-md xl:mr-20">
+        <div class=" top-12 bg-white h-36 w-56 bottom-0  gap-1 p-3 rounded-md xl:mr-20">
           <h4 class="font-semibold mb-3">Informasi</h4>
           <p class="text-xs text-gray-400 mb-2"> * untuk survey dan pertanyaan lainnya bisa menghubungi whatsapp berikut.</p>
           <div class="flex hover:bg-primary hover:text-white">

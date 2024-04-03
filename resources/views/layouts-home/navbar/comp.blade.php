@@ -6,10 +6,11 @@
     <title>{{ $title }} | PERSEWAAN ASET</title>
     <link  href="https://icons8.com/icon/E4FAF4hA9ugF/help">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.css" rel="stylesheet" />
-    <link rel="stylesheet" href="{{ asset('css/style.css') }}">
-    <link rel="stylesheet" href="{{ asset('js/kategori.js') }}">
+    <!-- <link rel="stylesheet" href="{{ asset('css/style.css') }}">
+    <link rel="stylesheet" href="{{ asset('js/kategori.js') }}"> -->
     @vite('resources/css/app.css')
-    @vite('resources/js/app.js')
+    <!-- @vite('resources/js/app.js') -->
+    @stack('styles')
 
 </head>
 <body >
@@ -22,7 +23,7 @@
           <div class="lg:col-span-5 col-span-12 " >
             <div class="flex">
               <a href="/">
-              <img src="{{ ('img/LogoPoltekbang.png') }}" class="h-11 w-15 " alt="Logo ">  
+              <img src="{{ asset('img/LogoPoltekbang.png') }}" class="h-11 w-15 " alt="Logo ">  
               </a>
               <p class="font-bold text-4xl ">SEWA ASET  <br>
               <span class="text-xl">POLITEKNIK PENERBANGAN SURABAYA</span>
@@ -105,5 +106,7 @@
 @yield('js')
     <!-- <script src="../path/to/flowbite/dist/flowbite.min.js"></script> -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.js"></script>
-</body>
+
+  @stack('scripts')
+  </body>
 </html>

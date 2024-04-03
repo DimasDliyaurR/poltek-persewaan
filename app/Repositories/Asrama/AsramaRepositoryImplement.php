@@ -32,7 +32,7 @@ class AsramaRepositoryImplement implements AsramaRepository
      */
     public function getAll()
     {
-        $asramaData = $this->asrama->all();
+        $asramaData = $this->asrama->paginate(5);
 
         return $asramaData;
     }
@@ -56,7 +56,7 @@ class AsramaRepositoryImplement implements AsramaRepository
      */
     public function update($data, $id)
     {
-        $asramaData = $this->asrama->findOrFail();
+        $asramaData = $this->asrama->findOrFail($id);
         $asramaData->update($data);
 
         return $asramaData;

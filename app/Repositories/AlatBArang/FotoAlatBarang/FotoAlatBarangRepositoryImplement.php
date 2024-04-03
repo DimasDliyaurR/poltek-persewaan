@@ -21,9 +21,19 @@ class FotoAlatBarangRepositoryImplement implements FotoAlatBarangRepository
      */
     public function getDataById($id)
     {
-        $alatBarangData = $this->alatBarang::whereId($id)->get();
+        $alatBarangData = $this->alatBarang::whereId($id)->first();
 
         return $alatBarangData;
+    }
+
+    /**
+     *  Get Data By Alat Barang id
+     * @param Id
+     * @return Mixed
+     */
+    public function getDataByAlatBarangId($id)
+    {
+        return $this->alatBarang::whereAlatBarangId($id)->paginate(5);
     }
 
     /**
@@ -32,7 +42,7 @@ class FotoAlatBarangRepositoryImplement implements FotoAlatBarangRepository
      */
     public function getAll()
     {
-        $alatBarangData = $this->alatBarang::all();
+        $alatBarangData = $this->alatBarang::paginate(5);
 
         return $alatBarangData;
     }

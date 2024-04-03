@@ -24,37 +24,37 @@ created:
     - database/factories/AlatBarangFactory.php
     - database/factories/TransaksiAlatBarangFactory.php
     - database/factories/DetailTransaksiAlatBarangFactory.php
-    - database/migrations/2024_03_13_020821_create_profiles_table.php
-    - database/migrations/2024_03_13_020822_create_merk_kendaraans_table.php
-    - database/migrations/2024_03_13_020823_create_kendaraans_table.php
-    - database/migrations/2024_03_13_020824_create_transaksi_kendaraans_table.php
-    - database/migrations/2024_03_13_020825_create_detail_transaksi_kendaraans_table.php
-    - database/migrations/2024_03_13_020826_create_layanans_table.php
-    - database/migrations/2024_03_13_020827_create_video_layanans_table.php
-    - database/migrations/2024_03_13_020828_create_tim_layanans_table.php
-    - database/migrations/2024_03_13_020829_create_detail_foto_layanans_table.php
-    - database/migrations/2024_03_13_020830_create_transaksi_layanans_table.php
-    - database/migrations/2024_03_13_020831_create_detail_transaksi_layanans_table.php
-    - database/migrations/2024_03_13_020832_create_property_gedungs_table.php
-    - database/migrations/2024_03_13_020833_create_gedung_laps_table.php
-    - database/migrations/2024_03_13_020834_create_transaksi_gedungs_table.php
-    - database/migrations/2024_03_13_020835_create_detail_transaksi_gedungs_table.php
-    - database/migrations/2024_03_13_020836_create_detail_transaksi_property_gedungs_table.php
-    - database/migrations/2024_03_13_020837_create_fasilitas_asramas_table.php
-    - database/migrations/2024_03_13_020838_create_detail_fasilitas_asramas_table.php
-    - database/migrations/2024_03_13_020839_create_asramas_table.php
-    - database/migrations/2024_03_13_020840_create_transaksi_asramas_table.php
-    - database/migrations/2024_03_13_020841_create_detail_transaksi_asramas_table.php
-    - database/migrations/2024_03_13_020842_create_foto_alat_barangs_table.php
-    - database/migrations/2024_03_13_020843_create_alat_barangs_table.php
-    - database/migrations/2024_03_13_020844_create_transaksi_alat_barangs_table.php
-    - database/migrations/2024_03_13_020845_create_detail_transaksi_alat_barangs_table.php
-    - database/migrations/2024_03_13_020846_create_merk_kendaraan_transaksi_kendaraan_table.php
-    - database/migrations/2024_03_13_020847_create_layanan_transaksi_layanan_table.php
-    - database/migrations/2024_03_13_020848_create_layanan_video_layanan_table.php
-    - database/migrations/2024_03_13_020849_create_asrama_fasilitas_asrama_table.php
-    - database/migrations/2024_03_13_020850_create_asrama_transaksi_asrama_table.php
-    - database/migrations/2024_03_13_020851_create_alat_barang_transaksi_alat_barang_table.php
+    - database/migrations/2024_03_21_170950_create_profiles_table.php
+    - database/migrations/2024_03_21_170951_create_merk_kendaraans_table.php
+    - database/migrations/2024_03_21_170952_create_kendaraans_table.php
+    - database/migrations/2024_03_21_170953_create_transaksi_kendaraans_table.php
+    - database/migrations/2024_03_21_170954_create_detail_transaksi_kendaraans_table.php
+    - database/migrations/2024_03_21_170955_create_layanans_table.php
+    - database/migrations/2024_03_21_170956_create_video_layanans_table.php
+    - database/migrations/2024_03_21_170957_create_tim_layanans_table.php
+    - database/migrations/2024_03_21_170958_create_detail_foto_layanans_table.php
+    - database/migrations/2024_03_21_170959_create_transaksi_layanans_table.php
+    - database/migrations/2024_03_21_171000_create_detail_transaksi_layanans_table.php
+    - database/migrations/2024_03_21_171001_create_property_gedungs_table.php
+    - database/migrations/2024_03_21_171002_create_gedung_laps_table.php
+    - database/migrations/2024_03_21_171003_create_transaksi_gedungs_table.php
+    - database/migrations/2024_03_21_171004_create_detail_transaksi_gedungs_table.php
+    - database/migrations/2024_03_21_171005_create_detail_transaksi_property_gedungs_table.php
+    - database/migrations/2024_03_21_171006_create_fasilitas_asramas_table.php
+    - database/migrations/2024_03_21_171007_create_detail_fasilitas_asramas_table.php
+    - database/migrations/2024_03_21_171008_create_asramas_table.php
+    - database/migrations/2024_03_21_171009_create_transaksi_asramas_table.php
+    - database/migrations/2024_03_21_171010_create_detail_transaksi_asramas_table.php
+    - database/migrations/2024_03_21_171011_create_foto_alat_barangs_table.php
+    - database/migrations/2024_03_21_171012_create_alat_barangs_table.php
+    - database/migrations/2024_03_21_171013_create_transaksi_alat_barangs_table.php
+    - database/migrations/2024_03_21_171014_create_detail_transaksi_alat_barangs_table.php
+    - database/migrations/2024_03_21_171015_create_merk_kendaraan_transaksi_kendaraan_table.php
+    - database/migrations/2024_03_21_171016_create_layanan_transaksi_layanan_table.php
+    - database/migrations/2024_03_21_171017_create_layanan_video_layanan_table.php
+    - database/migrations/2024_03_21_171018_create_asrama_fasilitas_asrama_table.php
+    - database/migrations/2024_03_21_171019_create_asrama_transaksi_asrama_table.php
+    - database/migrations/2024_03_21_171020_create_alat_barang_transaksi_alat_barang_table.php
     - app/Models/Profile.php
     - app/Models/MerkKendaraan.php
     - app/Models/Kendaraan.php
@@ -82,28 +82,28 @@ created:
     - app/Models/DetailTransaksiAlatBarang.php
 models:
     User: { name: string, email: string, email_verified_at: 'datetime nullable', password: string, remember_token: 'string:100 nullable' }
-    Profile: { user_id: 'id foreign:users', nama_lengkap: string, foto_ktp: string, alamat: text, no_telp: string }
-    MerkKendaraan: { mk_foto: string, mk_merk: string, mk_seri: string, mk_tarif: 'decimal:8,2', mk_kapasitas: string, mk_deskripsi: text, mk_bahan_bakar: string, relationships: { hasMany: Kendaraan, belongsToMany: Transaksi_kendaraan } }
-    Kendaraan: { merk_kendaraan_id: 'id foreign:merkkendaraans', k_plat: string, k_status: 'enum:tersedia,tidak terpakai', relationships: { hasMany: DetailTransaksiKendaraan, belongsTo: MerkKendaraan } }
+    Profile: { user_id: 'id foreign:users', slug: string, nama_lengkap: string, foto_ktp: string, alamat: text, no_telp: string }
+    MerkKendaraan: { mk_foto: string, mk_merk: string, mk_seri: string, mk_tarif: int, mk_kapasitas: string, mk_deskripsi: text, mk_bahan_bakar: string, mk_slug: string, relationships: { hasMany: Kendaraan, belongsToMany: Transaksi_kendaraan } }
+    Kendaraan: { merk_kendaraan_id: 'id foreign:merkkendaraans', k_plat: string, k_status: 'enum:tersedia,tidak terpakai', k_slug: string, relationships: { hasMany: DetailTransaksiKendaraan, belongsTo: MerkKendaraan } }
     TransaksiKendaraan: { user_id: 'id foreign:users', foto_sim: string, tk_durasi: int, tk_tanggal_sewa: timestamp, tk_tanggal_kembali: dateTime, relationships: { hasMany: Detail_transaksi_kendaraan, belongsToMany: Merk_kendaraan } }
     DetailTransaksiKendaraan: { transaksi_kendaraan_id: 'id foreign:transaksikendaraans', kendaraan_id: 'id foreign:kendaraans', relationships: { belongsTo: 'Kendaraan , TransaksiKendaraan' } }
-    Layanan: { foto_layanan: string, l_nama: string, l_tarif: integer, l_personil: boolean, l_satuan: 'enum:jam,minggu,bulan', l_status: 'enum:tersedia,tidak melayani', relationships: { hasMany: 'TimLayanan , DetailFotoLayanan , DetailTransaksiLayanan , VideoLayanan', belongsToMany: TransaksiLayanan } }
+    Layanan: { foto_layanan: string, l_nama: string, l_tarif: integer, l_personil: boolean, l_satuan: 'enum:jam,minggu,bulan', l_status: 'enum:tersedia,tidak melayani', l_slug: string, relationships: { hasMany: 'TimLayanan , DetailFotoLayanan , DetailTransaksiLayanan , VideoLayanan', belongsToMany: TransaksiLayanan } }
     VideoLayanan: { layanan_id: 'id foreign:layanans', vl_link: string, relationships: { belongsToMany: Layanan } }
-    TimLayanan: { layanan_id: 'id foreign:layanans', tl_nama: string, tl_status: 'enum:tersedia,tidak tersedia', tl_deskripsi: string, relationships: { belongsTo: Layanan } }
+    TimLayanan: { layanan_id: 'id foreign:layanans', tl_nama: string, tl_status: 'enum:tersedia,tidak tersedia', tl_deskripsi: string, tl_slug: string, relationships: { belongsTo: Layanan } }
     DetailFotoLayanan: { layanan_id: 'id foreign:layanans', dfl_foto: string }
     TransaksiLayanan: { user_id: 'id foreign:users', tl_tanggal_sewa: dateTime, tl_tanggal_pelaksanaan: dateTime, tl_durasi_sewa: time, tl_tujuan: string, tl_is_only_property: boolean, relationships: { hasMany: DetailTransaksiLayanan, belongsToMany: Layanan } }
     DetailTransaksiLayanan: { transaksi_layanan_id: 'id foreign:transaksilayanans', layanan_id: 'id foreign:layanans', relationships: { belongsTo: 'Layanan , TransaksiLayanan' } }
     PropertyGedung: { pg_nama: string, pg_status: 'enum:tersedia,tidak tersedia', relationships: { hasMany: DetailTransaksiPropertyGedung } }
-    GedungLap: { gl_foto: string, gl_nama: string, gl_keterangan: string, gl_tarif: string, gl_satuan_gedung: string, gl_kapasitas_gedung: integer, gl_ukuran_gedung: string, relationships: { hasMany: DetailTransaksiGedung } }
+    GedungLap: { gl_foto: string, gl_nama: string, gl_keterangan: string, gl_tarif: string, gl_satuan_gedung: string, gl_kapasitas_gedung: integer, gl_ukuran_gedung: string, gl_slug: string, relationships: { hasMany: DetailTransaksiGedung } }
     TransaksiGedung: { user_id: 'id foreign:users', tg_tujuan: string, tg_tanggal_sewa: dateTime, tg_tanggal_kembali: dateTime, tg_tanggal_pelaksanaan: timestamp, relationships: { hasMany: 'DetailTransaksiPropertyGedung , DetailTransaksiGedung' } }
     DetailTransaksiGedung: { transaksi_gedung_id: 'id foreign:transaksigedungs', gedung_lap_id: 'id foreign:gedunglaps', relationships: { belongsTo: Gedung_lap } }
     DetailTransaksiPropertyGedung: { transaksi_gedung_id: 'id foreign:transaksigedungs', property_gedung_id: 'id foreign:propertygedungs', qty: integer, relationships: { belongsTo: 'TransaksiGedung , PropertyGedung' } }
     FasilitasAsrama: { fa_icon: string, fa_nama: string, fa_status: 'enum:tersedia,tidak tersedia', relationships: { hasMany: DetailFasilitasAsrama, belongsToMany: Asrama } }
     DetailFasilitasAsrama: { asrama_id: 'id foreign:asramas', fasilitas_asrama_id: 'id foreign:fasilitasasramas', relationships: { belongsTo: FasilitasAsrama } }
-    Asrama: { a_nama_ruangan: string, a_foto: string, a_status: 'enum:tersedia,tidak tersedia', a_tarif: 'decimal:10,2', relationships: { hasMany: 'DetailFasilitasAsrama , DetailTransaksiAsrama', belongsToMany: 'FasilitasAsrama , TransaksiAsrama' } }
+    Asrama: { a_nama_ruangan: string, a_foto: string, a_slug: string, a_status: 'enum:tersedia,tidak tersedia', a_tarif: 'decimal:10,2', relationships: { hasMany: 'DetailFasilitasAsrama , DetailTransaksiAsrama', belongsToMany: 'FasilitasAsrama , TransaksiAsrama' } }
     TransaksiAsrama: { user_id: 'id foreign:users', ta_tanggal_sewa: dateTime, ta_check_in: dateTime, ta_check_out: dateTime, ta_is_sarapan: boolean, relationships: { hasMany: DetailTransaksiAsrama, belongsToMany: Asrama } }
     DetailTransaksiAsrama: { transaksi_asrama_id: 'id foreign:transaksiasramas', asrama_id: 'id foreign:asramas', relationships: { belongsTo: Asrama } }
     FotoAlatBarang: { alat_barang_id: 'id foreign:alatbarangs', fab_foto: string, relationships: { belongsTo: AlatBarang } }
-    AlatBarang: { a_nama: string, a_foto: string, a_keterangan: string, a_tarif: string, a_status: 'enum:tersedia,tidak tersedia', a_satuan: string, relationships: { hasMany: 'FotoAlatBarang , DetailTransaksiAlatBarang', belongsToMany: TransaksiAlatBarang } }
+    AlatBarang: { a_nama: string, a_foto: string, a_keterangan: string, a_tarif: string, a_status: 'enum:tersedia,tidak tersedia', a_satuan: string, a_slug: string, relationships: { hasMany: 'FotoAlatBarang , DetailTransaksiAlatBarang', belongsToMany: TransaksiAlatBarang } }
     TransaksiAlatBarang: { user_id: 'id foreign:users', a_nama: string, a_foto: string, a_keterangan: string, a_tarif: 'decimal:10,2', a_status: 'enum:tersedia,tidak tersedia', a_satuan: string, relationships: { hasMany: DetailTransaksiAlat_barang, belongsToMany: AlatBarang } }
     DetailTransaksiAlatBarang: { transaksi_alat_barang_id: 'id foreign:transaksialatbarangs', alat_barang_id: 'id foreign:alatbarangs', relationships: { belongsTo: 'AlatBarang , TransaksiAlatBarang' } }

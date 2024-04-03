@@ -31,7 +31,7 @@ class LayananRepositoryImplement implements LayananRepository
      */
     public function getAll()
     {
-        return $this->layanan::all();
+        return $this->layanan::paginate(5);
     }
 
     /**
@@ -52,7 +52,7 @@ class LayananRepositoryImplement implements LayananRepository
      */
     public function update($data, $id)
     {
-        $dataLayanan = $this->layanan::finOrFail($id);
+        $dataLayanan = $this->layanan::findOrFail($id);
         $dataLayanan->update($data);
         return $dataLayanan;
     }

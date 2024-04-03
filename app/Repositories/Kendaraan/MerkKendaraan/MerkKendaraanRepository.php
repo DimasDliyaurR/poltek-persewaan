@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Repositories\Kendaraan;
+namespace App\Repositories\Kendaraan\MerkKendaraan;
 
 interface MerkKendaraanRepository
 {

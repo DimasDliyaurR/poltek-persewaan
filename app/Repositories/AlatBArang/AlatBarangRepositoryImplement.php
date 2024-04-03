@@ -21,7 +21,7 @@ class AlatBarangRepositoryImplement implements AlatBarangRepository
      */
     public function getDataById($id)
     {
-        $alatBarangData = $this->alatBarang::whereId($id)->get();
+        $alatBarangData = $this->alatBarang::whereId($id)->first();
 
         return $alatBarangData;
     }
@@ -32,7 +32,7 @@ class AlatBarangRepositoryImplement implements AlatBarangRepository
      */
     public function getAll()
     {
-        $alatBarangData = $this->alatBarang::all();
+        $alatBarangData = $this->alatBarang::paginate(5);
 
         return $alatBarangData;
     }
@@ -56,7 +56,7 @@ class AlatBarangRepositoryImplement implements AlatBarangRepository
      */
     public function update($data, $id)
     {
-        $alatBarangData = $this->alatBarang::findOrFail();
+        $alatBarangData = $this->alatBarang::findOrFail($id);
         $alatBarangData->update($data);
 
         return $alatBarangData;

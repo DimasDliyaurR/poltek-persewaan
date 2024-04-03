@@ -23,5 +23,9 @@ export default {
             sans: ["Century Gothic", "sans-serif"],
         },
     },
-    plugins: [require("preline/plugin"), require("flowbite/plugin")],
+    plugins: [
+        require("preline/plugin"),
+        require("flowbite/plugin"),
+        require("tailwindcss-plugins/pagination"),
+    ],
 };

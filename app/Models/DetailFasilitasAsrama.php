@@ -20,6 +20,8 @@ class DetailFasilitasAsrama extends Model
         'fasilitas_asrama_id',
     ];
 
+    protected $table = "detail_fasilitas_asramas";
+
     /**
      * The attributes that should be cast to native types.
      *

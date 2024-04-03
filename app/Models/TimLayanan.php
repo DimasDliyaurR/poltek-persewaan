@@ -20,6 +20,7 @@ class TimLayanan extends Model
         'tl_nama',
         'tl_status',
         'tl_deskripsi',
+        'tl_slug',
     ];
 
     /**

@@ -4,7 +4,7 @@ namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
-use App\Models\Asrama;
+use App\Models\MerkKendaraan;
 use App\Models\User;
 use Illuminate\Database\Seeder;
 
@@ -16,7 +16,7 @@ class DatabaseSeeder extends Seeder
     public function run(): void
     {
         // User::factory(10)->create();
-        Asrama::factory(10)->create();
+        MerkKendaraan::factory(10)->create();
 
         // \App\Models\User::factory()->create([
         //     'name' => 'Test User',

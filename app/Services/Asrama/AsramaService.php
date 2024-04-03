@@ -35,6 +35,14 @@ interface AsramaService
     public function getAllDataFasilitasAsrama();
 
     /**
+     * Get Data Detail Fasilitas By Asrama Id
+     * @param Id
+     * @return array
+     * @throws InvalidArgumentException Jika Terdapat Kesalahan Exception
+     */
+    public function getDataDetailFasilitasByAsramaId($id);
+
+    /**
      * Store Data Fasilitas Asrama
      * @param data array
      * @return array
@@ -106,4 +114,13 @@ interface AsramaService
      * @throws InvalidArgumentException Jika terdapat kesalahan Exception
      */
     public function destroyDetailFasilitasAsrama($id);
+
+    /**
+     * Delete Data Detail Fasilitas Asrama
+     * @param id
+     * @param dataFasilitasId
+     * @return boolean
+     * @throws InvalidArgumentException Jika terdapat kesalahan Exception
+     */
+    public function IsExistFasilitasTransaksi($dataFasilitasId, $id);
 }

@@ -1,5 +1,6 @@
 import "./bootstrap";
 import "preline";
+
 import "flowbite";
 // navbar fixed
 window.onscroll = function () {
@@ -63,3 +64,10 @@ document.addEventListener("DOMContentLoaded", function () {
         buttonHideMore.classList.add("hidden");
     });
 });
+function myFunction(imgs) {
+    var expandImg = document.getElementById("expandedImg");
+    var imgText = document.getElementById("imgtext");
+    expandImg.src = imgs.src;
+    imgText.innerHTML = imgs.alt;
+    expandImg.parentElement.style.display = "block";
+}

@@ -15,13 +15,22 @@ class KendaraanRepositoryImplement implements KendaraanRepository
     }
 
     /**
-     * 
+     * Get Data by Id Kendaraan
      * @param Id
      * @return Mixed
      */
     public function getDataById($id)
     {
         return $this->kendaraan::whereId($id)->first();
+    }
+
+    /**
+     * Get All Data With Merk Kendaraan Data
+     * @return array
+     */
+    public function getAllDataWithMerkKendaraan()
+    {
+        return $this->kendaraan::with("merkKendaraan")->paginate(5);
     }
 
     /**
@@ -52,7 +61,7 @@ class KendaraanRepositoryImplement implements KendaraanRepository
      */
     public function update($data, $id)
     {
-        $dataKendaraan = $this->kendaraan::finOrFail($id);
+        $dataKendaraan = $this->kendaraan::findOrFail($id);
         $dataKendaraan->update($data);
         return $dataKendaraan;
     }
