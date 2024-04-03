@@ -2,25 +2,35 @@
 
 namespace App\Providers;
 
-use App\Repositories\Layanan\DetailFotoLayanan\DetailFotoLayananRepository;
-use App\Repositories\Layanan\DetailFotoLayanan\DetailFotoLayananRepositoryImplement;
+use App\Services\Promo\PromoService;
+use Illuminate\Pagination\Paginator;
+use App\Services\Asrama\AsramaService;
 use Illuminate\Support\ServiceProvider;
+use App\Services\Layanan\LayananService;
+use App\Repositories\Promo\PromoRepository;
+use App\Services\GedungLap\GedungLapService;
 use App\Services\Kendaraan\KendaraanService;
 use App\Repositories\Asrama\AsramaRepository;
+use App\Services\Promo\PromoServiceImplement;
+use App\Services\AlatBarang\AlatBarangService;
 use App\Repositories\Layanan\LayananRepository;
+use App\Services\Asrama\AsramaServiceImplement;
+use App\Services\Layanan\LayananServiceImplement;
 use App\Repositories\GedungLap\GedungLapRepository;
 use App\Repositories\Kendaraan\KendaraanRepository;
+use App\Repositories\Promo\PromoRepositoryImplement;
 use App\Repositories\AlatBarang\AlatBarangRepository;
+use App\Services\GedungLap\GedungLapServiceImplement;
 use App\Services\Kendaraan\KendaraanServiceImplement;
 use App\Repositories\Asrama\AsramaRepositoryImplement;
-use App\Repositories\Kendaraan\MerkKendaraan\MerkKendaraanRepository;
+use App\Services\AlatBarang\AlatBarangServiceImplement;
 use App\Repositories\Layanan\LayananRepositoryImplement;
 use App\Repositories\GedungLap\GedungLapRepositoryImplement;
 use App\Repositories\Kendaraan\KendaraanRepositoryImplement;
 use App\Repositories\Layanan\TimLayanan\TimLayananRepository;
 use App\Repositories\AlatBarang\AlatBarangRepositoryImplement;
-use App\Repositories\Kendaraan\MerkKendaraan\MerkKendaraanRepositoryImplement;
 use App\Repositories\Layanan\VideoLayanan\VideoLayananRepository;
+use App\Repositories\Kendaraan\MerkKendaraan\MerkKendaraanRepository;
 use App\Repositories\Asrama\FasilitasAsrama\FasilitasAsramaRepository;
 use App\Repositories\Asrama\TransaksiAsrama\TransaksiAsramaRepository;
 use App\Repositories\Layanan\TimLayanan\TimLayananRepositoryImplement;
@@ -29,6 +39,9 @@ use App\Repositories\AlatBarang\FotoAlatBarang\FotoAlatBarangRepository;
 use App\Repositories\GedungLap\TransaksiGedung\TransaksiGedungRepository;
 use App\Repositories\Layanan\TransaksiLayanan\TransaksiLayananRepository;
 use App\Repositories\Layanan\VideoLayanan\VideoLayananRepositoryImplement;
+use App\Repositories\Layanan\DetailFotoLayanan\DetailFotoLayananRepository;
+use App\Repositories\Promo\DetailKategoriPromo\DetailKategoriPromoRepository;
+use App\Repositories\Kendaraan\MerkKendaraan\MerkKendaraanRepositoryImplement;
 use App\Repositories\Asrama\FasilitasAsrama\FasilitasAsramaRepositoryImplement;
 use App\Repositories\Asrama\TransaksiAsrama\TransaksiAsramaRepositoryImplement;
 use App\Repositories\Kendaraan\TransaksiKendaraan\TransaksiKendaraanRepository;
@@ -39,8 +52,10 @@ use App\Repositories\Asrama\DetailFasilitasAsrama\DetailFasilitasAsramaRepositor
 use App\Repositories\Asrama\DetailTransaksiAsrama\DetailTransaksiAsramaRepository;
 use App\Repositories\GedungLap\TransaksiGedung\TransaksiGedungRepositoryImplement;
 use App\Repositories\Layanan\TransaksiLayanan\TransaksiLayananRepositoryImplement;
+use App\Repositories\Layanan\DetailFotoLayanan\DetailFotoLayananRepositoryImplement;
 use App\Repositories\GedungLap\DetailTransaksiGedung\DetailTransaksiGedungRepository;
 use App\Repositories\Layanan\DetailTransaksiLayanan\DetailTransaksiLayananRepository;
+use App\Repositories\Promo\DetailKategoriPromo\DetailKategoriPromoRepositoryImplement;
 use App\Repositories\Kendaraan\TransaksiKendaraan\TransaksiKendaraanRepositoryImplement;
 use App\Repositories\AlatBarang\TransaksiAlatBarang\TransaksiAlatBarangRepositoryImplement;
 use App\Repositories\Asrama\DetailFasilitasAsrama\DetailFasilitasAsramaRepositoryImplement;
@@ -53,17 +68,6 @@ use App\Repositories\Kendaraan\DetailTransaksiKendaraan\DetailTransaksiKendaraan
 use App\Repositories\GedungLap\DetailTransaksiPropertyGedung\DetailTransaksiPropertyGedungRepository;
 use App\Repositories\AlatBarang\DetailTransaksiAlatBarang\DetailTransaksiAlatBarangRepositoryImplement;
 use App\Repositories\GedungLap\DetailTransaksiPropertyGedung\DetailTransaksiPropertyGedungRepositoryImplement;
-use app\Repositories\Promo\PromoRepository;
-use app\Repositories\Promo\PromoRepositoryImplement;
-use App\Services\AlatBarang\AlatBarangService;
-use App\Services\AlatBarang\AlatBarangServiceImplement;
-use App\Services\Asrama\AsramaService;
-use App\Services\Asrama\AsramaServiceImplement;
-use App\Services\GedungLap\GedungLapService;
-use App\Services\GedungLap\GedungLapServiceImplement;
-use App\Services\Layanan\LayananService;
-use App\Services\Layanan\LayananServiceImplement;
-use Illuminate\Pagination\Paginator;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -121,6 +125,7 @@ class AppServiceProvider extends ServiceProvider
          * Bind Promo Repository
          */
         $this->app->bind(PromoRepository::class, PromoRepositoryImplement::class);
+        $this->app->bind(DetailKategoriPromoRepository::class, DetailKategoriPromoRepositoryImplement::class);
 
         /**
          * Bind Kendaraan Service
@@ -146,6 +151,10 @@ class AppServiceProvider extends ServiceProvider
          * Bind Layanan Service
          */
         $this->app->bind(LayananService::class, LayananServiceImplement::class);
+        /**
+         * Promo Service
+         */
+        $this->app->bind(PromoService::class, PromoServiceImplement::class);
     }
 
     /**

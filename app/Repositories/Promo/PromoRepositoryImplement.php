@@ -1,9 +1,9 @@
 <?php
 
-namespace app\Repositories\Promo;
+namespace App\Repositories\Promo;
 
 use App\Models\Promo;
-use app\Repositories\Promo\PromoRepository;
+use App\Repositories\Promo\PromoRepository;
 
 class PromoRepositoryImplement implements PromoRepository
 {
@@ -21,6 +21,15 @@ class PromoRepositoryImplement implements PromoRepository
     public function getAll()
     {
         return $this->promoRepository;
+    }
+
+    /**
+     * Get All Data Promo With All Relationship Eager Loading
+     * @return array
+     */
+    public function getAllWithAllRelation()
+    {
+        return $this->promoRepository::with("asramas", "alat_barangs", "gedung_laps", "kendaraans", "layanans");
     }
 
     /**

@@ -13,11 +13,11 @@ return new class extends Migration
     {
         Schema::create('detail_kategori_promos', function (Blueprint $table) {
             $table->id();
-            $table->foreignId("gedung_lap_id")->constrained("gedung_laps")->onDelete("CASCADE");
-            $table->foreignId("layanan_id")->constrained("layanans")->onDelete("CASCADE");
-            $table->foreignId("asrama_id")->constrained("asramas")->onDelete("CASCADE");
-            $table->foreignId("alat_barang_id")->constrained("alat_barangs")->onDelete("CASCADE");
-            $table->foreignId("kendaraans_id")->constrained("kendaraans")->onDelete("CASCADE");
+            $table->foreignId("gedung_lap_id")->nullable()->constrained("gedung_laps")->onDelete("CASCADE");
+            $table->foreignId("layanan_id")->nullable()->constrained("layanans")->onDelete("CASCADE");
+            $table->foreignId("asrama_id")->nullable()->constrained("asramas")->onDelete("CASCADE");
+            $table->foreignId("alat_barang_id")->nullable()->constrained("alat_barangs")->onDelete("CASCADE");
+            $table->foreignId("kendaraans_id")->nullable()->constrained("kendaraans")->onDelete("CASCADE");
             $table->foreignId("promo_id")->constrained("promos")->onDelete("CASCADE");
             $table->timestamps();
         });

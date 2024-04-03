@@ -1,6 +1,6 @@
 <?php
 
-namespace app\Repositories\Promo;
+namespace App\Repositories\Promo;
 
 interface PromoRepository
 {

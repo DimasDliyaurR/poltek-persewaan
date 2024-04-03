@@ -133,8 +133,8 @@ class KendaraanController extends Controller
             $file_merk_kendaraan = $request->file('mk_foto');
             $foto_kendaraan = $file_merk_kendaraan->hashName();
 
-            $foto_kendaraan_path = $file_merk_kendaraan->storeAs("/file", $foto_kendaraan);
-            $foto_kendaraan_path = Storage::disk("public")->put("/file", $file_merk_kendaraan);
+            $foto_kendaraan_path = $file_merk_kendaraan->storeAs("/merkKendaraan", $foto_kendaraan);
+            $foto_kendaraan_path = Storage::disk("public")->put("/merkKendaraan", $file_merk_kendaraan);
             $validation['mk_foto'] = $foto_kendaraan_path;
         }
 

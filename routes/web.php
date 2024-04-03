@@ -5,6 +5,7 @@ use App\Http\Controllers\AsramaController;
 use App\Http\Controllers\GedungLapController;
 use App\Http\Controllers\KendaraanController;
 use App\Http\Controllers\LayananController;
+use App\Http\Controllers\PromoController;
 use Illuminate\Support\Facades\Route;
 use App\Services\GedungLap\GedungLapService;
 use App\Services\AlatBarang\AlatBarangService;
@@ -221,6 +222,21 @@ Route::group(["prefix" => "admin"], function () {
 
         // Destroy Detail Foto Layanan
         Route::delete("detailFotoLayanan/delete/{id}", "destroyDetailFotoLayanan");
+    });
+
+    Route::controller(PromoController::class)->group(function () {
+        // Index Promo
+        Route::get("promos", "indexPromo");
+        // Create Promo
+        Route::post("promos/create", "createPromo");
+        // Store Promo
+        Route::get("promo/store/{id}", "storePromo");
+        // Show Promo
+        Route::get("promo/store/{id}", "showPromo");
+        // Update Promo
+        Route::put("promo/update/{id}", "updatePromo");
+        // Destroy Promo
+        Route::delete("promo/delete/{id}", "destroyPromo");
     });
 });
 
