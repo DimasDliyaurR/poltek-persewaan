@@ -40,6 +40,6 @@ class DetailFasilitasAsrama extends Model
 
     public function asrama(): BelongsTo
     {
-        return $this->belongsTo(Asrama::class);
+        return $this->belongsTo(TipeAsrama::class);
     }
 }

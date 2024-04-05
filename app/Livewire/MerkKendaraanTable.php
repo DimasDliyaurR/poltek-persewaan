@@ -26,7 +26,7 @@ class MerkKendaraanTable extends Component
 
     public function render(KendaraanService $kendaraanService)
     {
-        if (!isset($this->searchAction["search"])) $merkKendaraansModel = $kendaraanService->getAllDataMerkKendaraan(); // Inisialisasi Semua Data Merk Kendaraan
+        if (!isset($this->searchAction["search"])) $merkKendaraansModel = $kendaraanService->getAllDataMerkKendaraan()->with("kendaraans")->withCount("kendaraans"); // Inisialisasi Semua Data Merk Kendaraan
 
         if (isset($this->searchAction["search"]) and $this->searchAction["search"] != "") $merkKendaraansModel = $kendaraanService->searchMerkKendaraan($this->searchAction["search"]); // Search 
 
@@ -57,7 +57,6 @@ class MerkKendaraanTable extends Component
                 }
                 break;
         }
-
         $this->order = $this->orderAction != 0 ? $this->order : ""; // Reset Jika Order Action 0
 
         if ($this->orderAction != 0) $merkKendaraansModel = $merkKendaraansModel->orderBy($this->order, $sorted);

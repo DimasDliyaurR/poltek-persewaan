@@ -43,7 +43,7 @@ class TransaksiGedungRepositoryImplement implements TransaksiGedungRepository
      */
     public function getAllWithDetailTransaksiAndDetailProperty()
     {
-        $gedungData = $this->gedung::with(["detailTransaksiPropertyGedungs", "detailTransaksiGedungs"]);
+        $gedungData = $this->gedung::with(["property", "gedungLap"]);
 
         return $gedungData;
     }

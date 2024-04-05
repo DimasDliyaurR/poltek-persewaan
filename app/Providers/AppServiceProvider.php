@@ -67,6 +67,8 @@ use App\Repositories\Layanan\DetailTransaksiLayanan\DetailTransaksiLayananReposi
 use App\Repositories\Kendaraan\DetailTransaksiKendaraan\DetailTransaksiKendaraanRepositoryImplement;
 use App\Repositories\GedungLap\DetailTransaksiPropertyGedung\DetailTransaksiPropertyGedungRepository;
 use App\Repositories\AlatBarang\DetailTransaksiAlatBarang\DetailTransaksiAlatBarangRepositoryImplement;
+use App\Repositories\Asrama\TipeAsrama\TipeAsramaRepository;
+use App\Repositories\Asrama\TipeAsrama\TipeAsramaRepositoryImplement;
 use App\Repositories\GedungLap\DetailTransaksiPropertyGedung\DetailTransaksiPropertyGedungRepositoryImplement;
 use App\Services\Transaksi\TransaksiService;
 use App\Services\Transaksi\TransaksiServiceImplement;
@@ -94,6 +96,7 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(DetailFasilitasAsramaRepository::class, DetailFasilitasAsramaRepositoryImplement::class);
         $this->app->bind(TransaksiAsramaRepository::class, TransaksiAsramaRepositoryImplement::class);
         $this->app->bind(DetailTransaksiAsramaRepository::class, DetailTransaksiAsramaRepositoryImplement::class);
+        $this->app->bind(TipeAsramaRepository::class, TipeAsramaRepositoryImplement::class);
 
 
         /**

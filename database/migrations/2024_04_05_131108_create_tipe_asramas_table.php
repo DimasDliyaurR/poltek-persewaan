@@ -11,16 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::disableForeignKeyConstraints();
-
-        Schema::create('asrama_transaksi_asrama', function (Blueprint $table) {
+        Schema::create('tipe_asramas', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('transaksi_asrama_id')->constrained('transaksi_asramas');
-            $table->foreignId('tipe_asrama_id')->constrained("tipe_asramas");
+            $table->string("ta_foto");
+            $table->string("ta_nama");
+            $table->integer("ta_tarif");
             $table->timestamps();
         });
-
-        Schema::enableForeignKeyConstraints();
     }
 
     /**
@@ -28,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('detail_transaksi_asramas');
+        Schema::dropIfExists('tipe_asramas');
     }
 };

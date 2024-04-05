@@ -124,6 +124,39 @@
                     </th>
                     <th scope="col" class="px-6 py-3">
                         <div class="flex items-center">
+                            Jumlah Kendaraan
+                            <button x-on:click="$wire.set('order', 'kendaraans_count')">
+                                @if ($orderAction == 0 or $order != '' and $order != 'kendaraans_count')
+                                    <svg class="w-3 h-3 ms-1.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                                        fill="currentColor" viewBox="0 0 24 24">
+                                        <path
+                                            d="M8.574 11.024h6.852a2.075 2.075 0 0 0 1.847-1.086 1.9 1.9 0 0 0-.11-1.986L13.736 2.9a2.122 2.122 0 0 0-3.472 0L6.837 7.952a1.9 1.9 0 0 0-.11 1.986 2.074 2.074 0 0 0 1.847 1.086Zm6.852 1.952H8.574a2.072 2.072 0 0 0-1.847 1.087 1.9 1.9 0 0 0 .11 1.985l3.426 5.05a2.123 2.123 0 0 0 3.472 0l3.427-5.05a1.9 1.9 0 0 0 .11-1.985 2.074 2.074 0 0 0-1.846-1.087Z" />
+                                    </svg>
+                                @endif
+                                @if ($order == 'kendaraans_count')
+                                    {{-- DESCENDING ICON --}}
+                                    @if ($orderAction == 2)
+                                        <svg class="ml-1" xmlns="http://www.w3.org/2000/svg" width="1em"
+                                            height="1em" viewBox="0 0 16 16">
+                                            <path fill="currentColor" fill-rule="evenodd"
+                                                d="M2.22 13.28a.75.75 0 0 0 1.06 0l2-2a.75.75 0 1 0-1.06-1.06l-.72.72V3.25a.75.75 0 0 0-1.5 0v7.69l-.72-.72a.75.75 0 1 0-1.06 1.06zM7.75 12a.75.75 0 0 0 0 1.5h7.5a.75.75 0 0 0 0-1.5zm0-3.25a.75.75 0 0 1 0-1.5h5.5a.75.75 0 0 1 0 1.5zm0-4.75a.75.75 0 0 1 0-1.5h2.5a.75.75 0 0 1 0 1.5z"
+                                                clip-rule="evenodd" />
+                                        </svg>
+                                        {{-- ASCENDING ICON --}}
+                                    @elseif($orderAction == 1)
+                                        <svg class="ml-1" xmlns="http://www.w3.org/2000/svg" width="1em"
+                                            height="1em" viewBox="0 0 16 16">
+                                            <path fill="currentColor" fill-rule="evenodd"
+                                                d="M2.22 2.72a.75.75 0 0 1 1.06 0l2 2a.75.75 0 0 1-1.06 1.06l-.72-.72v7.69a.75.75 0 0 1-1.5 0V5.06l-.72.72A.75.75 0 0 1 .22 4.72zM7 12.75c0 .414.336.75.75.75h7.5a.75.75 0 0 0 0-1.5h-7.5a.75.75 0 0 0-.75.75m.75-4a.75.75 0 0 1 0-1.5h5.5a.75.75 0 0 1 0 1.5zm0-4.75a.75.75 0 0 1 0-1.5h2.5a.75.75 0 0 1 0 1.5z"
+                                                clip-rule="evenodd" />
+                                        </svg>
+                                    @endif
+                                @endif
+                            </button>
+                        </div>
+                    </th>
+                    <th scope="col" class="px-6 py-3">
+                        <div class="flex items-center">
                             Foto Kendaraan
                             <a href="#"><svg class="w-3 h-3 ms-1.5" aria-hidden="true"
                                     xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
@@ -151,10 +184,12 @@
                         <td class="px-6 py-4 dark:text-white">
                             {{ $row->mk_seri }}
                         </td>
+                        <td class="px-6 py-4 text-md dark:text-white">
+                            {{ $row->kendaraans_count }}
+                        </td>
                         <td class="px-6 py-4 dark:text-white">
                             <img src="{{ Storage::url($row->mk_foto) }}" alt="Foto Kendaraan"
                                 class="h-72 max-w-xl rounded-lg shadow-xl dark:shadow-gray-800">
-
                         </td>
                         <td class="px-6 py-4 text-right">
                             <a href="{{ asset('admin/merkKendaraan/store/' . $row->id) }}"

@@ -35,6 +35,13 @@ interface AsramaService
     public function getAllDataFasilitasAsrama();
 
     /**
+     * Get All Data Tipe Asrama
+     * @return array
+     * @throws InvalidArgumentException Jika terdapat kesalahan Exception
+     */
+    public function getAllDataTipeAsrama();
+
+    /**
      * Get Data Detail Fasilitas By Asrama Id
      * @param Id
      * @return array
@@ -67,6 +74,14 @@ interface AsramaService
     public function storeDetailFasilitasAsrama($data);
 
     /**
+     * Store Data Detail Tipe Asrama
+     * @param array $data
+     * @return array
+     * @throws InvalidArgumentException Jika terdapat kesalahan Exception
+     */
+    public function storeTipeAsrama($data);
+
+    /**
      * Update Asrama
      * @param data
      * @return array
@@ -90,6 +105,15 @@ interface AsramaService
      * @throws InvalidArgumentException Jika terdapat kesalahan Exception
      */
     public function updateDetailFasilitasAsrama($data, $id);
+
+    /**
+     * Update Detail Tipe Asrama
+     * @param array $data
+     * @param integer $id
+     * @return array
+     * @throws InvalidArgumentException Jika terdapat kesalahan Exception
+     */
+    public function updateTipeAsrama($data, $id);
 
     /**
      * Delete Asrama
@@ -116,6 +140,14 @@ interface AsramaService
     public function destroyDetailFasilitasAsrama($id);
 
     /**
+     * Delete Tipe Asrama
+     * @param string $id
+     * @return array
+     * @throws InvalidArgumentException Jika terdapat kesalahan Exception
+     */
+    public function destroyTipeAsrama($id);
+
+    /**
      * Delete Data Detail Fasilitas Asrama
      * @param id
      * @param dataFasilitasId
@@ -125,11 +157,19 @@ interface AsramaService
     public function IsExistFasilitasTransaksi($dataFasilitasId, $id);
 
     /**
-     * Delete Data Detail Fasilitas Asrama
-     * @param id
+     * Search Data Detail Fasilitas Asrama
+     * @param string $search
      * @param dataFasilitasId
      * @return boolean
      * @throws InvalidArgumentException Jika terdapat kesalahan Exception
      */
-    public function searchAsrama($data);
+    public function searchAsrama($search);
+
+    /**
+     * Search Data Detail Tipe Asrama
+     * @param string $search
+     * @return array
+     * @throws InvalidArgumentException Jika terdapat kesalahan Exception
+     */
+    public function searchTipeAsrama($search);
 }

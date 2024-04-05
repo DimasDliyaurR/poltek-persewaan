@@ -3,14 +3,14 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\Pivot;
 
-class DetailTransaksiKendaraan extends Model
+class DetailTransaksiKendaraan extends Pivot
 {
     use HasFactory;
 
-    protected $table = "kendaraan_transaksi_kendaraan";
+    protected $table = "detail_transaksi_kendaraans";
 
     /**
      * The attributes that are mass assignable.

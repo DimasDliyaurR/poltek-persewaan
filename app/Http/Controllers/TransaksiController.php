@@ -48,7 +48,7 @@ class TransaksiController extends Controller
     public function indexTransaksiGedungLap()
     {
         try {
-            $transaksiLayanan = $this->transaksiService->getAllTransaksiGedungLap();
+            $transaksiGedungLap = $this->transaksiService->getAllTransaksiGedungLap();
         } catch (\Exception $th) {
             throw new InvalidArgumentException();
         }
@@ -56,7 +56,7 @@ class TransaksiController extends Controller
         return view("admin.transaksi.gedungLap.lihat", [
             "title" => "Transaksi Kendaraan",
             "action" => "transaksi",
-            "transaksiLayanan" => $transaksiLayanan,
+            "transaksiGedungLap" => $transaksiGedungLap->paginate(5),
         ]);
     }
 

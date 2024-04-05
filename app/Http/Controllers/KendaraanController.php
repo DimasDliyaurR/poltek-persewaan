@@ -26,28 +26,17 @@ class KendaraanController extends Controller
      * Merk Kendaraan
      * Index
      */
-    public function indexMerkKendaraan(Request $request)
+    public function indexMerkKendaraan()
     {
-        $kendaraans = $this->kendaraanService->getAllDataMerkKendaraan();
-        $properties = [];
 
-        if (request("hasSearch") == "search") {
-            $search = $request["search"];
+        /** Controller
+         * App\Livewire\MerkKendaraanTable
+         */
 
-            $kendaraans = $this->kendaraanService->searchMerkKendaraan($search);
-
-            $properties += [
-                "search" => $search
-            ];
-        }
-
-        $properties += [
+        return view("admin.kendaraan.merkKendaraan.lihat", [
             "title" => "Merk Kendaraan",
             "action" => "kendaraan",
-            "merkKendaraans" => $kendaraans,
-        ];
-
-        return view("admin.kendaraan.merkKendaraan.lihat", $properties);
+        ]);
     }
 
     /**
@@ -220,7 +209,7 @@ class KendaraanController extends Controller
             "title" => "Kendaraan",
             "action" => "kendaraan",
             "kendaraan" => $kendaraan,
-            "merkKendaraans" => $merkKendaraan,
+            "merkKendaraans" => $merkKendaraan->get(),
         ]);
     }
 

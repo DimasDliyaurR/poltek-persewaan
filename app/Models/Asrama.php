@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
@@ -42,6 +43,11 @@ class Asrama extends Model
     public function detailTransaksiAsramas(): HasMany
     {
         return $this->hasMany(DetailTransaksiAsrama::class);
+    }
+
+    public function asramas(): BelongsTo
+    {
+        return $this->belongsTo(Asrama::class);
     }
 
     public function fasilitasAsramas(): BelongsToMany

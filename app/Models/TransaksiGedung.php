@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class TransaksiGedung extends Model
@@ -45,6 +46,18 @@ class TransaksiGedung extends Model
     public function detailTransaksiGedungs(): HasMany
     {
         return $this->hasMany(DetailTransaksiGedung::class);
+    }
+
+    public function gedungLap(): BelongsToMany
+    {
+        return $this->belongsToMany(GedungLap::class, "detail_transaksi_gedungs", "transaksi_gedung_id", "gedung_lap_id")
+            ->using(DetailTransaksiGedung::class);
+    }
+
+    public function property(): BelongsToMany
+    {
+        return $this->belongsToMany(PropertyGedung::class, "detail_transaksi_property_gedungs", "transaksi_gedung_id", "property_gedung_id")
+            ->using(DetailTransaksiGedung::class);
     }
 
     public function user(): BelongsTo
