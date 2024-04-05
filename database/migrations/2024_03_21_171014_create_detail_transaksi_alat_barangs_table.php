@@ -14,7 +14,6 @@ return new class extends Migration
         Schema::disableForeignKeyConstraints();
 
         Schema::create('detail_transaksi_alat_barangs', function (Blueprint $table) {
-            $table->id();
             $table->foreignId('transaksi_alat_barang_id')->constrained('transaksi_alat_barangs');
             $table->foreignId('alat_barang_id')->constrained('alat_barangs');
             $table->timestamps();

@@ -46,7 +46,9 @@ class TransaksiLayanan extends Model
 
     public function layanans(): BelongsToMany
     {
-        return $this->belongsToMany(Layanan::class);
+        return $this->belongsToMany(Layanan::class, "detail_transaksi_layanans", "transaksi_layanan_id", "layanan_id")
+            ->using(DetailTransaksiLayanan::class)
+            ->as("layanan");
     }
 
     public function user(): BelongsTo

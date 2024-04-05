@@ -41,7 +41,7 @@ class TransaksiController extends Controller
         return view("admin.transaksi.layanan.lihat", [
             "title" => "Transaksi Kendaraan",
             "action" => "transaksi",
-            "transaksiLayanan" => $transaksiLayanan,
+            "transaksiLayanan" => $transaksiLayanan->paginate(5),
         ]);
     }
 
@@ -78,7 +78,7 @@ class TransaksiController extends Controller
     public function indexTransaksiAlatBarang()
     {
         try {
-            $transaksiLayanan = $this->transaksiService->getAllTransaksiAlatBarang();
+            $transaksiAlatBarang = $this->transaksiService->getAllTransaksiAlatBarang();
         } catch (\Exception $th) {
             throw new InvalidArgumentException();
         }
@@ -86,7 +86,7 @@ class TransaksiController extends Controller
         return view("admin.transaksi.alatBarang.lihat", [
             "title" => "Transaksi Kendaraan",
             "action" => "transaksi",
-            "transaksiLayanan" => $transaksiLayanan,
+            "transaksiAlatBarang" => $transaksiAlatBarang->paginate(5),
         ]);
     }
 
