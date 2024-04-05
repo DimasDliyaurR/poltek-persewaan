@@ -6,6 +6,7 @@ use App\Http\Controllers\GedungLapController;
 use App\Http\Controllers\KendaraanController;
 use App\Http\Controllers\LayananController;
 use App\Http\Controllers\PromoController;
+use App\Http\Controllers\TransaksiController;
 use Illuminate\Support\Facades\Route;
 use App\Services\GedungLap\GedungLapService;
 use App\Services\AlatBarang\AlatBarangService;
@@ -232,11 +233,24 @@ Route::group(["prefix" => "admin"], function () {
         // Store Promo
         Route::get("promo/store/{id}", "storePromo");
         // Show Promo
-        Route::get("promo/store/{id}", "showPromo");
+        Route::get("promo/show/{id}", "showPromo");
         // Update Promo
         Route::put("promo/update/{id}", "updatePromo");
         // Destroy Promo
         Route::delete("promo/delete/{id}", "destroyPromo");
+    });
+
+    Route::controller(TransaksiController::class)->group(function () {
+        // Index Transaksi Kendaraan
+        Route::get("transaksi-kendaraans", "indexTransaksiKendaraan");
+        // Index Transaksi Layanan
+        Route::get("transaksi-layanans", "indexTransaksiLayanan");
+        // Index Transaksi Asrama
+        Route::get("transaksi-asramas", "indexTransaksiAsrama");
+        // Index Transaksi Alat Barang
+        Route::get("transaksi-alatBarangs", "indexTransaksiAlatBarang");
+        // Index Transaksi Gedung & Lapangan
+        Route::get("transaksi-gedungLaps", "indexTransaksiGedungLap");
     });
 });
 

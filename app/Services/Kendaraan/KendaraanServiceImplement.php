@@ -2,23 +2,23 @@
 
 namespace App\Services\Kendaraan;
 
-use App\Models\DetailTransaksiKendaraan;
+use InvalidArgumentException;
+use App\Services\Kendaraan\KendaraanService;
 use App\Repositories\Kendaraan\KendaraanRepository;
 use App\Repositories\Kendaraan\MerkKendaraan\MerkKendaraanRepository;
-use App\Services\Kendaraan\KendaraanService;
-use InvalidArgumentException;
+use App\Repositories\Kendaraan\TransaksiKendaraan\TransaksiKendaraanRepository;
 
 class KendaraanServiceImplement implements KendaraanService
 {
     private $kendaraanRepository;
     private $merkKendaraanRepository;
-    private $detailTransaksiKendaraan;
+    private $transaksiKendaraanRepository;
 
-    public function __construct(KendaraanRepository $kendaraanRepository, MerkKendaraanRepository $merkKendaraanRepository, DetailTransaksiKendaraan $detailTransaksiKendaraan)
+    public function __construct(KendaraanRepository $kendaraanRepository, MerkKendaraanRepository $merkKendaraanRepository, TransaksiKendaraanRepository $transaksiKendaraan)
     {
         $this->kendaraanRepository = $kendaraanRepository;
         $this->merkKendaraanRepository = $merkKendaraanRepository;
-        $this->detailTransaksiKendaraan = $detailTransaksiKendaraan;
+        $this->transaksiKendaraanRepository = $transaksiKendaraan;
     }
 
     /**

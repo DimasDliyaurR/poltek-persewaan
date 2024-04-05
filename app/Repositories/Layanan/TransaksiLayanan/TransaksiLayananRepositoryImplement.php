@@ -35,6 +35,16 @@ class TransaksiLayananRepositoryImplement implements TransaksiLayananRepository
     }
 
     /**
+     * Get All Data Transaksi layanan
+     * @param
+     * @return Mixed
+     */
+    public function getAllWithDetailTransaksi()
+    {
+        return $this->layanan::with("detailTransaksiLayanans");
+    }
+
+    /**
      * Store data layanan
      * @param Data
      * @return Mixed

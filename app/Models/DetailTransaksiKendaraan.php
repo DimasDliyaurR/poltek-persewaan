@@ -10,6 +10,8 @@ class DetailTransaksiKendaraan extends Model
 {
     use HasFactory;
 
+    protected $table = "kendaraan_transaksi_kendaraan";
+
     /**
      * The attributes that are mass assignable.
      *

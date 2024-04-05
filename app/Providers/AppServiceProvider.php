@@ -68,6 +68,8 @@ use App\Repositories\Kendaraan\DetailTransaksiKendaraan\DetailTransaksiKendaraan
 use App\Repositories\GedungLap\DetailTransaksiPropertyGedung\DetailTransaksiPropertyGedungRepository;
 use App\Repositories\AlatBarang\DetailTransaksiAlatBarang\DetailTransaksiAlatBarangRepositoryImplement;
 use App\Repositories\GedungLap\DetailTransaksiPropertyGedung\DetailTransaksiPropertyGedungRepositoryImplement;
+use App\Services\Transaksi\TransaksiService;
+use App\Services\Transaksi\TransaksiServiceImplement;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -155,6 +157,10 @@ class AppServiceProvider extends ServiceProvider
          * Promo Service
          */
         $this->app->bind(PromoService::class, PromoServiceImplement::class);
+        /**
+         * Transaksi Service
+         */
+        $this->app->bind(TransaksiService::class, TransaksiServiceImplement::class);
     }
 
     /**

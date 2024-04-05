@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Kendaraan extends Model
@@ -46,6 +47,11 @@ class Kendaraan extends Model
     public function detailKategoriPromo(): HasMany
     {
         return $this->hasMany(DetailKategoriPromo::class);
+    }
+
+    public function transaksiKendaraans(): BelongsToMany
+    {
+        return $this->belongsToMany(TransaksiKendaraan::class);
     }
 
     public function promos()

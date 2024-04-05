@@ -10,6 +10,7 @@ class DetailTransaksiAsrama extends Model
 {
     use HasFactory;
 
+    protected $table = "asrama_transaksi_asrama";
     /**
      * The attributes that are mass assignable.
      *

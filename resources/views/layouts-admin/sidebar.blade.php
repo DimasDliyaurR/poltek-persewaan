@@ -205,29 +205,29 @@
                 <ul id="dropdown-example-transaksi"
                     class="{{ $action == 'transaksi' ? '' : 'hidden' }} py-2 space-y-2">
                     <li>
-                        <a href="#"
+                        <a href="{{ asset('admin/transaksi-kendaraans') }}"
                             class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">Transaksi
                             Kendaraan</a>
                     </li>
                     <li>
-                        <a href="#"
+                        <a href="{{ asset('admin/transaksi-asramas') }}"
                             class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">Transaksi
                             Asrama</a>
                     </li>
                     <li>
-                        <a href="#"
+                        <a href="{{ asset('admin/transaksi-alatBarangs') }}"
                             class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">Transaksi
                             Alat Barang</a>
                     </li>
                     <li>
-                        <a href="#"
+                        <a href="{{ asset('admin/transaksi-gedungLaps') }}"
                             class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">Transaksi
                             Gedung & Lapangan</a>
                     </li>
                     <li>
-                        <a href="#"
+                        <a href="{{ asset('admin/transaksi-layanans') }}"
                             class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">Transaksi
-                            Layangan</a>
+                            Layang</a>
                     </li>
                 </ul>
             </li>

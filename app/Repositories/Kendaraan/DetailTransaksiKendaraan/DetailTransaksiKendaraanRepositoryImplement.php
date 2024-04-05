@@ -31,7 +31,7 @@ class DetailTransaksiKendaraanRepositoryImplement implements DetailTransaksiKend
      */
     public function getAll()
     {
-        return $this->kendaraan::all();
+        return $this->kendaraan::with();
     }
 
     /**

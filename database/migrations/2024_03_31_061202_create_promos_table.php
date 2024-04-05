@@ -20,6 +20,7 @@ return new class extends Migration
             $table->string("p_kode");
             $table->integer("p_isi");
             $table->enum("p_tipe", ["fixed", "percent"]);
+            $table->boolean("p_is_umum");
             $table->boolean("p_is_aktif");
             $table->text("p_deskripsi");
             $table->dateTime("p_mulai");

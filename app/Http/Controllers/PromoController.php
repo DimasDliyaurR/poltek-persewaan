@@ -96,7 +96,7 @@ class PromoController extends Controller
 
         if ($request->hasFile("p_foto")) {
 
-            // Check File Existed
+            // Check Existed File
             if (Storage::disk("public")->exists($promo["p_foto"])) {
                 // Delete File
                 Storage::disk("public")->delete($promo["p_foto"]);

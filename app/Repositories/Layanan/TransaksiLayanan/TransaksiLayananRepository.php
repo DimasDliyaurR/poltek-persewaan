@@ -19,6 +19,12 @@ interface TransaksiLayananRepository
     public function getAll();
 
     /**
+     * Get All Data Transaksi layanan
+     * @return Mixed
+     */
+    public function getAllWithDetailTransaksi();
+
+    /**
      * Store data layanan
      * @param Data
      * @return Mixed

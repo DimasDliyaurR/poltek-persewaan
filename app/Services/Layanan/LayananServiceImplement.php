@@ -5,6 +5,7 @@ namespace App\Services\Layanan;
 use App\Repositories\Layanan\DetailFotoLayanan\DetailFotoLayananRepository;
 use App\Repositories\Layanan\LayananRepository;
 use App\Repositories\Layanan\TimLayanan\TimLayananRepository;
+use App\Repositories\Layanan\TransaksiLayanan\TransaksiLayananRepository;
 use App\Repositories\Layanan\VideoLayanan\VideoLayananRepository;
 use App\Services\Layanan\LayananService;
 use InvalidArgumentException;
@@ -15,17 +16,20 @@ class LayananServiceImplement implements LayananService
     private $detailFotoLayananRepository;
     private $timLayananRepository;
     private $videoLayananRepository;
+    private $transaksiLayananRepository;
 
     public function __construct(
         LayananRepository $layananRepository,
         DetailFotoLayananRepository $detailFotoLayananRepository,
         TimLayananRepository $timLayananRepository,
-        VideoLayananRepository $videoLayananRepository
+        VideoLayananRepository $videoLayananRepository,
+        TransaksiLayananRepository $transaksiLayananRepository
     ) {
         $this->layananRepository = $layananRepository;
         $this->detailFotoLayananRepository = $detailFotoLayananRepository;
         $this->timLayananRepository = $timLayananRepository;
         $this->videoLayananRepository = $videoLayananRepository;
+        $this->transaksiLayananRepository = $transaksiLayananRepository;
     }
 
     /**
