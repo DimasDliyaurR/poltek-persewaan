@@ -29,7 +29,8 @@ class KendaraanController extends Controller
     public function indexMerkKendaraan()
     {
 
-        /** Controller
+        /** 
+         * Controller Has been controller On
          * App\Livewire\MerkKendaraanTable
          */
 

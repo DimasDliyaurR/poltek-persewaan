@@ -7,36 +7,44 @@ interface AsramaService
     /**
      * Get Data Asrama By Id Asrama
      * @param id string
-     * @return array
+     * @return object
      * @throws InvalidArgumentException Jika terdapat kesalahan Exception
      */
     public function getDataAsramaById($id);
 
     /**
+     * Get Data Asrama By Tipe Asrama Id
+     * @param integer $id
+     * @return object
+     * @throws InvalidArgumentException Jika terdapat kesalahan Exception
+     */
+    public function getDataAsramaByTipeAsramaId($id);
+
+    /**
      * Get Data Fasilitas Asrama By Id Fasilitas Asrama
      * @param id string
-     * @return array
+     * @return object
      * @throws InvalidArgumentException Jika terdapat kesalahan Exception
      */
     public function getDataFasilitasAsramaById($id);
 
     /**
      * Get All Data Fasilitas Asrama
-     * @return array
+     * @return object
      * @throws InvalidArgumentException Jika terdapat kesalahan Exception
      */
     public function getAllDataAsrama();
 
     /**
      * Get All Data Fasilitas Asrama
-     * @return array
+     * @return object
      * @throws InvalidArgumentException Jika terdapat kesalahan Exception
      */
     public function getAllDataFasilitasAsrama();
 
     /**
      * Get All Data Tipe Asrama
-     * @return array
+     * @return object
      * @throws InvalidArgumentException Jika terdapat kesalahan Exception
      */
     public function getAllDataTipeAsrama();
@@ -44,39 +52,47 @@ interface AsramaService
     /**
      * Get Data Detail Fasilitas By Asrama Id
      * @param Id
-     * @return array
+     * @return object
      * @throws InvalidArgumentException Jika Terdapat Kesalahan Exception
      */
-    public function getDataDetailFasilitasByAsramaId($id);
+    public function getDataDetailFasilitasByTipeAsramaId($id);
+
+    /**
+     * Get Data Tipe Asrama By Asrama Id
+     * @param Id
+     * @return object
+     * @throws InvalidArgumentException Jika Terdapat Kesalahan Exception
+     */
+    public function getDataTipeAsramaById($id);
 
     /**
      * Store Data Fasilitas Asrama
-     * @param data array
-     * @return array
+     * @param data object
+     * @return object
      * @throws InvalidArgumentException Jika terdapat kesalahan Exception
      */
     public function storeAsrama($data);
 
     /**
      * Store Data Fasilitas Asrama
-     * @param data array
-     * @return array
+     * @param data object
+     * @return object
      * @throws InvalidArgumentException Jika terdapat kesalahan Exception
      */
     public function storeFasilitasAsrama($data);
 
     /**
      * Store Data Detail Fasilitas Asrama
-     * @param data array
-     * @return array
+     * @param data object
+     * @return object
      * @throws InvalidArgumentException Jika terdapat kesalahan Exception
      */
     public function storeDetailFasilitasAsrama($data);
 
     /**
      * Store Data Detail Tipe Asrama
-     * @param array $data
-     * @return array
+     * @param object $data
+     * @return object
      * @throws InvalidArgumentException Jika terdapat kesalahan Exception
      */
     public function storeTipeAsrama($data);
@@ -84,7 +100,7 @@ interface AsramaService
     /**
      * Update Asrama
      * @param data
-     * @return array
+     * @return object
      * @throws InvalidArgumentException Jika terdapat kesalahan Exception
      */
     public function updateAsrama($data, $id);
@@ -92,25 +108,25 @@ interface AsramaService
     /**
      * Update Fasilitas Asrama
      * @param data
-     * @return array
+     * @return object
      * @throws InvalidArgumentException Jika terdapat kesalahan Exception
      */
     public function updateFasilitasAsrama($data, $id);
 
     /**
      * Update Detail Fasilitas Asrama
-     * @param data array
+     * @param data object
      * @param id string
-     * @return array
+     * @return object
      * @throws InvalidArgumentException Jika terdapat kesalahan Exception
      */
     public function updateDetailFasilitasAsrama($data, $id);
 
     /**
      * Update Detail Tipe Asrama
-     * @param array $data
+     * @param object $data
      * @param integer $id
-     * @return array
+     * @return object
      * @throws InvalidArgumentException Jika terdapat kesalahan Exception
      */
     public function updateTipeAsrama($data, $id);
@@ -118,7 +134,7 @@ interface AsramaService
     /**
      * Delete Asrama
      * @param id
-     * @return array
+     * @return object
      * @throws InvalidArgumentException Jika terdapat kesalahan Exception
      */
     public function destroyAsrama($id);
@@ -126,7 +142,7 @@ interface AsramaService
     /**
      * Delete Fasilitas Asrama
      * @param id
-     * @return array
+     * @return object
      * @throws InvalidArgumentException Jika terdapat kesalahan Exception
      */
     public function destroyFasilitasAsrama($id);
@@ -134,7 +150,7 @@ interface AsramaService
     /**
      * Delete Fasilitas Asrama
      * @param id
-     * @return array
+     * @return object
      * @throws InvalidArgumentException Jika terdapat kesalahan Exception
      */
     public function destroyDetailFasilitasAsrama($id);
@@ -142,7 +158,7 @@ interface AsramaService
     /**
      * Delete Tipe Asrama
      * @param string $id
-     * @return array
+     * @return object
      * @throws InvalidArgumentException Jika terdapat kesalahan Exception
      */
     public function destroyTipeAsrama($id);
@@ -168,7 +184,7 @@ interface AsramaService
     /**
      * Search Data Detail Tipe Asrama
      * @param string $search
-     * @return array
+     * @return object
      * @throws InvalidArgumentException Jika terdapat kesalahan Exception
      */
     public function searchTipeAsrama($search);

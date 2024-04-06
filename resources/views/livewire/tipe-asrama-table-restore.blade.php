@@ -20,8 +20,21 @@
                     <button
                         class="text-white absolute end-2.5 bottom-2.5 bg-gray-700 hover:bg-gray-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 dark:bg-gray-600 dark:hover:bg-gray-700 dark:focus:ring-blue-800">Search</button>
                 </form>
+
+
             </div>
+
         </div>
+
+        {{-- Restore Start --}}
+        <a href="{{ asset('admin/tipeAsramas') }}"
+            class="text-white bg-gray-700 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-xl text-sm p-2 me-2 mb-2 dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-gray-700 dark:border-gray-700">
+            <svg xmlns="http://www.w3.org/2000/svg" class="text-4xl" width="1em" height="1em" viewBox="0 0 24 24">
+                <path fill="currentColor"
+                    d="M13 3a9 9 0 0 0-9 9H1l3.89 3.89l.07.14L9 12H6c0-3.87 3.13-7 7-7s7 3.13 7 7s-3.13 7-7 7c-1.93 0-3.68-.79-4.94-2.06l-1.42 1.42A8.954 8.954 0 0 0 13 21a9 9 0 0 0 0-18m-1 5v5l4.28 2.54l.72-1.21l-3.5-2.08V8z" />
+            </svg>
+        </a>
+        {{-- Restore End --}}
 
         <div wire:loading
             class="left-[59%] top-[12.5rem] h-1/2 w-auto rounded-lg dark:bg-gray-800 dark:border-gray-700">
@@ -54,8 +67,8 @@
                     <th scope="col" class="px-6 py-3">
                         <div class="flex items-center">
                             Nama Ruangan
-                            <button x-on:click="$wire.set('order', 'a_nama_ruangan')">
-                                @if ($orderAction == 0 or $order != '' and $order != 'a_nama_ruangan')
+                            <button x-on:click="$wire.set('order', 'ta_nama')">
+                                @if ($orderAction == 0 or $order != '' and $order != 'ta_nama')
                                     <svg class="w-3 h-3 ms-1.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
                                         fill="currentColor" viewBox="0 0 24 24">
                                         <path
@@ -65,7 +78,7 @@
 
 
 
-                                @if ($order == 'a_nama_ruangan')
+                                @if ($order == 'ta_nama')
                                     {{-- DESCENDING ICON --}}
                                     @if ($orderAction == 2)
                                         <svg class="ml-1" xmlns="http://www.w3.org/2000/svg" width="1em"
@@ -89,9 +102,9 @@
                     </th>
                     <th scope="col" class="px-6 py-3">
                         <div class="flex items-center">
-                            Tipe Asrama
-                            <button x-on:click="$wire.set('order', 'a_tarif')">
-                                @if ($orderAction == 0 or $order != '' and $order != 'a_tarif')
+                            Tarif Harga
+                            <button x-on:click="$wire.set('order', 'ta_tarif')">
+                                @if ($orderAction == 0 or $order != '' and $order != 'ta_tarif')
                                     <svg class="w-3 h-3 ms-1.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
                                         fill="currentColor" viewBox="0 0 24 24">
                                         <path
@@ -99,7 +112,7 @@
                                     </svg>
                                 @endif
 
-                                @if ($order == 'a_tarif')
+                                @if ($order == 'ta_tarif')
                                     {{-- DESCENDING ICON --}}
                                     @if ($orderAction == 2)
                                         <svg class="ml-1" xmlns="http://www.w3.org/2000/svg" width="1em"
@@ -121,32 +134,40 @@
                         </div>
                     </th>
                     <th scope="col" class="px-6 py-3">
-                        <span class="sr-only">Edit</span>
+                        <div class="flex items-center">
+                            Foto Ruangan
+                        </div>
                     </th>
                     <th scope="col" class="px-6 py-3">
-                        <span class="sr-only">Hapus</span>
+                        <span class="sr-only">Lihat Detail</span>
+                    </th>
+                    <th scope="col" class="px-6 py-3">
+                        <span class="sr-only">Tambah Properti</span>
+                    </th>
+                    <th scope="col" class="px-6 py-3">
+                        <span class="sr-only">Edit</span>
                     </th>
                 </tr>
             </thead>
             <tbody>
-                @forelse($asramas as $row)
+                @forelse($tipeAsramas as $row)
                     <tr class="bg-white border-b dark:bg-gray-700 dark:border-gray-700 dark:hover:bg-gray-400">
 
                         <td class="px-6 py-4 dark:text-white">
-                            {{ $row->a_nama_ruangan }}
+                            {{ $row->ta_nama }}
                         </td>
                         </th>
                         <td class="px-6 py-4 dark:text-white">
-                            <a @if ($row->tipeAsrama->deleted_at == null) href="{{ asset('admin/tipeAsrama/store/' . $row->tipeAsrama->id) }}" @endif
-                                class="text-blue-400 {{ $row->tipeAsrama->deleted_at != null ? 'text-red-500' : '' }} hover:underline">{{ $row->tipeAsrama->ta_nama }}</a>
+                            Rp. {{ number_format($row->ta_tarif, 0, ',', '.') }}
                         </td>
+                        <th scope="row"
+                            class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                            <img src="{{ Storage::url($row->ta_foto) }}" alt="Foto Asrama"
+                                class="h-72 max-w-xl rounded-lg shadow-xl dark:shadow-gray-800">
+                        </th>
                         <td class="px-6 py-4 text-right">
-                            <a href="{{ asset('admin/asrama/show/' . $row->id) }}"
-                                class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit</a>
-                        </td>
-                        <td class="px-6 py-4 text-right">
-                            <x-delete-button action="admin/asrama/delete/{{ $row->id }}" id="{{ $row->id }}"
-                                nama="{{ $row->a_nama_ruangan }}"></x-delete-button>
+                            <a href="{{ asset('admin/tipeAsrama/restore/' . $row->id) }}"
+                                class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Restore</a>
                         </td>
                     </tr>
                 @empty
@@ -159,6 +180,6 @@
             </tbody>
         </table>
 
-        {{ $asramas->links() }}
+        {{ $tipeAsramas->links() }}
     </div>
 </div>

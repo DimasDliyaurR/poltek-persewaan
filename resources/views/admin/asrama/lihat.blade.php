@@ -5,6 +5,10 @@
         Table {{ $title }}
     </div>
     <!-- TABLE START -->
+    <p class="text-sm ml-4">Jika Tipe Asrama berwarna merah maka tipe asrama tidak ditemukan atau sudah dihapus. Klik <a
+            href="{{ asset('admin/tipeAsramas?trashed=1') }}" class="text-blue-400 hover:underline">restore</a>. Lalu restore
+        nama tipe asrama yang ingin dipilih. Jika ingin
+        memulihkan</p>
     <x-inner-layout>
 
         <livewire:asrama-table>
@@ -30,12 +34,19 @@
             @csrf
 
             <div class="mb-5">
-                <label for="a_foto" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Foto
+                <label for="tipe_asrama_id" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Tipe
                     Asrama</label>
-                <input name="a_foto"
-                    class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-blue file:text-violet-700 hover:file:bg-blue-400 @error('a_foto') border-red-500 @enderror"
-                    id="multiple_files" type="file">
-                @error('a_foto')
+                <select name="tipe_asrama_id"
+                    class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-blue file:text-violet-700 hover:file:bg-blue-400 @error('tipe_asrama_id') border-red-500 @enderror">
+                    <option selected disabled hidden>-- Pilih Tipe Asrama --</option>
+                    @forelse($tipeAsramas as $row)
+                        <option value="{{ $row->id }}" {{ old('tipe_asrama_id') == $row->id ? 'selected' : ' ' }}>
+                            {{ $row->ta_nama }}</option>
+                    @empty
+                        <option selected disabled>Tidak ada Pilihan</option>
+                    @endforelse
+                </select>
+                @error('tipe_asrama_id')
                     <span class="text-red-600 text-sm">{{ $message }}</span>
                 @enderror
             </div>
@@ -48,18 +59,6 @@
                     value="{{ old('a_nama_ruangan') }}" type="text">
 
                 @error('a_nama_ruangan')
-                    <span class="text-red-600 text-sm">{{ $message }}</span>
-                @enderror
-            </div>
-
-            <div class="mb-5">
-                <label for="a_tarif" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Harga
-                    Tarif (N)</label>
-                <input name="a_tarif"
-                    class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-4 @error('a_tarif') border-red-500 @enderror"
-                    value="{{ old('a_tarif') }}" type="text">
-
-                @error('a_tarif')
                     <span class="text-red-600 text-sm">{{ $message }}</span>
                 @enderror
             </div>

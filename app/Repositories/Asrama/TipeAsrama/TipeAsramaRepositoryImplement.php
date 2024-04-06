@@ -38,7 +38,7 @@ class TipeAsramaRepositoryImplement implements TipeAsramaRepository
      */
     public function getDataById($id)
     {
-        return $this->tipeAsrama->findOrFail($id);
+        return $this->tipeAsrama::whereId($id);
     }
 
     /**

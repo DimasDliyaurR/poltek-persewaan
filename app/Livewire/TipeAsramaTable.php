@@ -4,12 +4,10 @@ namespace App\Livewire;
 
 use App\Services\Asrama\AsramaService;
 use Livewire\Component;
-use Livewire\WithoutUrlPagination;
-use Livewire\WithPagination;
 
-class AsramaTable extends Component
+class TipeAsramaTable extends Component
 {
-    use WithPagination, WithoutUrlPagination;
+
     public $searchInput = "";
     public $searchAction = [];
 
@@ -25,14 +23,16 @@ class AsramaTable extends Component
 
     public function render(AsramaService $asramaService)
     {
-        if (!isset($this->searchAction["search"])) $asramas = $asramaService->getAllDataAsrama()->with(["tipeAsrama" => fn ($q) => $q->withTrashed()]); // Inisiasi Data Asrama
+        $is_request = request("trashed") == 1;
 
-        if (isset($this->searchAction["search"]) and $this->searchAction["search"] != "") $asramas = $asramaService->searchAsrama($this->searchAction["search"]);
+        if (!isset($this->searchAction["search"])) $asramas = $is_request ? $asramaService->getAllDataTipeAsrama()->onlyTrashed() : $asramaService->getAllDataTipeAsrama(); // Inisiasi Data Asrama
+
+        if (isset($this->searchAction["search"]) and $this->searchAction["search"] != "") $asramas = $asramaService->searchTipeAsrama($this->searchAction["search"]);
 
         $this->orderAction = $this->orderAction == 2 ? -1 : $this->orderAction; // Reset Order Action Max 2
 
         switch ($this->order) {
-            case 'a_nama_ruangan':
+            case 'ta_nama':
                 $this->orderAction += 1;
                 switch ($this->orderAction) {
                     case 1:
@@ -43,7 +43,7 @@ class AsramaTable extends Component
                         break;
                 }
                 break;
-            case 'a_tarif':
+            case 'ta_tarif':
                 $this->orderAction += 1;
                 switch ($this->orderAction) {
                     case 1:
@@ -60,8 +60,14 @@ class AsramaTable extends Component
 
         if ($this->orderAction != 0) $asramas = $asramas->orderBy($this->order, $sorted);
 
-        return view('livewire.asrama-table', [
-            "asramas" => $asramas->paginate(5),
+        if ($is_request) {
+            return view('livewire.tipe-asrama-table-restore', [
+                "tipeAsramas" => $asramas->paginate(5),
+            ]);
+        }
+
+        return view('livewire.tipe-asrama-table', [
+            "tipeAsramas" => $asramas->paginate(5),
         ]);
     }
 }

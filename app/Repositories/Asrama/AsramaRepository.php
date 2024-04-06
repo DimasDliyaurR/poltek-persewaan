@@ -7,6 +7,13 @@ interface AsramaRepository
     public function getDataById($id);
 
     /**
+     * Get Data Asrama by Tipe Asrama Id 
+     * @param integer $id
+     * @return object
+     */
+    public function getDataByTipeAsramaId($id);
+
+    /**
      * Get All data asrama
      * @return Array
      */

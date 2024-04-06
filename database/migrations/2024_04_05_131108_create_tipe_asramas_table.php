@@ -16,6 +16,9 @@ return new class extends Migration
             $table->string("ta_foto");
             $table->string("ta_nama");
             $table->integer("ta_tarif");
+            $table->integer("ta_kapasitas");
+            $table->text("ta_deskripsi");
+            $table->string("ta_slug");
             $table->timestamps();
         });
     }

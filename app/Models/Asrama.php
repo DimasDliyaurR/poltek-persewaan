@@ -7,10 +7,11 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Asrama extends Model
 {
-    use HasFactory;
+    use HasFactory, SoftDeletes;
 
     /**
      * The attributes that are mass assignable.
@@ -18,11 +19,11 @@ class Asrama extends Model
      * @var array
      */
     protected $fillable = [
+        'tipe_asrama_id',
         'a_nama_ruangan',
         'a_foto',
         'a_slug',
         'a_status',
-        'a_tarif',
     ];
 
     /**
@@ -32,8 +33,12 @@ class Asrama extends Model
      */
     protected $casts = [
         'id' => 'integer',
-        'a_tarif' => 'decimal:2',
     ];
+
+    public function tipeAsrama()
+    {
+        return $this->belongsTo(TipeAsrama::class);
+    }
 
     public function detailFasilitasAsramas(): HasMany
     {

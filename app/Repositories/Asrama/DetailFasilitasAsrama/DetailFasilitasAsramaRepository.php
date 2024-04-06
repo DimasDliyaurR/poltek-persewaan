@@ -22,7 +22,7 @@ interface DetailFasilitasAsramaRepository
      * @param Id
      * @return Mixed
      */
-    public function getAllDataByAsramaId($id);
+    public function getAllDataByTipeAsramaId($id);
 
     /**
      * Store Data Detail Fasilitas Asrama

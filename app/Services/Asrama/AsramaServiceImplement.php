@@ -42,6 +42,23 @@ class AsramaServiceImplement implements AsramaService
     }
 
     /**
+     * Get Data Asrama By Tipe Asrama Id
+     * @param integer $id
+     * @return array
+     * @throws InvalidArgumentException Jika terdapat kesalahan Exception
+     */
+    public function getDataAsramaByTipeAsramaId($id)
+    {
+        try {
+            $data = $this->asramaRepository->getDataByTipeAsramaId($id);
+        } catch (\Exception $th) {
+            throw new InvalidArgumentException();
+        }
+
+        return $data;
+    }
+
+    /**
      * Get Data Fasilitas Asrama By Id Fasilitas Asrama
      * @param id string
      * @return array
@@ -64,10 +81,27 @@ class AsramaServiceImplement implements AsramaService
      * @return array
      * @throws InvalidArgumentException Jika Terdapat Kesalahan Exception
      */
-    public function getDataDetailFasilitasByAsramaId($id)
+    public function getDataDetailFasilitasByTipeAsramaId($id)
     {
         try {
-            $data = $this->detailFasilitasAsramaRepository->getAllDataByAsramaId($id);
+            $data = $this->detailFasilitasAsramaRepository->getAllDataByTipeAsramaId($id);
+        } catch (\Exception $th) {
+            throw new InvalidArgumentException();
+        }
+
+        return $data;
+    }
+
+    /**
+     * Get Data Tipe Asrama By Asrama Id
+     * @param Id
+     * @return array
+     * @throws InvalidArgumentException Jika Terdapat Kesalahan Exception
+     */
+    public function getDataTipeAsramaById($id)
+    {
+        try {
+            $data = $this->tipeAsramaRepository->getDataById($id);
         } catch (\Exception $th) {
             throw new InvalidArgumentException();
         }

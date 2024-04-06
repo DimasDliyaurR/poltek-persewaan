@@ -12,6 +12,7 @@ use App\Http\Requests\asrama\RequestAsrama;
 use App\Http\Requests\asrama\tipeAsrama\RequestTipeAsrama;
 use App\Http\Requests\asrama\fasilitasAsrama\RequestFasilitasAsrama;
 use App\Http\Requests\asrama\detailFasilitasAsrama\RequestDetailFasilitasAsrama;
+use Exception;
 
 class AsramaController extends Controller
 {
@@ -109,12 +110,11 @@ class AsramaController extends Controller
      */
     public function indexAsrama()
     {
-        $asramas = $this->asramaService->getAllDataAsrama();
-
+        $asramas = $this->asramaService->getAllDataTipeAsrama();
         return view("admin.asrama.lihat", [
             "title" => "Asrama",
             "action" => "asrama",
-            "asramas" => $asramas,
+            "tipeAsramas" => $asramas->get(),
         ]);
     }
 
@@ -126,6 +126,7 @@ class AsramaController extends Controller
     {
         $validation = $request->validated();
 
+        // Non Active
         if ($request->hasFile('a_foto')) {
             $file_asrama = $request->file('a_foto');
             $foto_asrama = $file_asrama->hashName();
@@ -133,17 +134,15 @@ class AsramaController extends Controller
             $foto_asrama_path = $file_asrama->storeAs("/asrama", $foto_asrama);
             $foto_asrama_path = Storage::disk("public")->put("/asrama", $file_asrama);
             $validation['a_foto'] = $foto_asrama_path;
-        } else {
-            abort(505);
         }
 
         $validation['a_slug'] = Str::slug($validation["a_nama_ruangan"]);
-
-        try {
-            $this->asramaService->storeAsrama($validation);
-        } catch (\Exception $th) {
-            throw new InvalidArgumentException();
-        }
+        // dd($validation);
+        // try {
+        $this->asramaService->storeAsrama($validation);
+        // } catch (\Exception $th) {
+        //     throw new InvalidArgumentException();
+        // }
 
         return back()->with("successForm", "Berhasil Menambahkan Asrama ruangan " . $validation["a_nama_ruangan"]);
     }
@@ -175,6 +174,7 @@ class AsramaController extends Controller
     {
         try {
             $asrama = $this->asramaService->getDataAsramaById($id);
+            $tipeAsramas = $this->asramaService->getAllDataTipeAsrama($id);
         } catch (\Exception $th) {
             return abort(404);
         }
@@ -183,6 +183,7 @@ class AsramaController extends Controller
             "title" => "Asrama",
             "action" => "asrama",
             "asrama" => $asrama,
+            "tipeAsramas" => $tipeAsramas->get(),
         ]);
     }
 
@@ -195,20 +196,6 @@ class AsramaController extends Controller
         $validation = $request->validated();
 
         $asramaOld = $this->asramaService->getDataAsramaById($id);
-
-        if ($request->hasFile('a_foto')) {
-
-            if (Storage::disk('public')->exists($asramaOld['a_foto'])) {
-                Storage::disk('public')->delete($asramaOld['a_foto']);
-            }
-
-            $file_asrama = $request->file('a_foto');
-            $foto_asrama = $file_asrama->hashName();
-
-            $foto_asrama_path = $file_asrama->storeAs("/asrama", $foto_asrama);
-            $foto_asrama_path = Storage::disk("public")->put("/asrama", $file_asrama);
-            $validation['a_foto'] = $foto_asrama_path;
-        }
 
         $validation['a_slug'] = Str::slug($validation["a_nama_ruangan"]);
 
@@ -229,12 +216,11 @@ class AsramaController extends Controller
     {
         $asrama = $this->asramaService->getDataAsramaById($id);
 
-        // try {
-        $this->asramaService->destroyAsrama($id);
-        Storage::disk("public")->delete($asrama['a_foto']);
-        // } catch (\Exception $th) {
-        //     throw new InvalidArgumentException();
-        // }
+        try {
+            $this->asramaService->destroyAsrama($id);
+        } catch (\Exception $th) {
+            throw new InvalidArgumentException();
+        }
 
         return back()->with("successTable", "Berhasil Menghapus " . $asrama['a_nama_ruangan']);
     }
@@ -245,13 +231,12 @@ class AsramaController extends Controller
      */
     public function indexTipeAsrama()
     {
-        $tipeAsramas = $this->asramaService->getAllDataTipeAsrama();
+        $property = ["action" => "asrama"];
+        // Jika ada param request adalah 1
+        $is_request_trashed = request("trashed") == 1;
+        $property["title"] = $is_request_trashed ? "Tipe Asrama Restore" : "Tipe Asrama";
 
-        return view("admin.tipeAsrama.lihat", [
-            "title" => "Tipe Asrama",
-            "action" => "asrama",
-            "tipeAsramas" => $tipeAsramas->paginate(5),
-        ]);
+        return view("admin.asrama.tipeAsrama.lihat", $property);
     }
 
     /**
@@ -262,118 +247,141 @@ class AsramaController extends Controller
     {
         $validation = $request->validated();
 
-        if ($request->hasFile('a_foto')) {
-            $file_asrama = $request->file('a_foto');
+
+        if ($request->hasFile('ta_foto')) {
+            $file_asrama = $request->file('ta_foto');
             $foto_asrama = $file_asrama->hashName();
 
             $foto_asrama_path = $file_asrama->storeAs("/asrama", $foto_asrama);
             $foto_asrama_path = Storage::disk("public")->put("/asrama", $file_asrama);
-            $validation['a_foto'] = $foto_asrama_path;
+
+            $validation["ta_foto"] = $foto_asrama_path;
         } else {
             abort(505);
         }
 
-        $validation['a_slug'] = Str::slug($validation["a_nama_ruangan"]);
+        $validation['ta_slug'] = Str::slug($validation["ta_nama"]);
 
         try {
-            $this->asramaService->storeAsrama($validation);
+            $this->asramaService->storeTipeAsrama($validation);
         } catch (\Exception $th) {
             throw new InvalidArgumentException();
         }
 
-        return back()->with("successForm", "Berhasil Menambahkan Asrama ruangan " . $validation["a_nama_ruangan"]);
+        return back()->with("successForm", "Berhasil Menambahkan Tipe Asrama " . $validation["ta_nama"]);
     }
 
-    // /**
-    //  * Asmara
-    //  * Store
-    //  */
-    // public function storeAsrama($id)
-    // {
-    //     try {
-    //         $asrama = $this->asramaService->getDataAsramaById($id);
-    //     } catch (\Exception $th) {
-    //         return abort(404);
-    //     }
+    /**
+     * Tipe Asmara
+     * Store
+     */
+    public function storeTipeAsrama($id)
+    {
+        try {
+            $tipeAsrama = $this->asramaService->getDataTipeAsramaById($id);
+            $asrama = $this->asramaService->getDataAsramaByTipeAsramaId($id);
+            $detailFasilitas = $this->asramaService->getDataDetailFasilitasByTipeAsramaId($id);
+        } catch (\Exception $th) {
+            return abort(404);
+        }
 
-    //     return view("admin.kendaraan.merkKendaraan.detail", [
-    //         "title" => "Detail",
-    //         "action" => "kendaraan",
-    //         "merkKendaraan" => $asrama,
-    //     ]);
-    // }
+        return view("admin.asrama.tipeAsrama.detail", [
+            "title" => "Tipe Asrama",
+            "action" => "asrama",
+            "tipeAsrama" => $tipeAsrama->first(),
+            "asrama" => $asrama->get(),
+            "detailFasilitas" => $detailFasilitas->get(),
+        ]);
+    }
 
-    // /**
-    //  * Asrama
-    //  * Show
-    //  */
-    // public function showAsrama($id)
-    // {
-    //     try {
-    //         $asrama = $this->asramaService->getDataAsramaById($id);
-    //     } catch (\Exception $th) {
-    //         return abort(404);
-    //     }
+    /**
+     * Asrama
+     * Show
+     */
+    public function showTipeAsrama($id)
+    {
+        try {
+            $asrama = $this->asramaService->getDataTipeAsramaById($id);
+        } catch (\Exception $th) {
+            return abort(404);
+        }
 
-    //     return view("admin.asrama.edit", [
-    //         "title" => "Asrama",
-    //         "action" => "asrama",
-    //         "asrama" => $asrama,
-    //     ]);
-    // }
+        return view("admin.asrama.tipeAsrama.edit", [
+            "title" => "Tipe Asrama",
+            "action" => "asrama",
+            "asrama" => $asrama,
+        ]);
+    }
 
-    // /**
-    //  * Asrama
-    //  * Update
-    //  */
-    // public function updateAsrama(RequestAsrama $request, $id)
-    // {
-    //     $validation = $request->validated();
+    /**
+     * Asrama
+     * Update
+     */
+    public function updateTipeAsrama(RequestTipeAsrama $request, $id)
+    {
+        $validation = $request->validated();
 
-    //     $asramaOld = $this->asramaService->getDataAsramaById($id);
+        $asramaOld = $this->asramaService->getDataTipeAsramaById($id);
 
-    //     if ($request->hasFile('a_foto')) {
+        if ($request->hasFile('ta_foto')) {
 
-    //         if (Storage::disk('public')->exists($asramaOld['a_foto'])) {
-    //             Storage::disk('public')->delete($asramaOld['a_foto']);
-    //         }
+            if (Storage::disk('public')->exists($asramaOld['ta_foto'])) {
+                Storage::disk('public')->delete($asramaOld['ta_foto']);
+            }
 
-    //         $file_asrama = $request->file('a_foto');
-    //         $foto_asrama = $file_asrama->hashName();
+            $file_asrama = $request->file('ta_foto');
+            $foto_asrama = $file_asrama->hashName();
 
-    //         $foto_asrama_path = $file_asrama->storeAs("/asrama", $foto_asrama);
-    //         $foto_asrama_path = Storage::disk("public")->put("/asrama", $file_asrama);
-    //         $validation['a_foto'] = $foto_asrama_path;
-    //     }
+            $foto_asrama_path = $file_asrama->storeAs("/asrama", $foto_asrama);
+            $foto_asrama_path = Storage::disk("public")->put("/asrama", $file_asrama);
+            $validation['ta_foto'] = $foto_asrama_path;
+        }
 
-    //     $validation['a_slug'] = Str::slug($validation["a_nama_ruangan"]);
+        $validation['ta_slug'] = Str::slug($validation["ta_nama"]);
 
-    //     try {
-    //         $this->asramaService->updateAsrama($validation, $id);
-    //     } catch (\Exception $th) {
-    //         throw new InvalidArgumentException();
-    //     }
+        try {
+            $this->asramaService->updateTipeAsrama($validation, $id);
+        } catch (\Exception $th) {
+            throw new InvalidArgumentException();
+        }
 
-    //     return back()->with("successForm", "Berhasil Mengubah Asrama pada ruangan [ " . $validation["a_nama_ruangan"] . " ]");
-    // }
+        return back()->with("successForm", "Berhasil Mengubah Asrama pada ruangan [ " . $validation["ta_nama"] . " ]");
+    }
 
-    // /**
-    //  * Asrama
-    //  * Destroy
-    //  */
-    // public function destroyAsrama($id)
-    // {
-    //     $asrama = $this->asramaService->getDataAsramaById($id);
+    /**
+     * Asrama
+     * Destroy
+     */
+    public function destroyTipeAsrama($id)
+    {
+        $asrama = $this->asramaService->getDataTipeAsramaById($id)->first();
 
-    //     // try {
-    //     $this->asramaService->destroyAsrama($id);
-    //     Storage::disk("public")->delete($asrama['a_foto']);
-    //     // } catch (\Exception $th) {
-    //     //     throw new InvalidArgumentException();
-    //     // }
+        try {
+            $this->asramaService->destroyTipeAsrama($id);
+            // Storage::disk("public")->delete($asrama->ta_foto);
+        } catch (\Exception $th) {
+            throw new Exception($th->getMessage());
+        }
 
-    //     return back()->with("successTable", "Berhasil Menghapus " . $asrama['a_nama_ruangan']);
-    // }
+        return back()->with("successTable", "Berhasil Menghapus " . $asrama->ta_nama);
+    }
+
+    /**
+     * Asrama
+     * Restore
+     */
+    public function restoreTipeAsrama($id)
+    {
+        $asrama = $this->asramaService->getDataTipeAsramaById($id)->withTrashed()->first();
+
+        try {
+            $this->asramaService->getDataTipeAsramaById($id)->withTrashed()->restore();
+        } catch (\Exception $th) {
+            throw new Exception($th->getMessage());
+        }
+
+        return redirect("admin/tipeAsramas")->with("successTable", "Berhasil Memulihkan data " . $asrama->ta_nama);
+    }
 
     /**
      * Detail Fasilitas Asrama
@@ -381,17 +389,16 @@ class AsramaController extends Controller
      */
     public function indexDetailFasilitasAsrama($id)
     {
-
-        $asrama = $this->asramaService->getDataAsramaById($id);
+        $tipeAsrama = $this->asramaService->getDataTipeAsramaById($id);
         $fasilitasAsramas = $this->asramaService->getAllDataFasilitasAsrama();
-        $detailFasilitasAsrama = $this->asramaService->getDataDetailFasilitasByAsramaId($id);
+        $detailFasilitasAsrama = $this->asramaService->getDataDetailFasilitasByTipeAsramaId($id);
 
         return view("admin.asrama.detailFasilitasAsrama.lihat", [
             "title" => "Detail Fasilitas Asrama",
             "action" => "asrama",
-            "asrama" => $asrama,
+            "asrama" => $tipeAsrama,
             "fasilitasAsramas" => $fasilitasAsramas,
-            "detailFasilitasAsrama" => $detailFasilitasAsrama,
+            "detailFasilitasAsrama" => $detailFasilitasAsrama->get(),
         ]);
     }
 
@@ -409,7 +416,7 @@ class AsramaController extends Controller
             return back()->withErrors(["fasilitas_asrama_id" => "Fasilitas Sudah digunakan"]);
         }
 
-        $validation["asrama_id"] = $id;
+        $validation["tipe_asrama_id"] = $id;
 
         $this->asramaService->storeDetailFasilitasAsrama($validation);
 

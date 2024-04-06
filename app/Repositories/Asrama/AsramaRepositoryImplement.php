@@ -27,6 +27,18 @@ class AsramaRepositoryImplement implements AsramaRepository
     }
 
     /**
+     * Get Data Asrama by Id 
+     * @param id
+     * @return Array
+     */
+    public function getDataByTipeAsramaId($id)
+    {
+        $asramaData = $this->asrama->whereTipeAsramaId($id)->with("tipeAsrama");
+
+        return $asramaData;
+    }
+
+    /**
      * Get All data asrama
      * @return Array
      */

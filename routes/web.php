@@ -112,6 +112,27 @@ Route::group(["prefix" => "admin"], function () {
 
         // Delete Detail Fasilitas Asrama
         Route::delete("detailFasilitasAsrama/delete/{id}", "destroyDetailFasilitas");
+
+        // Index Tipe Asrama
+        Route::get("tipeAsramas", "indexTipeAsrama");
+
+        // Create Tipe Asrama
+        Route::post("tipeAsramas/create", "createTipeAsrama");
+
+        // store Tipe Asrama
+        Route::get("tipeAsrama/store/{id}", "storeTipeAsrama");
+
+        // Show Tipe Asrama
+        Route::get("tipeAsrama/show/{id}", "showTipeAsrama");
+
+        // Update Tipe Asrama
+        Route::put("tipeAsrama/update/{id}", "updateTipeAsrama");
+
+        // Destroy Tipe Asrama
+        Route::delete("tipeAsrama/delete/{id}", "destroyTipeAsrama");
+
+        // Restore Tipe Asrama
+        Route::get("tipeAsrama/restore/{id}", "restoreTipeAsrama");
     });
 
     Route::controller(AlatBarangController::class)->group(function () {
