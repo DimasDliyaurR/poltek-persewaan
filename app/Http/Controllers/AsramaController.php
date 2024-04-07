@@ -65,7 +65,7 @@ class AsramaController extends Controller
 
         return view("admin.asrama.FasilitasAsrama.edit", [
             "title" => "FasilitasAsrama",
-            "action" => "FasilitasAsrama",
+            "action" => "asrama",
             "fasilitasAsrama" => $FasilitasAsrama,
         ]);
     }
@@ -279,7 +279,6 @@ class AsramaController extends Controller
     {
         try {
             $tipeAsrama = $this->asramaService->getDataTipeAsramaById($id);
-            $asrama = $this->asramaService->getDataAsramaByTipeAsramaId($id);
             $detailFasilitas = $this->asramaService->getDataDetailFasilitasByTipeAsramaId($id);
         } catch (\Exception $th) {
             return abort(404);
@@ -289,7 +288,6 @@ class AsramaController extends Controller
             "title" => "Tipe Asrama",
             "action" => "asrama",
             "tipeAsrama" => $tipeAsrama->first(),
-            "asrama" => $asrama->get(),
             "detailFasilitas" => $detailFasilitas->get(),
         ]);
     }
@@ -396,7 +394,7 @@ class AsramaController extends Controller
         return view("admin.asrama.detailFasilitasAsrama.lihat", [
             "title" => "Detail Fasilitas Asrama",
             "action" => "asrama",
-            "asrama" => $tipeAsrama,
+            "asrama" => $tipeAsrama->first(),
             "fasilitasAsramas" => $fasilitasAsramas,
             "detailFasilitasAsrama" => $detailFasilitasAsrama->get(),
         ]);

@@ -20,6 +20,7 @@ class FasilitasAsrama extends Model
         'fa_icon',
         'fa_nama',
         'fa_status',
+        'fa_tarif',
     ];
 
     /**
@@ -29,6 +30,7 @@ class FasilitasAsrama extends Model
      */
     protected $casts = [
         'id' => 'integer',
+        'fa_tarif' => 'integer',
     ];
 
     public function detailFasilitasAsramas(): HasMany

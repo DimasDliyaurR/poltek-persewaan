@@ -24,4 +24,9 @@ class TipeAsrama extends Model
         return $this->belongsToMany(FasilitasAsrama::class, "detail_fasilitas_asramas", "fasilitas_asrama_id", "tipe_asrama_id")
             ->using(DetailFasilitasAsrama::class);
     }
+
+    public function asramas(): HasMany
+    {
+        return $this->hasMany(Asrama::class);
+    }
 }

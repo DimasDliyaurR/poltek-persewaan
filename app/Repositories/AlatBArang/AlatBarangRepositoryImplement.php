@@ -21,7 +21,7 @@ class AlatBarangRepositoryImplement implements AlatBarangRepository
      */
     public function getDataById($id)
     {
-        $alatBarangData = $this->alatBarang::whereId($id)->first();
+        $alatBarangData = $this->alatBarang::whereId($id);
 
         return $alatBarangData;
     }

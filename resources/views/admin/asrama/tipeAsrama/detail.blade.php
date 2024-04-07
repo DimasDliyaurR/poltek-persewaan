@@ -41,7 +41,7 @@
     <x-inner-layout>
 
         <ul class="w-auto space-y-1 list-disc list-inside dark:text-gray-400 text-sm">
-            @forelse ($asrama as $row)
+            @forelse ($tipeAsrama->asramas as $row)
                 <li>{{ $row->a_nama_ruangan }}</li>
             @empty
                 <p class="text-sm text-center">Ruangan Tidak ada. Silahkan tambahkan ke <a
@@ -55,9 +55,10 @@
     <x-title-component>
         List Fasilitas {{ $tipeAsrama->ta_nama }}
     </x-title-component>
-    <p class="text-sm ml-2">Jika ingin menambahkan fasilitas <span class="text-blue-400">{{ $tipeAsrama->ta_nama }}</span>
+    <p class="text-sm ml-2">Jika ingin menambahkan fasilitas pada tipe ruangan <span
+            class="font-bold">{{ $tipeAsrama->ta_nama }}</span>
         silahkan tambahkan ke <a href="{{ asset('admin/detailFasilitasAsrama/' . $tipeAsrama->id) }}"
-            class="text-blue-400 hover:underline">Tambah
+            class="text-blue-400 hover:underline">Tambah {{ $tipeAsrama->ta_nama }}
             Fasilitas Asrama</a></p>
 
     <x-inner-layout>

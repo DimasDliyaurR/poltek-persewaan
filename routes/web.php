@@ -159,6 +159,24 @@ Route::group(["prefix" => "admin"], function () {
 
         // Create Alat Barang
         Route::post("detailFotoAlatBarang/create/{id}", "createFotoAlatBarang");
+
+        // Index Satuan Alat Barang
+        Route::get("satuanAlatBarangs", "indexSatuanAlatBarang");
+
+        // Create Satuan Alat Barang
+        Route::post("satuanAlatBarangs/create", "createSatuanAlatBarang");
+
+        // store Satuan Alat Barang
+        Route::get("satuanAlatBarang/store/{id}", "storeSatuanAlatBarang");
+
+        // Show Satuan Alat Barang
+        Route::get("satuanAlatBarang/show/{id}", "showSatuanAlatBarang");
+
+        // Update Satuan Alat Barang
+        Route::put("satuanAlatBarang/update/{id}", "updateSatuanAlatBarang");
+
+        // Destroy Satuan Alat Barang
+        Route::delete("satuanAlatBarang/delete/{id}", "destroySatuanAlatBarang");
     });
 
     Route::controller(GedungLapController::class)->group(function () {

@@ -29,7 +29,8 @@ class RequestAlatBarang extends FormRequest
                 "a_nama" => "required",
                 "a_keterangan" => "required",
                 "a_tarif" => "required|numeric",
-                "a_satuan" => "required",
+                "a_qty" => "required|numeric",
+                "satuan_alat_barang_id" => "required",
             ];
         } else {
             $rules += [
@@ -37,7 +38,8 @@ class RequestAlatBarang extends FormRequest
                 "a_nama" => "required",
                 "a_keterangan" => "required",
                 "a_tarif" => "required|numeric",
-                "a_satuan" => "required",
+                "a_qty" => "required|numeric",
+                "satuan_alat_barang_id" => "required",
             ];
         }
 
@@ -53,6 +55,8 @@ class RequestAlatBarang extends FormRequest
             "a_keterangan.required" => "Keterangan mohon diisi !",
             "a_tarif.required" => "Harga Tarif mohon diisi !",
             "a_tarif.numeric" => "Harga Tarif mohon diisi menggunakan angka !",
+            "a_qty.required" => "Jumlah Unit mohon diisi !",
+            "a_qty.numeric" => "Jumlah Unit mohon diisi menggunakan angka !",
             "a_satuan.required" => "Satuan mohon diisi !",
         ];
     }

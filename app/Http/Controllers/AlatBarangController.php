@@ -8,6 +8,7 @@ use InvalidArgumentException;
 use Illuminate\Support\Facades\Storage;
 use App\Services\AlatBarang\AlatBarangService;
 use App\Http\Requests\alatBarang\RequestAlatBarang;
+use App\Http\Requests\alatBarang\satuanAlatBarang\RequestSatuanAlatBarang;
 
 class AlatBarangController extends Controller
 {
@@ -25,10 +26,12 @@ class AlatBarangController extends Controller
     public function indexAlatBarang()
     {
         $alatBarangs = $this->alatBarangService->getAllAlatBarang();
+        $satuanAlatBarangs = $this->alatBarangService->getAllSatuanAlatBarang();
 
         return view("admin.alatBarang.lihat", [
             "title" => "Alat Barang",
             "action" => "alat barang",
+            "satuanAlatBarangs" => $satuanAlatBarangs->get(),
             "alatBarangs" => $alatBarangs,
         ]);
     }
@@ -56,7 +59,7 @@ class AlatBarangController extends Controller
 
         $validation['a_slug'] = Str::slug($validation["a_nama"]); // Menambahkan slug
 
-        $this->alatBarangService->storeAlatBarang($validation); // Create alat Barang
+        $this->alatBarangService->createAlatBarang($validation); // Create alat Barang
 
         return back()->with("successForm", "Berhasil Menambahkan Merek Kendaraan");
     }
@@ -69,7 +72,7 @@ class AlatBarangController extends Controller
     {
         try // Mencoba Statement di bawah 
         {
-            $AlatBarang = $this->alatBarangService->getDataAlatBarangById($id);
+            $AlatBarang = $this->alatBarangService->getDataAlatBarangById($id)->with("satuanAlatBarangs");
             $detailFotoAlatBarang = $this->alatBarangService->getDataFotoAlatBarangById($id);
         } catch (\Exception $th) // Jika statement di atas terdapat exception maka akan mengeksekusi statement di bawah 
         {
@@ -79,7 +82,7 @@ class AlatBarangController extends Controller
         return view("admin.AlatBarang.detail", [
             "title" => "Foto Alat Barang",
             "action" => "kendaraan",
-            "AlatBarang" => $AlatBarang,
+            "AlatBarang" => $AlatBarang->first(),
             "detailFotoAlatBarang" => $detailFotoAlatBarang,
         ]);
     }
@@ -214,7 +217,7 @@ class AlatBarangController extends Controller
         $detailFotoAlatBarang = $this->alatBarangService->getDataFotoAlatBarangById($id);
 
         try {
-            $this->alatBarangService->storeFotoAlatBarang($validation);
+            $this->alatBarangService->createFotoAlatBarang($validation);
         } catch (\Exception $th) {
             throw new InvalidArgumentException();
         }
@@ -239,5 +242,89 @@ class AlatBarangController extends Controller
         }
 
         return back()->with("successTable", "Berhasil Terhapus");
+    }
+
+    /**
+     * Satuan Alat Barang
+     * index
+     */
+    public function indexSatuanAlatBarang()
+    {
+        $alatBarangs = $this->alatBarangService->getAllSatuanAlatBarang();
+
+        return view("admin.alatBarang.satuanAlatBarang.lihat", [
+            "title" => "Satuan Alat Barang",
+            "action" => "alat barang",
+            "alatBarangs" => $alatBarangs->paginate(5),
+        ]);
+    }
+
+    /**
+     * Satuan Alat Barang
+     * Create
+     */
+    public function createSatuanAlatBarang(RequestSatuanAlatBarang $request)
+    {
+        $validation = $request->validated();
+
+        try {
+            $alatBarang = $this->alatBarangService->createSatuanAlatBarang($validation);
+        } catch (\Exception $th) {
+            throw new InvalidArgumentException();
+        }
+
+        return back()->with("successForm", "Berhasil menambahkan " . $alatBarang->sab_nama);
+    }
+
+    /**
+     * Satuan Alat Barang
+     * Show
+     */
+    public function showSatuanAlatBarang($id)
+    {
+        $alatBarang = $this->alatBarangService->getDataSatuanAlatBarangById($id);
+
+        return view("admin.alatBarang.satuanAlatBarang.edit", [
+            "title" => "Satuan Alat Barang",
+            "action" => "alat barang",
+            "alatBarang" => $alatBarang->first(),
+        ]);
+    }
+
+    /**
+     * Satuan Alat Barang
+     * update
+     */
+    public function updateSatuanAlatBarang(RequestSatuanAlatBarang $request, $id)
+    {
+        $validation = $request->validated();
+        $alatBarang = $this->alatBarangService->getDataSatuanAlatBarangById($id)->first();
+
+        try {
+            $this->alatBarangService->updateSatuanAlatBarang($validation, $id);
+        } catch (\Exception $th) {
+            throw new InvalidArgumentException();
+        }
+
+        return back()->with("successForm", "Berhasil mengubah " . $alatBarang->sab_nama);
+    }
+
+    /**
+     * Satuan Alat Barang
+     * Destroy
+     */
+    public function destroySatuanAlatBarang($id)
+    {
+        $alatBarang = $this->alatBarangService->getDataSatuanAlatBarangById($id)->with("alatBarangs")->first();
+
+        if (count($alatBarang->alatBarangs) > 0) return back()->with("errorTable", "Gagal menghapus");
+
+        try {
+            $this->alatBarangService->destroySatuanAlatBarang($id);
+        } catch (\Exception $th) {
+            throw new InvalidArgumentException();
+        }
+
+        return back()->with("successTable", "Berhasil menghapus " . $alatBarang->sab_nama);
     }
 }

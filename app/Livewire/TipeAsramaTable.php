@@ -23,9 +23,9 @@ class TipeAsramaTable extends Component
 
     public function render(AsramaService $asramaService)
     {
-        $is_request = request("trashed") == 1;
+        $is_request = request("trashed") == 1; // Jika
 
-        if (!isset($this->searchAction["search"])) $asramas = $is_request ? $asramaService->getAllDataTipeAsrama()->onlyTrashed() : $asramaService->getAllDataTipeAsrama(); // Inisiasi Data Asrama
+        if (!isset($this->searchAction["search"])) $asramas = $is_request ? $asramaService->getAllDataTipeAsrama()->onlyTrashed()->latest() : $asramaService->getAllDataTipeAsrama()->latest(); // Inisiasi Data Asrama
 
         if (isset($this->searchAction["search"]) and $this->searchAction["search"] != "") $asramas = $asramaService->searchTipeAsrama($this->searchAction["search"]);
 

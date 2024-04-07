@@ -38,42 +38,47 @@
                     {{ $value }}
                 </x-alert-success>
             @endsession
+
+            @session('errorTable')
+                <x-alert-error>
+                    {{ $value }}
+                </x-alert-error>
+            @endsession
             <table class="w-full text-sm text-left rtl:text-right text-gray-800 dark:text-gray-400 border-solid">
                 <thead class="text-md text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-white">
                     <tr>
                         <th scope="col" class="px-6 py-3">
-                            Nama Asrama
-                        </th>
-                        <th scope="col" class="px-6 py-3">
                             <div class="flex items-center">
-                                Icon
+                                Nama
+                                <a href="#"><svg class="w-3 h-3 ms-1.5" aria-hidden="true"
+                                        xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
+                                        <path
+                                            d="M8.574 11.024h6.852a2.075 2.075 0 0 0 1.847-1.086 1.9 1.9 0 0 0-.11-1.986L13.736 2.9a2.122 2.122 0 0 0-3.472 0L6.837 7.952a1.9 1.9 0 0 0-.11 1.986 2.074 2.074 0 0 0 1.847 1.086Zm6.852 1.952H8.574a2.072 2.072 0 0 0-1.847 1.087 1.9 1.9 0 0 0 .11 1.985l3.426 5.05a2.123 2.123 0 0 0 3.472 0l3.427-5.05a1.9 1.9 0 0 0 .11-1.985 2.074 2.074 0 0 0-1.846-1.087Z" />
+                                    </svg></a>
                             </div>
-                        </th>
-                        <th scope="col" class="px-6 py-3">
-                            <span class="sr-only">Lihat Detail</span>
                         </th>
                         <th scope="col" class="px-6 py-3">
                             <span class="sr-only">Edit</span>
                         </th>
+                        <th scope="col" class="px-6 py-3">
+                            <span class="sr-only">Hapus</span>
+                        </th>
                     </tr>
                 </thead>
                 <tbody>
-                    @forelse($fasilitasAsramas as $row)
+                    @forelse($alatBarangs as $row)
                         <tr class="bg-white border-b dark:bg-gray-700 dark:border-gray-700 dark:hover:bg-gray-400">
                             <th scope="row"
                                 class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                {{ $row->fa_nama }}
+                                {{ $row->sab_nama }}
                             </th>
-                            <td class="px-6 py-4 dark:text-white">
-                                <box-icon name="{{ $row->fa_icon }}"></box-icon>
-                            </td>
                             <td class="px-6 py-4 text-right">
-                                <a href="{{ asset('admin/fasilitasAsrama/show/' . $row->id) }}"
+                                <a href="{{ asset('admin/satuanAlatBarang/show/' . $row->id) }}"
                                     class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit</a>
                             </td>
                             <td class="px-6 py-4 text-right">
-                                <x-delete-button action="admin/fasilitasAsrama/delete/{{ $row->id }}"
-                                    id="{{ $row->id }}" nama="{{ $row->fa_nama }}"></x-delete-button>
+                                <x-delete-button action="admin/satuanAlatBarang/delete/{{ $row->id }}"
+                                    id="{{ $row->id }}" nama="{{ $row->sab_nama }}"></x-delete-button>
                             </td>
                         </tr>
                     @empty
@@ -86,7 +91,7 @@
                 </tbody>
             </table>
 
-            {{ $fasilitasAsramas->links() }}
+            {{ $alatBarangs->links() }}
         </div>
 
     </x-inner-layout>
@@ -106,42 +111,15 @@
             </x-alert-success>
         @endsession
 
-        <form action="{{ asset('admin/fasilitasAsramas/create') }}" method="post" enctype="multipart/form-data">
+        <form action="{{ asset('admin/satuanAlatBarangs/create') }}" method="post" enctype="multipart/form-data">
             @csrf
 
             <div class="mb-5">
-                <label for="fa_nama" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Nama
-                    Fasilitas Asrama</label>
-                <input name="fa_nama"
-                    class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-4 @error('fa_nama') border-red-500 @enderror"
-                    value="{{ old('fa_nama') }}" type="text">
-
-                @error('fa_nama')
-                    <span class="text-red-600 text-sm">{{ $message }}</span>
-                @enderror
-            </div>
-
-            <div class="mb-5">
-                <label for="" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Icon</label>
-                <input name="fa_icon"
-                    class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-4 @error('fa_icon') border-red-500 @enderror"
-                    value="{{ old('fa_icon') }}" type="text">
-                <p class="text-sm">Gunakan Icon pada website <a class="underline text-blue-400"
-                        href="https://boxicons.com/">Boxicons</a></p>
-
-                @error('fa_icon')
-                    <span class="text-red-600 text-sm">{{ $message }}</span>
-                @enderror
-            </div>
-
-            <div class="mb-5">
-                <label for="fa_tarif" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Tarif
-                    Harga</label>
-                <input name="fa_tarif"
-                    class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-4 @error('fa_tarif') border-red-500 @enderror"
-                    value="{{ old('fa_tarif') }}" type="text">
-
-                @error('fa_tarif')
+                <label for="sab_nama" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Satuan</label>
+                <input name="sab_nama"
+                    class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-4 @error('sab_nama') border-red-500 @enderror"
+                    value="{{ old('sab_nama') }}" type="text">
+                @error('sab_nama')
                     <span class="text-red-600 text-sm">{{ $message }}</span>
                 @enderror
             </div>

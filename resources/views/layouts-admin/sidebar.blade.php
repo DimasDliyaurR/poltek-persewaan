@@ -128,6 +128,10 @@
                             class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">Alat
                             Barang</a>
                     </li>
+                    <li>
+                        <a href="{{ asset('admin/satuanAlatBarangs') }}"
+                            class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">Satuan</a>
+                    </li>
                 </ul>
             </li>
 
@@ -156,11 +160,11 @@
                         <a href="{{ asset('admin/gedungLaps') }}"
                             class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">Gedung</a>
                     </li>
-                    <li>
+                    {{-- <li>
                         <a href="{{ asset('admin/propertyGedungLaps') }}"
                             class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">Gedung
                             & Lapangan Property</a>
-                    </li>
+                    </li> --}}
                 </ul>
             </li>
 
@@ -233,7 +237,7 @@
                     <li>
                         <a href="{{ asset('admin/transaksi-layanans') }}"
                             class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">Transaksi
-                            Layang</a>
+                            Layanan</a>
                     </li>
                 </ul>
             </li>

@@ -50,11 +50,6 @@ class Asrama extends Model
         return $this->hasMany(DetailTransaksiAsrama::class);
     }
 
-    public function asramas(): BelongsTo
-    {
-        return $this->belongsTo(Asrama::class);
-    }
-
     public function fasilitasAsramas(): BelongsToMany
     {
         return $this->belongsToMany(FasilitasAsrama::class);

@@ -33,7 +33,7 @@ class AsramaRepositoryImplement implements AsramaRepository
      */
     public function getDataByTipeAsramaId($id)
     {
-        $asramaData = $this->asrama->whereTipeAsramaId($id)->with("tipeAsrama");
+        $asramaData = $this->asrama->whereTipeAsramaId($id)->with("asramas");
 
         return $asramaData;
     }

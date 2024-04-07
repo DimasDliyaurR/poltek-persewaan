@@ -67,6 +67,8 @@ use App\Repositories\Layanan\DetailTransaksiLayanan\DetailTransaksiLayananReposi
 use App\Repositories\Kendaraan\DetailTransaksiKendaraan\DetailTransaksiKendaraanRepositoryImplement;
 use App\Repositories\GedungLap\DetailTransaksiPropertyGedung\DetailTransaksiPropertyGedungRepository;
 use App\Repositories\AlatBarang\DetailTransaksiAlatBarang\DetailTransaksiAlatBarangRepositoryImplement;
+use App\Repositories\AlatBarang\SatuanAlatBarang\SatuanAlatBarangRepository;
+use App\Repositories\AlatBarang\SatuanAlatBarang\SatuanAlatBarangRepositoryImplement;
 use App\Repositories\Asrama\TipeAsrama\TipeAsramaRepository;
 use App\Repositories\Asrama\TipeAsrama\TipeAsramaRepositoryImplement;
 use App\Repositories\GedungLap\DetailTransaksiPropertyGedung\DetailTransaksiPropertyGedungRepositoryImplement;
@@ -114,6 +116,7 @@ class AppServiceProvider extends ServiceProvider
          */
         $this->app->bind(AlatBarangRepository::class, AlatBarangRepositoryImplement::class);
         $this->app->bind(FotoAlatBarangRepository::class, FotoAlatBarangRepositoryImplement::class);
+        $this->app->bind(SatuanAlatBarangRepository::class, SatuanAlatBarangRepositoryImplement::class);
         $this->app->bind(TransaksiAlatBarangRepository::class, TransaksiAlatBarangRepositoryImplement::class);
         $this->app->bind(DetailTransaksiAlatBarangRepository::class, DetailTransaksiAlatBarangRepositoryImplement::class);
 
