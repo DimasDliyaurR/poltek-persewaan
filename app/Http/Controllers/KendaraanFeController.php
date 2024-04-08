@@ -15,9 +15,9 @@ class KendaraanFeController extends Controller
     public function index()
     {
         $kendaraans = $this->kendaraanFeService->getAllDataWithMerkKendaraan();
-        return view('kategori.transportasi', [
-            "title" => "Kendaraan",
-            "kendaraans" => $kendaraans
+        // return view('kategori.transportasi', [
+        //     "title" => "Kendaraan",
+        //     "kendaraans" => $kendaraans
         ]);
     }
 }

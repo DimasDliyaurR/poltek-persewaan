@@ -21,13 +21,13 @@
             <div id="imgtext"></div>
           </div>
             <!-- <img src="{{ asset('img/layanan/marching band.jpg') }}" alt="" width="" class="rounded-sm cursor-pointer shadow-md overflow-hidden xl:w-8/12 w-6/12 lg:w-7/12 mb-4" /> -->
-            <div class=" flex w-96 gap-2">
-              <img src="{{ asset('img/layanan/marching band.jpg') }}" alt="Nature" class="rounded-sm  cursor-pointer shadow-md overflow-hidden  mb-4"  onclick="myFunction(this);">
-              <img src="{{ asset('img/layanan/marching band.jpg') }}" alt="Snow" class="rounded-sm  cursor-pointer shadow-md overflow-hidden  mb-4"  onclick="myFunction(this);">
-              <img src="{{ asset('img/layanan/marching band.jpg') }}" alt="Mountains" class="rounded-sm  cursor-pointer shadow-md overflow-hidden  mb-4"  onclick="myFunction(this);">
-              <img src="{{ asset('img/layanan/marching band.jpg') }}" alt="Lights" class="rounded-sm  cursor-pointer shadow-md overflow-hidden  mb-4"  onclick="myFunction(this);">
-          </div>
-            <div class="absolute top-0 xl:right-12 md:right-16 right-14   mt-1 ">
+            <div class=" flex  gap-2 ">
+              <img src="{{ asset('img/layanan/marching band.jpg') }}" alt="Nature" class="rounded-sm  cursor-pointer shadow-md overflow-hidden w-36  mb-4"  onclick="myFunction(this);">
+              <img src="{{ asset('img/layanan/marching band.jpg') }}" alt="Snow" class="rounded-sm  cursor-pointer shadow-md overflow-hidden w-36 mb-4"  onclick="myFunction(this);">
+              <img src="{{ asset('img/lab.jpg') }}" alt="Mountains" class="rounded-sm  cursor-pointer shadow-md overflow-hidden w-36 mb-4"  onclick="myFunction(this);">
+              <img src="{{ asset('img/layanan/marching band.jpg') }}" alt="Lights" class="rounded-sm  cursor-pointer shadow-md overflow-hidden w-36 mb-4"  onclick="myFunction(this);">
+            </div>
+            <div class="absolute top-0 xl:right-12 md:right-16 right-14   mt-1  overflow-hidden">
               <h4 class=" text-base font-semibold ">Fasilitas</h4>
               <div class="flex mb-2 mt-2"> 
                 <svg class="w-6 h-6 text-primary" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
@@ -156,7 +156,7 @@
           <h4 class="font-semibold mb-2">Harga</h4>
           <p class="text-primary font-bold">Rp 2.500.000</p>
           <p class="text-xs text-gray-400"> * belum termasuk voucher</p>
-          <button class=" mt-4 h-6 w-full bg-primary rounded-lg hover:opacity-50"><a href="/pesan" class=" text-sm   text-white    " >Pesan</a></button>
+          <button class=" mt-4 h-6 w-full bg-primary rounded-lg hover:opacity-50"><a href="{{route('pesan',{$gedung_lap->id)}}" class=" text-sm   text-white" >Pesan</a></button>
           
         </div>
       </div>

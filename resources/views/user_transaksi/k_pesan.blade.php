@@ -1,82 +1,111 @@
 @extends('layouts-home.navbar.nav-transaksi')
 @section('content')
+
 <div class="  bg-plaster">
+@if (session('success'))
+    <div class="alert alert-success mb-4">
+        {{ session('success') }}
+    </div>
+@endif
+
+@if ($errors->any())
+    <div class="alert alert-danger mb-10">
+        <ul>
+            @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
+@endif
   <div class="w-full  pb-36 pt-36  flex flex-wrap justify-center  xl:mx-auto">
     <div class=" container grid grid-cols-1 sm:grid-cols-2  lg:grid-cols-3 xl:gap-36 gap-6 md:gap-10 ">
       <div class="bg-white col-span-2  shadow-md p-4 w-full h-auto xl:ml-36  mx-auto rounded-md ">
         <div class="relative">
-            <h4 class="  font-semibold mb-6 ">Pemesanan Transportasi</h4>
-            <form action="">
-                <div class="grid grid-cols-3 mb-2 lg  ">
-                    <label for="">Tanggal mulai</label>
-                    <label for="durasi">Durasi</label>
-                    <label for="" >Tanggal akhir</label>
-                    <input type="date" class="shadow-md border">
-                    <select name="durasi" id="durasi">
-                      <optgroup label="Durasi Hari">
-                      <option value="1hari">1 Hari</option>
-                      <option value="1hari">2 Hari</option>
-                      <option value="1hari">3 Hari</option>
-                      <option value="1hari">4 Hari</option>
-                      <option value="1hari">5 Hari</option>
-                      <option value="1hari">6 Hari</option>
-                      <option value="1hari">7 Hari</option>
-                      </optgroup>
-                      <optgroup label="Durasi Bulan">
-                        <option value="1bulan">1 Bulan</option>
-                      </optgroup>
-                    </select>
-                    
-                    <input type="date" class="shadow-md border">
-                </div>
-                <div class="grid grid-cols-2">
-                    <label for="penjemputan">Lokasi Penjemputan</label><br>
-                    <input id="penjemputan" type="text" class="shadow-md border-gray-100">
-                </div>
-                <div class="mb-2">
-                <br><label for="voucher">Kode Voucher</label>
-                <br><input id="voucher" placeholder="2023VOUCHER" type="text" class="shadow-md border-gray-100">
-                </div>
-                <div class="mb-2">
-                <br><label for="metode_bayar">Metode Pembayaran</label><br>
-                  <select name="metode_bayar" id="metode_bayar" class="shadow-md border-gray-100">
-                    <option value="transfer">Tunai</option>
-                    <option value="transfer">Transfer</option>
-                  </select>
-                <!-- <br><input id="penjemputan" placeholder="2023VOUCHER" type="text" class="shadow-md border-gray-100 mb-4"> -->
-                </div>
-                <div>
-                <h4 class="font-semibold mb-2">Rincian Harga</h4>
-                </div>
-                <div class="flex justify-between">
-                <p>Harga item</p>
-                <p>Rp 2.000.000</p>
-                </div>
-                <p class="text-xs text-gray-300">(1x) Bus dengan sopir 24 jam</p>
-                <div class="flex justify-between mb-2 mt-2">
-                <p>Voucher</p>
-                <p>0</p>
-                </div>
-                <div class="flex justify-between mb-2 mt-2">
-                  <h4 class="font-semibold">Harga Total</h4>
-                  <p>Rp 2.000.000</p>
-                </div>
-                <button class="mt-5 h-7 w-full bg-primary rounded-lg hover:opacity-50"><a href="/bayar" class=" text-sm   text-white    " >Lanjutkan Pembayaran</a></button>
+          <h4 class="  font-semibold mb-6 ">Pemesanan {{$kendaraan->k_nama}}</h4>
+          <form action="{{route('pemesanan')}}" method="post">
+            @csrf
+              <div class="grid grid-cols-3 mb-2 lg  ">
+                  <input type="hidden" id="id">
+                  <input type="int" id="user_id">
+                  <label for="tk_tanggal_sewa" >Tanggal mulai</label>
+                  <label for="tk_durasi" >Durasi</label>
+                  <label for="tk_tanggal_kembali"  >Tanggal akhir</label>
+                  <input id="tk_tanggal_sewa" name="tk_tanggal_sewa" type="date" class="shadow-md border border-plaster ring-offset-2 ">
 
-            </form>
+                  <select name="tk_durasi" id="tk_durasi" class="shadow-md border border-plaster">
+                    <optgroup label="Durasi Hari">
+                    <option value="1hari">1 Hari</option>
+                    <option value="1hari">2 Hari</option>
+                    <option value="1hari">3 Hari</option>
+                    <option value="1hari">4 Hari</option>
+                    <option value="1hari">5 Hari</option>
+                    <option value="1hari">6 Hari</option>
+                    <option value="1hari">7 Hari</option>
+                    </optgroup>
+                    <optgroup label="Durasi Bulan">
+                      <option value="1bulan">1 Bulan</option>
+                    </optgroup>
+                  </select>
+                  <input type="date" id="tk_tanggal_kembali" name="tk_tanggal_kembali" class="shadow-md border border-plaster">
+              </div>
+              <div class="grid grid-cols-2">
+                  <label for="penjemputan">Lokasi Penjemputan</label><br>
+                  <input id="penjemputan" type="text" class="shadow-md border-gray-100 @error('tk_tanggal_sewa') is-invalid @enderror" required value="old{{'penjemputan'}}">
+                  @error('penjemputan')
+                    <span class="text-red-500 text-xs italic">{{$message}}</span>
+                  @enderror
+              </div>
+              <div class="mb-2">
+              <br><label for="voucher">Kode Voucher</label>
+              <br><input id="voucher" placeholder="2023VOUCHER" type="text" class="shadow-md border-gray-100">
+              </div>
+              <div class="mb-2">
+              <br><label for="metode_bayar">Metode Pembayaran</label><br>
+                <select name="metode_bayar" id="metode_bayar" class="shadow-md border-gray-100">
+                  <option value="transfer">Tunai</option>
+                  <option value="transfer">Transfer</option>
+                </select>
+              <!-- <br><input id="penjemput an" placeholder="2023VOUCHER" type="text" class="shadow-md border-gray-100 mb-4"> -->
+              </div>
+              <div>
+              <h4 class="font-semibold mb-2">Rincian Harga</h4>
+              </div>
+              <div class="flex justify-between">
+              <p>Harga item</p>
+                <p>Rp</p>
+              
+              </div>
+              <p class="text-xs text-gray-300">(1x) Bus dengan sopir 24 jam</p>
+              <div class="flex justify-between mb-2 mt-2">
+              <p>Voucher</p>
+              <p>Rp 0</p>
+              </div>
+              <div class="flex justify-between mb-2 mt-2">
+                <h4 class="font-semibold">Harga Total</h4>
+                <!-- harga total = harga_item - harga_promo  -->
+                <p>Rp 2.000.000</p>
+              </div>
+              <button type="submit" class="mt-5 h-7 w-full bg-primary rounded-lg hover:opacity-50  text-sm   text-white">
+              
+                Lanjutkan Pembayaran
+              </button>
+
+          </form>
                 
         </div>
       </div>
       <!-- ... -->
       <div class=" grid md:grid-rows-2 md:grid-flow-col  xl:gap-3 gap-1 xl:w-56 p-4   md:gap-52 w-full  ">
         <div class="bg-white w-56 relative -mt-4 p-3  pb-2 rounded-md" >
-        <h4 class="font-semibold mb-2">Executive Bus</h4>
-          <img src="{{ ('img/transportasi/bus.jpg') }}" alt="">
+          
+        <h4 class="font-semibold mb-2">{{ $kendaraan->k_nama}}</h4>
+        
+          <img src="{{ asset('img/transportasi/bus.jpg') }}" alt="">
           <div class="flex gap-2 w-14 mt-2">
-            <img src="{{ ('img/transportasi/bus.jpg') }}" alt="">
-            <img src="{{ ('img/transportasi/bus.jpg') }}" alt="">
+            <img src="{{ asset('img/transportasi/bus.jpg') }}" alt="">
+            <img src="{{ asset('img/transportasi/bus.jpg') }}" alt="">
           </div>
-          <p class="text-base mt-2 mb-2 font-semibold">Rp 2.000.000</p>
+          <p class="text-base mt-2 mb-2 font-semibold">tarif Rp </p>
           <div class="flex mb-2"> 
               <svg class="w-6 h-6 text-primary" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
               <path fill-rule="evenodd" d="M9 4a4 4 0 1 0 0 8 4 4 0 0 0 0-8Zm-2 9a4 4 0 0 0-4 4v1a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2v-1a4 4 0 0 0-4-4H7Zm8-1a1 1 0 0 1 1-1h1v-1a1 1 0 1 1 2 0v1h1a1 1 0 1 1 0 2h-1v1a1 1 0 1 1-2 0v-1h-1a1 1 0 0 1-1-1Z" clip-rule="evenodd"/>
@@ -85,12 +114,12 @@
               <sup class="text-xs text-gray-500"> Kapasitas </sup>
           </div>
           <div class="flex mb-2">
-              <img src="{{ ('img/transportasi/bensin.png') }}" alt="bbm" class="w-5 h-5">
+              <img src="{{ asset('img/transportasi/bensin.png') }}" alt="bbm" class="w-5 h-5">
               <p class="text-sm font-semibold ml-2">Bensin</p>
               <sup class="text-xs text-gray-500"> Fuel </sup>
           </div>
           <div class="flex mb-2">
-              <img src="{{ ('img/transportasi/oli.png') }}" alt="bbm" class="w-5 h-5">
+              <img src="{{ asset('img/transportasi/oli.png') }}" alt="bbm" class="w-5 h-5">
               <p class="text-sm font-semibold ml-2">Oil</p>
               <sup class="text-xs text-gray-500"> Fuel </sup>
           </div>

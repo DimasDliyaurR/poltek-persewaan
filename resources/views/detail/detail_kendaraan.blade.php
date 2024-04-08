@@ -4,19 +4,37 @@
   <div class="container mx-auto px-4 py-24">
   <div class=" justify-start items-center  xl:ml-24 mb-2 mt-2">
     <h2 class="text-base"> <a class="hover:text-primary hover:font-bold" href="/index#kategori">Kategori > </a> {{$title}}</h2>
-    <h4 class="font-bold text-lg">Executive Bus</h4>
+    <h4 class="font-bold text-lg">{{ $kendaraan->k_nama }}</h4>
     </div>
     <div class="  grid grid-cols-1 sm:grid-cols-2  lg:grid-cols-3 xl:gap-6 gap-6 md:gap-10 mx-auto">
       <div class="bg-white col-span-2  shadow-md p-4 w-full h-screen xl:ml-24  mx-auto rounded-md ">
         <div class="relative -mr-24  ">
-            <img src="{{ ('img/layanan/marching band.jpg') }}" alt="" width="" class="rounded-sm shadow-md overflow-hidden xl:w-8/12 w-6/12 lg:w-7/12 mb-4" />
-            <div class="absolute top-0 xl:right-12 md:right-16 right-14   mt-1 ">
-              <h4 class=" text-base font-semibold ">Fasilitas</h4>
+          <!-- The expanding image container -->
+          <div id="container" class="relative hidden ">
+            <!-- Close the image -->
+            <span onclick="this.parentElement.style.display='none'" class=" absolute mt-10 mr-15 bg-white cursor-pointer">&times;</span>
+            <!-- Expanded image -->
+            <!-- <img id="expandedImg" style="width:100%"> -->
+            <img id="expandedImg" class="xl:w-8/12 w-6/12 lg:w-7/12">
+            <!-- Image text -->
+            <div id="imgtext"></div>
+          </div>
+            <div class="mainImageContainer">
+              <img  id="mainImage" src="{{ asset('img/layanan/marching band.jpg') }}" alt="" width="" class="rounded-sm cursor-pointer shadow-md overflow-hidden xl:w-8/12 w-6/12 lg:w-7/12 mb-4" />
+            </div>
+            <div class="container flex  gap-2 ">
+              <img src="{{ asset('img/transportasi/bus_depan.jpg') }}" alt="Nature" class="rounded-sm  cursor-pointer shadow-md overflow-hidden sm:w-1/2 h-auto object-cover object-center  mb-4"  onclick="myFunction(this);">
+              <img src="{{ asset('img/transportasi/bus_kanan.jpg') }}" alt="Snow" class="rounded-sm  cursor-pointer shadow-md overflow-hidden sm:w-1/2 h-auto object-cover object-center mb-4"  onclick="myFunction(this);">
+              <img src="{{ asset('img/transportasi/bus_kiri.jpg') }}" alt="Mountains" class="rounded-sm  cursor-pointer shadow-md overflow-hidden sm:w-1/2 h-auto object-cover object-center mb-4"  onclick="myFunction(this);">
+              <img src="{{ asset('img/transportasi/bus.jpg') }}" alt="Lights" class="rounded-sm  cursor-pointer shadow-md overflow-hidden sm:w-1/2 h-auto object-cover object-center mb-4"  onclick="myFunction(this);">
+            </div>
+            <div class="absolute top-0 xl:right-12 md:right-16 right-14   mt-1  overflow-hidden">
+              <h4 class=" text-base font-semibold">Fasilitas</h4>
               <div class="flex mb-2 mt-2"> 
                 <svg class="w-6 h-6 text-primary" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
                 <path fill-rule="evenodd" d="M9 4a4 4 0 1 0 0 8 4 4 0 0 0 0-8Zm-2 9a4 4 0 0 0-4 4v1a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2v-1a4 4 0 0 0-4-4H7Zm8-1a1 1 0 0 1 1-1h1v-1a1 1 0 1 1 2 0v1h1a1 1 0 1 1 0 2h-1v1a1 1 0 1 1-2 0v-1h-1a1 1 0 0 1-1-1Z" clip-rule="evenodd"/>
                 </svg>
-                <p class="xl:text-sm text-xs ml-1">45 kapasitas</p>
+                <p class="xl:text-sm text-xs ml-1">{{ $kendaraan->mk_kapasitas }} kapasitas</p>
               </div>  
               <div class="flex mb-2 mt-2"> 
                 <svg class="w-6 h-6 text-primary" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
@@ -111,15 +129,9 @@
                 <p class=" xl:text-sm text-xs   ml-1 ">Tidak ada pengembalian pembayaran </p>
               </div>  
             </div>
-            
-              <div class="flex gap-2">
-              <img src="{{ ('img/layanan/marching band.jpg') }}" alt="" width="" class=" overflow-hidden w-20 mb-4" />
-              <img src="{{ ('img/layanan/marching band.jpg') }}" alt="" width="" class=" overflow-hidden w-20 mb-4" />
-              <p class="text-xs">Lihat semua foto</p>
-              </div>
-              <div class="mt-4">
+              <div class="mt-4 font">
                 <p class="text-base font-bold">Gratis Penjemputan</p>
-                <p class="text-sm text-gray-400 p-2">Info lebih lanjut hubungi kontak WhatsApp di bawah ini :  </p>
+                <p class="text-sm text-gray-400 p-2 overflow-hidden">Info lebih lanjut hubungi kontak WhatsApp di bawah ini :  </p>
                 <div class="flex  p-2 w-30">
                   <a aria-label="Chat on WhatsApp" href="https://wa.me/6289529811097/?text=Hello Saya Ingin bertanya">
                   <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="20" height="20" viewBox="0 0 50 50">
@@ -128,7 +140,6 @@
                   </a>
                   <p class="text-sm">+62 896578110 (Dodo)</p>
                 </div>
-
               </div>
         </div>
       </div>
@@ -144,14 +155,31 @@
         </div>
         <div class=" top-12 bg-white h-40 w-64 bottom-0 -mt-44 gap-4 p-3 rounded-md xl:mr-20">
           <h4 class="font-semibold mb-2">Harga</h4>
-          <p class="text-primary font-bold">Rp 2.500.000</p>
+          <p class="text-primary font-bold">Rp {{ $kendaraan->mk_tarif }}</p>
           <p class="text-xs text-gray-400"> * belum termasuk voucher</p>
-          <button class=" mt-4 h-6 w-full bg-primary rounded-lg hover:opacity-50"><a href="/pesan" class=" text-sm   text-white    " >Pesan</a></button>
+          <form action="{{ route('k_pesan', ['id'=>$kendaraan->id])}}" method="get">
+          <button class=" mt-4 h-6 w-full bg-primary rounded-lg hover:opacity-50 text-white"> Pesan
+          </button>
+          </form>
           
         </div>
       </div>
     </div>
   </div>
   </div>
+  <script>
+        function myFunction(element) {
+          // var mainImageContainer = document.getElementById("mainImageContainer");
+          var mainImage = document.getElementById("mainImage");
+          mainImage.src = element.src;
+          var container = document.getElementById('container');
+          container.style.display ="block";
 
+          var outsiddeImages = document.querySelectorAll('.outside-image');
+          for (var i= 0; i< outsiddeImages.length; i++){
+
+            outsiddeImages[i].style.visibility ="hidden";
+          } 
+        }
+    </script>
 @endsection

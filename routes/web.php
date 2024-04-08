@@ -3,6 +3,8 @@
 use App\Http\Controllers\AlatBarangController;
 use App\Http\Controllers\AsramaController;
 use App\Http\Controllers\FEGedungLapController;
+use App\Http\Controllers\FETransaksiController;
+use App\Http\Controllers\FEKendaraanController;
 use App\Http\Controllers\GedungLapController;
 use App\Http\Controllers\KendaraanController;
 use App\Http\Controllers\KendaraanFeController;
@@ -234,9 +236,12 @@ Route::view('/index', 'index', [
 Route::get('/gedung', [FEGedungLapController::class, 'index']);
 Route::get('/detailgedung/{id}', [FEgedungLapController::class, 'detail'])->name('detailgedung');
 
-Route::get('/transportasi', [KendaraanFeController::class, 'index']);
-Route::view('/detailbus', 'detail.detail_bus', [
-    "title"=>"Detail Bus "])->name('detailbus');
+// Route::get('/transportasi', [KendaraanFeController::class, 'index']);
+Route::get('/kendaraan',[FEKendaraanController::class, 'index']);
+Route::get('detailkendaraan{id}', [FEKendaraanController::class, 'detail'])->name('detailkendaraan');
+// OLD
+// Route::view('/detailbus', 'detail.detail_bus', [
+//     "title"=>"Detail Bus "])->name('detailbus');
 
 Route::view('/login', 'login',[
     "title" => "Login",
@@ -266,12 +271,8 @@ Route::view('/sewaBus', 'sewa.sewa_bus',[
     "title" =>"Sewa Bus",
 ]);
 // Transaksi
-Route::view('/pesan', 'user_transaksi.pesan',[
-    "title" => "Pemesanan",
-]);
-Route::view('/bayar', 'user_transaksi.bayar',[
-    "title" => "Pembayaran",
-]);
+Route::get('pesan/{id}', [FETransaksiController::class, 'pesan'])->name('k_pesan');
+Route::post('/pemesanan', [FETransaksiController::class, 'storePemesanan'])->name('pemesanan');
 Route::view('/invoice', 'user_transaksi.invoice',[
     "title" => "Invoice",
 ]);
@@ -281,11 +282,11 @@ Route::view('/detailbus', 'detail.detail_bus', ["title" => "Detail Bus "])
 Route::view('/login', 'login', [
     "title" => "Login",
 ]);
-Route::view(
-    '/transportasi',
-    'kategori.transportasi',
-    [
-        "title" => "Transportasi"
-    ]
-);
+// Route::view(
+//     '/kendaraan',
+//     'kategori.kendaraan',
+//     [
+//         "title" => "Transportasi"
+//     ]
+// );
 

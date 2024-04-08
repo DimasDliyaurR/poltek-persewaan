@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{{$title }}| PERSEWAAAN ASET</title>
-    <link rel="icon" href="{{('img/LogoPoltekbang.png') }}">
+    <link rel="icon" href="{{asset('img/LogoPoltekbang.png') }}">
     <link  href="https://icons8.com/icon/E4FAF4hA9ugF/help">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.css" rel="stylesheet" />
     @vite('resources/css/app.css')
@@ -18,7 +18,7 @@
         <div class="flex items-center justify-between relative">
           <div class="px-4 flex items-center">
             <!-- <img src="./dist/img/Logo Poltekbang.png" width="50" alt="" /> -->
-            <img src="{{ ('img/LogoPoltekbang.png') }}" class="h-11 w-15" alt="Logo ">  
+            <img src="{{ asset('img/LogoPoltekbang.png') }}" class="h-11 w-15" alt="Logo ">  
             <div class="ml-1">
             <a href="/index #home" class="font-bold text-lg text-black">
             SEWA ASET<br>
