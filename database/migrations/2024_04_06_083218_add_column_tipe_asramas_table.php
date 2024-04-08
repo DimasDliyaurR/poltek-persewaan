@@ -11,14 +11,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::disableForeignKeyConstraints();
-
-        Schema::create('asrama_transaksi_asrama', function (Blueprint $table) {
-            $table->foreignId('asrama_id');
-            $table->foreignId('transaksi_asrama_id');
+        Schema::table("tipe_asramas", function (Blueprint $table) {
+            $table->softDeletes();
         });
-
-        Schema::enableForeignKeyConstraints();
     }
 
     /**
@@ -26,6 +21,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('asrama_transaksi_asrama');
+        Schema::table("tipe_asramas", function (Blueprint $table) {
+            $table->dropSoftDeletes();
+        });
     }
 };

@@ -7,7 +7,7 @@ interface AlatBarangService
     /**
      * Get Data Alat Barang By Id
      * @param id integer
-     * @return array
+     * @return object
      * @throws InvalidArgumentException Jika terdapat Exception
      */
     public function getDataAlatBarangById($id);
@@ -15,46 +15,69 @@ interface AlatBarangService
     /**
      * Get Data Foto Alat Barang By Id
      * @param id integer
-     * @return array
+     * @return object
      * @throws InvalidArgumentException Jika terdapat Exception
      */
     public function getDataFotoAlatBarangById($id);
 
     /**
+     * Get Data Satuan Alat Barang By Id
+     * @param integer $id
+     * @return object
+     * @throws InvalidArgumentException Jika terdapat Exception
+     */
+    public function getDataSatuanAlatBarangById($id);
+
+    /**
      * Get All data Alat Barang
-     * @return array
+     * @return object
      * @throws InvalidArgumentException Jika terdapat Exception
      */
     public function getAllAlatBarang();
 
     /**
      * Get All data Foto Alat Barang
-     * @return array
+     * @return object
      * @throws InvalidArgumentException Jika terdapat Exception
      */
     public function getAllFotoAlatBarang();
 
     /**
-     * Store Alat Barang
-     * @param data array
-     * @return array
+     * Get All data Satuan Alat Barang
+     * @return object
      * @throws InvalidArgumentException Jika terdapat Exception
      */
-    public function storeAlatBarang($data);
+    public function getAllSatuanAlatBarang();
+
+    /**
+     * Store Alat Barang
+     * @param data array
+     * @return object
+     * @throws InvalidArgumentException Jika terdapat Exception
+     */
+    public function createAlatBarang($data);
 
     /**
      * Store Foto Alat Barang
      * @param data array
-     * @return array
+     * @return object
      * @throws InvalidArgumentException Jika terdapat Exception
      */
-    public function storeFotoAlatBarang($data);
+    public function createFotoAlatBarang($data);
+
+    /**
+     * Store Satuan Alat Barang
+     * @param data array
+     * @return object
+     * @throws InvalidArgumentException Jika terdapat Exception
+     */
+    public function createSatuanAlatBarang($data);
 
     /**
      * Update Alat Barang
      * @param Data array
      * @param id integer
-     * @return array
+     * @return object
      * @throws InvalidArgumentException Jika Terdapat Exception
      */
     public function updateAlatBarang($data, $id);
@@ -63,10 +86,19 @@ interface AlatBarangService
      * Update Foto Alat Barang
      * @param Data array
      * @param id integer
-     * @return array
+     * @return object
      * @throws InvalidArgumentException Jika Terdapat Exception
      */
     public function updateFotoAlatBarang($data, $id);
+
+    /**
+     * Update Satuan Alat Barang
+     * @param array $data
+     * @param int $id
+     * @return object
+     * @throws InvalidArgumentException Jika Terdapat Exception
+     */
+    public function updateSatuanAlatBarang($data, $id);
 
     /**
      * Delete Alat Barang
@@ -83,4 +115,12 @@ interface AlatBarangService
      * @throws InvalidArgumentException Jika terdapat Exception
      */
     public function destroyFotoAlatBarang($id);
+
+    /**
+     * Delete Satuan Alat Barang
+     * @param int $id
+     * @return boolean
+     * @throws InvalidArgumentException Jika terdapat Exception
+     */
+    public function destroySatuanAlatBarang($id);
 }

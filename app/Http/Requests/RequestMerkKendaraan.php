@@ -21,6 +21,7 @@ class RequestMerkKendaraan extends FormRequest
      */
     public function rules(): array
     {
+
         return [
             "mk_foto" => "required|image|extensions:jpg,png",
             "mk_merk" => "required",

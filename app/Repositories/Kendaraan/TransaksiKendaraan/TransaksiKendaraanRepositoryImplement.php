@@ -16,7 +16,7 @@ class TransaksiKendaraanRepositoryImplement implements TransaksiKendaraanReposit
 
     /**
      * 
-     * @param Id
+     * @param integer $id
      * @return Mixed
      */
     public function getDataById($id)
@@ -26,17 +26,27 @@ class TransaksiKendaraanRepositoryImplement implements TransaksiKendaraanReposit
 
     /**
      * Get All Data Kendaraan
-     * @param
      * @return Mixed
      */
     public function getAll()
     {
-        return $this->transaksiKendaraan::all();
+        return $this->transaksiKendaraan;
+    }
+
+    /**
+     * Get All Data Transaksi Kendaraan With Detail Transaksi Kendaraan
+     * @return Mixed
+     */
+    public function getAllWithDetailTransaksiKendaraan()
+    {
+        return $this->transaksiKendaraan::with(["user", "kendaraans" => [
+            "merkKendaraan"
+        ]]);
     }
 
     /**
      * Store data kendaraan
-     * @param Data
+     * @param array $data
      * @return Mixed
      */
     public function store($data)
@@ -47,7 +57,8 @@ class TransaksiKendaraanRepositoryImplement implements TransaksiKendaraanReposit
 
     /**
      * 
-     * @param data ,id
+     * @param integer $id
+     * @param array $data
      * @return Mixed
      */
     public function update($data, $id)
@@ -59,7 +70,7 @@ class TransaksiKendaraanRepositoryImplement implements TransaksiKendaraanReposit
 
     /**
      * Delete data kendaraan
-     * @param id
+     * @param integer $id
      * @return Mixed
      */
     public function delete($id)

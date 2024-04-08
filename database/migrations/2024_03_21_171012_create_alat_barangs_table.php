@@ -19,8 +19,9 @@ return new class extends Migration
             $table->string('a_foto');
             $table->string('a_keterangan');
             $table->string('a_tarif');
-            $table->enum('a_status', ["tersedia","tidak"]);
-            $table->string('a_satuan');
+            $table->integer('a_qty');
+            $table->enum('a_status', ["tersedia", "tidak"]);
+            $table->foreignId('satuan_alat_barang_id')->constrained("satuan_alat_barangs");
             $table->string('a_slug');
             $table->timestamps();
         });

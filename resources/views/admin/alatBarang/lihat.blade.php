@@ -177,11 +177,31 @@
             </div>
 
             <div class="mb-5">
-                <label for="a_satuan" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Satuan</label>
-                <input name="a_satuan"
-                    class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-4 @error('a_satuan') border-red-500 @enderror"
-                    value="{{ old('a_satuan') }}" type="text">
-                @error('a_satuan')
+                <label for="a_qty" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Jumlah
+                    Unit</label>
+                <input name="a_qty"
+                    class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-4 @error('a_qty') border-red-500 @enderror"
+                    value="{{ old('a_qty') }}" type="text">
+                @error('a_qty')
+                    <span class="text-red-600 text-sm">{{ $message }}</span>
+                @enderror
+            </div>
+
+            <div class="mb-5">
+                <label for="satuan_alat_barang_id"
+                    class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Satuan</label>
+                <select name="satuan_alat_barang_id"
+                    class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-blue file:text-violet-700 hover:file:bg-blue-400 @error('mekr_kendaraan_id') border-red-500 @enderror">
+                    <option selected disabled hidden>-- Pilih Satuan --</option>
+                    @forelse($satuanAlatBarangs as $row)
+                        <option value="{{ $row->id }}"
+                            {{ old('satuan_alat_barang_id') == $row->id ? 'selected' : ' ' }}>
+                            {{ $row->sab_nama }}</option>
+                    @empty
+                        <option selected disabled hidden>Tidak ada Pilihan</option>
+                    @endforelse
+                </select>
+                @error('satuan_alat_barang_id')
                     <span class="text-red-600 text-sm">{{ $message }}</span>
                 @enderror
             </div>

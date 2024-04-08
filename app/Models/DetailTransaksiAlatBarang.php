@@ -5,11 +5,13 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\Pivot;
 
-class DetailTransaksiAlatBarang extends Model
+class DetailTransaksiAlatBarang extends Pivot
 {
     use HasFactory;
 
+    protected $table = "detail_transaksi_alat_barangs";
     /**
      * The attributes that are mass assignable.
      *
@@ -26,7 +28,6 @@ class DetailTransaksiAlatBarang extends Model
      * @var array
      */
     protected $casts = [
-        'id' => 'integer',
         'transaksi_alat_barang_id' => 'integer',
         'alat_barang_id' => 'integer',
     ];

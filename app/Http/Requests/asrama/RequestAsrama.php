@@ -3,6 +3,7 @@
 namespace App\Http\Requests\asrama;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class RequestAsrama extends FormRequest
 {
@@ -23,36 +24,21 @@ class RequestAsrama extends FormRequest
     {
         $asrama = $this->route();
 
-        if ($this->getMethod() == "PUT") {
-            $rules = [
-                "a_nama_ruangan" => "required",
-                "a_tarif" => "required|numeric",
-            ];
-
-            if ($this->input("a_foto") !== null) {
-                $rules += [
-                    "a_foto" => "required|image|extensions:jpg,png"
-                ];
-            }
-
-            return $rules;
-        } else {
-            return [
-                "a_foto" => "required|image|extensions:jpg,png",
-                "a_nama_ruangan" => "required",
-                "a_tarif" => "required|numeric",
-            ];
-        }
+        return [
+            "tipe_asrama_id" => "required",
+            "a_nama_ruangan" => [
+                "required", "unique" =>
+                Rule::unique("asramas", "a_nama_ruangan")->ignore($asrama->id)
+            ],
+        ];
     }
 
     public function messages()
     {
         return [
-            "a_foto.required" => "Foto Asrama belum diisi",
-            "a_foto.image" => "Foto Asrama mohon diisi menggunakan gambar",
-            "a_nama_ruangan.required" => "Nama Ruangan belum diisi",
-            "a_tarif.required" => "Tarif Harga belum diisi",
-            "a_tarif.numeric" => "Tarif Harga mohon diisi dengan angka",
+            "tipe_asrama_id.required" => "Tipe Asrama mohon diisi !",
+            "a_nama_ruangan.required" => "Nama Ruangan mohon diisi !",
+            "a_nama_ruangan.unique" => "Nama Ruangan sudah ada !",
         ];
     }
 }

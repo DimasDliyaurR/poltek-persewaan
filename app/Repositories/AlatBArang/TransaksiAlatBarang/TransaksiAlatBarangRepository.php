@@ -18,6 +18,12 @@ interface TransaksiAlatBarangRepository
     public function getAll();
 
     /**
+     * Get All data Alat Barang WIth Detail Transaksi Alat Barang
+     * @return Array
+     */
+    public function getAllWithDetailTransaksiAlatBarang();
+
+    /**
      * Store data to Alat Barang
      * @param data
      * @return Array

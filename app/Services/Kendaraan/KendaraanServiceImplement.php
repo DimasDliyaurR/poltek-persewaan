@@ -2,23 +2,23 @@
 
 namespace App\Services\Kendaraan;
 
-use App\Models\DetailTransaksiKendaraan;
+use InvalidArgumentException;
+use App\Services\Kendaraan\KendaraanService;
 use App\Repositories\Kendaraan\KendaraanRepository;
 use App\Repositories\Kendaraan\MerkKendaraan\MerkKendaraanRepository;
-use App\Services\Kendaraan\KendaraanService;
-use InvalidArgumentException;
+use App\Repositories\Kendaraan\TransaksiKendaraan\TransaksiKendaraanRepository;
 
 class KendaraanServiceImplement implements KendaraanService
 {
     private $kendaraanRepository;
     private $merkKendaraanRepository;
-    private $detailTransaksiKendaraan;
+    private $transaksiKendaraanRepository;
 
-    public function __construct(KendaraanRepository $kendaraanRepository, MerkKendaraanRepository $merkKendaraanRepository, DetailTransaksiKendaraan $detailTransaksiKendaraan)
+    public function __construct(KendaraanRepository $kendaraanRepository, MerkKendaraanRepository $merkKendaraanRepository, TransaksiKendaraanRepository $transaksiKendaraan)
     {
         $this->kendaraanRepository = $kendaraanRepository;
         $this->merkKendaraanRepository = $merkKendaraanRepository;
-        $this->detailTransaksiKendaraan = $detailTransaksiKendaraan;
+        $this->transaksiKendaraanRepository = $transaksiKendaraan;
     }
 
     /**
@@ -195,6 +195,56 @@ class KendaraanServiceImplement implements KendaraanService
     {
         try {
             $data = $this->merkKendaraanRepository->delete($id);
+        } catch (\Exception $th) {
+            throw new InvalidArgumentException();
+        }
+
+        return $data;
+    }
+
+    /**
+     * Order By Data Merk Kendaraan
+     * @param column
+     * @param order
+     * @return array
+     * @throws InvalidArgumentException Jika terdapat kesalahan pada Exception 
+     */
+    public function orderByMerkKendaraan($column, $order)
+    {
+        try {
+            $data = $this->merkKendaraanRepository->orderBy($column, $order);
+        } catch (\Exception $th) {
+            throw new InvalidArgumentException();
+        }
+
+        return $data;
+    }
+
+    /**
+     * Search Data Merk Kendaraan
+     * @param data
+     * @return array
+     */
+    public function searchMerkKendaraan($data)
+    {
+        try {
+            $data = $this->merkKendaraanRepository->search($data);
+        } catch (\Exception $th) {
+            throw new InvalidArgumentException();
+        }
+
+        return $data;
+    }
+
+    /**
+     * Search Data Merk Kendaraan
+     * @param data
+     * @return array
+     */
+    public function searchKendaraan($data)
+    {
+        try {
+            $data = $this->kendaraanRepository->search($data);
         } catch (\Exception $th) {
             throw new InvalidArgumentException();
         }

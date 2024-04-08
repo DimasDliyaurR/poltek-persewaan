@@ -38,6 +38,17 @@ class TransaksiAlatBarangRepositoryImplement implements TransaksiAlatBarangRepos
     }
 
     /**
+     * Get All data Alat Barang WIth Detail Transaksi Alat Barang
+     * @return Array
+     */
+    public function getAllWithDetailTransaksiAlatBarang()
+    {
+        $alatBarangData = $this->alatBarang::with("detailTransaksiAlatBarangs");
+
+        return $alatBarangData;
+    }
+
+    /**
      * Store data to Alat Barang
      * @param data
      * @return Array

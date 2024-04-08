@@ -42,9 +42,10 @@ class TransaksiKendaraan extends Model
         return $this->hasMany(DetailTransaksiKendaraan::class);
     }
 
-    public function merkKendaraans(): BelongsToMany
+    public function kendaraans(): BelongsToMany
     {
-        return $this->belongsToMany(MerkKendaraan::class);
+        return $this->belongsToMany(Kendaraan::class, "detail_transaksi_kendaraans", "transaksi_kendaraan_id", "kendaraan_id")
+            ->using(DetailTransaksiKendaraan::class);
     }
 
     public function user(): BelongsTo

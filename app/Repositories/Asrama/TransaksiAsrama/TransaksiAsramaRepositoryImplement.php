@@ -38,6 +38,17 @@ class TransaksiAsramaRepositoryImplement implements TransaksiAsramaRepository
     }
 
     /**
+     * Get All data Transaksi Asrama With Detail Transaksi Asrama
+     * @return Array
+     */
+    public function getAllWithDetailTransaksiAsrama()
+    {
+        $transaksiAsramaData = $this->transaksiAsrama::with(["asramas", "user"]);
+
+        return $transaksiAsramaData;
+    }
+
+    /**
      * Store data to Transaksi Asrama
      * @param data
      * @return Array

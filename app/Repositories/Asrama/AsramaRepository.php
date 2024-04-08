@@ -7,6 +7,13 @@ interface AsramaRepository
     public function getDataById($id);
 
     /**
+     * Get Data Asrama by Tipe Asrama Id 
+     * @param integer $id
+     * @return object
+     */
+    public function getDataByTipeAsramaId($id);
+
+    /**
      * Get All data asrama
      * @return Array
      */
@@ -32,4 +39,11 @@ interface AsramaRepository
      * @return boolean
      */
     public function delete($id);
+
+    /**
+     * Search data dari data asrama
+     * @param search
+     * @return array
+     */
+    public function search($search);
 }

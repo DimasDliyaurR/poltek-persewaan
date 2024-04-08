@@ -23,8 +23,8 @@ class DetailTransaksiKendaraanFactory extends Factory
     public function definition(): array
     {
         return [
-            'transaksi_kendaraan_id' => Transaksikendaraan::factory(),
-            'kendaraan_id' => Kendaraan::factory(),
+            'transaksi_kendaraan_id' => $this->faker->numberBetween(1, 10),
+            'kendaraan_id' => $this->faker->numberBetween(1, 10),
         ];
     }
 }

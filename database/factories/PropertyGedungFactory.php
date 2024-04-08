@@ -22,7 +22,6 @@ class PropertyGedungFactory extends Factory
     {
         return [
             'pg_nama' => $this->faker->word(),
-            'pg_status' => $this->faker->randomElement(["tersedia","tidak"]),
         ];
     }
 }

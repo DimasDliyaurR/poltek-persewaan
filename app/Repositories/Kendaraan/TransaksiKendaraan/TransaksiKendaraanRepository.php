@@ -19,6 +19,12 @@ interface TransaksiKendaraanRepository
     public function getAll();
 
     /**
+     * Get All Data Transaksi Kendaraan With Detail Transaksi Kendaraan
+     * @return Mixed
+     */
+    public function getAllWithDetailTransaksiKendaraan();
+
+    /**
      * Store data kendaraan
      * @param Data
      * @return Mixed

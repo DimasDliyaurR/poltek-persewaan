@@ -15,28 +15,28 @@ interface KendaraanService
     /**
      * Get Data Merk Kendaraan By Id Merk Kendaraan
      * @param Id
-     * @return array
+     * @return object
      * @throws InvalidArgumentException Jika ada error pada argument
      */
     public function getDataMerkKendaraanById($id);
 
     /**
      * Get All Data Kendaraan
-     * @return array
+     * @return object
      * @throws InvalidArgumentException Jika ada error pada argument
      */
     public function getAllDataKendaraan();
 
     /**
      * Get All Data Kendaraan
-     * @return array
+     * @return object
      * @throws InvalidArgumentException Jika ada error pada argument
      */
     public function getAllDataKendaraanWithMerkKendaraan();
 
     /**
      * Get All Data Merk Kendaraan
-     * @return array
+     * @return object
      * @throws InvalidArgumentException Jika ada error pada argument
      */
     public function getAllDataMerkKendaraan();
@@ -44,7 +44,7 @@ interface KendaraanService
     /**
      *  Store Data Kendaraan
      * @param data
-     * @return array
+     * @return object
      * @throws InvalidArgumentException Jika ada error pada argument
      */
     public function storeKendaraan($data);
@@ -52,7 +52,7 @@ interface KendaraanService
     /**
      *  Store Data Merk Kendaraan
      * @param data
-     * @return array
+     * @return object
      * @throws InvalidArgumentException Jika ada error pada argument
      */
     public function storeMerkKendaraan($data);
@@ -60,7 +60,7 @@ interface KendaraanService
     /**
      * Update Data Kendaraan
      * @param data , id
-     * @return array
+     * @return object
      * @throws InvalidArgumentException Jika terdapat kesalahan pada Exception 
      */
     public function updateKendaraan($data, $id);
@@ -68,7 +68,7 @@ interface KendaraanService
     /**
      * Update Data Merk Kendaraan
      * @param data , id
-     * @return array
+     * @return object
      * @throws InvalidArgumentException Jika terdapat kesalahan pada Exception 
      */
     public function updateMerkKendaraan($data, $id);
@@ -88,4 +88,27 @@ interface KendaraanService
      * @throws InvalidArgumentException Jika terdapat kesalahan pada Exception 
      */
     public function destroyMerkKendaraan($id);
+
+    /**
+     * Order By Data Merk Kendaraan
+     * @param column
+     * @param order
+     * @return object
+     * @throws InvalidArgumentException Jika terdapat kesalahan pada Exception 
+     */
+    public function orderByMerkKendaraan($column, $order);
+
+    /**
+     * Search Data Merk Kendaraan
+     * @param data
+     * @return object
+     */
+    public function searchMerkKendaraan($data);
+
+    /**
+     * Search Data Merk Kendaraan
+     * @param data
+     * @return object
+     */
+    public function searchKendaraan($data);
 }

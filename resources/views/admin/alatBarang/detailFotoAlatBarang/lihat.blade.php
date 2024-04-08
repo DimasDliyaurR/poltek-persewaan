@@ -42,6 +42,8 @@
             </x-alert-success>
         @endsession
 
+        {{ $detailFotoAlatBarang->links() }}
+
         <table class="w-full text-sm text-left rtl:text-right text-gray-800 dark:text-gray-400 border-solid">
             <thead class="text-md text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-white">
                 <tr>
@@ -76,7 +78,5 @@
                 @endforelse
             </tbody>
         </table>
-
-        {{ $detailFotoAlatBarang->links() }}
     </x-inner-layout>
 @endsection

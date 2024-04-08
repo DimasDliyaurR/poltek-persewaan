@@ -33,7 +33,7 @@ class FotoAlatBarangRepositoryImplement implements FotoAlatBarangRepository
      */
     public function getDataByAlatBarangId($id)
     {
-        return $this->alatBarang::whereAlatBarangId($id)->paginate(5);
+        return $this->alatBarang::whereAlatBarangId($id)->latest()->paginate(5);
     }
 
     /**

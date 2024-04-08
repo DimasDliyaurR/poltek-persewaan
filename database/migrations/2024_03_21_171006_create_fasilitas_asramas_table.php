@@ -17,7 +17,8 @@ return new class extends Migration
             $table->id();
             $table->string('fa_icon');
             $table->string('fa_nama');
-            $table->enum('fa_status', ["tersedia","tidak"]);
+            $table->integer('fa_tarif');
+            $table->enum('fa_status', ["tersedia", "tidak"]);
             $table->timestamps();
         });
 

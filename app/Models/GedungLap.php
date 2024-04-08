@@ -39,4 +39,14 @@ class GedungLap extends Model
     {
         return $this->hasMany(DetailTransaksiGedung::class);
     }
+
+    public function detailKategoriPromo(): HasMany
+    {
+        return $this->hasMany(DetailKategoriPromo::class);
+    }
+
+    public function promos()
+    {
+        $this->belongsToMany(Promo::class);
+    }
 }
