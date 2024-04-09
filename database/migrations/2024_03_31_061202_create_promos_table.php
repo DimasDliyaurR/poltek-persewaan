@@ -25,7 +25,7 @@ return new class extends Migration
             $table->text("p_deskripsi");
             $table->dateTime("p_mulai");
             $table->dateTime("p_kadaluarsa");
-            $table->integer("p_jumlah");
+            $table->integer("p_jumlah")->nullable();
             $table->string("p_kategori");
             $table->timestamps();
         });

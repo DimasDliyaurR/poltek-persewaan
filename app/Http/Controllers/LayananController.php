@@ -165,6 +165,8 @@ class LayananController extends Controller
         try {
             $timLayanans = $this->layananService->getAllTimLayananByLayananId($id);
             $layanan = $this->layananService->getDataLayananById($id);
+
+            if (!$layanan->l_personil) return redirect("admin/layanans")->with("errorTable", "Ups data tidak ditemukan nih");
         } catch (\Exception $th) {
             throw new InvalidArgumentException();
         }

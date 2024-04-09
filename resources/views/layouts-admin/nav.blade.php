@@ -22,6 +22,9 @@
                         fill-rule="evenodd" clip-rule="evenodd"></path>
                 </svg>
             </button> --}}
+
+            <img class="rounded-full w-10 h-10" src="" alt="image description">
+
         </div>
     </div>
 </nav>

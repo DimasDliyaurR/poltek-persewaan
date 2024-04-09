@@ -274,7 +274,7 @@
                     Promo</label>
                 <input name="p_jumlah"
                     class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-4 @error('p_jumlah') border-red-500 @enderror"
-                    value="{{ old('p_jumlah') }}" type="text">
+                    value="{{ old('p_jumlah') ?? 0 }}" type="text">
 
                 @error('p_jumlah')
                     <span class="text-red-600 text-sm">{{ $message }}</span>
@@ -283,7 +283,7 @@
 
             <div class="mb-5 w-full">
                 <p class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Periode Promo</p>
-                <div class="flex flex-row">
+                <div class="flex sm:flex-row flex-col">
                     <div>
                         <input name="p_mulai" id="p_mulai"
                             class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-4 @error('p_mulai') border-red-500 @enderror"
