@@ -18,6 +18,12 @@ interface TransaksiGedungRepository
     public function getAll();
 
     /**
+     * Get All data Gedung Lapangan Detail Transaksi dan Detail Property
+     * @return Array
+     */
+    public function getAllWithDetailTransaksiAndDetailProperty();
+
+    /**
      * Store data to Gedung Lapangan
      * @param data
      * @return Array

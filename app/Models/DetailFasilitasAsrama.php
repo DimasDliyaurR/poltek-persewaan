@@ -16,7 +16,7 @@ class DetailFasilitasAsrama extends Model
      * @var array
      */
     protected $fillable = [
-        'asrama_id',
+        'tipe_asrama_id',
         'fasilitas_asrama_id',
     ];
 
@@ -29,7 +29,7 @@ class DetailFasilitasAsrama extends Model
      */
     protected $casts = [
         'id' => 'integer',
-        'asrama_id' => 'integer',
+        'tipe_asrama_id' => 'integer',
         'fasilitas_asrama_id' => 'integer',
     ];
 
@@ -38,8 +38,8 @@ class DetailFasilitasAsrama extends Model
         return $this->belongsTo(FasilitasAsrama::class);
     }
 
-    public function asrama(): BelongsTo
+    public function tipeAsrama(): BelongsTo
     {
-        return $this->belongsTo(Asrama::class);
+        return $this->belongsTo(TipeAsrama::class);
     }
 }

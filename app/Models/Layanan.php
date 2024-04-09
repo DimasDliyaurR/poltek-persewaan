@@ -61,4 +61,14 @@ class Layanan extends Model
     {
         return $this->belongsToMany(TransaksiLayanan::class);
     }
+
+    public function detailKategoriPromo(): HasMany
+    {
+        return $this->hasMany(DetailKategoriPromo::class);
+    }
+
+    public function promos()
+    {
+        $this->belongsToMany(Promo::class);
+    }
 }

@@ -32,7 +32,7 @@ class MerkKendaraanRepositoryImplement implements MerkKendaraanRepository
      */
     public function getAll()
     {
-        return $this->merkKendaraan::paginate(5);
+        return $this->merkKendaraan;
     }
 
     /**
@@ -69,5 +69,32 @@ class MerkKendaraanRepositoryImplement implements MerkKendaraanRepository
         $dataKendaraan->delete();
 
         return $dataKendaraan;
+    }
+
+    /**
+     * Order By ? Data Merk Kendaraan
+     * @param column
+     * @param order
+     * @return array
+     */
+    public function orderBy($column, $order)
+    {
+        return $this->merkKendaraan->orderBy($column, $order);
+    }
+
+    /**
+     * Search Data Merk Kendaraan
+     * @param search
+     * @return array
+     */
+    public function search($search)
+    {
+        return $this->merkKendaraan::where(function ($q) use ($search) {
+            $q->where('mk_merk', "LIKE", "%$search%")
+                ->orWhere('mk_seri', "LIKE", "%$search%")
+                ->orWhere('mk_tarif', "LIKE", "%$search%")
+                ->orWhere('mk_kapasitas', "LIKE", "%$search%")
+                ->orWhere('mk_bahan_bakar', "LIKE", "%$search%");
+        });
     }
 }

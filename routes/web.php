@@ -7,6 +7,8 @@ use App\Http\Controllers\GedungLapController;
 use App\Http\Controllers\KendaraanController;
 use App\Http\Controllers\KendaraanFeController;
 use App\Http\Controllers\LayananController;
+use App\Http\Controllers\PromoController;
+use App\Http\Controllers\TransaksiController;
 use Illuminate\Support\Facades\Route;
 use App\Services\GedungLap\GedungLapService;
 use App\Services\AlatBarang\AlatBarangService;
@@ -112,6 +114,27 @@ Route::group(["prefix" => "admin"], function () {
 
         // Delete Detail Fasilitas Asrama
         Route::delete("detailFasilitasAsrama/delete/{id}", "destroyDetailFasilitas");
+
+        // Index Tipe Asrama
+        Route::get("tipeAsramas", "indexTipeAsrama");
+
+        // Create Tipe Asrama
+        Route::post("tipeAsramas/create", "createTipeAsrama");
+
+        // store Tipe Asrama
+        Route::get("tipeAsrama/store/{id}", "storeTipeAsrama");
+
+        // Show Tipe Asrama
+        Route::get("tipeAsrama/show/{id}", "showTipeAsrama");
+
+        // Update Tipe Asrama
+        Route::put("tipeAsrama/update/{id}", "updateTipeAsrama");
+
+        // Destroy Tipe Asrama
+        Route::delete("tipeAsrama/delete/{id}", "destroyTipeAsrama");
+
+        // Restore Tipe Asrama
+        Route::get("tipeAsrama/restore/{id}", "restoreTipeAsrama");
     });
 
     Route::controller(AlatBarangController::class)->group(function () {
@@ -138,6 +161,24 @@ Route::group(["prefix" => "admin"], function () {
 
         // Create Alat Barang
         Route::post("detailFotoAlatBarang/create/{id}", "createFotoAlatBarang");
+
+        // Index Satuan Alat Barang
+        Route::get("satuanAlatBarangs", "indexSatuanAlatBarang");
+
+        // Create Satuan Alat Barang
+        Route::post("satuanAlatBarangs/create", "createSatuanAlatBarang");
+
+        // store Satuan Alat Barang
+        Route::get("satuanAlatBarang/store/{id}", "storeSatuanAlatBarang");
+
+        // Show Satuan Alat Barang
+        Route::get("satuanAlatBarang/show/{id}", "showSatuanAlatBarang");
+
+        // Update Satuan Alat Barang
+        Route::put("satuanAlatBarang/update/{id}", "updateSatuanAlatBarang");
+
+        // Destroy Satuan Alat Barang
+        Route::delete("satuanAlatBarang/delete/{id}", "destroySatuanAlatBarang");
     });
 
     Route::controller(GedungLapController::class)->group(function () {
@@ -223,6 +264,34 @@ Route::group(["prefix" => "admin"], function () {
 
         // Destroy Detail Foto Layanan
         Route::delete("detailFotoLayanan/delete/{id}", "destroyDetailFotoLayanan");
+    });
+
+    Route::controller(PromoController::class)->group(function () {
+        // Index Promo
+        Route::get("promos", "indexPromo");
+        // Create Promo
+        Route::post("promos/create", "createPromo");
+        // Store Promo
+        Route::get("promo/store/{id}", "storePromo");
+        // Show Promo
+        Route::get("promo/show/{id}", "showPromo");
+        // Update Promo
+        Route::put("promo/update/{id}", "updatePromo");
+        // Destroy Promo
+        Route::delete("promo/delete/{id}", "destroyPromo");
+    });
+
+    Route::controller(TransaksiController::class)->group(function () {
+        // Index Transaksi Kendaraan
+        Route::get("transaksi-kendaraans", "indexTransaksiKendaraan");
+        // Index Transaksi Layanan
+        Route::get("transaksi-layanans", "indexTransaksiLayanan");
+        // Index Transaksi Asrama
+        Route::get("transaksi-asramas", "indexTransaksiAsrama");
+        // Index Transaksi Alat Barang
+        Route::get("transaksi-alatBarangs", "indexTransaksiAlatBarang");
+        // Index Transaksi Gedung & Lapangan
+        Route::get("transaksi-gedungLaps", "indexTransaksiGedungLap");
     });
 });
 

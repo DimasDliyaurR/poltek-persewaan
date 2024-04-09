@@ -10,6 +10,8 @@ class DetailTransaksiPropertyGedung extends Model
 {
     use HasFactory;
 
+    protected $table = "detail_transaksi_property_gedungs";
+
     /**
      * The attributes that are mass assignable.
      *
@@ -27,7 +29,6 @@ class DetailTransaksiPropertyGedung extends Model
      * @var array
      */
     protected $casts = [
-        'id' => 'integer',
         'transaksi_gedung_id' => 'integer',
         'property_gedung_id' => 'integer',
     ];

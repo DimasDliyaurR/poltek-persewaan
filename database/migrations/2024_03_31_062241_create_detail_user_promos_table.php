@@ -11,14 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::disableForeignKeyConstraints();
-
-        Schema::create('layanan_video_layanan', function (Blueprint $table) {
-            $table->foreignId('layanan_id');
-            $table->foreignId('video_layanan_id');
+        Schema::create('detail_user_promos', function (Blueprint $table) {
+            $table->id();
+            $table->foreignId("user_id")->constrained("users")->onDelete("CASCADE");
+            $table->foreignId("promo_id")->constrained("promos")->onDelete("CASCADE");
+            $table->timestamps();
         });
-
-        Schema::enableForeignKeyConstraints();
     }
 
     /**
@@ -26,6 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('layanan_video_layanan');
+        Schema::dropIfExists('detail_user_promos');
     }
 };

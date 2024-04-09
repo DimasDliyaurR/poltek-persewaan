@@ -5,6 +5,7 @@ namespace App\Services\Asrama;
 use App\Repositories\Asrama\AsramaRepository;
 use App\Repositories\Asrama\DetailFasilitasAsrama\DetailFasilitasAsramaRepository;
 use App\Repositories\Asrama\FasilitasAsrama\FasilitasAsramaRepository;
+use App\Repositories\Asrama\TipeAsrama\TipeAsramaRepository;
 use App\Services\Asrama\AsramaService;
 use InvalidArgumentException;
 
@@ -12,12 +13,14 @@ class AsramaServiceImplement implements AsramaService
 {
     private $asramaRepository;
     private $fasilitasAsramaRepository;
+    private $tipeAsramaRepository;
     private $detailFasilitasAsramaRepository;
 
-    public function __construct(AsramaRepository $asramaRepository, FasilitasAsramaRepository $fasilitasAsramaRepository, DetailFasilitasAsramaRepository $detailFasilitasAsramaRepository)
+    public function __construct(AsramaRepository $asramaRepository, FasilitasAsramaRepository $fasilitasAsramaRepository, DetailFasilitasAsramaRepository $detailFasilitasAsramaRepository, TipeAsramaRepository $tipeAsramaRepository)
     {
         $this->asramaRepository = $asramaRepository;
         $this->fasilitasAsramaRepository = $fasilitasAsramaRepository;
+        $this->tipeAsramaRepository = $tipeAsramaRepository;
         $this->detailFasilitasAsramaRepository = $detailFasilitasAsramaRepository;
     }
 
@@ -31,6 +34,23 @@ class AsramaServiceImplement implements AsramaService
     {
         try {
             $data = $this->asramaRepository->getDataById($id);
+        } catch (\Exception $th) {
+            throw new InvalidArgumentException();
+        }
+
+        return $data;
+    }
+
+    /**
+     * Get Data Asrama By Tipe Asrama Id
+     * @param integer $id
+     * @return array
+     * @throws InvalidArgumentException Jika terdapat kesalahan Exception
+     */
+    public function getDataAsramaByTipeAsramaId($id)
+    {
+        try {
+            $data = $this->asramaRepository->getDataByTipeAsramaId($id);
         } catch (\Exception $th) {
             throw new InvalidArgumentException();
         }
@@ -61,10 +81,27 @@ class AsramaServiceImplement implements AsramaService
      * @return array
      * @throws InvalidArgumentException Jika Terdapat Kesalahan Exception
      */
-    public function getDataDetailFasilitasByAsramaId($id)
+    public function getDataDetailFasilitasByTipeAsramaId($id)
     {
         try {
-            $data = $this->detailFasilitasAsramaRepository->getAllDataByAsramaId($id);
+            $data = $this->detailFasilitasAsramaRepository->getAllDataByTipeAsramaId($id);
+        } catch (\Exception $th) {
+            throw new InvalidArgumentException();
+        }
+
+        return $data;
+    }
+
+    /**
+     * Get Data Tipe Asrama By Asrama Id
+     * @param Id
+     * @return array
+     * @throws InvalidArgumentException Jika Terdapat Kesalahan Exception
+     */
+    public function getDataTipeAsramaById($id)
+    {
+        try {
+            $data = $this->tipeAsramaRepository->getDataById($id);
         } catch (\Exception $th) {
             throw new InvalidArgumentException();
         }
@@ -97,6 +134,22 @@ class AsramaServiceImplement implements AsramaService
     {
         try {
             $data = $this->fasilitasAsramaRepository->getAll();
+        } catch (\Exception $th) {
+            throw new InvalidArgumentException();
+        }
+
+        return $data;
+    }
+
+    /**
+     * Get All Data Tipe Asrama
+     * @return array
+     * @throws InvalidArgumentException Jika terdapat kesalahan Exception
+     */
+    public function getAllDataTipeAsrama()
+    {
+        try {
+            $data = $this->tipeAsramaRepository->getAll();
         } catch (\Exception $th) {
             throw new InvalidArgumentException();
         }
@@ -156,6 +209,23 @@ class AsramaServiceImplement implements AsramaService
     }
 
     /**
+     * Store Data Detail Tipe Asrama
+     * @param array $data
+     * @return array
+     * @throws InvalidArgumentException Jika terdapat kesalahan Exception
+     */
+    public function storeTipeAsrama($data)
+    {
+        try {
+            $data = $this->tipeAsramaRepository->store($data);
+        } catch (\Exception $th) {
+            throw new InvalidArgumentException();
+        }
+
+        return $data;
+    }
+
+    /**
      * Update Asrama
      * @param data
      * @return array
@@ -200,6 +270,23 @@ class AsramaServiceImplement implements AsramaService
     {
         try {
             $data = $this->detailFasilitasAsramaRepository->update($data, $id);
+        } catch (\Exception $th) {
+            throw new InvalidArgumentException();
+        }
+
+        return $data;
+    }
+    /**
+     * Update Detail Tipe Asrama
+     * @param array $data
+     * @param integer $id
+     * @return array
+     * @throws InvalidArgumentException Jika terdapat kesalahan Exception
+     */
+    public function updateTipeAsrama($data, $id)
+    {
+        try {
+            $data = $this->tipeAsramaRepository->update($data, $id);
         } catch (\Exception $th) {
             throw new InvalidArgumentException();
         }
@@ -259,6 +346,23 @@ class AsramaServiceImplement implements AsramaService
     }
 
     /**
+     * Delete Tipe Asrama
+     * @param string $id
+     * @return array
+     * @throws InvalidArgumentException Jika terdapat kesalahan Exception
+     */
+    public function destroyTipeAsrama($id)
+    {
+        try {
+            $data = $this->tipeAsramaRepository->delete($id);
+        } catch (\Exception $th) {
+            throw new InvalidArgumentException();
+        }
+
+        return $data;
+    }
+
+    /**
      * Delete Data Detail Fasilitas Asrama
      * @param id
      * @param dataFasilitasId
@@ -269,6 +373,40 @@ class AsramaServiceImplement implements AsramaService
     {
         try {
             $data = $this->detailFasilitasAsramaRepository->IsExistFasilitasTransaksi($dataFasilitasId, $id);
+        } catch (\Throwable $th) {
+            throw new InvalidArgumentException();
+        }
+
+        return $data;
+    }
+
+    /**
+     * Search Data Detail Fasilitas Asrama
+     * @param data
+     * @return array
+     * @throws InvalidArgumentException Jika terdapat kesalahan Exception
+     */
+    public function searchAsrama($data)
+    {
+        try {
+            $data = $this->asramaRepository->search($data);
+        } catch (\Throwable $th) {
+            throw new InvalidArgumentException();
+        }
+
+        return $data;
+    }
+
+    /**
+     * Search Data Detail Tipe Asrama
+     * @param data
+     * @return array
+     * @throws InvalidArgumentException Jika terdapat kesalahan Exception
+     */
+    public function searchTipeAsrama($data)
+    {
+        try {
+            $data = $this->tipeAsramaRepository->search($data);
         } catch (\Throwable $th) {
             throw new InvalidArgumentException();
         }

@@ -18,6 +18,12 @@ interface TransaksiAsramaRepository
     public function getAll();
 
     /**
+     * Get All data Transaksi Asrama With Detail Transaksi Asrama
+     * @return Array
+     */
+    public function getAllWithDetailTransaksiAsrama();
+
+    /**
      * Store data to Transaksi Asrama
      * @param data
      * @return Array

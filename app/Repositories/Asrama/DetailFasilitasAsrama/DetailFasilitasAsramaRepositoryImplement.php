@@ -31,9 +31,9 @@ class DetailFasilitasAsramaRepositoryImplement implements DetailFasilitasAsramaR
      * @param Id
      * @return Mixed
      */
-    public function getAllDataByAsramaId($id)
+    public function getAllDataByTipeAsramaId($id)
     {
-        $detailFasilitasAsramaData = $this->detailFasilitasAsrama::whereAsramaId($id)->with(["asrama", "fasilitasAsrama"])->latest()->get();
+        $detailFasilitasAsramaData = $this->detailFasilitasAsrama::whereTipeAsramaId($id)->with(["tipeAsrama", "fasilitasAsrama"]);
 
         return $detailFasilitasAsramaData;
     }
@@ -92,7 +92,7 @@ class DetailFasilitasAsramaRepositoryImplement implements DetailFasilitasAsramaR
     public function IsExistFasilitasTransaksi($dataFasilitasId, $id)
     {
         $existDetail = DetailFasilitasAsrama::whereFasilitasAsramaId($dataFasilitasId)
-            ->whereAsramaId($id)
+            ->whereTipeAsramaId($id)
             ->get();
 
         if (count($existDetail) > 0) return false;

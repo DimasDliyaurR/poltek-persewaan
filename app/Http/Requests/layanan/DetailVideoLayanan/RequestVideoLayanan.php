@@ -22,7 +22,7 @@ class RequestVideoLayanan extends FormRequest
     public function rules(): array
     {
         return [
-            "vl_link" => "required",
+            "vl_link" => "required|video",
         ];
     }
 

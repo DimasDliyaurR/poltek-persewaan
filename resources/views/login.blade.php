@@ -1,6 +1,5 @@
 @extends('layouts-home.navbar.nav')
 @section('content')
-
     <div class=" grid place-items-center h-screen justify-center bg-gray-200"> 
         <!-- <div id="modal-wrapper" class="">
             <div class="flex items-center justify-center min-h-screen bg-primary bg-opacity-75 transition-all ">
@@ -29,6 +28,6 @@
         <hr class=" mb-4border-t-1 border-primary">
         <p class="text-xs text-center  pt-5"> <i class="fa-regular fa-copyright"></i>Belum memiliki akun? <a href="/signup"><span class="text-primary">Daftar</span></a></p>    
     </div>
-        
+     
     </div>
 @endsection

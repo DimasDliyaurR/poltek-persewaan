@@ -45,7 +45,9 @@ class TransaksiAlatBarang extends Model
 
     public function alatBarangs(): BelongsToMany
     {
-        return $this->belongsToMany(AlatBarang::class);
+        return $this->belongsToMany(AlatBarang::class, "detail_transaksi_alat_barangs", "transaksi_alat_barang_id", "alat_barang_id")
+            ->using(DetailTransaksiAlatBarang::class)
+            ->as("alatBarangs");
     }
 
     public function user(): BelongsTo

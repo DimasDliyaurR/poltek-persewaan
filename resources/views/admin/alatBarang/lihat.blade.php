@@ -56,6 +56,16 @@
                         </th>
                         <th scope="col" class="px-6 py-3">
                             <div class="flex items-center">
+                                Jumlah Unit
+                                <a href="#"><svg class="w-3 h-3 ms-1.5" aria-hidden="true"
+                                        xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
+                                        <path
+                                            d="M8.574 11.024h6.852a2.075 2.075 0 0 0 1.847-1.086 1.9 1.9 0 0 0-.11-1.986L13.736 2.9a2.122 2.122 0 0 0-3.472 0L6.837 7.952a1.9 1.9 0 0 0-.11 1.986 2.074 2.074 0 0 0 1.847 1.086Zm6.852 1.952H8.574a2.072 2.072 0 0 0-1.847 1.087 1.9 1.9 0 0 0 .11 1.985l3.426 5.05a2.123 2.123 0 0 0 3.472 0l3.427-5.05a1.9 1.9 0 0 0 .11-1.985 2.074 2.074 0 0 0-1.846-1.087Z" />
+                                    </svg></a>
+                            </div>
+                        </th>
+                        <th scope="col" class="px-6 py-3">
+                            <div class="flex items-center">
                                 Foto
                                 <a href="#"><svg class="w-3 h-3 ms-1.5" aria-hidden="true"
                                         xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
@@ -84,7 +94,10 @@
                                 {{ $row->a_nama }}
                             </th>
                             <td class="px-6 py-4 dark:text-white">
-                                {{ $row->a_tarif }}
+                                Rp. {{ number_format($row->a_tarif, 0, ',', '.') }}
+                            </td>
+                            <td class="px-6 py-4 dark:text-white">
+                                {{ $row->a_qty }}
                             </td>
                             <td class="px-6 py-4 dark:text-white">
                                 <img src="{{ Storage::url($row->a_foto) }}" alt="Foto Kendaraan"
@@ -177,11 +190,31 @@
             </div>
 
             <div class="mb-5">
-                <label for="a_satuan" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Satuan</label>
-                <input name="a_satuan"
-                    class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-4 @error('a_satuan') border-red-500 @enderror"
-                    value="{{ old('a_satuan') }}" type="text">
-                @error('a_satuan')
+                <label for="a_qty" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Jumlah
+                    Unit</label>
+                <input name="a_qty"
+                    class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-4 @error('a_qty') border-red-500 @enderror"
+                    value="{{ old('a_qty') }}" type="text">
+                @error('a_qty')
+                    <span class="text-red-600 text-sm">{{ $message }}</span>
+                @enderror
+            </div>
+
+            <div class="mb-5">
+                <label for="satuan_alat_barang_id"
+                    class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Satuan</label>
+                <select name="satuan_alat_barang_id"
+                    class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-blue file:text-violet-700 hover:file:bg-blue-400 @error('mekr_kendaraan_id') border-red-500 @enderror">
+                    <option selected disabled hidden>-- Pilih Satuan --</option>
+                    @forelse($satuanAlatBarangs as $row)
+                        <option value="{{ $row->id }}"
+                            {{ old('satuan_alat_barang_id') == $row->id ? 'selected' : ' ' }}>
+                            {{ $row->sab_nama }}</option>
+                    @empty
+                        <option selected disabled hidden>Tidak ada Pilihan</option>
+                    @endforelse
+                </select>
+                @error('satuan_alat_barang_id')
                     <span class="text-red-600 text-sm">{{ $message }}</span>
                 @enderror
             </div>

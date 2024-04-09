@@ -17,17 +17,22 @@
             @method('PUT')
 
             <div class="mb-5">
-                <label for="a_foto" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Foto
+                <label for="tipe_asrama_id" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Tipe
                     Asrama</label>
-                <input name="a_foto"
-                    class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-blue file:text-violet-700 hover:file:bg-blue-400 @error('a_foto') border-red-500 @enderror"
-                    id="multiple_files" type="file">
-                @error('a_foto')
+                <select name="tipe_asrama_id"
+                    class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-blue file:text-violet-700 hover:file:bg-blue-400 @error('tipe_asrama_id') border-red-500 @enderror">
+                    <option selected disabled hidden>-- Pilih Tipe Asrama --</option>
+                    @forelse($tipeAsramas as $row)
+                        <option value="{{ $row->id }}" {{ $row->id == $asrama->tipe_asrama_id ? 'selected' : '' }}
+                            {{ old('tipe_asrama_id') == $row->id ? 'selected' : ' ' }}>
+                            {{ $row->ta_nama }}</option>
+                    @empty
+                        <option selected disabled>Tidak ada Pilihan</option>
+                    @endforelse
+                </select>
+                @error('tipe_asrama_id')
                     <span class="text-red-600 text-sm">{{ $message }}</span>
                 @enderror
-
-                <img src="{{ Storage::url($asrama->a_foto) }}" alt="Foto Kendaraan"
-                    class="h-72 max-w-xl rounded-lg shadow-xl dark:shadow-gray-800 my-5">
             </div>
 
             <div class="mb-5">
@@ -35,21 +40,9 @@
                     Ruangan Asrama</label>
                 <input name="a_nama_ruangan"
                     class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-4 @error('a_nama_ruangan') border-red-500 @enderror"
-                    type="text" value="{{ $asrama->a_nama_ruangan }}">
+                    value="{{ $asrama->a_nama_ruangan }}" type="text">
 
                 @error('a_nama_ruangan')
-                    <span class="text-red-600 text-sm">{{ $message }}</span>
-                @enderror
-            </div>
-
-            <div class="mb-5">
-                <label for="a_tarif" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Harga
-                    Tarif (N)</label>
-                <input name="a_tarif"
-                    class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-4 @error('a_tarif') border-red-500 @enderror"
-                    type="text" value="{{ $asrama->a_tarif }}">
-
-                @error('a_tarif')
                     <span class="text-red-600 text-sm">{{ $message }}</span>
                 @enderror
             </div>

@@ -38,6 +38,17 @@ class TransaksiGedungRepositoryImplement implements TransaksiGedungRepository
     }
 
     /**
+     * Get All data Gedung Lapangan Detail Transaksi dan Detail Property
+     * @return Array
+     */
+    public function getAllWithDetailTransaksiAndDetailProperty()
+    {
+        $gedungData = $this->gedung::with(["property", "gedungLap"]);
+
+        return $gedungData;
+    }
+
+    /**
      * Store data to Gedung Lapangan
      * @param data
      * @return Array

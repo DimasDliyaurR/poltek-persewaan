@@ -10,6 +10,7 @@ use InvalidArgumentException;
 use Illuminate\Support\Facades\Storage;
 use App\Http\Requests\RequestMerkKendaraan;
 use App\Http\Requests\RequestMerkKendaraanUpdate;
+use App\Models\MerkKendaraan;
 use App\Services\Kendaraan\KendaraanService;
 
 class KendaraanController extends Controller
@@ -27,12 +28,15 @@ class KendaraanController extends Controller
      */
     public function indexMerkKendaraan()
     {
-        $kendaraans = $this->kendaraanService->getAllDataMerkKendaraan();
+
+        /** 
+         * Controller Has been controller On
+         * App\Livewire\MerkKendaraanTable
+         */
 
         return view("admin.kendaraan.merkKendaraan.lihat", [
             "title" => "Merk Kendaraan",
             "action" => "kendaraan",
-            "merkKendaraans" => $kendaraans,
         ]);
     }
 
@@ -119,8 +123,8 @@ class KendaraanController extends Controller
             $file_merk_kendaraan = $request->file('mk_foto');
             $foto_kendaraan = $file_merk_kendaraan->hashName();
 
-            $foto_kendaraan_path = $file_merk_kendaraan->storeAs("/file", $foto_kendaraan);
-            $foto_kendaraan_path = Storage::disk("public")->put("/file", $file_merk_kendaraan);
+            $foto_kendaraan_path = $file_merk_kendaraan->storeAs("/merkKendaraan", $foto_kendaraan);
+            $foto_kendaraan_path = Storage::disk("public")->put("/merkKendaraan", $file_merk_kendaraan);
             $validation['mk_foto'] = $foto_kendaraan_path;
         }
 
@@ -159,18 +163,15 @@ class KendaraanController extends Controller
      */
     public function indexKendaraan()
     {
-        try {
-            $kendaraans = $this->kendaraanService->getAllDataKendaraanWithMerkKendaraan();
-            $merkKendaraans = $this->kendaraanService->getAllDataMerkKendaraan();
-        } catch (\Exception $th) {
-            throw new InvalidArgumentException();
-        }
+        $kendaraans = $this->kendaraanService->getAllDataKendaraanWithMerkKendaraan();
+
+        $merkKendaraans = $this->kendaraanService->getAllDataMerkKendaraan();
 
         return view("admin.kendaraan.lihat", [
             "title" => "Kendaraan",
             "action" => "kendaraan",
             "kendaraans" => $kendaraans,
-            "merkKendaraans" => $merkKendaraans,
+            "merkKendaraans" => $merkKendaraans->get(),
         ]);
     }
 
@@ -209,7 +210,7 @@ class KendaraanController extends Controller
             "title" => "Kendaraan",
             "action" => "kendaraan",
             "kendaraan" => $kendaraan,
-            "merkKendaraans" => $merkKendaraan,
+            "merkKendaraans" => $merkKendaraan->get(),
         ]);
     }
 

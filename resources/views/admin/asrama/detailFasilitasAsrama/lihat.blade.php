@@ -32,6 +32,11 @@
                 @error('fasilitas_asrama_id')
                     <span class="text-red-600 text-sm">{{ $message }}</span>
                 @enderror
+                @if ($fasilitasAsramas->count() == 0)
+                    <p class="text-sm ml-4">Fasilitas belum ada silahkan tambahkan di <a
+                            href="{{ asset('admin/fasilitasAsramas') }}" class="text-blue-400 hover:underline">Tambah
+                            Fasilitas Asrama</a></p>
+                @endif
             </div>
 
             <button class="p-2 w-80 bg-gray-900 rounded-md text-white text-sm">Submit</button>
@@ -39,7 +44,7 @@
     </x-inner-layout>
 
     <x-title-component>
-        List Fasilitas Asrama <span class="font-normal lowercase">{{ $asrama->a_nama_ruangan }}</span>
+        List Fasilitas Asrama <span class="font-normal lowercase">{{ $asrama->ta_nama }}</span>
     </x-title-component>
 
     <x-inner-layout>
