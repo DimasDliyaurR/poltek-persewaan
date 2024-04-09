@@ -6,6 +6,7 @@
     <title>{{ $title }} | PERSEWAAN ASET</title>
     <link  href="https://icons8.com/icon/E4FAF4hA9ugF/help">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.css" rel="stylesheet" />
+    
     @vite('resources/css/app.css')
     @vite('resources/js/app.js')
 
