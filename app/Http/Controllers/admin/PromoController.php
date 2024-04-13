@@ -1,13 +1,15 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\admin;
 
-use App\Http\Requests\Promo\RequestPromo;
 use App\Models\Promo;
-use App\Services\Promo\PromoService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use App\Http\Controllers\Controller;
+use App\Services\Promo\PromoService;
 use Illuminate\Support\Facades\Storage;
+use App\Http\Requests\Promo\RequestPromo;
+use App\Models\MerkKendaraan;
 
 class PromoController extends Controller
 {

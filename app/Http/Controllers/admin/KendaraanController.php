@@ -1,17 +1,18 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\admin;
 
-use App\Http\Requests\kendaraan\RequestKendaraan;
-use App\Http\Requests\kendaraan\RequestKendaraanUpdate;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
+use App\Models\MerkKendaraan;
 use InvalidArgumentException;
+use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Storage;
 use App\Http\Requests\RequestMerkKendaraan;
-use App\Http\Requests\RequestMerkKendaraanUpdate;
-use App\Models\MerkKendaraan;
 use App\Services\Kendaraan\KendaraanService;
+use App\Http\Requests\kendaraan\RequestKendaraan;
+use App\Http\Requests\RequestMerkKendaraanUpdate;
+use App\Http\Requests\kendaraan\RequestKendaraanUpdate;
 
 class KendaraanController extends Controller
 {
@@ -164,6 +165,7 @@ class KendaraanController extends Controller
     public function indexKendaraan()
     {
         $kendaraans = $this->kendaraanService->getAllDataKendaraanWithMerkKendaraan();
+
 
         $merkKendaraans = $this->kendaraanService->getAllDataMerkKendaraan();
 

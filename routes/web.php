@@ -1,16 +1,16 @@
 <?php
 
 use App\Http\Controllers\AlatBarangController;
-use App\Http\Controllers\AsramaController;
+use App\Http\Controllers\admin\AsramaController;
 use App\Http\Controllers\auth\LoginController;
 use App\Http\Controllers\auth\RegistrationController;
 use App\Http\Controllers\FEGedungLapController;
-use App\Http\Controllers\GedungLapController;
-use App\Http\Controllers\KendaraanController;
+use App\Http\Controllers\admin\GedungLapController;
+use App\Http\Controllers\admin\KendaraanController;
 use App\Http\Controllers\KendaraanFeController;
-use App\Http\Controllers\LayananController;
-use App\Http\Controllers\PromoController;
-use App\Http\Controllers\TransaksiController;
+use App\Http\Controllers\admin\LayananController;
+use App\Http\Controllers\admin\PromoController;
+use App\Http\Controllers\admin\TransaksiController;
 use Illuminate\Support\Facades\Route;
 use App\Services\GedungLap\GedungLapService;
 use App\Services\AlatBarang\AlatBarangService;
@@ -39,7 +39,7 @@ Route::group(["auth" => "guest"], function () {
 
 // BackEnd
 
-Route::group(["prefix" => "admin", "middleware" => "auth"], function () {
+Route::group(["prefix" => "admin"], function () {
     Route::controller(KendaraanController::class)->group(function () {
         // Index Merk Kendaraan
         Route::get("merkKendaraans", "indexMerkKendaraan");
@@ -306,6 +306,7 @@ Route::controller(LoginController::class)->group(function () {
         Route::get("login", "showLoginForm");
         Route::post("login/action", "login")->name("login");
     });
+
     Route::get("logout", "logout")->name("logout");
 });
 
@@ -317,10 +318,16 @@ Route::view('/', 'index', [
 Route::get('/gedung', [FEGedungLapController::class, 'index']);
 Route::get('/detailgedung/{id}', [FEgedungLapController::class, 'detail'])->name('detailgedung');
 
-Route::get('/transportasi', [KendaraanFeController::class, 'index']);
-Route::view('/detailbus', 'detail.detail_bus', [
-    "title" => "Detail Bus "
-])->name('detailbus');
+Route::controller(KendaraanFeController::class)->group(function () {
+    Route::get('/transportasi', 'index');
+    Route::get('/transportasi/{slug}', 'detail');
+    Route::get('/transportasi/{slug}/pesan', 'pesanForm');
+    Route::post('/transportasi/beli-langsung', 'pesan')->name('transportasi.pesan');
+});
+
+// Route::view('/detailbus', 'detail.detail_bus', [
+//     "title" => "Detail Bus "
+// ])->name('detailbus');
 
 // Route::view('/login', 'login', [
 //     "title" => "Login",
@@ -332,43 +339,47 @@ Route::view('/detailbus', 'detail.detail_bus', [
 // Route::view('/gedung', 'kategori.gedung',[
 //     "title" => "Gedung"
 // ]);
-Route::view('/layanan', 'kategori.layanan', [
-    "title" => "Layanan"
-]);
-Route::view('/penginapan', 'kategori.penginapan', [
-    "title" => "Penginapan"
-]);
-Route::view('/aset', 'kategori.aset', [
-    "title" => "Aset"
-]);
-Route::view('/asset', 'kategori.aset', [
-    "title" => "Aset"
-]);
+
+// Route::view('/layanan', 'kategori.layanan', [
+//     "title" => "Layanan"
+// ]);
+
+// Route::view('/penginapan', 'kategori.penginapan', [
+//     "title" => "Penginapan"
+// ]);
+
+// Route::view('/aset', 'kategori.aset', [
+//     "title" => "Aset"
+// ]);
+// Route::view('/asset', 'kategori.aset', [
+//     "title" => "Aset"
+// ]);
 
 // Kategori
-Route::view('/sewaBus', 'sewa.sewa_bus', [
-    "title" => "Sewa Bus",
-]);
-// Transaksi
-Route::view('/pesan', 'user_transaksi.pesan', [
-    "title" => "Pemesanan",
-]);
-Route::view('/bayar', 'user_transaksi.bayar', [
-    "title" => "Pembayaran",
-]);
-Route::view('/invoice', 'user_transaksi.invoice', [
-    "title" => "Invoice",
-]);
+// Route::view('/sewaBus', 'sewa.sewa_bus', [
+//     "title" => "Sewa Bus",
+// ]);
+// // Transaksi
+// Route::view('/pesan', 'transaksi.pesan', [
+//     "title" => "Pemesanan",
+// ]);
+// Route::view('/bayar', 'transaksi.bayar', [
+//     "title" => "Pembayaran",
+// ]);
 
-Route::view('/detailbus', 'detail.detail_bus', ["title" => "Detail Bus "])
-    ->name('detailbus');
-Route::view('/login', 'login', [
-    "title" => "Login",
-]);
-Route::view(
-    '/transportasi',
-    'kategori.transportasi',
-    [
-        "title" => "Transportasi"
-    ]
-);
+// Route::view('/invoice', 'transaksi.invoice', [
+//     "title" => "Invoice",
+// ]);
+
+// Route::view('/detailbus', 'detail.detail_bus', ["title" => "Detail Bus "])
+//     ->name('detailbus');
+// Route::view('/login', 'login', [
+//     "title" => "Login",
+// ]);
+// Route::view(
+//     '/transportasi',
+//     'kategori.transportasi',
+//     [
+//         "title" => "Transportasi"
+//     ]
+// );
