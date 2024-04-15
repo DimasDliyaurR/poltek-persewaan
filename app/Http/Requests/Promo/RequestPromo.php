@@ -33,7 +33,7 @@ class RequestPromo extends FormRequest
                 "p_deskripsi" => "required",
                 "p_mulai" => "required|date",
                 "p_kadaluarsa" => "required|date",
-                "p_jumlah" => "required|numeric",
+                "p_jumlah" => "numeric",
 
                 "p_kategori" => "required",
             ];
@@ -49,7 +49,7 @@ class RequestPromo extends FormRequest
                 "p_deskripsi" => "required",
                 "p_mulai" => "required|date",
                 "p_kadaluarsa" => "required|date",
-                "p_jumlah" => "required|numeric",
+                "p_jumlah" => "numeric",
                 "p_kategori" => "required",
             ];
         }
@@ -81,7 +81,7 @@ class RequestPromo extends FormRequest
             "p_kadaluarsa.required" => "Kadaluarsa mohon diisi !",
             "p_kadaluarsa.date" => "Kadaluarsa mohon diisi menggunakan format date !",
 
-            "p_jumlah.required" => "Jumlah mohon diisi !",
+            // "p_jumlah.required" => "Jumlah mohon diisi !",
             "p_jumlah.numeric" => "Jumlah mohon diisi menggunakan angka !",
 
             "p_kategori.required" => "Kategori mohon diisi !",

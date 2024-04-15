@@ -6,9 +6,9 @@
     </div>
     <!-- TABLE START -->
     <p class="text-sm ml-4">Jika Tipe Asrama berwarna merah maka tipe asrama tidak ditemukan atau sudah dihapus. Klik <a
-            href="{{ asset('admin/tipeAsramas?trashed=1') }}" class="text-blue-400 hover:underline">restore</a>. Lalu restore
-        nama tipe asrama yang ingin dipilih. Jika ingin
-        memulihkan</p>
+            href="{{ asset('admin/tipeAsramas?trashed=1') }}" class="text-blue-400 hover:underline">restore</a> pada laman
+        Tipe Asrama lalu restore
+        nama tipe asrama yang ingin dipilih.</p>
     <x-inner-layout>
 
         <livewire:asrama-table>

@@ -182,7 +182,7 @@ class AlatBarangController extends Controller
         return view("admin.alatBarang.detailFotoAlatBarang.lihat", [
             "title" => "Alat Barang",
             "action" => "alat barang",
-            "alatBarang" => $alatBarang,
+            "alatBarang" => $alatBarang->first(),
             "detailFotoAlatBarang" => $detailFotoAlatBarang,
         ]);
     }

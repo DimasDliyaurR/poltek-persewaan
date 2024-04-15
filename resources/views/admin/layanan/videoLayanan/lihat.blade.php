@@ -46,7 +46,7 @@
             <thead class="text-md text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-white">
                 <tr>
                     <th scope="col" class="px-6 py-3">
-                        Nama Tim
+                        Video
                     </th>
                     <th scope="col" class="px-6 py-3">
                         <span class="sr-only">Edit</span>

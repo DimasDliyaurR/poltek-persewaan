@@ -19,7 +19,7 @@ return new class extends Migration
             $table->string('l_nama');
             $table->integer('l_tarif');
             $table->boolean('l_personil')->nullable();
-            $table->enum('l_satuan', ["jam", "minggu", "bulan"]);
+            $table->enum('l_satuan', ["jam", "minggu", "bulan", "kegiatan"]);
             $table->enum('l_status', ["tersedia", "tidak"])->default("tersedia");
             $table->text('l_deskripsi');
             $table->string('l_slug');

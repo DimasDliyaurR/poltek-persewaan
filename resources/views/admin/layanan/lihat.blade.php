@@ -38,6 +38,11 @@
                     {{ $value }}
                 </x-alert-success>
             @endsession
+            @session('errorTable')
+                <x-alert-error>
+                    {{ $value }}
+                </x-alert-error>
+            @endsession
             <table class="w-full text-sm text-left rtl:text-right text-gray-800 dark:text-gray-400 border-solid">
                 <thead class="text-md text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-white">
                     <tr>
@@ -113,14 +118,16 @@
                                 <!-- Dropdown menu -->
                                 <div id="dropdown-{{ $row->id }}"
                                     class="z-10 hidden bg-white divide-y divide-gray-100 border-gray-400 border-2 rounded-lg w-auto text-left">
-                                    <ul class="py-2 text-sm text-gray-700 dark:text-gray-200"
-                                        aria-labelledby="dropdownDefaultButton">
-                                        <li>
-                                            <a href="{{ asset('admin/timLayanans/' . $row->id) }}"
-                                                class="block px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Tambah
-                                                Tim</a>
-                                        </li>
-                                    </ul>
+                                    @if ($row->l_personil)
+                                        <ul class="py-2 text-sm text-gray-700 dark:text-gray-200"
+                                            aria-labelledby="dropdownDefaultButton">
+                                            <li>
+                                                <a href="{{ asset('admin/timLayanans/' . $row->id) }}"
+                                                    class="block px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Tambah
+                                                    Tim</a>
+                                            </li>
+                                        </ul>
+                                    @endif
                                     <ul class="py-2 text-sm text-gray-700 dark:text-gray-200"
                                         aria-labelledby="dropdownDefaultButton">
                                         <li>
@@ -216,6 +223,7 @@
                     <option value="jam" {{ old('l_satuan') == 'jam' ? 'selected' : '' }}>jam</option>
                     <option value="minggu" {{ old('l_satuan') == 'minggu' ? 'selected' : '' }}>minggu</option>
                     <option value="bulan" {{ old('l_satuan') == 'bulan' ? 'selected' : '' }}>bulan</option>
+                    <option value="kegiatan" {{ old('l_satuan') == 'kegiatan' ? 'selected' : '' }}>kegiatan</option>
                 </select>
                 @error('l_satuan')
                     <span class="text-red-600 text-sm">{{ $message }}</span>
