@@ -10,7 +10,7 @@
   <div class="flex flex-wrap">
     <div class="w-full self-end px-4  ">
       <div class="relative mt-10  pb-3 lg:mt-9 lg:right-0">
-        <img src="{{  ('img/LogoPoltekbang.png')}}" alt="Logo Poltekbang" class="max-w-full mx-auto w-80 h-65" />
+        <img src="{{  asset('img/LogoPoltekbang.png')}}" alt="Logo Poltekbang" class="max-w-full mx-auto w-80 h-65" />
       </div>
     </div>
     <div class="w-full text-center px-4 ">
@@ -41,12 +41,11 @@
       </script>
     </div>
     <div id="dropdownJadwal" class="relative">
-      <div onclick="toggleDropdown2()"
-        class="border-solid w-28 text-sm border-gray-400 border-[1px] px-5 py-2 rounded cursor-pointer  flex  bg-white shadow-sm ">
-        Jadwal
-        <svg class="w-5 " xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+      <div onclick="toggleDropdown2()" class="border-solid w-28 text-sm border-gray-400 border-[1px] px-5 py-2 rounded cursor-pointer  flex  bg-white shadow-sm items-center">
+        <a href="/kalender">Jadwal</a>
+        <!-- <svg class="w-5 " xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
             <path stroke-linecap="round" stroke-linejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5" />
-        </svg>
+        </svg> -->
       </div>
       <div id="dropdownKal" class="rounded border-[2px] border-white bg-white p-2 absolute top-[50px] w-[185px]  shadow-md hidden">
               <div class="cursor-pointer hover:bg-gray-300 p-2 rounded-lg">
@@ -61,7 +60,7 @@
         }
       </script>
     </div>
-    <div class="relative">
+    <!-- <div class="relative">
       <div class="border-solid w-28 text-sm border-gray-400 border-[1px] px-5 py-2 rounded cursor-pointer  flex  bg-white shadow-sm " >
       <form action="">
       Search 
@@ -71,7 +70,7 @@
         <path stroke-linecap="round" stroke-linejoin="round" d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z" />
       </svg>
       </div>
-    </div>
+    </div> -->
     </div>
   </div>
 </div>
@@ -80,12 +79,15 @@
     <div class="flex z-10">
       <div class="w-1/5 h-40 hover:bg-primary hover:text-white rounded-lg p-4 cursor-pointer">
         <a href="/kendaraan" class=" m-auto ">Transportasi
-        <img src="{{ ('img/kategori/transportasi.png') }}" alt="" class="hover:filter hover:invert mt-6 h-16 w-16 mx-auto">
+        <div class="">
+          <img src="{{ asset('img/kategori/transportasi.png') }}" alt="" class="hover:text-white hover:opacity-25 mt-6 h-16 w-16 mx-auto">
+
+        </div>
         </a>
       </div>
       <div class="w-1/5 h-40 hover:bg-primary hover:text-white rounded-lg p-4">
         <a href="/gedung">Gedung
-        <img src="{{ ('img/kategori/gedung.png') }}" alt="" class="mt-6 hover:filter hover:invert h-16 w-16  mx-auto">
+        <img src="{{ asset('img/kategori/gedung.png') }}" alt="" class="mt-6 hover:filter hover:invert h-16 w-16  mx-auto">
         </a>
       </div>
       <div class="w-1/5 h-40 hover:bg-primary hover:text-white rounded-lg p-4">
@@ -95,12 +97,12 @@
       </div>
       <div class="w-1/5 h-40 hover:bg-primary hover:text-white rounded-lg p-4">
         <a href="/layanan" ><span class="mb-8">Penginapan</span>
-        <img src="{{ ('img/kategori/hotel.png') }}" alt="" class=" mt-6 hover:filter hover:invert h-16 w-16 mx-auto">
+        <img src="{{ asset('img/kategori/hotel.png') }}" alt="" class=" mt-6 hover:filter hover:invert h-16 w-16 mx-auto">
         </a>
       </div>
       <div class="w-1/5 h-40 hover:bg-primary hover:text-white rounded-lg p-4">
         <a href="/aset">Asset</a>
-        <img src="{{ ('img/kategori/asset.png') }}" alt="" class=" mt-2 hover:filter hover:invert h-24 w-24 mx-auto">
+        <img src="{{ asset('img/kategori/asset.png') }}" alt="" class=" mt-2 hover:filter hover:invert h-24 w-24 mx-auto">
       </div>
     </div>  
   </div>
@@ -128,19 +130,19 @@
                       <div class="relative h-56 overflow-hidden rounded-md ">
                           <!-- Item 1 -->
                           <div class="hidden duration-700 ease-in-out" data-carousel-item>
-                              <img src="{{ ('img/transportasi/bus.JPG')}}" class="absolute block  w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2 shadow-lg rounded-md" alt="...">
+                              <img src="{{ asset('img/transportasi/bus.JPG')}}" class="absolute block  w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2 shadow-lg rounded-md" alt="...">
                           </div>
                           <!-- Item 2 -->
                           <div class="hidden duration-700 ease-in-out" data-carousel-item>
-                              <img src="{{ ('img/transportasi/bus_depan.JPG')}}" class="absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2 shadow-lg rounded-md" alt="...">
+                              <img src="{{ asset('img/transportasi/bus_depan.JPG')}}" class="absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2 shadow-lg rounded-md" alt="...">
                           </div>
                           <!-- Item 3 -->
                           <div class="hidden duration-700 ease-in-out" data-carousel-item>
-                              <img src="{{ ('img/transportasi/bus_kiri.JPG')}}" class="absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2 shadow-lg rounded-md" alt="...">
+                              <img src="{{ asset('img/transportasi/bus_kiri.JPG')}}" class="absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2 shadow-lg rounded-md" alt="...">
                           </div>
                           <!-- Item 4 -->
                           <div class="hidden duration-700 ease-in-out" data-carousel-item>
-                              <img src="{{ ('img/transportasi/bus_kanan.JPG')}}" class="absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2 shadow-lg rounded-md" alt="...">
+                              <img src="{{ asset('img/transportasi/bus_kanan.JPG')}}" class="absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2 shadow-lg rounded-md" alt="...">
                           </div>
                       </div>
                             <!-- Slider indicators -->
@@ -181,7 +183,7 @@
                             <sup class="text-xs text-gray-500"> Kapasitas </sup>
                         </div>
                         <div class="flex mb-2">
-                            <img src="{{ ('img/transportasi/bensin.png') }}" alt="bbm" class="w-5 h-5">
+                            <img src="{{ asset('img/transportasi/bensin.png') }}" alt="bbm" class="w-5 h-5">
                             <p class="text-sm font-semibold ml-2">Bensin</p>
                             <sup class="text-xs text-gray-500"> Fuel </sup>
                         </div>
@@ -200,15 +202,15 @@
                             <div class="relative h-56 overflow-hidden rounded-md ">
                                 <!-- Item 1 -->
                                 <div class="hidden duration-700 ease-in-out" data-carousel-item>
-                                    <img src="{{ ('img/penginapan/bad_2.jpg')}}" class="absolute block  w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2 shadow-lg rounded-md" alt="...">
+                                    <img src="{{ asset('img/penginapan/bad_2.jpg')}}" class="absolute block  w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2 shadow-lg rounded-md" alt="...">
                                 </div>
                                 <!-- Item 2 -->
                                 <div class="hidden duration-700 ease-in-out" data-carousel-item>
-                                    <img src="{{ ('img/penginapan/lemari_2.jpg')}}" class="absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2 shadow-lg rounded-md" alt="...">
+                                    <img src="{{ asset('img/penginapan/lemari_2.jpg')}}" class="absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2 shadow-lg rounded-md" alt="...">
                                 </div>
                                 <!-- Item 3 -->
                                 <div class="hidden duration-700 ease-in-out" data-carousel-item> 
-                                    <img src="{{ ('img/penginapan/toilet.jpg')}}" class="absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2 shadow-lg rounded-md" alt="...">
+                                    <img src="{{ asset('img/penginapan/toilet.jpg')}}" class="absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2 shadow-lg rounded-md" alt="...">
                                 </div>
                                 <!-- Item 4 -->
                                 <!-- <div class="hidden duration-700 ease-in-out" data-carousel-item>
@@ -252,7 +254,7 @@
                             <sup class="text-xs text-gray-500"> Orang / kamar </sup>
                         </div>
                         <div class="flex mb-2">
-                            <img src="{{ ('img/penginapan/bensin.png') }}" alt="bbm" class="w-5 h-5">
+                            <img src="{{ asset('img/transportasi/bensin.png') }}" alt="bbm" class="w-5 h-5">
                             <p class="text-sm font-semibold ml-2">Wifi </p>
                             <sup class="text-xs text-gray-500"> Free </sup>
                         </div>
@@ -265,7 +267,7 @@
             <div class="w-full px-4 lg:w-1/2 xl:w-1/3 mb-2">
                 <div class="bg-white  rounded-xl shadow-lg overflow-hidden ">
                     <div class="py-8 px-6">
-                      <img src="{{ ('img/layanan/marching band.jpg')}}" alt="" class="shadow-lg rounded-md">
+                      <img src="{{ asset('img/layanan/marching band.jpg')}}" alt="" class="shadow-lg rounded-md">
                         <h3>
                         <a href=" /detailbus" class="block mb-3 mt-3 font-semibold text-xl text-black hover:text-primary truncate">Bus</a>
                         </h3>
@@ -281,7 +283,7 @@
             <div class="w-full px-4 lg:w-1/2 xl:w-1/3 mb-2">
                 <div class="bg-white  rounded-xl shadow-lg overflow-hidden ">
                     <div class="py-8 px-6">
-                        <img class="shadow-lg rounded-md" src="{{ ('img/transportasi/bus.JPG')}}" alt="">
+                        <img class="shadow-lg rounded-md" src="{{ asset('img/transportasi/bus.JPG')}}" alt="">
                         <h3>
                         <a href=" /detailbus" class="block mb-3 mt-3 font-semibold text-xl text-black hover:text-primary truncate">Bus</a>
                         </h3>
@@ -297,7 +299,7 @@
             <div class="w-full px-4 lg:w-1/2 xl:w-1/3 mb-2">
                 <div class="bg-white  rounded-xl shadow-lg overflow-hidden ">
                     <div class="py-8 px-6">
-                        <img class="shadow-lg rounded-md" src="{{ ('img/transportasi/bus.JPG')}}" alt="">
+                        <img class="shadow-lg rounded-md" src="{{ asset('img/transportasi/bus.JPG')}}" alt="">
                         <h3>
                         <a href=" /detailbus" class="block mb-3 mt-3 font-semibold text-xl text-black hover:text-primary truncate">Bus</a>
                         </h3>
@@ -313,7 +315,7 @@
             <div class="w-full px-4 lg:w-1/2 xl:w-1/3 mb-2">
                 <div class="bg-white  rounded-xl shadow-lg overflow-hidden ">
                     <div class="py-8 px-6">
-                        <img class="shadow-lg rounded-md" src="{{ ('img/transportasi/bus.JPG')}}" alt="">
+                        <img class="shadow-lg rounded-md" src="{{ asset('img/transportasi/bus.JPG')}}" alt="">
                         <h3>
                         <a href=" /detailbus" class="block mb-3 mt-3 font-semibold text-xl text-black hover:text-primary truncate">Bus</a>
                         </h3>
@@ -362,7 +364,7 @@
         <div class="w-full px-4 flex flex-wrap justify-center xl:w-10/12 xl:mx-auto">
           <div class="mb-6 p-4 py-4 bg-softblue w-full rounded-lg relative">
             <div class="flex mt-2 mb-3">
-              <img src="{{ ('img/landingpage/sale.png') }}" alt="logo sale" class="h-20 w-15 mb-4 sm:mb-0 sm:mr-3 ">
+              <img src="{{ asset('img/landingpage/sale.png') }}" alt="logo sale" class="h-20 w-15 mb-4 sm:mb-0 sm:mr-3 ">
                 <div class="ml-3  ">
                   <h3 class="font-semibold text-xl text-black ">Dapatkan Voucher Diskon hingga jutaan rupiah ! </h3>
                     <p class= "absolute  right-8 xl:top-8 bg-plaster rounded-lg h-6 w-60 text-center mt-3 tracking-wider bottom-4  ">  2024SEWA </p>
@@ -372,28 +374,28 @@
           </div>
           <div class=" container mb-6 p-4 py-4 bg-softblue w-full rounded-lg relative grid xl:grid-cols-2 grid-cols-1 xl:grid-rows-1 grid-rows-2 ">
             <div class="flex">
-              <img src="{{ ('img/landingpage/sale.png') }}" alt="logo sale" class="h-20 w-15 mb-4 sm:mb-0 sm:mr-3 ">
+              <img src="{{ asset('img/landingpage/sale.png') }}" alt="logo sale" class="h-20 w-15 mb-4 sm:mb-0 sm:mr-3 ">
                 <div>
                   <h3 class="font-semibold text-xl text-black ">Dapatkan Voucher Diskon hingga jutaan rupiah ! </h3>
                   <p class="font-medium text-base text-gray-500">Lorem ipsum dolor sit amet consectetur adipisicing elit. Quod, quasi!</p>
                   <p class="mt-5 inline-block bg-plaster h-6 w-60 text-center rounded-lg tracking-widest text-sm mb-4" > 2024IED</p>
                 </div>
             </div>
-            <div class="flex space-x-1 xl:ml-10 ">
+            <div class="flex space-x-2 xl:ml-20">
                 <div>
-                  <img src="{{ ('img/layanan/marching band.jpg') }}" alt="picture 1"  class=" rounded-3xl w-80 "/>
+                  <img src="{{ asset('img/layanan/marching band.jpg') }}" alt="picture 1"  class=" rounded-3xl w-80 "/>
                 </div>
-                <div class="flex flex-col space-y-4">
-                  <img src="{{ ('img/transportasi/minibus.jpg') }}" alt="picture 2"  class="rounded-3xl shadow-md overflow-hidden  w-4   "/>
-                  <img src="{{ ('img/layanan/marching band.jpg') }}" alt="picture 3"  class=" rounded-3xl shadow-md overflow-hidden w-40   "/>
+                <div class="flex flex-col space-y-2">
+                  <img src="{{ asset('img/transportasi/minibus.jpg') }}" alt="picture 2"  class="rounded-3xl shadow-md overflow-hidden  w-40   "/>
+                  <img src="{{ asset('img/layanan/marching band.jpg') }}" alt="picture 3"  class=" rounded-3xl shadow-md overflow-hidden w-40   "/>
                 </div>
               </div>
           </div>
           <div class="xl:mb-10 p-4 bg-softblue w-full rounded-lg relative pb-12">
             <div class="flex  mt-2 mb-3">
-              <img src="{{ ('img/landingpage/sale.png') }}" alt="logo sale" class="h-20 w-15">
+              <img src="{{ asset('img/landingpage/sale.png') }}" alt="logo sale" class="h-20 w-15">
               <div class="ml-3">
-                <h3 class="font-semibold text-xl text-black ">Voucher Idul Fitri 10% </h3>
+                <h3 class="font-semibold text-xl text-black  </h3>
                 <p class= "absolute  right-8 xl:top-8 bg-plaster rounded-lg h-6 w-60 text-center mt-1 bottom-4 ">  2024SEWA </p>
                 <p class=" text-base">Lorem ipsum dolor sit amet consectetur adipisicing elit. Quod, quasi!</p>
                 <p class="text-sm">* batas akhir promo 2 Mei 2024</p>
@@ -402,7 +404,7 @@
           </div>
           <div class="xl:mb-10 mt-10 p-4 bg-softblue w-full rounded-lg relative hidden-promo hidden pb-12">
             <div class="flex  mt-2 mb-3">
-              <img src="{{ ('img/landingpage/sale.png') }}" alt="logo sale" class="h-20 w-15">
+              <img src="{{ asset('img/landingpage/sale.png') }}" alt="logo sale" class="h-20 w-15">
               <div class="ml-3">
                 <h3 class="font-semibold text-xl text-black ">Voucher Tahun Baru  30% </h3>
                 <p class= "absolute  right-8 top-8 bg-plaster rounded-lg h-6 w-60 text-center mt-1  ">  2024SEWA </p>
@@ -413,7 +415,7 @@
           </div>
           <div class="xl:mb-10 mt-10 pb-12 p-4 bg-softblue w-full rounded-lg relative hidden-promo hidden">
             <div class="flex  mt-2 mb-3">
-              <img src="{{ ('img/landingpage/sale.png') }}" alt="logo sale" class="h-20 w-15">
+              <img src="{{ asset('img/landingpage/sale.png') }}" alt="logo sale" class="h-20 w-15">
               <div class="ml-3">
                 <h3 class="font-semibold text-xl text-black ">Voucher HUT Poltekbang </h3>
                 <p class= "absolute  right-8 top-8 bg-plaster rounded-lg h-6 w-60 text-center mt-1  ">  2024SEWA </p>
@@ -530,7 +532,7 @@
               <div class="pb-4 pt-4">
                 <h2 id="accordion-color-heading-5">
                   <button type="button" class="flex items-center justify-between w-full p-5 font-medium rtl:text-right text-gray-500 border border-grecianblue focus:ring-4 focus:ring-blue-200 dark:focus:ring-blue-800 dark:border-gray-700 dark:text-gray-400 hover:bg-blue-100 dark:hover:bg-gray-800 gap-3" data-accordion-target="#accordion-color-body-5" aria-expanded="false" aria-controls="accordion-color-body-5">
-                  <div class="flex gap-2 " > 
+                  <div class="flex items-center gap-2 " > 
                     <img width="23" height="23" class="p-0" src="https://img.icons8.com/ios/50/help--v2.png" alt="help--v2"/> 
                     <span>Persyaratan Peminjaman </span>  
                   </div>
@@ -564,32 +566,32 @@
           </div>
           <div class="flex flex-wrap px-6">
             <div class="w-full grid place-items-center h-full md:w-1/2 lg:w-1/2 sm:justify-center ">
-              <img src="{{ ('img/tar.png')}}" alt="Foto Taruna Taruni" class="object-cover ">
+              <img src="{{ asset('img/tar.png')}}" alt="Foto Taruna Taruni" class="object-cover ">
             </div> 
           <div class="w-full px-4 mb-10 md:w-1/2 lg:w-1/2">
             <div class="flex items-center pb-4 pt-2">
-            <img src="{{ ('img/landingpage/1.png') }}" alt="Waktu" class="h-10 w-10">
+            <img src="{{ asset('img/landingpage/1.png') }}" alt="Waktu" class="h-10 w-10">
               <div class="ml-3">
                 <p class=" font-bold  ">Semua keperluan dalam acara bisa sewa satu tempat</p>
                 <p class="text-justify ">Dengan melakukan pemesanan gedung maka anda tidak usah bingung untuk menyewa  tempat penyewaan kursi, kamera , dll.</p>
               </div>
             </div>
             <div class="flex items-center pb-4 pt-2" >
-              <img src="{{ ('img/landingpage/2.png') }}" alt="Waktu" class="h-10 w-10">
+              <img src="{{ asset('img/landingpage/2.png') }}" alt="Waktu" class="h-10 w-10">
               <div class="ml-3">
                 <p class=" font-bold  ">Cara bayar mudah dengan berbagai metode pembayaran </p>
                 <p class="text-justify ">Dengan melakukan pemesanan gedung maka anda tidak usah bingung untuk menyewa  tempat penyewaan kursi, kamera , dll.</p>
               </div>
             </div>
             <div class="flex items-center pb-4 pt-2" >
-              <img src="{{ ('img/landingpage/4.png') }}" alt="Waktu" class="h-10 w-10">
+              <img src="{{ asset('img/landingpage/4.png') }}" alt="Waktu" class="h-10 w-10">
               <div class="ml-3">
                 <p class=" font-bold  ">Pemesanan bisa dibicarakan secara langsung </p>
                 <p class="text-justify ">Dengan melakukan pemesanan gedung maka anda tidak usah bingung untuk menyewa  tempat penyewaan kursi, kamera , dll.</p>
               </div>
             </div>
             <div class="flex items-center pb-4 pt-2" >
-              <img src="{{ ('img/landingpage/3.png') }}" alt="Waktu" class="h-10 w-10">
+              <img src="{{ asset('img/landingpage/3.png') }}" alt="Waktu" class="h-10 w-10">
               <div class="ml-3">
                 <p class=" font-bold  ">Pelayanan yang unggul</p>
                 <p class="text-justify ">Dengan melakukan pemesanan gedung maka anda tidak usah bingung untuk menyewa  tempat penyewaan kursi, kamera , dll.</p>
@@ -622,6 +624,16 @@
           </div>
         </div>
     </div>
+  <!-- End Contact -->
+  <!-- back to top -->
+    <a href="#home"> 
+        <i class=" btnbtt btn-active  fixed bottom-10 right-10 text-5xl cursor pointer text-primary hover:text-primary z-20 hidden" title="Kembali ke atas"
+        ><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 10.5 12 3m0 0 7.5 7.5M12 3v18" />
+        </svg>
+        </i>
+      </a>
+  <!-- end back to top -->
     </section>
 @endsection
 

@@ -1,20 +1,21 @@
 <?php
 
-use App\Http\Controllers\AlatBarangController;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\PromoController;
 use App\Http\Controllers\AsramaController;
-use App\Http\Controllers\FEGedungLapController;
-use App\Http\Controllers\FETransaksiController;
-use App\Http\Controllers\FEKendaraanController;
+use App\Http\Controllers\LayananController;
+use App\Services\GedungLap\GedungLapService;
 use App\Http\Controllers\GedungLapController;
 use App\Http\Controllers\KendaraanController;
-use App\Http\Controllers\KendaraanFeController;
-use App\Http\Controllers\LayananController;
-use App\Http\Controllers\PromoController;
 use App\Http\Controllers\TransaksiController;
-use Illuminate\Support\Facades\Route;
-use App\Services\GedungLap\GedungLapService;
+use App\Http\Controllers\AlatBarangController;
 use App\Services\AlatBarang\AlatBarangService;
-use Illuminate\Http\Request;
+use App\Http\Controllers\FEGedungLapController;
+use App\Http\Controllers\FEKendaraanController;
+use App\Http\Controllers\FETransaksiController;
+use App\Http\Controllers\KendaraanFeController;
+use App\Http\Controllers\LandingPageController;
 
 /*
 |--------------------------------------------------------------------------
@@ -27,11 +28,11 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome', [
-        "title" => "Home",
-    ]);
-});
+// Route::get('/', function () {
+//     return view('welcome', [
+//         "title" => "Home",
+//     ]);
+// });
 
 // BackEnd
 
@@ -299,7 +300,13 @@ Route::group(["prefix" => "admin"], function () {
 
 
 // FrontEnd
-Route::view('/index', 'index', [
+Route::view('/kalender', [LandingPageController::class, 'kalender']);
+Route::get('/kalender/list', [LandingPageController::class, 'listEvent'])->name('kalender.list'); 
+// Route::get('/', function () {
+//     $promo = \App\Models\Promo::all(); // Ubah namespace sesuai dengan struktur folder Anda
+//     return view('index', ['promo' => $promo]);
+// });
+Route::view('/', 'index', [
     "title" => "Home",
 ]);
 Route::get('/gedung', [FEGedungLapController::class, 'index']);
@@ -348,6 +355,7 @@ Route::view('/invoice', 'user_transaksi.invoice',[
 
 Route::view('/detailbus', 'detail.detail_bus', ["title" => "Detail Bus "])
     ->name('detailbus');
+Route::view('/detaillayanan','detail.detail_layanan', ['title'=>"Detail Layanan"]);
 Route::view('/login', 'login', [
     "title" => "Login",
 ]);

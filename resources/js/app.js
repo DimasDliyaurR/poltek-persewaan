@@ -16,11 +16,20 @@ window.onscroll = function () {
 // hamburger button
 const hamburger = document.querySelector("#hamburger");
 const navMenu = document.querySelector("#nav-menu");
+
 hamburger.addEventListener("click", function () {
     hamburger.classList.toggle("hamburger-active");
     navMenu.classList.toggle("hidden");
     navMenu.classList.toggle("bg-white");
 });
+// back to top
+const btnBTT = document.querySelector(".btnbtt");
+let windowPosition = false;
+window.addEventListener("scroll", function () {
+    windowPosition = window.scrollY > 300;
+    btnBTT.classList.toggle("btn-active", windowPosition);
+});
+
 // landing page
 // window.addEventListener("scroll", function () {
 //     var scrollPosition = window.scrollY;

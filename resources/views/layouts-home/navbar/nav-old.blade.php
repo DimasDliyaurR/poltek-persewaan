@@ -1,9 +1,10 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{{$title }}| PERSEWAAAN ASET</title>
+    <link rel="icon" href="{{asset('img/LogoPoltekbang.png') }}">
     <link  href="https://icons8.com/icon/E4FAF4hA9ugF/help">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.css" rel="stylesheet" />
     @vite('resources/css/app.css')
@@ -180,7 +181,7 @@
             </div>
           </div>
           <div class="lg:col-span-2 md:col-span-4 col-span-12">
-              <h5 class="font-semibold text-xl mb-5">Link Cepat</h5>
+              <h5 class="font-semibold text-xl mb-5">Tautan Lainnya</h5>
               <ul class="list-none mt-6 space-y-2">
               <li>
                 <a href="#" class="inline-block text-base text-black hover:text-primary mb-3">Diklat</a>
@@ -195,7 +196,7 @@
           </div>
           <div class="lg:col-span-2 md:col-span-4 col-span-12">
             <h5 class="tracking-wide text-xl mb-5 font-semibold">
-              Tautan
+              Informasi
             </h5>
               <ul class="list-none space-y-2 mt-6">
                 <li>
@@ -216,7 +217,10 @@
           <div class="lg:col-span-2 md:col-span-4 col-span-12" >
             <h5 class="tracking-wide text-xl font-semibold">Hubungi Kami</h5>
             <p class="mt-6 mb-3">mail@poltekbangsby.ac.id</p>
-            <p class="mb-3">Jl. Jemur Andayani I No 73</p>
+            <p class="mb-3">
+              
+              Jl. Jemur Andayani I No 73
+            </p>
             <p class="mb-3">Surabaya</p>
           </div>
         </div>
@@ -226,7 +230,10 @@
           </p>
         </div>
       </div>
+      
     </footer>
+    <!-- back to top -->
+    <!-- end back to top -->
     @vite('resources/js/app.js')
     <!-- <script src="../path/to/flowbite/dist/flowbite.min.js"></script> -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.js"></script>

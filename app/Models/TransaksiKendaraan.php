@@ -2,11 +2,16 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Models\User;
+use App\Models\Event;
+use App\Models\Kendaraan;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use App\Models\DetailTransaksiKendaraan;
+use Illuminate\Database\Eloquent\Relations\MorphMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class TransaksiKendaraan extends Model
 {
@@ -36,6 +41,14 @@ class TransaksiKendaraan extends Model
         'tk_tanggal_sewa' => 'timestamp',
         'tk_tanggal_kembali' => 'datetime',
     ];
+    public function createEvent()
+    {
+        $event = new Event([
+            'tgl_mulai' => $this->tk_tanggal_sewa,
+            'tgl_kembali' => $this->tk_tanggal_kembali,
+        ]);
+        $this->events()->save($event);
+    }
 
     public function detailTransaksiKendaraans(): HasMany
     {
@@ -51,5 +64,9 @@ class TransaksiKendaraan extends Model
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
+    }
+    public function events(): MorphMany
+    {
+        return $this->morphMany(Event::class, 'eventable');
     }
 }

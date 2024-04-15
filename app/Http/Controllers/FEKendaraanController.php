@@ -6,6 +6,7 @@ namespace App\Http\Controllers;
 use App\Models\Kendaraan;
 use App\Models\MerkKendaraan;
 use App\Http\Controllers\Controller;
+use App\Models\TransaksiKendaraan;
 use Illuminate\Http\Request;  // use Illuminate\Http\Request;
 
 class FEKendaraanController extends Controller
@@ -28,5 +29,13 @@ class FEKendaraanController extends Controller
             "title" => "Kendaraan",
             "kendaraan" => $kendaraans
         ]);
+    }
+    public function store(Request $request)
+    {
+        $transaksiKendaraan = TransaksiKendaraan::create([
+            'tk_tanggal_sewa' => $request->tk_tanggal_sewa,
+            'tk_tanggal_kembali' => $request->tk_tanggal_kembali,
+        ]);
+        $transaksiKendaraan->createEvent();
     }
 }
