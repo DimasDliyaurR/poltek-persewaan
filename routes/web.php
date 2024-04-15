@@ -306,9 +306,7 @@ Route::get('/kalender/list', [LandingPageController::class, 'listEvent'])->name(
 //     $promo = \App\Models\Promo::all(); // Ubah namespace sesuai dengan struktur folder Anda
 //     return view('index', ['promo' => $promo]);
 // });
-Route::view('/', 'index', [
-    "title" => "Home",
-]);
+Route::get('/', [LandingPageController::class, 'promo']);
 Route::get('/gedung', [FEGedungLapController::class, 'index']);
 Route::get('/detailgedung/{id}', [FEgedungLapController::class, 'detail'])->name('detailgedung');
 

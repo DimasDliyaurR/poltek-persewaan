@@ -362,16 +362,18 @@
           </script>
         </div>
         <div class="w-full px-4 flex flex-wrap justify-center xl:w-10/12 xl:mx-auto">
+          @foreach($promo as $p)
           <div class="mb-6 p-4 py-4 bg-softblue w-full rounded-lg relative">
             <div class="flex mt-2 mb-3">
               <img src="{{ asset('img/landingpage/sale.png') }}" alt="logo sale" class="h-20 w-15 mb-4 sm:mb-0 sm:mr-3 ">
                 <div class="ml-3  ">
-                  <h3 class="font-semibold text-xl text-black ">Dapatkan Voucher Diskon hingga jutaan rupiah ! </h3>
+                  <h3 class="font-semibold text-xl text-black ">{{ $p->p_judul }} </h3>
                     <p class= "absolute  right-8 xl:top-8 bg-plaster rounded-lg h-6 w-60 text-center mt-3 tracking-wider bottom-4  ">  2024SEWA </p>
-                    <p class="font-medium text-base text-gray-500">Lorem ipsum dolor sit amet consectetur adipisicing elit. Quod, quasi!</p>
+                    <p class="font-medium text-base text-gray-500">{{$p->p_isi}}</p>
                 </div>
             </div>
           </div>
+          @endforeach
           <div class=" container mb-6 p-4 py-4 bg-softblue w-full rounded-lg relative grid xl:grid-cols-2 grid-cols-1 xl:grid-rows-1 grid-rows-2 ">
             <div class="flex">
               <img src="{{ asset('img/landingpage/sale.png') }}" alt="logo sale" class="h-20 w-15 mb-4 sm:mb-0 sm:mr-3 ">
@@ -391,39 +393,7 @@
                 </div>
               </div>
           </div>
-          <div class="xl:mb-10 p-4 bg-softblue w-full rounded-lg relative pb-12">
-            <div class="flex  mt-2 mb-3">
-              <img src="{{ asset('img/landingpage/sale.png') }}" alt="logo sale" class="h-20 w-15">
-              <div class="ml-3">
-                <h3 class="font-semibold text-xl text-black  </h3>
-                <p class= "absolute  right-8 xl:top-8 bg-plaster rounded-lg h-6 w-60 text-center mt-1 bottom-4 ">  2024SEWA </p>
-                <p class=" text-base">Lorem ipsum dolor sit amet consectetur adipisicing elit. Quod, quasi!</p>
-                <p class="text-sm">* batas akhir promo 2 Mei 2024</p>
-              </div>
-            </div>
-          </div>
-          <div class="xl:mb-10 mt-10 p-4 bg-softblue w-full rounded-lg relative hidden-promo hidden pb-12">
-            <div class="flex  mt-2 mb-3">
-              <img src="{{ asset('img/landingpage/sale.png') }}" alt="logo sale" class="h-20 w-15">
-              <div class="ml-3">
-                <h3 class="font-semibold text-xl text-black ">Voucher Tahun Baru  30% </h3>
-                <p class= "absolute  right-8 top-8 bg-plaster rounded-lg h-6 w-60 text-center mt-1  ">  2024SEWA </p>
-                <p class=" text-base">Lorem ipsum dolor sit amet consectetur adipisicing elit. Quod, quasi!</p>
-                <p class="text-sm">* batas akhir promo 2 Mei 2024</p>
-              </div>
-            </div>
-          </div>
-          <div class="xl:mb-10 mt-10 pb-12 p-4 bg-softblue w-full rounded-lg relative hidden-promo hidden">
-            <div class="flex  mt-2 mb-3">
-              <img src="{{ asset('img/landingpage/sale.png') }}" alt="logo sale" class="h-20 w-15">
-              <div class="ml-3">
-                <h3 class="font-semibold text-xl text-black ">Voucher HUT Poltekbang </h3>
-                <p class= "absolute  right-8 top-8 bg-plaster rounded-lg h-6 w-60 text-center mt-1  ">  2024SEWA </p>
-                <p class=" text-base">Lorem ipsum dolor sit amet consectetur adipisicing elit. Quod, quasi!</p>
-                <p class="text-sm">* batas akhir promo 2 Mei 2024</p>
-              </div>
-            </div>
-          </div>
+          
           <button id="loadmore_promo" class="font-semibold text-medium text-black mb-8 uppercase underline underline-offset-2">Lihat Lebih Banyak</button>
           <button id="hidemore_promo" class="font-semibold text-medium text-black mb-8 uppercase underline underline-offset-2 hidden">Sembunyikan</button>
         </div>

@@ -30,35 +30,21 @@ window.addEventListener("scroll", function () {
     btnBTT.classList.toggle("btn-active", windowPosition);
 });
 
-// landing page
-// window.addEventListener("scroll", function () {
-//     var scrollPosition = window.scrollY;
-//     var contentDiv = document.getElementById("content");
-
-//     // Menampilkan atau menyembunyikan div dengan lima tulisan
-//     if (scrollPosition > 100) {
-//         contentDiv.classList.remove("hidden");
-//     } else {
-//         contentDiv.classList.add("hidden");
-//     }
-// });
-// dropdown
+// dropdown kategori
 function toggleDropdown() {
     let dropdown = document.querySelector("#dropdownKategori #dropdown");
     dropdown.classList.toggle("hidden");
 }
 // loadmore promo
+
 document.addEventListener("DOMContentLoaded", function () {
     const buttonLoadMore = document.getElementById("loadmore_promo");
     const buttonHideMore = document.getElementById("hidemore_promo");
-    const hiddenPromo = document.querySelectorAll(".hidden-promo");
+    const promoItems = document.querySelectorAll(".promo-item");
 
-    for (let i = 2; i < hiddenPromo.length; i++) {
-        hiddenPromo[i].classList.add("hidden");
-    }
-
+    // Semua item kecuali 3 pertama akan disembunyikan
     buttonLoadMore.addEventListener("click", function () {
-        hiddenPromo.forEach((promo) => {
+        promoItems.forEach((promo) => {
             promo.classList.remove("hidden");
         });
         buttonLoadMore.classList.add("hidden");
@@ -66,13 +52,16 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 
     buttonHideMore.addEventListener("click", function () {
-        for (let i = 2; i < hiddenPromo.length; i++) {
-            hiddenPromo[i].classList.add("hidden");
+        for (let i = 3; i < promoItems.length; i++) {
+            promoItems[i].classList.add("hidden");
         }
         buttonLoadMore.classList.remove("hidden");
         buttonHideMore.classList.add("hidden");
     });
 });
+
+// end loadmore
+
 function myFunction(imgs) {
     var expandImg = document.getElementById("expandedImg");
     var imgText = document.getElementById("imgtext");
