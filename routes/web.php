@@ -34,7 +34,8 @@ Route::get('/', function () {
 });
 
 Route::group(["auth" => "guest"], function () {
-    Route::post('register', [RegistrationController::class, "register"]);
+    Route::get('register', [RegistrationController::class, "showRegistrationForm"]);
+    Route::post('register/action', [RegistrationController::class, "register"]);
 });
 
 // BackEnd
@@ -303,8 +304,8 @@ Route::group(["prefix" => "admin"], function () {
 
 Route::controller(LoginController::class)->group(function () {
     Route::group(["middleware" => "guest"], function () {
-        Route::get("login", "showLoginForm");
-        Route::post("login/action", "login")->name("login");
+        Route::get("login", "showLoginForm")->name("login");
+        Route::post("login/action", "login");
     });
 
     Route::get("logout", "logout")->name("logout");
@@ -322,7 +323,9 @@ Route::controller(KendaraanFeController::class)->group(function () {
     Route::get('/transportasi', 'index');
     Route::get('/transportasi/{slug}', 'detail');
     Route::get('/transportasi/{slug}/pesan', 'pesanForm');
-    Route::post('/transportasi/beli-langsung', 'pesan')->name('transportasi.pesan');
+    Route::get('/transportasi/{slug}/pesan', 'pesanForm')->middleware("auth");
+    // Route::post('/transportasi/beli-langsung', 'pesan')->name('transportasi.pesan');
+    Route::post('/transportasi/beli-langsung', 'pesan')->name('transportasi.pesan')->middleware("auth");
 });
 
 // Route::view('/detailbus', 'detail.detail_bus', [
@@ -363,11 +366,11 @@ Route::controller(KendaraanFeController::class)->group(function () {
 // Route::view('/pesan', 'transaksi.pesan', [
 //     "title" => "Pemesanan",
 // ]);
-// Route::view('/bayar', 'transaksi.bayar', [
-//     "title" => "Pembayaran",
-// ]);
+Route::view('/bayar', 'user_transaksi.bayar', [
+    "title" => "Pembayaran",
+]);
 
-// Route::view('/invoice', 'transaksi.invoice', [
+// Route::view('/invoice', 'user_transaksi.kendaraan.pembayaran', [
 //     "title" => "Invoice",
 // ]);
 

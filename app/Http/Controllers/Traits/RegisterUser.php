@@ -21,7 +21,9 @@ trait RegisterUser
      */
     public function showRegistrationForm()
     {
-        return view('auth.register');
+        return view('signup', [
+            "title" => "SIGN UP"
+        ]);
     }
 
     /**
@@ -46,7 +48,7 @@ trait RegisterUser
 
         event(new Registered($user = $this->create($validation)));
 
-        $this->guard()->login($user, true);
+        $this->guard()->login($user);
 
         if ($response = $this->registered($request, $user)) {
             return $response;

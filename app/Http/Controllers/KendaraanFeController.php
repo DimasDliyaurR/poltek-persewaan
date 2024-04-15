@@ -14,6 +14,12 @@ use App\Services\Kendaraan\KendaraanService;
 class KendaraanFeController extends Controller
 {
     protected $kendaraanService;
+
+    // Inisisasi Variable Transaksi
+    private $transaksi;
+
+    private $total_transaksi = 0;
+
     public function __construct(KendaraanService $kendaraanService)
     {
         $this->kendaraanService = $kendaraanService;
@@ -64,32 +70,65 @@ class KendaraanFeController extends Controller
             "tk_tanggal_sewa" => "required",
             "tk_tanggal_kembali" => "required",
             "tk_durasi" => "required",
+            "slug" => "required",
         ]);
+
         $item = $request->slug;
 
         DB::transaction(function () use ($validation) {
             // Store Transaksi
-            $tanggal_sewa = strtotime($request->tanggal_sewa);
-            $tanggal_kembali = $request->tk_durasi * $tanggal_sewa;
             $transaksi = TransaksiKendaraan::create([
                 "user_id" => auth()->user()->id,
+                "foto_sim" => auth()->user()->id . str_replace("-", "", $validation["tk_tanggal_sewa"]),
                 "tk_durasi" => $validation["tk_durasi"],
                 "tk_tanggal_sewa" => $validation["tk_tanggal_sewa"],
-                "tk_tanggal_kembali" => date("d-m-y", $tanggal_kembali),
+                "tk_tanggal_kembali" => $validation["tk_tanggal_kembali"],
             ]);
 
+            $this->transaksi = $transaksi;
+
             // Store Detail Transaksi
-            foreach ($validation["items"] as $row => $value) {
+            foreach ($validation["slug"] as $row => $value) {
                 $MerkKendaraan = MerkKendaraan::where("mk_slug", "=", $value)->first();
                 $total_harga = $MerkKendaraan->mk_tarif * $validation["tk_durasi"];
+
+                $this->total_transaksi += $total_harga;
+
                 DetailTransaksiKendaraan::create([
                     "transaksi_kendaraan_id" => $transaksi->id,
                     "kendaraan_id" => $MerkKendaraan->id,
                     "dtk_harga" => $total_harga,
                 ]);
             }
+            // dd($this->total_transaksi);
         });
 
-        return redirect("bayar");
+        // Set your Merchant Server Key
+        \Midtrans\Config::$serverKey = config("midtrans.server_key");
+        // Set to Development/Sandbox Environment (default). Set to true for Production Environment (accept real transaction).
+        \Midtrans\Config::$isProduction = false;
+        // Set sanitization on (default)
+        \Midtrans\Config::$isSanitized = true;
+        // Set 3DS transaction for credit card to true
+        \Midtrans\Config::$is3ds = true;
+
+        $params = array(
+            'transaction_details' => array(
+                'order_id' => $this->transaksi->id,
+                'gross_amount' => $this->total_transaksi,
+            ),
+            'customer_details' => array(
+                'first_name' => auth()->user()->profile->nama_lengkap,
+                'email' => auth()->user()->email,
+                'phone' => auth()->user()->no_telp,
+            ),
+        );
+
+        $snapToken = \Midtrans\Snap::getSnapToken($params);
+
+        return view("user_transaksi.kendaraan.pembayaran", [
+            "title" => "pembayaran",
+            "snapToken" => $snapToken
+        ]);
     }
 }
