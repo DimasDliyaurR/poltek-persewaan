@@ -1,10 +1,11 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\admin;
 
-use App\Services\Transaksi\TransaksiService;
 use Illuminate\Http\Request;
 use InvalidArgumentException;
+use App\Http\Controllers\Controller;
+use App\Services\Transaksi\TransaksiService;
 
 class TransaksiController extends Controller
 {

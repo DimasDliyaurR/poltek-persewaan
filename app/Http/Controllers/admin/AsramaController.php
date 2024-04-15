@@ -1,10 +1,12 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\admin;
 
+use Exception;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use InvalidArgumentException;
+use App\Http\Controllers\Controller;
 use App\Models\DetailFasilitasAsrama;
 use App\Services\Asrama\AsramaService;
 use Illuminate\Support\Facades\Storage;
@@ -12,7 +14,6 @@ use App\Http\Requests\asrama\RequestAsrama;
 use App\Http\Requests\asrama\tipeAsrama\RequestTipeAsrama;
 use App\Http\Requests\asrama\fasilitasAsrama\RequestFasilitasAsrama;
 use App\Http\Requests\asrama\detailFasilitasAsrama\RequestDetailFasilitasAsrama;
-use Exception;
 
 class AsramaController extends Controller
 {
