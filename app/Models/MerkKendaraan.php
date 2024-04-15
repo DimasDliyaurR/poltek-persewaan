@@ -38,7 +38,7 @@ class MerkKendaraan extends Model
 
     public function kendaraans(): HasMany
     {
-        return $this->hasMany(Kendaraan::class);
+        return $this->hasMany(Kendaraan::class, "merk_kendaraan_id", "id");
     }
 
     public function transaksiKendaraans(): BelongsToMany

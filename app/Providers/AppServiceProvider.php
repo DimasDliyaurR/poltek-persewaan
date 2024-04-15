@@ -72,8 +72,14 @@ use App\Repositories\AlatBarang\SatuanAlatBarang\SatuanAlatBarangRepositoryImple
 use App\Repositories\Asrama\TipeAsrama\TipeAsramaRepository;
 use App\Repositories\Asrama\TipeAsrama\TipeAsramaRepositoryImplement;
 use App\Repositories\GedungLap\DetailTransaksiPropertyGedung\DetailTransaksiPropertyGedungRepositoryImplement;
+use App\Repositories\User\Profile\ProfileRepository;
+use App\Repositories\User\Profile\ProfileRepositoryImplement;
+use App\Repositories\User\UserRepository;
+use App\Repositories\User\UserRepositoryImplement;
 use App\Services\Transaksi\TransaksiService;
 use App\Services\Transaksi\TransaksiServiceImplement;
+use App\Services\User\UserService;
+use App\Services\User\UserServiceImplement;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -136,12 +142,18 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(DetailKategoriPromoRepository::class, DetailKategoriPromoRepositoryImplement::class);
 
         /**
+         * Bind User Repository
+         */
+        $this->app->bind(UserRepository::class, UserRepositoryImplement::class);
+        $this->app->bind(ProfileRepository::class, ProfileRepositoryImplement::class);
+
+        /**
          * Bind Kendaraan Service
          */
         $this->app->bind(KendaraanService::class, KendaraanServiceImplement::class);
 
         /**
-         * Bind Kendaraan Service
+         * Bind Asrama Service
          */
         $this->app->bind(AsramaService::class, AsramaServiceImplement::class);
 
@@ -163,6 +175,10 @@ class AppServiceProvider extends ServiceProvider
          * Promo Service
          */
         $this->app->bind(PromoService::class, PromoServiceImplement::class);
+        /**
+         * User Service
+         */
+        $this->app->bind(UserService::class, UserServiceImplement::class);
         /**
          * Transaksi Service
          */
