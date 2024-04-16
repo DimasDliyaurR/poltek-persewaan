@@ -14,10 +14,8 @@ use App\Http\Controllers\admin\TransaksiController;
 use Illuminate\Support\Facades\Route;
 use App\Services\GedungLap\GedungLapService;
 use App\Services\AlatBarang\AlatBarangService;
-use App\Http\Controllers\FEGedungLapController;
 use App\Http\Controllers\FEKendaraanController;
 use App\Http\Controllers\FETransaksiController;
-use App\Http\Controllers\KendaraanFeController;
 use App\Http\Controllers\LandingPageController;
 
 /*

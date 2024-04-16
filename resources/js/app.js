@@ -37,29 +37,63 @@ function toggleDropdown() {
 }
 // loadmore promo
 
-document.addEventListener("DOMContentLoaded", function () {
-    const buttonLoadMore = document.getElementById("loadmore_promo");
-    const buttonHideMore = document.getElementById("hidemore_promo");
-    const promoItems = document.querySelectorAll(".promo-item");
+// document.addEventListener("DOMContentLoaded", function () {
+//     const buttonLoadMore = document.getElementById("loadmore_promo");
+//     const buttonHideMore = document.getElementById("hidemore_promo");
+//     const promoItems = document.querySelectorAll(".promo-item");
 
-    // Semua item kecuali 3 pertama akan disembunyikan
-    buttonLoadMore.addEventListener("click", function () {
-        promoItems.forEach((promo) => {
-            promo.classList.remove("hidden");
-        });
-        buttonLoadMore.classList.add("hidden");
-        buttonHideMore.classList.remove("hidden");
-    });
+//     // Semua item kecuali 3 pertama akan disembunyikan
+//     buttonLoadMore.addEventListener("click", function () {
+//         promoItems.forEach((promo) => {
+//             promo.classList.remove("hidden");
+//         });
+//         buttonLoadMore.classList.add("hidden");
+//         buttonHideMore.classList.remove("hidden");
+//     });
 
-    buttonHideMore.addEventListener("click", function () {
-        for (let i = 3; i < promoItems.length; i++) {
-            promoItems[i].classList.add("hidden");
+//     buttonHideMore.addEventListener("click", function () {
+//         for (let i = 3; i < promoItems.length; i++) {
+//             promoItems[i].classList.add("hidden");
+//         }
+//         buttonLoadMore.classList.remove("hidden");
+//         buttonHideMore.classList.add("hidden");
+//     });
+// });
+// new
+const loadmore = document.querySelector("#loadmore_promo");
+const hideMore = document.querySelector("#hidemore_promo");
+const promoItems = [...document.querySelectorAll(".promo")];
+let showAll = false;
+
+// Fungsi untuk menampilkan atau menyembunyikan item-item promo
+function togglePromoVisibility() {
+    for (let i = 0; i < promoItems.length; i++) {
+        if (showAll || i < 3) {
+            promoItems[i].style.display = "flex"; // Tampilkan
+        } else {
+            promoItems[i].style.display = "none"; // Sembunyikan
         }
-        buttonLoadMore.classList.remove("hidden");
-        buttonHideMore.classList.add("hidden");
-    });
+    }
+}
+
+// Tampilkan hanya 3 item promo saat halaman dimuat
+togglePromoVisibility();
+
+// Event listener untuk tombol "Lihat Lebih Banyak"
+loadmore.addEventListener("click", () => {
+    showAll = true; // Set showAll menjadi true agar semua item promo ditampilkan
+    togglePromoVisibility();
+    loadmore.style.display = "none"; // Sembunyikan tombol "Lihat Lebih Banyak"
+    hideMore.style.display = "block"; // Tampilkan tombol "Sembunyikan"
 });
 
+// Event listener untuk tombol "Sembunyikan"
+hideMore.addEventListener("click", () => {
+    showAll = false; // Set showAll menjadi false agar hanya 3 item promo yang ditampilkan
+    togglePromoVisibility();
+    loadmore.style.display = "block"; // Tampilkan tombol "Lihat Lebih Banyak"
+    hideMore.style.display = "none"; // Sembunyikan tombol "Sembunyikan"
+});
 // end loadmore
 
 function myFunction(imgs) {

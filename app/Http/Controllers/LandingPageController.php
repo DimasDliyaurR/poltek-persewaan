@@ -41,11 +41,11 @@ class LandingPageController extends Controller
     public function getTransaksiEvents($start, $end)
     {
         $transaksiKendaraan = DB::table('transaksi_kendaraans')
-        ->select('tk_tanggal_sewa as start', 'tk_tanggal_kembali as end')
-        ->where('tk_tanggal_sewa', '>=', $start)
-        ->where('tk_tanggal_kembali', '<=', $end)
-        ->get()
-        ->toArray();
+            ->select('tk_tanggal_sewa as start', 'tk_tanggal_kembali as end' , '')
+            ->where('tk_tanggal_sewa', '>=', $start)
+            ->where('tk_tanggal_kembali', '<=', $end)
+            ->get()
+            ->toArray();
         $transaksiGedung = DB::table('transaksi_gedungs')
             ->select('tg_tanggal_sewa as start', 'tg_tanggal_kembali as end')
             ->where('tg_tanggal_sewa', '>=', $start)
@@ -72,13 +72,12 @@ class LandingPageController extends Controller
             ->toArray();
         
         $transaksiEvents = array_merge($transaksiKendaraan, $transaksiGedung, $transaksiAsrama, $transaksiAlatBarang, $transaksiLayanan);
-
         return $transaksiEvents;
     }
 
     public function promo()
     {
-        $promo = Promo::take(3)->get();
+        $promo = Promo::all();
         $title  ="Home";
         return view('index', ['promo'=>$promo, 'title'=>$title]
     );
