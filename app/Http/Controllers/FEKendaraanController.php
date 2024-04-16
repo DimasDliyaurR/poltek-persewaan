@@ -33,6 +33,8 @@ class FEKendaraanController extends Controller
     public function store(Request $request)
     {
         $transaksiKendaraan = TransaksiKendaraan::create([
+            'user_id'=> auth()->id(),
+            'code_unique'=>auth()->user()->id . str_replace("-", "", $request["tk_tanggal_sewa"]),
             'tk_tanggal_sewa' => $request->tk_tanggal_sewa,
             'tk_tanggal_kembali' => $request->tk_tanggal_kembali,
         ]);

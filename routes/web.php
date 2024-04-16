@@ -324,6 +324,9 @@ Route::get('/kalender/list', [LandingPageController::class, 'listEvent'])->name(
 Route::get('/', [LandingPageController::class, 'promo']);
 Route::get('/gedung', [FEGedungLapController::class, 'index']);
 Route::get('/detailgedung/{id}', [FEgedungLapController::class, 'detail'])->name('detailgedung');
+// Route::get('/k_pesan/{id}', [FEgedungLapController::class, 'store'])->name('k_pesan');
+Route::get('/k_pesan/{id}', [FEKendaraanController::class, 'store'])->name('k_pesan');
+
 
 Route::controller(KendaraanFeController::class)->group(function () {
     Route::get('/transportasi', 'index');

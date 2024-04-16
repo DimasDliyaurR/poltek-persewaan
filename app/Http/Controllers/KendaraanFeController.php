@@ -41,7 +41,7 @@ class KendaraanFeController extends Controller
     {
         $kendaraans = MerkKendaraan::with("kendaraans")->where("mk_slug", "=", $slug);
 
-        return view('detail.detail_bus', [
+        return view('detail.detail_kendaraan', [
             "title" => "Kendaraan",
             "kendaraan" => $kendaraans->first()
         ]);

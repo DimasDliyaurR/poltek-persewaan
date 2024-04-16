@@ -124,7 +124,7 @@
                                 </div>
                                 <div class="flex mb-2">
                                     <img src="{{ 'img/transportasi/bensin.png' }}" alt="bbm" class="w-5 h-5">
-                                    <p class="text-sm font-semibold ml-2">{{ $kendaraan->mk_bahan_bakar }}</p>
+                                    <p class="text-sm font-semibold ml-2">Bensin</p>
                                     <sup class="text-xs text-gray-500"> Fuel </sup>
                                 </div>
                                 <p class="text-sm text-gray-500 mb-1  flex justify-between">Status <span

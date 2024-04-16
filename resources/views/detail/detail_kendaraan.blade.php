@@ -5,7 +5,7 @@
             <div class=" justify-start items-center  xl:ml-24 mb-2 mt-2">
                 <h2 class="text-base"> <a class="hover:text-primary hover:font-bold" href="/index#kategori">Kategori > </a>
                     {{ $title }}</h2>
-                <h4 class="font-bold text-lg">{{ $kendaraan->k_nama }}</h4>
+                <h4 class="font-bold text-lg">Nama Kendaraan</h4>
             </div>
             <div class="  grid grid-cols-1 sm:grid-cols-2  lg:grid-cols-3 xl:gap-6 gap-6 md:gap-10 mx-auto">
                 <div class="bg-white col-span-2  shadow-md p-4 w-full h-screen xl:ml-24  mx-auto rounded-md ">
@@ -49,7 +49,7 @@
                                         d="M9 4a4 4 0 1 0 0 8 4 4 0 0 0 0-8Zm-2 9a4 4 0 0 0-4 4v1a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2v-1a4 4 0 0 0-4-4H7Zm8-1a1 1 0 0 1 1-1h1v-1a1 1 0 1 1 2 0v1h1a1 1 0 1 1 0 2h-1v1a1 1 0 1 1-2 0v-1h-1a1 1 0 0 1-1-1Z"
                                         clip-rule="evenodd" />
                                 </svg>
-                                <p class="xl:text-sm text-xs ml-1">{{ $kendaraan->mk_kapasitas }} kapasitas</p>
+                                <p class="xl:text-sm text-xs ml-1"> kapasitas</p>
                             </div>
                             <div class="flex mb-2 mt-2">
                                 <svg class="w-6 h-6 text-primary" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
@@ -217,7 +217,7 @@
                     </div>
                     <div class=" top-12 bg-white h-40 w-64 bottom-0 -mt-44 gap-4 p-3 rounded-md xl:mr-20">
                         <h4 class="font-semibold mb-2">Harga</h4>
-                        <p class="text-primary font-bold">Rp {{ $kendaraan->mk_tarif }}</p>
+                        <p class="text-primary font-bold">Rp </p>
                         <p class="text-xs text-gray-400"> * belum termasuk voucher</p>
                         <form action="{{ route('k_pesan', ['id' => $kendaraan->id]) }}" method="get">
                             <button class=" mt-4 h-6 w-full bg-primary rounded-lg hover:opacity-50 text-white"> Pesan
