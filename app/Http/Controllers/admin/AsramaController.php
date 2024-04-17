@@ -308,7 +308,7 @@ class AsramaController extends Controller
         return view("admin.asrama.tipeAsrama.edit", [
             "title" => "Tipe Asrama",
             "action" => "asrama",
-            "asrama" => $asrama,
+            "asrama" => $asrama->first(),
         ]);
     }
 

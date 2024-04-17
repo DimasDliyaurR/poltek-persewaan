@@ -10,7 +10,7 @@
   <div class="flex flex-wrap">
     <div class="w-full self-end px-4  ">
       <div class="relative mt-10  pb-3 lg:mt-9 lg:right-0">
-        <img src="{{  asset('img/LogoPoltekbang.png')}}" alt="Logo Poltekbang" class="max-w-full mx-auto w-80 h-65" />
+        <img src="{{  asset('img/LogoPoltekbang.png')}}" alt="Logo Poltekbang" class="max-w-full mx-auto w-96 h-64" />
       </div>
     </div>
     <div class="w-full text-center px-4 ">
@@ -21,7 +21,7 @@
       <div id="dropdownKategori" class="relative">
         <div  onclick="toggleDropdown()"
             class="border-solid text-sm border-gray-400 border-[1px] px-5 py-2 rounded cursor-pointer  flex justify-between bg-white shadow-sm ">
-              Plan mulai dari sekarang !  | Kategori Kegiatan
+              Booking dari sekarang !  | Kategori 
               <svg class="w-5 " xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
               <path stroke-linecap="round" stroke-linejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5" />
               </svg>

@@ -379,9 +379,9 @@ Route::view('/bayar', 'user_transaksi.bayar', [
     "title" => "Pembayaran",
 ]);
 
-// Route::view('/invoice', 'user_transaksi.kendaraan.pembayaran', [
-//     "title" => "Invoice",
-// ]);
+Route::view('/invoice', 'user.invoice', [
+    "title" => "Invoice",
+]);
 
 // Route::view('/detailbus', 'detail.detail_bus', ["title" => "Detail Bus "])
 //     ->name('detailbus');
