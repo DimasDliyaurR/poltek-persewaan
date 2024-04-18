@@ -24,7 +24,7 @@ class TransaksiKendaraan extends Model
      */
     protected $fillable = [
         'user_id',
-        'foto_sim',
+        'code_unique',
         'tk_durasi',
         'tk_tanggal_sewa',
         'tk_tanggal_kembali',

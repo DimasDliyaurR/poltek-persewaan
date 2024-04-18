@@ -407,7 +407,7 @@ class AsramaController extends Controller
      */
     public function createDetailFasilitasAsrama(RequestDetailFasilitasAsrama $request, $id)
     {
-        $validation = $request->validated();
+        $validation = $request->validated(); 
 
         $existDetail = $this->asramaService->IsExistFasilitasTransaksi($validation["fasilitas_asrama_id"], $id);
 

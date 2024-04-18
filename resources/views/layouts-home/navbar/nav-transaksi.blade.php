@@ -23,14 +23,6 @@
         <div class="container">
             <div class="flex items-center justify-between relative">
                 <div class="px-4 flex items-center">
-                    <!-- <img src="./dist/img/Logo Poltekbang.png" width="50" alt="" /> -->
-                    <img src="{{ asset('img/LogoPoltekbang.png') }}" class="h-11 w-15" alt="Logo ">
-                    <div class="ml-1">
-                        <a href="/index #home" class="font-bold text-lg text-black">
-                            SEWA ASET<br>
-                            <span class="font-bold text-lg text-black">POLITEKNIK PENERBANGAN SURABAYA</span>
-                        </a>
-                    </div>
 
                 </div>
                 <div class="flex items-center px-4">

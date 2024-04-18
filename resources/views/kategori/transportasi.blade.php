@@ -131,8 +131,9 @@
                                         class=" text-black font-bold text-base">Rp
                                         {{ number_format($kendaraan->mk_tarif, 0, ',', '.') }}</span></p>
                                 <p class=" text-sm text-gray-500 mb-1 float-right "> unit / Hari</p>
-                                <button class=" h-8 w-full bg-primary rounded-lg hover:opacity-50"><a href="#"
-                                        class=" text-sm   text-white    ">Sewa</a></button>
+                                <button class=" h-8 w-full bg-primary rounded-lg hover:opacity-50"><a
+                                        href="{{ asset('kendaraan/' . $kendaraan->mk_slug . '/pesan') }}"
+                                        class=" text-sm text-white">Sewa</a></button>
                             </div>
                         </div>
 

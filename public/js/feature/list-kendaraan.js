@@ -1,35 +1,11 @@
-function add(button) {
-    var input = document.createElement("input")
-    var isSame = true
-    input.type = "text"
-    input.name = "slug[]"
-    input.value = button.children[0].value
-    var slug_input = document.getElementById("input-slug")
-
-    for (let index = 0; index < (slug_input.children).length; index++) {
-        var children = slug_input.children[index].value
-        var sibling = button.children[index].value
-
-        console.log(index);
-        console.log((slug_input.children[index]));
-        // console.log((slug_input.children).length);
-
-        // if (children == sibling) {
-        //     // isSame = false;
-        //     console.log("sama wak");
-        //     break;
-        // }
-
-    }
-    if (isSame) {
-        slug_input.appendChild(input)
-    }
-};
-
 $(document).ready(function () {
 
-    let slug = $("input[name^=slug]")
-    let temp = "{{ $item->mk_slug }}";
+    var slug = $("div#input-slug")
+    var card = $("#card")
+    var temp = slug.children()[0].value;
+    var tempOrder = "";
+
+    console.log(temp);
 
     // Catch each value of slug
     slug.map((idz, elem) => {
@@ -49,43 +25,81 @@ $(document).ready(function () {
         return x1 + x2;
     }
 
+    async function getTag() {
+        return new Promise(() => {
+            const time = setTimeout(() => {
+                $("p#close").click((e) => {
+                    e.preventDefault();
+                    console.log($(this).siblings())
+                });;
+            }, 1000);
+        });
+    };
+
+    // Handle List Item
+    function handle_item(data) {
+        $.ajax({
+            type: "GET",
+            url: "/api/merkKendaraans/" + data,
+            dataType: "json",
+            success: response => {
+                $(response).each(function (indexInArray, merkKendaraan) {
+
+                    let containt = merkKendaraan.mk_merk + " Rp. " + addCommas(merkKendaraan.mk_tarif)
+                    let spanContaint = $("<span class='hidden'>" + merkKendaraan.mk_tarif + "</span>")
+                    let spanClose = $("<p class='block border cursor-pointer' id='close'>close</p>")
+                    let list = $("<li></li>")
+                    // Image
+                    var img = document.createElement("img")
+                    img.width = "120"
+                    img.className = "object-cover md:rounded-l-lg rounded-t-lg"
+                    img.src = "/storage/" + merkKendaraan.mk_foto
+                    // let image_card_image = image_card.append(img)
+
+                    list = list.append(img, containt, spanClose, spanContaint);
+                    card.append(list);
+
+                    return Number(merkKendaraan.mk_tarif);
+                });
+            }
+        });
+    }
+
     let total = 0
-    $.ajax({
-        type: "GET",
-        url: "/api/merkKendaraans/" + temp,
-        dataType: "json",
-        success: response => {
-            $(response).each(function (indexInArray, merkKendaraan) {
-                total += Number(merkKendaraan.mk_tarif)
-                let card = $("#card")
-                let card_inner = $("<div class='flex md:flex-row flex-col border-t p-2'></div>")
-                let image_card = $("<div class='md:w-1/4'></div>");
-                let containt = $("<div class='w-3/4 border shadow-sm flex flex-col p-4'><div div class='ml-3 text-2xl font-bold'>" + merkKendaraan.mk_merk + "</div> <div class='ml-3 text-md font-bold'>Rp. " + addCommas(merkKendaraan.mk_tarif) + "</div></div>")
 
-                // Image
-                var img = document.createElement("img")
-                img.className = "object-cover md:rounded-l-lg rounded-t-lg"
-                img.src = "/storage/" + merkKendaraan.mk_foto
-                let image_card_image = image_card.append(img)
+    // Handle Item From param
+    handle_item(temp)
+    getTag()
 
-                card_inner = card_inner.append(image_card_image, containt);
-                card.append(card_inner);
-            });
-        }
-    });
 
     // Events Trigger
+    $("button#add").click(function (e) {
+        e.preventDefault();
+        var isSame = true
+        var button = $(this)
+        var buttonVal = button.children().val()
+        var input = $("<input type='text' name='slug[]' value='" + buttonVal + "'/>")
+        var slug_input = $("#input-slug")
+
+        for (let i = 0; i < slug.children().length; i++) {
+            if (slug.children()[i].value == buttonVal) {
+                isSame = false
+                break
+            }
+        }
+        if (isSame) {
+            slug_input.append(input)
+            handle_item(buttonVal)
+        }
+
+        getTag
+    });
 
     $("#add-item").click((e) => {
         e.preventDefault();
-        // var input = document.createElement("input");
-        // input.type = "text"
-        // input.name = "slug[]"
-        // var slug_input = $("#input-slug")
-
-        // slug_input.append(input)
-
         $("#drawer-bottom-example").removeClass("hidden");
     });
+
+
 
 });

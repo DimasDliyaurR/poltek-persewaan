@@ -61,7 +61,7 @@
                         <input type="text" name="slug[]" value="{{ $item->mk_slug }}" hidden>
                         <div class='flex md:flex-row flex-col border-t p-2'>
                             <div class='md:w-1/4'>
-                                <img src="{{ Storage::url($item->mk_foto) }}" alt=""
+                                <img src="{{ Storage::url($item->mk_foto) }}" width="250" alt=""
                                     class="object-cover md:rounded-l-lg rounded-t-lg">
                             </div>
 
@@ -87,7 +87,7 @@
 
 
     <!-- drawer component -->
-    <div id="drawer-bottom-example"
+    {{-- <div id="drawer-bottom-example"
         class="hidden fixed bottom-0 left-0 right-0 z-40 w-full p-4 overflow-y-auto transition-transform bg-white dark:bg-gray-800 transform-none"
         tabindex="-1" aria-labelledby="drawer-bottom-label">
         <h5 id="drawer-bottom-label"
@@ -106,11 +106,11 @@
                     d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6" />
             </svg>
             <span class="sr-only">Close menu</span>
-        </button>
-        {{-- Containt Drawer --}}
+        </button> --}}
+    {{-- Containt Drawer --}}
 
 
-        <div class="flex md:flex-row md:flex-wrap flex-col gap-4 p-5 overflow-y-scroll w-screen h-96">
+    {{-- <div class="flex md:flex-row md:flex-wrap flex-col gap-4 p-5 overflow-y-scroll w-screen h-96">
 
             @forelse ($merkKendaraan as $item)
                 <div class="flex flex-row">
@@ -132,23 +132,22 @@
                             </button>
 
                             {{-- Button Detail --}}
-                            <button data-modal-target="box-{{ $item->id }}"
-                                data-modal-toggle="box-{{ $item->id }}"
-                                class="text-white bg-primary w-20 hover:bg-orange-500 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-md text-sm text-center"
-                                type="button">
-                                Detail
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            @empty
-                <p class="text-center w-full">Kosong</p>
-            @endforelse
+    {{-- <button data-modal-target="box-{{ $item->id }}" data-modal-toggle="box-{{ $item->id }}"
+        class="text-white bg-primary w-20 hover:bg-orange-500 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-md text-sm text-center"
+        type="button">
+        Detail
+    </button>
+</div>
+</div>
+</div>
+@empty
+    <p class="text-center w-full">Kosong</p>
+    @endforelse
 
-        </div>
     </div>
+    </div>  --}}
 
-    @foreach ($merkKendaraan as $item)
+    {{-- @foreach ($merkKendaraan as $item)
         <!-- Main modal -->
         <div id="box-{{ $item->id }}" tabindex="-1" aria-hidden="true"
             class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
@@ -218,11 +217,11 @@
                 </div>
             </div>
         </div>
-    @endforeach
+    @endforeach --}}
 
     {{-- Modal ACC --}}
     <!-- Main modal -->
-    @if ($slugInput != '')
+    {{-- @if ($slugInput != '')
         <div class="bg-gray-900 w-screen h-screen top-0 left-0 opacity-50 fixed insert-0 z-30">
 
         </div>
@@ -247,18 +246,18 @@
                                 stroke-width="2" d="M10 11V6m0 8h.01M19 10a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
                         </svg>
                         {{-- Containt --}}
-                        <h3 class="mb-5 text-lg font-normal text-gray-500 dark:text-gray-400">Apakah anda yakin memilih
-                            kendaraan {{ $slugInput }}?</h3>
-                        <button data-modal-hide="box-acc" type="button" wire:click="saveSlug"
-                            class="text-white bg-red-600 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 font-medium rounded-lg text-sm inline-flex items-center px-5 py-2.5 text-center">
-                            Iya
-                        </button>
-                        <button data-modal-hide="box-acc" type="button" wire:click="resetSlug"
-                            class="py-2.5 px-5 ms-3 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">Tidak</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-    @endif
+    {{-- <h3 class="mb-5 text-lg font-normal text-gray-500 dark:text-gray-400">Apakah anda yakin memilih
+        kendaraan {{ $slugInput }}?</h3>
+    <button data-modal-hide="box-acc" type="button" wire:click="saveSlug"
+        class="text-white bg-red-600 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 font-medium rounded-lg text-sm inline-flex items-center px-5 py-2.5 text-center">
+        Iya
+    </button>
+    <button data-modal-hide="box-acc" type="button" wire:click="resetSlug"
+        class="py-2.5 px-5 ms-3 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">Tidak</button>
+</div>
+</div>
+</div>
+</div>
+@endif --}}
 
 </div>
