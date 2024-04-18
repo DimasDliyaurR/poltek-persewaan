@@ -5,12 +5,12 @@
             <div class="w-full">
                 <div class="max-w-xl mx-auto text-center mb-16">
                     <h4 class="font-semibold text-lg text-primary mb-2">Kategori</h4>
-                    <h2 class="font-bold text-black text-3xl mb-8 sm:text-2xl lg:text-xl"> <a href="/index"
-                            class="hover:text-primary">Home </a>> Kategori > {{ $title }}</h2>
+                    <h2 class="font-bold text-black text-3xl mb-8 sm:text-2xl lg:text-xl"> <a href="/"
+                            class="hover:text-primary" title="Kembali ke halaman awal">Home </a>> Kategori > {{ $title }}</h2>
                 </div>
 
                 <div class="pt-10 pb-20  relative md:max-auto">
-                    <form class="w-56 absolute right-4">
+                    <form action="/transportasi" class="w-56 absolute right-4">
                         <label for="default-search"
                             class="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white ">Search</label>
                         <div class="relative">
@@ -21,16 +21,14 @@
                                         stroke-width="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z" />
                                 </svg>
                             </div>
-                            <input type="search" id="default-search"
-                                class="block w-full p-4 ps-10 text-sm text-gray-900 border border-plaster rounded-lg focus:ring-primary focus:border-plaster dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-gray-500 dark:focus:border-gray-500"
-                                placeholder="Cari ..." required />
+                            <input type="text" id="default-search" name="search" value="{{ request('search') }}" class="block w-full p-4 ps-10 text-sm text-gray-900 border border-plaster rounded-lg focus:ring-primary focus:border-plaster dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-gray-500 dark:focus:border-gray-500" placeholder="Cari ..."/>
                             <button type="submit"
                                 class="text-white absolute end-2.5 bottom-2.5 bg-primary hover:bg-plaster focus:ring-4 focus:outline-none focus:ring-plaster font-medium rounded-lg text-sm px-4 py-2 dark:bg-plaster dark:hover:bg-primary dark:focus:ring-gray-800">Cari</button>
                         </div>
                     </form>
                 </div>
             </div>
-
+@if($kendaraans->count())
             <div class="flex flex-wrap">
                 @foreach ($kendaraans as $kendaraan)
                     <div class="w-full px-4 lg:w-1/2 xl:w-1/3 mb-3">
@@ -140,5 +138,9 @@
                 @endforeach
             </div>
         </div>
+        @else
+        <p class="font-bold uppercase pb-20">cari dengan kata kunci lain </p>
+    @endif
+    {{ $kendaraans->links() }}
     </div>
 @endsection

@@ -16,7 +16,7 @@ class FEGedungLapController extends Controller
             $gedung_lap->where('gl_nama', 'like', "%" . request('search') . "%")
                 ->orWhere('gl_keterangan', 'like', '%' . request('search') . '%');
         }
-        return view('kategori.gedung', [
+        return view('GedungLap.index', [
             "title" => "Gedung Lapangan",
             "gedung_lap" => $gedung_lap->paginate(3)
         ]);

@@ -19,26 +19,13 @@
     </div>
     <div id="buttondropdown" class="mx-auto flex">
       <div id="dropdownKategori" class="relative">
-        <div  onclick="toggleDropdown()"
+        <div 
             class="border-solid text-sm border-gray-400 border-[1px] px-5 py-2 rounded cursor-pointer  flex justify-between bg-white shadow-sm ">
-              Booking dari sekarang !  | Kategori 
-              <svg class="w-5 " xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
-              <path stroke-linecap="round" stroke-linejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5" />
-              </svg>
+               <a href="#kat">Booking dari sekarang !  | Kategori </a>
+              
         </div>
-        <div id="dropdown" class="rounded border-[2px] border-white bg-white p-2 absolute top-[50px] w-[185px] right-6 shadow-md hidden">
-          <div class="cursor-pointer hover:bg-gray-300 p-2"><a href="/transportasi">Kendaraan</a></div>
-          <div class="cursor-pointer hover:bg-gray-30 p-2"><a href="/gedung">Gedung</a></div>
-          <div class="cursor-pointer hover:bg-gray-300 p-2"><a href="/penginapan">Penginapan</a></div>
-          <div class="cursor-pointer hover:bg-gray-300 p-2"><a href="/layanan">Layanan</a></div>
-          <div class="cursor-pointer hover:bg-gray-300 p-2"><a href="/aset">Asset</a></div>
-        </div>
-      <script>
-        function toggleDropdown() {
-        let dropdown = document.querySelector("#dropdownKategori #dropdown");
-        dropdown.classList.toggle("hidden");
-        }
-      </script>
+        
+      
     </div>
     <div id="dropdownJadwal" class="relative">
       <div onclick="toggleDropdown2()" class="border-solid w-28 text-sm border-gray-400 border-[1px] px-5 py-2 rounded cursor-pointer  flex  bg-white shadow-sm items-center">
@@ -75,7 +62,7 @@
   </div>
 </div>
 
-  <div class=" container relative mb-40 mt-40  h-40  md:max-w-2xl bg-white mx-auto rounded-lg shadow-lg text-center justify-center overflow-hidden  ">
+  <div id="kat" class="  container relative mb-40 mt-40  h-40  md:max-w-2xl bg-white mx-auto rounded-lg shadow-lg text-center justify-center overflow-hidden  ">
     <div class="flex z-10">
       <div class="w-1/5 h-40 hover:bg-primary hover:text-white rounded-lg p-4 cursor-pointer">
         <a href="/transportasi" class=" m-auto ">Transportasi
@@ -96,13 +83,14 @@
         </a>
       </div>
       <div class="w-1/5 h-40 hover:bg-primary hover:text-white rounded-lg p-4">
-        <a href="/layanan" ><span class="mb-8">Penginapan</span>
+        <a href="/asrama" ><span class="mb-8">Asrama</span>
         <img src="{{ asset('img/kategori/hotel.png') }}" alt="" class=" mt-6 hover:filter hover:invert h-16 w-16 mx-auto">
         </a>
       </div>
       <div class="w-1/5 h-40 hover:bg-primary hover:text-white rounded-lg p-4">
-        <a href="/aset">Asset</a>
+        <a href="/alatbarang">Asset
         <img src="{{ asset('img/kategori/asset.png') }}" alt="" class=" mt-2 hover:filter hover:invert h-24 w-24 mx-auto">
+        </a>
       </div>
     </div>  
   </div>

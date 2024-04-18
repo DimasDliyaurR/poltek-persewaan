@@ -11,10 +11,13 @@ use App\Http\Controllers\KendaraanFeController;
 use App\Http\Controllers\admin\LayananController;
 use App\Http\Controllers\admin\PromoController;
 use App\Http\Controllers\admin\TransaksiController;
+use App\Http\Controllers\FEAlatBarangController;
+use App\Http\Controllers\FEAsramaController;
 use Illuminate\Support\Facades\Route;
 use App\Services\GedungLap\GedungLapService;
 use App\Services\AlatBarang\AlatBarangService;
 use App\Http\Controllers\FEKendaraanController;
+use App\Http\Controllers\FELayananController;
 use App\Http\Controllers\FETransaksiController;
 use App\Http\Controllers\LandingPageController;
 
@@ -327,6 +330,16 @@ Route::get('/detailgedung/{id}', [FEgedungLapController::class, 'detail'])->name
 // Route::get('/k_pesan/{id}', [FEgedungLapController::class, 'store'])->name('k_pesan');
 Route::get('/k_pesan/{id}', [FEKendaraanController::class, 'store'])->name('k_pesan');
 
+Route::controller(FELayananController::class)->group(function() {
+    Route::get('/layanan', 'index');
+});
+
+Route::controller(FEAsramaController::class)->group(function() {
+    Route::get('/asrama', 'index');
+});
+Route::controller(FEAlatBarangController::class)->group(function() {
+    Route::get('/alatbarang','index');
+});
 
 Route::controller(KendaraanFeController::class)->group(function () {
     Route::get('/transportasi', 'index');
