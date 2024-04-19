@@ -4,6 +4,7 @@ $(document).ready(function () {
     var card = $("#card")
     var temp = slug.children()[0].value;
     var tempOrder = "";
+    var length = 0;
 
     console.log(temp);
 
@@ -30,8 +31,17 @@ $(document).ready(function () {
             const time = setTimeout(() => {
                 $("p#close").click((e) => {
                     e.preventDefault();
-                    console.log($(this).siblings())
-                });;
+                    console.log($(this).siblings());
+                    let slugItem = $("p#close").siblings().text()
+                    let parent = $("p#close").parent().map(function (elementOrValue, indexOrKey) {
+
+                    });
+
+                    console.log(slugItem);
+                    $("input[value^=" + slugItem + "]").remove();
+                    console.log(parent)
+                    parent.remove()
+                });
             }, 1000);
         });
     };
@@ -46,7 +56,7 @@ $(document).ready(function () {
                 $(response).each(function (indexInArray, merkKendaraan) {
 
                     let containt = merkKendaraan.mk_merk + " Rp. " + addCommas(merkKendaraan.mk_tarif)
-                    let spanContaint = $("<span class='hidden'>" + merkKendaraan.mk_tarif + "</span>")
+                    let spanContaint = $("<span class='hidden'>" + merkKendaraan.mk_slug + "</span>")
                     let spanClose = $("<p class='block border cursor-pointer' id='close'>close</p>")
                     let list = $("<li></li>")
                     // Image
@@ -85,6 +95,8 @@ $(document).ready(function () {
             if (slug.children()[i].value == buttonVal) {
                 isSame = false
                 break
+            } else if (buttonVal === void 0) {
+                break
             }
         }
         if (isSame) {
@@ -92,7 +104,7 @@ $(document).ready(function () {
             handle_item(buttonVal)
         }
 
-        getTag
+        getTag()
     });
 
     $("#add-item").click((e) => {

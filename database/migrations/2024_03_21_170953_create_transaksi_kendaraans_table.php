@@ -14,9 +14,8 @@ return new class extends Migration
         Schema::disableForeignKeyConstraints();
 
         Schema::create('transaksi_kendaraans', function (Blueprint $table) {
-            $table->id();
+            $table->uuid();
             $table->foreignId('user_id')->constrained("users");
-            $table->string('code_unique');
             $table->string('tk_durasi');
             $table->timestamp('tk_tanggal_sewa');
             $table->dateTime('tk_tanggal_kembali');

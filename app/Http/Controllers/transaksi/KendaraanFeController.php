@@ -11,6 +11,8 @@ use App\Http\Controllers\Controller;
 use App\Models\DetailTransaksiKendaraan;
 use App\Services\Kendaraan\KendaraanService;
 use App\Http\Requests\kendaraan\RequestTransaksiKendaraan;
+use App\Services\handler\Midtrans\CreateSnapTokenService;
+use App\Services\handler\Promo\PromoHandler;
 
 class KendaraanFeController extends Controller
 {
@@ -106,18 +108,32 @@ class KendaraanFeController extends Controller
                     "dtk_harga" => $total_harga,
                 ]);
             }
+
+            if ($validation["promo"] != null) {
+                $promo = new PromoHandler($validation["promo"], "Kendaraan");
+
+                if ($promo->isExist() && $promo->isCategorySame()) {
+                    if (!($promo->isExpired() && $promo->isActive())) {
+                        if ($promo->isUserAlreadyUsing()) {
+                            return redirect()->withErrors([
+                                "promo" => "Promo sudah pernah digunakan",
+                            ]);
+                        }
+                        $this->total_transaksi = $promo->total($this->total_transaksi);
+                        $promo->decreaseStok();
+                    } else {
+                        return redirect()->withErrors([
+                            "promo" => "Promo tidak bisa digunakan",
+                        ]);
+                    }
+                }
+            }
         });
 
-        // Set your Merchant Server Key
-        \Midtrans\Config::$serverKey = config("midtrans.server_key");
-        // Set to Development/Sandbox Environment (default). Set to true for Production Environment (accept real transaction).
-        \Midtrans\Config::$isProduction = false;
-        // Set sanitization on (default)
-        \Midtrans\Config::$isSanitized = true;
-        // Set 3DS transaction for credit card to true
-        \Midtrans\Config::$is3ds = true;
 
-        $params = array(
+
+
+        $data = array(
             'transaction_details' => array(
                 'order_id' => $this->transaksi->code_unique,
                 'gross_amount' => $this->total_transaksi,
@@ -129,9 +145,11 @@ class KendaraanFeController extends Controller
             ),
         );
 
-        $snapToken = \Midtrans\Snap::getSnapToken($params);
+        $midtrans = new CreateSnapTokenService($data);
 
-        return view("user_transaksi.kendaraan.pembayaran", [
+        $snapToken = $midtrans->getSnapToken();
+
+        return view("transaksi.kendaraan.pembayaran", [
             "title" => "pembayaran",
             "snapToken" => $snapToken
         ]);

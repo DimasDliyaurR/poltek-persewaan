@@ -43,6 +43,11 @@ class Promo extends Model
         return $this->hasMany(DetailKategoriPromo::class);
     }
 
+    public function user(): BelongsToMany
+    {
+        return $this->belongsToMany(User::class, "detail_user_promos", "promo_is", "user_id")->using(DetailUserPromo::class);
+    }
+
     public function detailUserPromo(): HasMany
     {
         return $this->hasMany(DetailUserPromo::class);

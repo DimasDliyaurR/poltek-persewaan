@@ -51,11 +51,6 @@ class User extends Authenticatable
         return $this->hasOne(Profile::class);
     }
 
-    public function detailUserPromos(): HasMany
-    {
-        return $this->hasMany(DetailUserPromo::class);
-    }
-
     public function promos()
     {
         $this->belongsToMany(Promo::class);
