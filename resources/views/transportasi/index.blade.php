@@ -105,7 +105,7 @@
                                     </button>
                                 </div>
                                 <h3>
-                                    <a href=" {{ asset('/transportasi/' . $kendaraan->mk_slug) }}"
+                                    <a href=" /transportasi/detail"
                                         class="block mb-3 mt-3 font-semibold text-xl text-black hover:text-primary truncate">{{ $kendaraan->mk_merk }}
                                     </a>
                                 </h3>

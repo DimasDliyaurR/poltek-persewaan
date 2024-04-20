@@ -13,21 +13,25 @@ class FEKendaraanController extends Controller
 {
     public function index()
     {
-        $k = Kendaraan::latest();
+        $kendaraans = MerkKendaraan::with("kendaraans")->withCount([
+            "kendaraans" => fn ($q) => $q->where("k_status", "=", "tersedia")
+        ]);
+        $kendaraans = MerkKendaraan::latest();
         if(request('search')){
-            $k->where('k_nama', 'like', '%' . request('search'). '%');
+            $kendaraans->where('mk_seri', 'like', '%' . request('search'). '%');
         }
-        return view('kategori.kendaraan', [
-            "title" => "Kendaraan",
-            "kendaraans" => $k->paginate(6),
+
+        return view('transportasi.index', [
+            "title" => "Transportasi",
+            "kendaraans" => $kendaraans->paginate(6)
         ]);
     }
-    public function detail($id)
+    public function detail()
     {
-        $kendaraans = Kendaraan::with('MerkKendaraan')->find($id);
-        return view('detail.detail_kendaraan', [
+        //$kendaraans = Kendaraan::with('MerkKendaraan')->find($id);
+        return view('transportasi.detail', [
             "title" => "Kendaraan",
-            "kendaraan" => $kendaraans
+            //"kendaraan" => $kendaraans
         ]);
     }
     public function store(Request $request)
@@ -39,5 +43,17 @@ class FEKendaraanController extends Controller
             'tk_tanggal_kembali' => $request->tk_tanggal_kembali,
         ]);
         $transaksiKendaraan->createEvent();
+    }
+    public function pesan()
+    {
+        return view('transportasi.transaksi_pesan', [
+            "title" => "Pesan Transportasi"
+        ]);
+    }
+    public function invoice()
+    {
+        return view('transportasi.transaksi_invoice',[
+            "title" => "Invoice Transportasi"
+        ]);
     }
 }

@@ -3,7 +3,7 @@
 <!-- Hero Section Start -->
 <section id="home" class="pt-36 pb-56 h-screen relative  ">
 <div class="absolute inset-0 bg-white opacity-10">
-  <div class=" h-full  bg-cover " style="background-image: url('{{ asset('img/lab.jpg') }}');">
+  <div class=" h-full  bg-cover " style="background-image: url('{{ asset('img/gerbang.jpg') }}');">
   </div> 
 </div>     
 <div class="container relative z-10">
@@ -62,7 +62,8 @@
   </div>
 </div>
 
-  <div id="kat" class="  container relative mb-40 mt-40  h-40  md:max-w-2xl bg-white mx-auto rounded-lg shadow-lg text-center justify-center overflow-hidden  ">
+  <!-- <div id="kat" class="  container relative mb-40 mt-40  h-40  w-3/4 bg-white mx-auto rounded-lg shadow-lg text-center justify-center overflow-hidden  "> -->
+  <div id="kat" class=" mb-40 mt-40 w-3/4 h-40 bg-white mx-auto rounded-lg shadow-lg text-center justify-center items-center  ">
     <div class="flex z-10">
       <div class="w-1/5 h-40 hover:bg-primary hover:text-white rounded-lg p-4 cursor-pointer">
         <a href="/transportasi" class=" m-auto ">Transportasi
@@ -88,7 +89,7 @@
         </a>
       </div>
       <div class="w-1/5 h-40 hover:bg-primary hover:text-white rounded-lg p-4">
-        <a href="/alatbarang">Asset
+        <a href="/alatbarang">Alat Barang
         <img src="{{ asset('img/kategori/asset.png') }}" alt="" class=" mt-2 hover:filter hover:invert h-24 w-24 mx-auto">
         </a>
       </div>
@@ -322,70 +323,85 @@
     <!-- kategori section End -->
     <!-- Promo Section start -->
   <section id="promo" class="pt-36 pb-36 bg-plaster" >
-      <div class="container">
-        <div class="w-full px-4 ">
-          <div class="max-w-xl mx-auto text-center mb-12">
-            <h4 class="font-semibold text-2xl text-primary mb-2">PROMO</h4>
+  <div class="container">
+      <div class="w-full px-4 ">
+        <div class="max-w-xl mx-auto text-center mb-12">
+          <h4 class="font-semibold text-2xl text-primary mb-2">PROMO</h4>
+        </div>
+      </div>
+    
+    <div class=" container  ">
+      <div class="flex   xl:px-32 mx-auto pb-2 kategori-promo   space-x-2  text-[14px] ">
+        <div class="bg-white  h-10 w-28 flex items-center justify-center rounded-md mb-2 cursor-pointer hover:focus:ring-primary hover:border-primary hover:border-2  "><a href="">Transportasi</a>  </div>
+        <div class="bg-white w-28 h-10 flex items-center justify-center rounded-md mb-2 cursor-pointer  hover:focus:ring-primary hover:border-primary hover:border-2  "> <a href="">Gedung Lap</a></div>
+        <div class="bg-white w-28 h-10 flex items-center justify-center rounded-md mb-2 cursor-pointer  hover:focus:ring-primary hover:border-primary hover:border-2  "> <a href="">Asrama</a></div>
+        <div class="bg-white w-28 h-10 flex items-center justify-center rounded-md mb-2 cursor-pointer  hover:focus:ring-primary hover:border-primary hover:border-2  "> <a href="">Layanan</a></div>
+        <div class="bg-white w-28 h-10  flex items-center justify-center  rounded-md mb-2 cursor-pointer  hover:focus:ring-primary hover:border-primary hover:border-2 "> <a href="">Alat Barang</a></div>
+      
+      </div>
+    </div>
+    
+        
+    
+    <div id="buttonpromo" class=" relative  mb-4">
+      <div onclick="toggleDropdownPromo()" 
+        class="text-sm flex cursor-pointer rounded justify-between bg-white  mx-auto px-4 xl:ml-36  p-2 h-10 w-[185px] ">Semua kategori 
+        <svg class="w-5 " xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+        <path stroke-linecap="round" stroke-linejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5" />
+        </svg>
+      </div>
+      <div id="dropdownPromo" class="rounded border-[2px] border-white bg-white p-2 relative top-1 left-36 w-[185px] shadow-md hidden">
+        <div class="cursor-pointer hover:bg-gray-50 p-2">Transportasi</div>
+        <div class="cursor-pointer hover:bg-gray-50 p-2">Gedung</div>
+        <div class="cursor-pointer hover:bg-gray-50 p-2">Penginapan</div>
+        <div class="cursor-pointer hover:bg-gray-50 p-2">Layanan</div>
+        <div class="cursor-pointer hover:bg-gray-50 p-2">Asset</div>
+      </div>
+    </div>
+      <script>
+        function toggleDropdownPromo() {
+          let dropdownPromo = document.querySelector("#buttonpromo #dropdownPromo");
+          dropdownPromo.classList.toggle("hidden");
+        }
+      </script>
+        
+    <div class="w-full px-4 flex flex-wrap justify-center xl:w-10/12 xl:mx-auto">
+      @foreach($promo as $p)
+      <div class="mb-6 p-4 py-4 bg-softblue w-full rounded-lg relative  promo">
+        <div class="flex mt-2 mb-3">
+          <img src="{{ asset('img/landingpage/sale.png') }}" alt="logo sale" class="h-20 w-15 mb-4 sm:mb-0 sm:mr-3 ">
+            <div class="ml-3  ">
+              <h3 class="font-semibold text-xl text-black ">{{ $p->p_judul }} </h3>
+                <p class= "absolute  right-8 xl:top-8 bg-plaster rounded-lg h-6 w-60 text-center mt-3 tracking-wider bottom-4  ">  2024SEWA </p>
+                <p class="font-medium text-base text-gray-500">{{$p->p_isi}}</p>
+            </div>
+        </div>
+      </div>
+      @endforeach
+      <div class=" container mb-6 p-4 py-4 bg-softblue w-full rounded-lg relative grid xl:grid-cols-2 grid-cols-1 xl:grid-rows-1 grid-rows-2 ">
+        <div class="flex">
+          <img src="{{ asset('img/landingpage/sale.png') }}" alt="logo sale" class="h-20 w-15 mb-4 sm:mb-0 sm:mr-3 ">
+            <div>
+              <h3 class="font-semibold text-xl text-black ">Dapatkan Voucher Diskon hingga jutaan rupiah ! </h3>
+              <p class="font-medium text-base text-gray-500">Lorem ipsum dolor sit amet consectetur adipisicing elit. Quod, quasi!</p>
+              <p class="mt-5 inline-block bg-plaster h-6 w-60 text-center rounded-lg tracking-widest text-sm mb-4" > 2024IED</p>
+            </div>
+        </div>
+        <div class="flex space-x-2 xl:ml-20">
+          <div>
+            <img src="{{ asset('img/layanan/marching band.jpg') }}" alt="picture 1"  class=" rounded-3xl w-80 "/>
+          </div>
+          <div class="flex flex-col space-y-2">
+            <img src="{{ asset('img/transportasi/minibus.jpg') }}" alt="picture 2"  class="rounded-3xl shadow-md overflow-hidden  w-40   "/>
+            <img src="{{ asset('img/layanan/marching band.jpg') }}" alt="picture 3"  class=" rounded-3xl shadow-md overflow-hidden w-40   "/>
           </div>
         </div>
-        <div id="buttonpromo" class=" relative  mb-4">
-          <div onclick="toggleDropdownPromo()" 
-            class="text-sm flex cursor-pointer rounded justify-between bg-white  mx-auto px-4 xl:ml-36  p-2 h-10 w-[185px] ">Semua kategori 
-            <svg class="w-5 " xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
-            <path stroke-linecap="round" stroke-linejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5" />
-            </svg>
-          </div>
-          <div id="dropdownPromo" class="rounded border-[2px] border-white bg-white p-2 relative top-1 left-36 w-[185px] shadow-md hidden">
-            <div class="cursor-pointer hover:bg-gray-50 p-2">Transportasi</div>
-            <div class="cursor-pointer hover:bg-gray-50 p-2">Gedung</div>
-            <div class="cursor-pointer hover:bg-gray-50 p-2">Penginapan</div>
-            <div class="cursor-pointer hover:bg-gray-50 p-2">Layanan</div>
-            <div class="cursor-pointer hover:bg-gray-50 p-2">Asset</div>
-          </div>
-          <script>
-            function toggleDropdownPromo() {
-              let dropdownPromo = document.querySelector("#buttonpromo #dropdownPromo");
-              dropdownPromo.classList.toggle("hidden");
-            }
-          </script>
-        </div>
-        <div class="w-full px-4 flex flex-wrap justify-center xl:w-10/12 xl:mx-auto">
-          @foreach($promo as $p)
-          <div class="mb-6 p-4 py-4 bg-softblue w-full rounded-lg relative  promo">
-            <div class="flex mt-2 mb-3">
-              <img src="{{ asset('img/landingpage/sale.png') }}" alt="logo sale" class="h-20 w-15 mb-4 sm:mb-0 sm:mr-3 ">
-                <div class="ml-3  ">
-                  <h3 class="font-semibold text-xl text-black ">{{ $p->p_judul }} </h3>
-                    <p class= "absolute  right-8 xl:top-8 bg-plaster rounded-lg h-6 w-60 text-center mt-3 tracking-wider bottom-4  ">  2024SEWA </p>
-                    <p class="font-medium text-base text-gray-500">{{$p->p_isi}}</p>
-                </div>
-            </div>
-          </div>
-          @endforeach
-          <div class=" container mb-6 p-4 py-4 bg-softblue w-full rounded-lg relative grid xl:grid-cols-2 grid-cols-1 xl:grid-rows-1 grid-rows-2 ">
-            <div class="flex">
-              <img src="{{ asset('img/landingpage/sale.png') }}" alt="logo sale" class="h-20 w-15 mb-4 sm:mb-0 sm:mr-3 ">
-                <div>
-                  <h3 class="font-semibold text-xl text-black ">Dapatkan Voucher Diskon hingga jutaan rupiah ! </h3>
-                  <p class="font-medium text-base text-gray-500">Lorem ipsum dolor sit amet consectetur adipisicing elit. Quod, quasi!</p>
-                  <p class="mt-5 inline-block bg-plaster h-6 w-60 text-center rounded-lg tracking-widest text-sm mb-4" > 2024IED</p>
-                </div>
-            </div>
-            <div class="flex space-x-2 xl:ml-20">
-                <div>
-                  <img src="{{ asset('img/layanan/marching band.jpg') }}" alt="picture 1"  class=" rounded-3xl w-80 "/>
-                </div>
-                <div class="flex flex-col space-y-2">
-                  <img src="{{ asset('img/transportasi/minibus.jpg') }}" alt="picture 2"  class="rounded-3xl shadow-md overflow-hidden  w-40   "/>
-                  <img src="{{ asset('img/layanan/marching band.jpg') }}" alt="picture 3"  class=" rounded-3xl shadow-md overflow-hidden w-40   "/>
-                </div>
-              </div>
-          </div>
+      </div>
           
           <button id="loadmore_promo" class="font-semibold text-medium text-black mb-8 uppercase underline underline-offset-2">Lihat Lebih Banyak</button>
           <button id="hidemore_promo" class="font-semibold text-medium text-black mb-8 uppercase underline underline-offset-2 hidden">Sembunyikan</button>
-        </div>
       </div>
+  </div>
   </section>
     <!-- Promo Section End -->
   <!-- Section Syarat dan Ketentuan Start -->
@@ -523,9 +539,9 @@
             <h4 class="font-bold text-xl  uppercase text-primary ">Mengapa harus sewa di sewaaset poltkebang surabaya?</h4>
           </div>
           <div class="flex flex-wrap px-6">
-            <div class="w-full grid place-items-center h-full md:w-1/2 lg:w-1/2 sm:justify-center ">
-              <div class=" bg-white w-96 h-48 rounded-xl "></div>
-              <img src="{{ asset('img/tar.png')}}" alt="Foto Taruna Taruni" class="object-cover -mt-56 ">
+            <div class="w-full  place-items-center h-full md:w-1/2 lg:w-1/2 sm:justify-center ">
+              <!-- <div class=" bg-white w-96 h-48 rounded-xl "></div> -->
+              <img src="{{ asset('img/tar.png')}}" alt="Foto Taruna Taruni" class="object-cover  ">
             </div> 
           <div class="w-full px-4 mb-10 md:w-1/2 lg:w-1/2">
             <div class="flex items-center pb-4 pt-2">
@@ -585,9 +601,9 @@
     </div>
   <!-- End Contact -->
   <!-- back to top -->
-    <a href="#home"> 
-        <i class=" btnbtt btn-active  fixed bottom-10 right-10 text-5xl cursor pointer text-primary hover:text-primary z-20 hidden" title="Kembali ke atas"
-        ><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+    <a href="#home" class=""> 
+        <i class=" btnbtt btn-active  fixed bottom-10 right-10 text-5xl cursor pointer text-primary hover:bg-gray-100 z-20 hidden bg-white rounded-full w-8 h-8 " title="Kembali ke atas"
+        ><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 m-auto">
           <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 10.5 12 3m0 0 7.5 7.5M12 3v18" />
         </svg>
         </i>
