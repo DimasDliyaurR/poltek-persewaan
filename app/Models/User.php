@@ -55,4 +55,9 @@ class User extends Authenticatable
     {
         $this->belongsToMany(Promo::class);
     }
+
+    public function transaksiKendaraan()
+    {
+        return $this->hasMany(TransaksiKendaraan::class, "user_id", "id");
+    }
 }

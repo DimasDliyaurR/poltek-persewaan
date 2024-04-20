@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers\api;
 
+use Midtrans\Notification;
 use Illuminate\Http\Request;
 use App\Models\MerkKendaraan;
+use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
-use Midtrans\Notification;
+use App\Services\handler\Midtrans\Callback;
 
 class ApiController extends Controller
 {
@@ -23,9 +25,42 @@ class ApiController extends Controller
 
     public function callback()
     {
-        \Midtrans\Config::$isProduction = false;
-        \Midtrans\Config::$serverKey = config("midtrans.server_key");
-        $notif = new Notification();
-        $transaction_status = $notif->transaction_status;
+        $callback = new Callback();
+
+        if ($callback->isSignatureKeyVerified()) {
+            $notification = $callback->getNotification();
+            $order = $callback->getOrder();
+            $category = $callback->model;
+
+            if ($callback->isSuccess()) {
+                DB::table($category)->where('code_unique', $order->id)->update([
+                    'status' => "terbayar",
+                ]);
+            }
+
+            if ($callback->isExpire()) {
+                DB::table($category)->where('code_unique', $order->id)->update([
+                    'status' => "kadaluarsa",
+                ]);
+            }
+
+            if ($callback->isCancelled()) {
+                DB::table($category)->where('code_unique', $order->id)->update([
+                    'status' => "batal",
+                ]);
+            }
+
+            return response()
+                ->json([
+                    'success' => true,
+                    'message' => 'Notification successfully processed',
+                ]);
+        } else {
+            return response()
+                ->json([
+                    'error' => true,
+                    'message' => 'Signature key not verified',
+                ], 403);
+        }
     }
 }

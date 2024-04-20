@@ -18,10 +18,13 @@ class KendaraanFeController extends Controller
 {
     protected $kendaraanService;
 
-    // Inisisasi Variable Transaksi
+    // Inisiasi Transaksi
     private $transaksi;
-
     private $total_transaksi = 0;
+
+    // Inisiasi Promo
+    private $promo;
+    private $checkPromo = false;
 
     public function __construct(KendaraanService $kendaraanService)
     {
@@ -78,18 +81,48 @@ class KendaraanFeController extends Controller
         ]);
 
         $item = $request->slug;
+        $validation["promo"] = $request->promo;
+        $validation["created_at"] = $request->created_at;
+        $this->promo = new PromoHandler($validation["promo"], "Kendaraan");
+
+        // Cek Isi Promo
+        if ($validation["promo"] != null) {
+            // Apakah promo ada dan sesuai kategori
+            if ($this->promo->isExist() && ($this->promo->isCategorySame() or $this->promo->isAppliesForAllCategories())) {
+                // Apakah Promo Tidak Kadaluarsa dan Aktif
+                if (!(!($this->promo->isExpired()) && $this->promo->isActive())) {
+                    // Apakah Promo sudah digunakan oleh user
+                    if ($this->promo->isUserAlreadyUsing()) {
+                        return back()->withInput()->withErrors([
+                            "promo" => "Promo sudah pernah digunakan",
+                        ]);
+                    }
+                    // Promo sudah terdeteksi
+                    $this->checkPromo = true;
+                } else {
+                    return back()->withInput()->withErrors([
+                        "promo" => "Promo tidak bisa digunakan",
+                    ]);
+                }
+            } else {
+                return back()->withInput()->withErrors([
+                    "promo" => "Promo tidak valid",
+                ]);
+            }
+        }
 
         DB::transaction(function () use ($validation) {
             // Store Transaksi
             $tanggal_sewa_unix = strtotime($validation["tk_tanggal_sewa"]);
             $tanggal_kembali_unix = strtotime($validation["tk_tanggal_kembali"]);
-            $validation["tk_durasi"] = ($tanggal_kembali_unix - $tanggal_sewa_unix) / (24 * 60 * 60);
+            $validation["tk_durasi"] = intdiv(($tanggal_kembali_unix - $tanggal_sewa_unix), (24 * 60 * 60));
 
             $transaksi = TransaksiKendaraan::create([
                 "user_id" => auth()->user()->id,
-                "code_unique" => auth()->user()->id . str_replace("-", "", $validation["tk_tanggal_sewa"]),
+                "promo_id" => !($this->promo->isExist()) ? null : $this->promo->getPromo()->id,
+                "code_unique" => auth()->user()->id . strtotime(now()),
                 "tk_durasi" => $validation["tk_durasi"],
-                "tk_tanggal_sewa" => $validation["tk_tanggal_sewa"],
+                "tk_tanggal_sewa" => now(),
                 "tk_tanggal_kembali" => $validation["tk_tanggal_kembali"],
             ]);
 
@@ -108,40 +141,32 @@ class KendaraanFeController extends Controller
                     "dtk_harga" => $total_harga,
                 ]);
             }
-
-            if ($validation["promo"] != null) {
-                $promo = new PromoHandler($validation["promo"], "Kendaraan");
-
-                if ($promo->isExist() && $promo->isCategorySame()) {
-                    if (!($promo->isExpired() && $promo->isActive())) {
-                        if ($promo->isUserAlreadyUsing()) {
-                            return redirect()->withErrors([
-                                "promo" => "Promo sudah pernah digunakan",
-                            ]);
-                        }
-                        $this->total_transaksi = $promo->total($this->total_transaksi);
-                        $promo->decreaseStok();
-                    } else {
-                        return redirect()->withErrors([
-                            "promo" => "Promo tidak bisa digunakan",
-                        ]);
-                    }
-                }
-            }
         });
 
-
-
+        // Apakah Promo sudah terdeteksi
+        if ($this->checkPromo) {
+            // Apakah Promo masih tersisa
+            if ($this->promo->getStok() > 0) {
+                // Perhitungan Promo dengan Subtotal
+                $this->total_transaksi = $this->promo->total($this->total_transaksi);
+                // Pengurangan Kapasitas Promo
+                $this->promo->decreaseStok();
+            } else {
+                return back()->withErrors([
+                    "promo" => "Promo Sudah Habis"
+                ]);
+            }
+        }
 
         $data = array(
             'transaction_details' => array(
-                'order_id' => $this->transaksi->code_unique,
+                'order_id' => $this->transaksi->code_unique . "-kendaraans",
                 'gross_amount' => $this->total_transaksi,
             ),
             'customer_details' => array(
                 'first_name' => auth()->user()->profile->nama_lengkap,
                 'email' => auth()->user()->email,
-                'phone' => auth()->user()->no_telp,
+                'phone' => auth()->user()->profile->no_telp,
             ),
         );
 

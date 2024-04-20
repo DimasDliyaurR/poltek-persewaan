@@ -10,6 +10,7 @@ class CreateSnapTokenService extends Midtrans
 
     public function __construct(array $data)
     {
+        parent::__construct();
         $this->param = $data;
     }
 
