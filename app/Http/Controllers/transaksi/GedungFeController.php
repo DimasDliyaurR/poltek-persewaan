@@ -3,55 +3,35 @@
 namespace App\Http\Controllers\transaksi;
 
 use Exception;
+use App\Models\GedungLap;
 use Illuminate\Http\Request;
-use App\Models\MerkKendaraan;
-use App\Models\TransaksiKendaraan;
+use App\Models\TransaksiGedung;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\Traits\HandlerPromo;
-use App\Models\DetailTransaksiKendaraan;
-use App\Services\Kendaraan\KendaraanService;
-use App\Http\Requests\kendaraan\RequestTransaksiKendaraan;
-use App\Services\handler\Midtrans\CreateSnapTokenService;
+use App\Models\DetailTransaksiGedung;
 use App\Services\handler\Promo\PromoHandler;
+use App\Services\handler\Midtrans\CreateSnapTokenService;
 
-class KendaraanFeController extends Controller
+class GedungFeController extends Controller
 {
     use HandlerPromo;
-
-    protected $kendaraanService;
-
     // Inisiasi Transaksi
     private $transaksi;
     private $total_transaksi = 0;
 
-    // Inisiasi 
     protected $inputPromo;
-
-    public function __construct(KendaraanService $kendaraanService)
-    {
-        $this->kendaraanService = $kendaraanService;
-    }
 
     public function index()
     {
-        $kendaraans = MerkKendaraan::with("kendaraans")->withCount([
-            "kendaraans" => fn ($q) => $q->where("k_status", "=", "tersedia")
-        ]);
-
-        return view('kategori.transportasi', [
-            "title" => "Kendaraan",
-            "kendaraans" => $kendaraans->get()
-        ]);
-    }
-
-    public function detail($slug)
-    {
-        $kendaraans = MerkKendaraan::with("kendaraans")->where("mk_slug", "=", $slug);
-
-        return view('detail.detail_kendaraan', [
-            "title" => "Kendaraan",
-            "kendaraan" => $kendaraans->first()
+        $gedung_lap = GedungLap::latest();
+        if (request('search')) {
+            $gedung_lap->where('gl_nama', 'like', "%" . request('search') . "%")
+                ->orWhere('gl_keterangan', 'like', '%' . request('search') . '%');
+        }
+        return view('kategori.gedung', [
+            "title" => "Gedung Lapangan",
+            "gedung_lap" => $gedung_lap->paginate(3)
         ]);
     }
 
@@ -59,15 +39,13 @@ class KendaraanFeController extends Controller
     {
         try {
             $item = $slug;
-            $item = MerkKendaraan::whereMkSlug($item)->withCount([
-                "kendaraans" => fn ($q) => $q->where("k_status", "!=", "tersedia")
-            ])->first();
-            $MerkKendaraan = MerkKendaraan::with("kendaraans")->withCount(["kendaraans" => fn ($q) => $q->where("k_status", "=", "tersedia")])->get();
-        } catch (\Throwable $th) {
+            $item = GedungLap::whereGlSlug($item)->first();
+            $MerkKendaraan = GedungLap::all();
+        } catch (\Exception $th) {
             throw new Exception($th->getMessage());
         }
 
-        return view("transaksi.kendaraan.pesan", [
+        return view("transaksi.gedung.pesan", [
             "title" => "Pesan Kendaraan",
             "merkKendaraan" => $MerkKendaraan,
             "item" => $item,
@@ -77,14 +55,17 @@ class KendaraanFeController extends Controller
     public function pesan(Request $request)
     {
         $validation = $request->validate([
-            "tk_tanggal_sewa" => "required",
-            "tk_tanggal_kembali" => "required",
+            "tg_tanggal_sewa" => "required",
+            "tg_tanggal_kembali" => "required",
+            "tg_tujuan" => "required",
             "slug" => "required",
         ]);
 
         $item = $request->slug;
+
+        // Promo
         $this->inputPromo = $request->promo;
-        $promo = $this->handlerPromo("Kendaraan");
+        $promo = $this->handlerPromo("Gedung");
 
         if ($promo == 1) {
             return back()->withInput()->withErrors([
@@ -101,34 +82,33 @@ class KendaraanFeController extends Controller
         }
 
 
-        DB::transaction(function () use ($validation) {
-            // Store Transaksi
-            $tanggal_sewa_unix = strtotime($validation["tk_tanggal_sewa"]);
-            $tanggal_kembali_unix = strtotime($validation["tk_tanggal_kembali"]);
-            $validation["tk_durasi"] = intdiv(($tanggal_kembali_unix - $tanggal_sewa_unix), (24 * 60 * 60));
 
-            $transaksi = TransaksiKendaraan::create([
+        DB::transaction(function () use ($validation) {
+            // Create Transaksi
+            $transaksi = TransaksiGedung::create([
                 "user_id" => auth()->user()->id,
                 "promo_id" => !($this->promo->isExist()) ? null : $this->promo->getPromo()->id,
-                "code_unique" => auth()->user()->id . strtotime(now()) . "#100",
-                "tk_durasi" => $validation["tk_durasi"],
-                "tk_tanggal_sewa" => now(),
-                "tk_tanggal_kembali" => $validation["tk_tanggal_kembali"],
+                "code_unique" => auth()->user()->id . strtotime(now()) . "#300",
+                "tg_tujuan" => $validation["tg_tujuan"],
+                "tg_tanggal_sewa" => now(),
+                "tg_tanggal_kembali" => $validation["tg_tanggal_kembali"],
             ]);
 
             $this->transaksi = $transaksi;
 
             // Store Detail Transaksi
             foreach ($validation["slug"] as $row => $value) {
-                $MerkKendaraan = MerkKendaraan::where("mk_slug", "=", $value)->first();
-                $total_harga = $MerkKendaraan->mk_tarif * $validation["tk_durasi"];
+                $gedungLap = GedungLap::where("gl_slug", "=", $value)->first();
+                if ($gedungLap->gl_satuan_gedung) {
+                }
+                $total_harga = $gedungLap->gl_tarif;
 
                 $this->total_transaksi += $total_harga;
 
-                DetailTransaksiKendaraan::create([
-                    "transaksi_kendaraan_id" => $transaksi->id,
-                    "kendaraan_id" => $MerkKendaraan->id,
-                    "dtk_harga" => $total_harga,
+                DetailTransaksiGedung::create([
+                    "transaksi_gedung_id" => $transaksi->id,
+                    "gedung_lap_id" => $gedungLap->id,
+                    "dtg_harga" => $total_harga,
                 ]);
             }
         });
@@ -142,7 +122,7 @@ class KendaraanFeController extends Controller
 
         $data = array(
             'transaction_details' => array(
-                'order_id' => $this->transaksi->code_unique . "-kendaraans",
+                'order_id' => $this->transaksi->code_unique . "-gedungs",
                 'gross_amount' => $this->total_transaksi,
             ),
             'customer_details' => array(

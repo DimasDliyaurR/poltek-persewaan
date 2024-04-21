@@ -26,6 +26,7 @@ return new class extends Migration
             $table->dateTime("p_mulai");
             $table->dateTime("p_kadaluarsa");
             $table->integer("p_jumlah")->nullable();
+            $table->enum("p_tipe_stok", ["unlimited", "limit"]);
             $table->string("p_kategori");
             $table->timestamps();
         });

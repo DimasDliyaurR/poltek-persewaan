@@ -12,6 +12,10 @@ class PromoHandler
     protected $user_id;
     protected $category;
 
+    /**
+     * @param string $promoCode Code Promo
+     * @param string|null $category Kategori untuk memeriksa promo
+     */
     public function __construct($promoCode, $category = null)
     {
         $this->promoCode = $promoCode;
@@ -57,6 +61,11 @@ class PromoHandler
     public function getStok()
     {
         return $this->promo->p_kapasitas;
+    }
+
+    public function isStokUnlimited()
+    {
+        return $this->promo->p_tipe_stok == "unlimited";
     }
 
     public function getPromo()

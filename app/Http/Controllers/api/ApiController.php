@@ -30,7 +30,7 @@ class ApiController extends Controller
         if ($callback->isSignatureKeyVerified()) {
             $notification = $callback->getNotification();
             $order = $callback->getOrder();
-            $category = $callback->model;
+            $category = "transaksi_" . $callback->model;
 
             if ($callback->isSuccess()) {
                 DB::table($category)->where('code_unique', $order->id)->update([

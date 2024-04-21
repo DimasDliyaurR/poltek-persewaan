@@ -26,6 +26,7 @@ class TransaksiGedung extends Model
      */
     protected $fillable = [
         'user_id',
+        'code_unique',
         'tg_tujuan',
         'tg_tanggal_sewa',
         'tg_tanggal_kembali',
