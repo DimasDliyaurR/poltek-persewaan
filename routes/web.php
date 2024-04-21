@@ -18,6 +18,7 @@ use App\Http\Controllers\FEKendaraanController;
 use App\Http\Controllers\FETransaksiController;
 use App\Http\Controllers\LandingPageController;
 use App\Http\Controllers\transaksi\GedungFeController;
+use App\Http\Controllers\transaksi\LayananFeController;
 
 /*
 |--------------------------------------------------------------------------
@@ -337,5 +338,13 @@ Route::group(["prefix" => "gedung"], function () {
         Route::get("/", "index");
         Route::get("/{slug}/pesan", "pesanForm")->middleware("auth");
         Route::post("/beli-langsung", "pesan")->middleware("auth")->name("gedung.pesan");
+    });
+});
+
+Route::group(["prefix" => "layanan"], function () {
+    Route::controller(LayananFeController::class)->group(function () {
+        Route::get("/", "index");
+        Route::get("/{slug}/pesan", "pesanForm")->middleware("auth");
+        Route::post("/beli-langsung", "pesan")->middleware("auth")->name("layanan.pesan");
     });
 });

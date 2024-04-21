@@ -23,6 +23,8 @@ class TransaksiLayanan extends Model
      */
     protected $fillable = [
         'user_id',
+        'promo_id',
+        'code_unique',
         'tl_tanggal_sewa',
         'tl_tanggal_pelaksanaan',
         'tl_durasi_sewa',
@@ -59,7 +61,7 @@ class TransaksiLayanan extends Model
     {
         return $this->belongsTo(User::class);
     }
-    public function events() : MorphMany
+    public function events(): MorphMany
     {
         return $this->morphMany(Event::class, 'eventable');
     }

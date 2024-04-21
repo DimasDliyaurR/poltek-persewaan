@@ -12,7 +12,13 @@ trait HandlerPromo
     private $promo;
     private $checkPromo = false;
 
-    public function handlerPromo($category)
+    /**
+     * 
+     * @param string $category
+     * @return int 3 Promo Pernah digunakan
+     * @return int 3 Promo Pernah digunakan
+     */
+    public function handlerPromo(string $category)
     {
         $this->promo = new PromoHandler($this->inputPromo(), $category);
         // Cek Isi Promo
@@ -40,15 +46,18 @@ trait HandlerPromo
     {
         if ($this->checkPromo) {
             // Apakah Promo masih tersisa
-            if ($this->promo->getStok() > 0) {
+            if ($this->promo->getStok() > 0 or $this->promo->isStokUnlimited()) {
                 // Perhitungan Promo dengan Subtotal
                 $this->total_transaksi = $this->promo->total($this->total_transaksi);
                 // Pengurangan Kapasitas Promo
                 $this->promo->decreaseStok();
+
+                return true;
             } else {
                 return false;
             }
         }
+        return false;
     }
 
     public function checkInputPromo()

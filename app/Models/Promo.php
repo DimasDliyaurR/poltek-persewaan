@@ -15,27 +15,27 @@ class Promo extends Model
 
     public function asramas(): BelongsToMany
     {
-        return $this->belongsToMany(Asrama::class);
+        return $this->belongsToMany(TransaksiAsrama::class);
     }
 
-    public function alat_barangs(): BelongsToMany
+    public function alat_barangs(): HasMany
     {
-        return $this->belongsToMany(AlatBarang::class);
+        return $this->hasMany(TransaksiAlatBarang::class);
     }
 
-    public function gedung_laps(): BelongsToMany
+    public function gedung_laps(): HasMany
     {
-        return $this->belongsToMany(GedungLap::class);
+        return $this->hasMany(TransaksiGedung::class);
     }
 
-    public function kendaraans(): BelongsToMany
+    public function kendaraans(): HasMany
     {
-        return $this->belongsToMany(Kendaraan::class);
+        return $this->hasMany(TransaksiKendaraan::class);
     }
 
-    public function layanans(): BelongsToMany
+    public function layanans(): HasMany
     {
-        return $this->belongsToMany(Layanan::class);
+        return $this->hasMany(TransaksiLayanan::class);
     }
 
     public function detailKategoriPromo(): HasMany
