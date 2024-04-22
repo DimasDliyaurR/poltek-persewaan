@@ -84,7 +84,7 @@ class KendaraanFeController extends Controller
 
         $item = $request->slug;
         $this->inputPromo = $request->promo;
-        $promo = $this->handlerPromo($request, "Kendaraan");
+        $promo = $this->handlerPromo("Kendaraan");
 
         if ($promo == 1) {
             return back()->withInput()->withErrors([

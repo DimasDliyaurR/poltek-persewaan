@@ -65,7 +65,7 @@ class GedungFeController extends Controller
 
         // Promo
         $this->inputPromo = $request->promo;
-        $promo = $this->handlerPromo($request, "Gedung");
+        $promo = $this->handlerPromo("Gedung");
 
         if ($promo == 1) {
             return back()->withInput()->withErrors([

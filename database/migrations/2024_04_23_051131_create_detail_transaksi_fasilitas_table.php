@@ -11,17 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::disableForeignKeyConstraints();
-
-        Schema::create('detail_transaksi_asrama', function (Blueprint $table) {
+        Schema::create('detail_transaksi_fasilitas', function (Blueprint $table) {
             $table->id();
             $table->foreignId('transaksi_asrama_id')->constrained('transaksi_asramas');
-            $table->foreignId('asrama_id')->constrained("asramas");
-            $table->integer('dta_harga');
+            $table->foreignId('fasilitas_asrama_id')->constrained("fasilitas_asramas");
+            $table->integer('dtf_harga');
             $table->timestamps();
         });
-
-        Schema::enableForeignKeyConstraints();
     }
 
     /**
@@ -29,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('detail_transaksi_asramas');
+        Schema::dropIfExists('detail_transaksi_fasilitas');
     }
 };

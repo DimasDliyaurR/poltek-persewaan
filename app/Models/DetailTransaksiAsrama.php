@@ -10,7 +10,7 @@ class DetailTransaksiAsrama extends Model
 {
     use HasFactory;
 
-    protected $table = "asrama_transaksi_asrama";
+    protected $table = "detail_transaksi_asrama";
     /**
      * The attributes that are mass assignable.
      *
@@ -19,6 +19,7 @@ class DetailTransaksiAsrama extends Model
     protected $fillable = [
         'transaksi_asrama_id',
         'asrama_id',
+        'dta_harga',
     ];
 
     /**

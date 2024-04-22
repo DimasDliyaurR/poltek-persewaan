@@ -65,7 +65,7 @@ class LayananFeController extends Controller
 
         // Promo
         $this->inputPromo = $request->promo;
-        $promo = $this->handlerPromo($request, "Layanan");
+        $promo = $this->handlerPromo("Layanan");
 
         if ($promo == 1) {
             return back()->withInput()->withErrors([

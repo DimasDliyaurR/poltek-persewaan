@@ -20,11 +20,11 @@ trait HandlerPromo
      * @return int 2 Promo Tidak bisa digunakan
      * @return int 1 Promo Tidak Valid
      */
-    public function handlerPromo(Request $request, string $category)
+    public function handlerPromo(string $category)
     {
         $this->promo = new PromoHandler($this->inputPromo(), $category);
         // Cek Isi Promo
-        if ($this->checkInputPromo($request)) {
+        if ($this->checkInputPromo()) {
             // Apakah promo ada dan sesuai kategori
             if ($this->promo->isExist() && ($this->promo->isCategorySame() or $this->promo->isAppliesForAllCategories())) {
                 // Apakah Promo Tidak Kadaluarsa dan Aktif
@@ -66,13 +66,13 @@ trait HandlerPromo
         return false;
     }
 
-    public function checkInputPromo(Request $request)
+    public function checkInputPromo()
     {
-        return $this->inputPromo($request) != null;
+        return $this->inputPromo() != null;
     }
 
-    public function inputPromo(Request $request)
+    public function inputPromo()
     {
-        return property_exists($this, "inputPromo") ?? $request->promo;
+        return $this->inputPromo;
     }
 }

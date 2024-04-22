@@ -49,7 +49,7 @@
                 </div>
                 {{-- Button --}}
                 <div class="flex md:flex-row flex-col-reverse justify-between md:items-center">
-                    <p class="text-sm">List Item yang akan dibeli</p>
+                    <p class="text-sm">Ads On Fasilitas Asrama</p>
                     <button id="add-item"
                         class="text-white bg-primary hover:bg-orange-500 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"
                         type="button">

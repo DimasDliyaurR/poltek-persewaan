@@ -38,6 +38,12 @@ class FasilitasAsrama extends Model
         return $this->hasMany(DetailFasilitasAsrama::class);
     }
 
+    public function transaksiAsrama()
+    {
+        return $this->belongsToMany(TransaksiAsrama::class, "detail_transaksi_fasilitas", relatedPivotKey: "fasilitas_asrama_id")
+            ->using(DetailTransaksiFasilitas::class)->withPivot("dtf_harga");
+    }
+
     public function tipeAsramas(): BelongsToMany
     {
         return $this->belongsToMany(TipeAsrama::class, "detail_fasilitas_asramas", "tipe_asrama_id", "fasilitas_asrama_id")

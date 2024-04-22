@@ -11,6 +11,8 @@ use App\Http\Controllers\Controller;
 use App\Models\DetailTransaksiAsrama;
 use App\Http\Controllers\Traits\HandlerPromo;
 use App\Models\Asrama;
+use App\Models\DetailTransaksiFasilitas;
+use App\Models\FasilitasAsrama;
 use App\Services\handler\Midtrans\CreateSnapTokenService;
 
 class AsramaFeController extends Controller
@@ -19,6 +21,7 @@ class AsramaFeController extends Controller
     // Inisiasi Transaksi
     private $transaksi;
     private $total_transaksi = 0;
+    private $inputPromo;
 
     public function index()
     {
@@ -60,11 +63,12 @@ class AsramaFeController extends Controller
             "ta_check_out" => "required",
             "slug" => "required",
         ]);
-
         $item = $request->slug;
+        $this->inputPromo = $request->promo;
+        $validation["fasilitas"] = $request->fasilitas;
 
         // Promo
-        $promo = $this->handlerPromo($request, "Gedung");
+        $promo = $this->handlerPromo("Gedung");
 
         if ($promo == 1) {
             return back()->withInput()->withErrors([
@@ -88,24 +92,39 @@ class AsramaFeController extends Controller
                 "user_id" => auth()->user()->id,
                 "promo_id" => !($this->promo->isExist()) ? null : $this->promo->getPromo()->id,
                 "code_unique" => auth()->user()->id . strtotime(now()) . "#300",
-                "tg_tujuan" => $validation["tg_tujuan"],
-                "tg_tanggal_sewa" => now(),
-                "tg_tanggal_kembali" => $validation["tg_tanggal_kembali"],
+                "ta_check_in" => $validation["ta_check_in"],
+                "ta_tanggal_sewa" => now(),
+                "ta_check_out" => $validation["ta_check_out"],
             ]);
 
             $this->transaksi = $transaksi;
 
             // Store Detail Transaksi
             foreach ($validation["slug"] as $row => $value) {
-                $asrama = Asrama::where("a_slug", "=", $value)->first();
-                $total_harga = $asrama->a_tarif;
+                $asrama = Asrama::with("tipeAsrama")->where("a_slug", "=", $value)->first();
+                $total_harga = $asrama->tipeAsrama->ta_tarif;
 
                 $this->total_transaksi += $total_harga;
 
                 DetailTransaksiAsrama::create([
-                    "transaksi_gedung_id" => $transaksi->id,
-                    "gedung_lap_id" => $asrama->id,
-                    "dtg_harga" => $total_harga,
+                    "transaksi_asrama_id" => $transaksi->id,
+                    "asrama_id" => $asrama->id,
+                    "dta_harga" => $total_harga,
+                ]);
+            }
+            // Store Detail Fasilitas Asrama Transaksi
+            $total_transaksi_fasilitas = 0;
+            foreach ($validation["fasilitas"] as $row => $value) {
+                $fasilitasAsrama = FasilitasAsrama::where("fa_nama", "=", $value)->first();
+                $total_harga = $fasilitasAsrama->fa_tarif;
+
+                // Apakah Total Transaksi Fasilitas Di akumulasi kan dengan promo ?
+                $total_transaksi_fasilitas += $total_harga;
+
+                DetailTransaksiFasilitas::create([
+                    "transaksi_asrama_id" => $transaksi->id,
+                    "fasilitas_asrama_id" => $fasilitasAsrama->id,
+                    "dtf_harga" => $total_harga,
                 ]);
             }
         });
