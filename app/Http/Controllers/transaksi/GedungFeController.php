@@ -65,7 +65,7 @@ class GedungFeController extends Controller
 
         // Promo
         $this->inputPromo = $request->promo;
-        $promo = $this->handlerPromo("Gedung");
+        $promo = $this->handlerPromo($request, "Gedung");
 
         if ($promo == 1) {
             return back()->withInput()->withErrors([
@@ -80,8 +80,6 @@ class GedungFeController extends Controller
                 "promo" => "Promo sudah pernah digunakan",
             ]);
         }
-
-
 
         DB::transaction(function () use ($validation) {
             // Create Transaksi

@@ -17,7 +17,7 @@
     @vite('resources/js/app.js')
     <!-- Script -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js" type="text-javascript"></script>
-
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/datepicker.min.js"></script>
     @yield('script')
 </body>
 

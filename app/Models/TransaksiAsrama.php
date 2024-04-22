@@ -24,6 +24,8 @@ class TransaksiAsrama extends Model
      */
     protected $fillable = [
         'user_id',
+        'promo_id',
+        'code_unique',
         'ta_tanggal_sewa',
         'ta_check_in',
         'ta_check_out',
@@ -38,10 +40,11 @@ class TransaksiAsrama extends Model
     protected $casts = [
         'id' => 'integer',
         'user_id' => 'integer',
+        'promo_id' => 'integer',
+        'code_unique' => 'string',
         'ta_tanggal_sewa' => 'datetime',
         'ta_check_in' => 'datetime',
         'ta_check_out' => 'datetime',
-        'ta_is_sarapan' => 'boolean',
     ];
 
     public function detailTransaksiAsramas(): HasMany
@@ -59,7 +62,12 @@ class TransaksiAsrama extends Model
         return $this->belongsTo(User::class);
     }
 
-    public function events() : MorphMany
+    public function promo(): BelongsTo
+    {
+        return $this->belongsTo(Promo::class);
+    }
+
+    public function events(): MorphMany
     {
         return $this->morphMany(Event::class, 'eventable');
     }

@@ -16,10 +16,11 @@ return new class extends Migration
         Schema::create('transaksi_asramas', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->constrained();
-            $table->dateTime('ta_tanggal_sewa');
+            $table->foreignId('promo_id')->nullable()->constrained();
+            $table->string('code_unique');
+            $table->dateTime('ta_tanggal_sewa')->default(now());
             $table->dateTime('ta_check_in');
             $table->dateTime('ta_check_out');
-            $table->boolean('ta_is_sarapan');
             $table->timestamps();
         });
 

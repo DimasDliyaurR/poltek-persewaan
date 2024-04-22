@@ -13,35 +13,41 @@ trait HandlerPromo
     private $checkPromo = false;
 
     /**
-     * 
+     * Handler Promo
      * @param string $category
+     * @param \Illuminate\Http\Request $request
      * @return int 3 Promo Pernah digunakan
-     * @return int 3 Promo Pernah digunakan
+     * @return int 2 Promo Tidak bisa digunakan
+     * @return int 1 Promo Tidak Valid
      */
-    public function handlerPromo(string $category)
+    public function handlerPromo(Request $request, string $category)
     {
         $this->promo = new PromoHandler($this->inputPromo(), $category);
         // Cek Isi Promo
-        if ($this->checkInputPromo()) {
+        if ($this->checkInputPromo($request)) {
             // Apakah promo ada dan sesuai kategori
             if ($this->promo->isExist() && ($this->promo->isCategorySame() or $this->promo->isAppliesForAllCategories())) {
                 // Apakah Promo Tidak Kadaluarsa dan Aktif
                 if (!(!($this->promo->isExpired()) && $this->promo->isActive())) {
                     // Apakah Promo sudah digunakan oleh user
                     if ($this->promo->isUserAlreadyUsing()) {
-                        return 3; // Promo sudah pernah digunakan
+                        return 3;
                     }
                     // Promo sudah terdeteksi
                     $this->checkPromo = true;
                 } else {
-                    return 2; // Promo Tidak bisa digunakan
+                    return 2;
                 }
             } else {
-                return 1; // Promo Tidak Valid
+                return 1;
             }
         }
     }
 
+    /**
+     * 
+     * @return bool
+     */
     public function checkPromo()
     {
         if ($this->checkPromo) {
@@ -60,13 +66,13 @@ trait HandlerPromo
         return false;
     }
 
-    public function checkInputPromo()
+    public function checkInputPromo(Request $request)
     {
-        return $this->inputPromo() != null;
+        return $this->inputPromo($request) != null;
     }
 
-    public function inputPromo()
+    public function inputPromo(Request $request)
     {
-        return $this->inputPromo;
+        return property_exists($this, "inputPromo") ?? $request->promo;
     }
 }

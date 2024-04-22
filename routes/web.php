@@ -17,6 +17,7 @@ use App\Services\AlatBarang\AlatBarangService;
 use App\Http\Controllers\FEKendaraanController;
 use App\Http\Controllers\FETransaksiController;
 use App\Http\Controllers\LandingPageController;
+use App\Http\Controllers\transaksi\AsramaFeController;
 use App\Http\Controllers\transaksi\GedungFeController;
 use App\Http\Controllers\transaksi\LayananFeController;
 
@@ -346,5 +347,13 @@ Route::group(["prefix" => "layanan"], function () {
         Route::get("/", "index");
         Route::get("/{slug}/pesan", "pesanForm")->middleware("auth");
         Route::post("/beli-langsung", "pesan")->middleware("auth")->name("layanan.pesan");
+    });
+});
+
+Route::group(["prefix" => "asrama"], function () {
+    Route::controller(AsramaFeController::class)->group(function () {
+        Route::get("/", "index");
+        Route::get("/{slug}/pesan", "pesanForm")->middleware("auth");
+        Route::post("/beli-langsung", "pesan")->middleware("auth")->name("asrama.pesan");
     });
 });

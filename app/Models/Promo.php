@@ -13,27 +13,27 @@ class Promo extends Model
 
     protected $guarded = ["id"];
 
-    public function asramas(): BelongsToMany
+    public function transaksiAsramas(): BelongsToMany
     {
         return $this->belongsToMany(TransaksiAsrama::class);
     }
 
-    public function alat_barangs(): HasMany
+    public function transaksiAlatBarangs(): HasMany
     {
         return $this->hasMany(TransaksiAlatBarang::class);
     }
 
-    public function gedung_laps(): HasMany
+    public function transaksiGedungLap(): HasMany
     {
         return $this->hasMany(TransaksiGedung::class);
     }
 
-    public function kendaraans(): HasMany
+    public function transaksiKendaraan(): HasMany
     {
         return $this->hasMany(TransaksiKendaraan::class);
     }
 
-    public function layanans(): HasMany
+    public function transaksiLayanan(): HasMany
     {
         return $this->hasMany(TransaksiLayanan::class);
     }

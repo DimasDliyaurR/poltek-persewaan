@@ -24,9 +24,8 @@ class RequestDetailFasilitasAsrama extends FormRequest
     {
         $detailFasilitasAsrama = $this->route();
         return [
-            "fasilitas_asrama_id" => [
-                "required",
-            ],
+            "fasilitas_asrama_id" => "required",
+            "dfa_status" => "required",
         ];
     }
 
@@ -34,7 +33,7 @@ class RequestDetailFasilitasAsrama extends FormRequest
     {
         return [
             "fasilitas_asrama_id.required" => "Fasilitas Asrama belum diisi",
-            "fasilitas_asrama_id.unique" => "Fasilitas sudah digunakan",
+            "dfa_status.required" => "Status belum diisi",
         ];
     }
 }
