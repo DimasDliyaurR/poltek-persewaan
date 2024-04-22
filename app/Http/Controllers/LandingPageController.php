@@ -76,9 +76,12 @@ class LandingPageController extends Controller
 
     public function promo()
     {
-        $promo = Promo::all();
+        $promo = Promo::paginate(3);
         $title  ="Home";
-        return view('index', ['promo'=>$promo, 'title'=>$title]
+        return view('promo', [
+        
+        'title'=>$title,
+        'promo'=>$promo]
     );
     }
 }

@@ -318,13 +318,16 @@ Route::controller(LoginController::class)->group(function () {
 
 
 // FrontEnd
+Route::view('/', 'index', [
+    "title" => "Home",
+]);
 Route::view('/kalender', [LandingPageController::class, 'kalender']);
 Route::get('/kalender/list', [LandingPageController::class, 'listEvent'])->name('kalender.list');
 // Route::get('/', function () {
 //     $promo = \App\Models\Promo::all(); // Ubah namespace sesuai dengan struktur folder Anda
 //     return view('index', ['promo' => $promo]);
 // });
-Route::get('/', [LandingPageController::class, 'promo']);
+Route::get('/promo', [LandingPageController::class, 'promo']);
 Route::get('/gedung', [FEGedungLapController::class, 'index']);
 Route::get('/detailgedung/{id}', [FEgedungLapController::class, 'detail'])->name('detailgedung');
 // Route::get('/k_pesan/{id}', [FEgedungLapController::class, 'store'])->name('k_pesan');
@@ -363,7 +366,15 @@ Route::controller(FEKendaraanController::class)->group(function () {
 
 });
 
-
+Route::view('/asrama/detail', 'asrama.detail', [
+    "title" => "Detail Asrama",
+]);
+Route::view('/asrama/pesan', 'asrama.transaksi_pemesanan', [
+    "title" => "Pesan Asrama",
+]);
+Route::view('/asrama/invoice', 'asrama.transaksi_invoice', [
+    "title" => "Invoice Asrama",
+]);
 // Route::view('/penginapan', 'kategori.penginapan', [
 //     "title" => "Penginapan"
 // ]);
@@ -380,9 +391,7 @@ Route::controller(FEKendaraanController::class)->group(function () {
 //     "title" => "Sewa Bus",
 // ]);
 // // Transaksi
-// Route::view('/pesan', 'transaksi.pesan', [
-//     "title" => "Pemesanan",
-// ]);
+
 Route::view('/bayar', 'user_transaksi.bayar', [
     "title" => "Pembayaran",
 ]);

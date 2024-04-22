@@ -1,7 +1,8 @@
 @extends('layouts-home.navbar.nav-transaksi')
 @section('content')
+
 <div class="bg-plaster">
-    <div class="  pb-36 pt-36 mx-auto w-3/4 h-full ">
+    <div class="  pb-36 pt-36 mx-auto w-2/3 h-full ">
         <div class="container bg-white p-6 rounded-md ">
             <h4 class="  font-semibold mb-6 ">Pemesanan *nama kategori*</h4>
             <form action="" method="post">
@@ -45,8 +46,7 @@
                         <option value="transfer">Lunas</option>
                     </select>
                 </div>
-            </div>
-            <div class="mt-1 container bg-white py-6 rounded-md shadow-md">
+            
                 
             <h4 class="font-semibold mb-2">Rincian Harga</h4>
             <div class="flex justify-between">

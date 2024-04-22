@@ -22,13 +22,15 @@ hamburger.addEventListener("click", function () {
     navMenu.classList.toggle("hidden");
     navMenu.classList.toggle("bg-white");
 });
-// back to top
-const btnBTT = document.querySelector(".btnbtt");
+// back to top LP
+const btnBTT = document.querySelector(".btnbtt .btndt");
 let windowPosition = false;
 window.addEventListener("scroll", function () {
     windowPosition = window.scrollY > 300;
     btnBTT.classList.toggle("btn-active", windowPosition);
 });
+
+// back to top detail
 
 // dropdown kategori
 function toggleDropdown() {
