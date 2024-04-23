@@ -2,52 +2,46 @@
 
 namespace App\Http\Controllers\transaksi;
 
-use Exception;
-use App\Models\GedungLap;
+use App\Models\AlatBarang;
 use Illuminate\Http\Request;
-use App\Models\TransaksiGedung;
 use Illuminate\Support\Facades\DB;
+use App\Models\TransaksiAlatBarang;
 use App\Http\Controllers\Controller;
+use App\Models\DetailTransaksiAlatBarang;
 use App\Http\Controllers\Traits\HandlerPromo;
-use App\Models\DetailTransaksiGedung;
-use App\Services\handler\Promo\PromoHandler;
 use App\Services\handler\Midtrans\CreateSnapTokenService;
 
-class GedungFeController extends Controller
+class AlatBarangFeController extends Controller
 {
     use HandlerPromo;
     // Inisiasi Transaksi
     private $transaksi;
     private $total_transaksi = 0;
-
-    protected $inputPromo;
+    private $inputPromo;
 
     public function index()
     {
-        $gedung_lap = GedungLap::latest();
+        $alatBarang = AlatBarang::latest();
         if (request('search')) {
-            $gedung_lap->where('gl_nama', 'like', "%" . request('search') . "%")
-                ->orWhere('gl_keterangan', 'like', '%' . request('search') . '%');
+            $alatBarang->where('ab_nama', 'like', "%" . request('search') . "%")
+                ->orWhere('ab_keterangan', 'like', '%' . request('search') . '%');
         }
-        return view('kategori.gedung', [
-            "title" => "Gedung Lapangan",
-            "gedung_lap" => $gedung_lap->paginate(3)
+        return view('kategori.penginapan', [
+            "title" => "Alat Barang",
+            "alatBarang" => $alatBarang->paginate(5)
         ]);
     }
 
     public function pesanForm($slug)
     {
-        try {
-            $item = $slug;
-            $item = GedungLap::whereGlSlug($item)->first();
-            $MerkKendaraan = GedungLap::all();
-        } catch (\Exception $th) {
-            throw new Exception($th->getMessage());
+        $item = $slug;
+        $item = AlatBarang::whereAbSlug($item)->first();
+        if ($item == null) {
+            abort(404);
         }
 
-        return view("transaksi.gedung.pesan", [
-            "title" => "Pesan Kendaraan",
-            "merkKendaraan" => $MerkKendaraan,
+        return view("transaksi.alatBarang.pesan", [
+            "title" => "Pesan Asrama",
             "item" => $item,
         ]);
     }
@@ -55,17 +49,17 @@ class GedungFeController extends Controller
     public function pesan(Request $request)
     {
         $validation = $request->validate([
-            "tg_tanggal_sewa" => "required",
-            "tg_tanggal_kembali" => "required",
-            "tg_tujuan" => "required",
+            "tab_tanggal_pesanan" => "required",
+            "tab_tanggal_kembali" => "required",
+            "tab_keterangan" => "required",
             "slug" => "required",
         ]);
 
         $item = $request->slug;
+        $this->inputPromo = $request->promo;
 
         // Promo
-        $this->inputPromo = $request->promo;
-        $promo = $this->handlerPromo("gedung_laps");
+        $promo = $this->handlerPromo("alat_barangs");
 
         if ($promo == 1) {
             return back()->withInput()->withErrors([
@@ -83,28 +77,29 @@ class GedungFeController extends Controller
 
         DB::transaction(function () use ($validation) {
             // Create Transaksi
-            $transaksi = TransaksiGedung::create([
+            $transaksi = TransaksiAlatBarang::create([
                 "user_id" => auth()->user()->id,
                 "promo_id" => !($this->promo->isExist()) ? null : $this->promo->getPromo()->id,
-                "code_unique" => auth()->user()->id . strtotime(now()) . "#300",
-                "tg_tujuan" => $validation["tg_tujuan"],
-                "tg_tanggal_sewa" => now(),
-                "tg_tanggal_kembali" => $validation["tg_tanggal_kembali"],
+                "code_unique" => auth()->user()->id . strtotime(now()) . "#400",
+                "tab_tanggal_pesanan" => $validation["tab_tanggal_pesanan"],
+                "tab_tanggal_sewa" => now(),
+                "tab_tanggal_kembali" => $validation["tab_tanggal_kembali"],
+                "tab_keterangan" => $validation["tab_keterangan"],
             ]);
 
             $this->transaksi = $transaksi;
 
             // Store Detail Transaksi
             foreach ($validation["slug"] as $row => $value) {
-                $gedungLap = GedungLap::where("gl_slug", "=", $value)->first();
-                $total_harga = $gedungLap->gl_tarif;
+                $alatBarang = AlatBarang::where("ab_slug", "=", $value)->first();
+                $total_harga = $alatBarang->ab_tarif;
 
                 $this->total_transaksi += $total_harga;
 
-                DetailTransaksiGedung::create([
-                    "transaksi_gedung_id" => $transaksi->id,
-                    "gedung_lap_id" => $gedungLap->id,
-                    "dtg_harga" => $total_harga,
+                DetailTransaksiAlatBarang::create([
+                    "transaksi_alat_barang_id" => $transaksi->id,
+                    "alat_barang_id" => $alatBarang->id,
+                    "dta_harga" => $total_harga,
                 ]);
             }
         });
@@ -118,7 +113,7 @@ class GedungFeController extends Controller
 
         $data = array(
             'transaction_details' => array(
-                'order_id' => $this->transaksi->code_unique . "-gedungs",
+                'order_id' => $this->transaksi->code_unique . "-asramas",
                 'gross_amount' => $this->total_transaksi,
             ),
             'customer_details' => array(

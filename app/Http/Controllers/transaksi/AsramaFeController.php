@@ -22,17 +22,19 @@ class AsramaFeController extends Controller
     private $transaksi;
     private $total_transaksi = 0;
     private $inputPromo;
+    private $total_transaksi_fasilitas = 0;
+
 
     public function index()
     {
-        $gedung_lap = TipeAsrama::latest();
+        $tipeAsrama = TipeAsrama::latest();
         if (request('search')) {
-            $gedung_lap->where('gl_nama', 'like', "%" . request('search') . "%")
+            $tipeAsrama->where('gl_nama', 'like', "%" . request('search') . "%")
                 ->orWhere('gl_keterangan', 'like', '%' . request('search') . '%');
         }
         return view('kategori.penginapan', [
             "title" => "Gedung Lapangan",
-            "gedung_lap" => $gedung_lap->paginate(3)
+            "tipeAsrama" => $tipeAsrama->paginate(3)
         ]);
     }
 
@@ -68,7 +70,7 @@ class AsramaFeController extends Controller
         $validation["fasilitas"] = $request->fasilitas;
 
         // Promo
-        $promo = $this->handlerPromo("Gedung");
+        $promo = $this->handlerPromo("asramas");
 
         if ($promo == 1) {
             return back()->withInput()->withErrors([
@@ -91,7 +93,7 @@ class AsramaFeController extends Controller
             $transaksi = TransaksiAsrama::create([
                 "user_id" => auth()->user()->id,
                 "promo_id" => !($this->promo->isExist()) ? null : $this->promo->getPromo()->id,
-                "code_unique" => auth()->user()->id . strtotime(now()) . "#300",
+                "code_unique" => auth()->user()->id . strtotime(now()) . "#400",
                 "ta_check_in" => $validation["ta_check_in"],
                 "ta_tanggal_sewa" => now(),
                 "ta_check_out" => $validation["ta_check_out"],
@@ -102,7 +104,8 @@ class AsramaFeController extends Controller
             // Store Detail Transaksi
             foreach ($validation["slug"] as $row => $value) {
                 $asrama = Asrama::with("tipeAsrama")->where("a_slug", "=", $value)->first();
-                $total_harga = $asrama->tipeAsrama->ta_tarif;
+                $durasi_check_in_to_check_out = intdiv(strtotime($validation["ta_check_out"]) - strtotime($validation["ta_check_in"]), (24 * 60 * 60));
+                $total_harga = $asrama->tipeAsrama->ta_tarif * $durasi_check_in_to_check_out;
 
                 $this->total_transaksi += $total_harga;
 
@@ -112,20 +115,22 @@ class AsramaFeController extends Controller
                     "dta_harga" => $total_harga,
                 ]);
             }
+
             // Store Detail Fasilitas Asrama Transaksi
-            $total_transaksi_fasilitas = 0;
-            foreach ($validation["fasilitas"] as $row => $value) {
-                $fasilitasAsrama = FasilitasAsrama::where("fa_nama", "=", $value)->first();
-                $total_harga = $fasilitasAsrama->fa_tarif;
+            if ($validation["fasilitas"] != null) {
+                foreach ($validation["fasilitas"] as $row => $value) {
+                    $fasilitasAsrama = FasilitasAsrama::where("fa_nama", "=", $value)->first();
+                    $total_harga = $fasilitasAsrama->fa_tarif;
 
-                // Apakah Total Transaksi Fasilitas Di akumulasi kan dengan promo ?
-                $total_transaksi_fasilitas += $total_harga;
+                    // Apakah Total Transaksi Fasilitas Di akumulasi kan dengan promo ?
+                    $this->total_transaksi_fasilitas += $total_harga;
 
-                DetailTransaksiFasilitas::create([
-                    "transaksi_asrama_id" => $transaksi->id,
-                    "fasilitas_asrama_id" => $fasilitasAsrama->id,
-                    "dtf_harga" => $total_harga,
-                ]);
+                    DetailTransaksiFasilitas::create([
+                        "transaksi_asrama_id" => $transaksi->id,
+                        "fasilitas_asrama_id" => $fasilitasAsrama->id,
+                        "dtf_harga" => $total_harga,
+                    ]);
+                }
             }
         });
 
@@ -138,8 +143,8 @@ class AsramaFeController extends Controller
 
         $data = array(
             'transaction_details' => array(
-                'order_id' => $this->transaksi->code_unique . "-gedungs",
-                'gross_amount' => $this->total_transaksi,
+                'order_id' => $this->transaksi->code_unique . "-asramas",
+                'gross_amount' => $this->total_transaksi + $this->total_transaksi_fasilitas,
             ),
             'customer_details' => array(
                 'first_name' => auth()->user()->profile->nama_lengkap,

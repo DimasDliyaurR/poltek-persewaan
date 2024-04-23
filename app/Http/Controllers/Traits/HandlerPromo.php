@@ -57,10 +57,7 @@ trait HandlerPromo
                 $this->total_transaksi = $this->promo->total($this->total_transaksi);
                 // Pengurangan Kapasitas Promo
                 $this->promo->decreaseStok();
-
                 return true;
-            } else {
-                return false;
             }
         }
         return false;

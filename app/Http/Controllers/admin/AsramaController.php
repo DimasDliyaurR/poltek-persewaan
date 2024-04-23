@@ -308,7 +308,7 @@ class AsramaController extends Controller
         return view("admin.asrama.tipeAsrama.edit", [
             "title" => "Tipe Asrama",
             "action" => "asrama",
-            "asrama" => $asrama,
+            "asrama" => $asrama->first(),
         ]);
     }
 
@@ -407,7 +407,7 @@ class AsramaController extends Controller
      */
     public function createDetailFasilitasAsrama(RequestDetailFasilitasAsrama $request, $id)
     {
-        $validation = $request->validated(); 
+        $validation = $request->validated();
 
         $existDetail = $this->asramaService->IsExistFasilitasTransaksi($validation["fasilitas_asrama_id"], $id);
 

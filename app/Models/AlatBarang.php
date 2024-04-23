@@ -18,14 +18,14 @@ class AlatBarang extends Model
      * @var array
      */
     protected $fillable = [
-        'a_nama',
+        'ab_nama',
         'satuan_alat_barang_id',
-        'a_foto',
-        'a_keterangan',
-        'a_tarif',
-        'a_qty',
-        'a_status',
-        'a_slug',
+        'ab_foto',
+        'ab_keterangan',
+        'ab_tarif',
+        'ab_qty',
+        'ab_status',
+        'ab_slug',
     ];
 
     /**

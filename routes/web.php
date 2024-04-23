@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Controllers\AlatBarangController;
+use App\Http\Controllers\admin\AlatBarangController;
 use App\Http\Controllers\admin\AsramaController;
 use App\Http\Controllers\auth\LoginController;
 use App\Http\Controllers\auth\RegistrationController;
@@ -17,6 +17,7 @@ use App\Services\AlatBarang\AlatBarangService;
 use App\Http\Controllers\FEKendaraanController;
 use App\Http\Controllers\FETransaksiController;
 use App\Http\Controllers\LandingPageController;
+use App\Http\Controllers\transaksi\AlatBarangFeController;
 use App\Http\Controllers\transaksi\AsramaFeController;
 use App\Http\Controllers\transaksi\GedungFeController;
 use App\Http\Controllers\transaksi\LayananFeController;
@@ -355,5 +356,13 @@ Route::group(["prefix" => "asrama"], function () {
         Route::get("/", "index");
         Route::get("/{slug}/pesan", "pesanForm")->middleware("auth");
         Route::post("/beli-langsung", "pesan")->middleware("auth")->name("asrama.pesan");
+    });
+});
+
+Route::group(["prefix" => "alat-barang"], function () {
+    Route::controller(AlatBarangFeController::class)->group(function () {
+        Route::get("/", "index");
+        Route::get("/{slug}/pesan", "pesanForm")->middleware("auth");
+        Route::post("/beli-langsung", "pesan")->middleware("auth")->name("alat-barang.pesan");
     });
 });

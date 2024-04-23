@@ -24,12 +24,12 @@ class TransaksiAlatBarang extends Model
      */
     protected $fillable = [
         'user_id',
-        'a_nama',
-        'a_foto',
-        'a_keterangan',
-        'a_tarif',
-        'a_status',
-        'a_satuan',
+        'promo_id',
+        'code_unique',
+        'tab_tanggal_pesanan',
+        'tab_tanggal_kembali',
+        'tab_keterangan',
+        'status',
     ];
 
     /**
@@ -40,7 +40,7 @@ class TransaksiAlatBarang extends Model
     protected $casts = [
         'id' => 'integer',
         'user_id' => 'integer',
-        'a_tarif' => 'decimal:2',
+        'code_unique' => 'string',
     ];
 
     public function detailTransaksiAlatBarangs(): HasMany
@@ -53,6 +53,11 @@ class TransaksiAlatBarang extends Model
         return $this->belongsToMany(AlatBarang::class, "detail_transaksi_alat_barangs", "transaksi_alat_barang_id", "alat_barang_id")
             ->using(DetailTransaksiAlatBarang::class)
             ->as("alatBarangs");
+    }
+
+    public function promo(): BelongsTo
+    {
+        return $this->belongsTo(Promo::class);
     }
 
     public function user(): BelongsTo

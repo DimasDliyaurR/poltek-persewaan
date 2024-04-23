@@ -7,6 +7,8 @@ use Illuminate\Http\Request;
 use App\Models\MerkKendaraan;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
+use App\Models\AlatBarang;
+use App\Models\TransaksiAlatBarang;
 use App\Services\handler\Midtrans\Callback;
 
 class ApiController extends Controller
@@ -33,9 +35,15 @@ class ApiController extends Controller
             $category = "transaksi_" . $callback->model;
 
             if ($callback->isSuccess()) {
-                DB::table($category)->where('code_unique', $order->id)->update([
+                $item = DB::table($category)->where('code_unique', $order->id)->update([
                     'status' => "terbayar",
                 ]);
+                if ($category == "transaksi_alat_barangs") {
+                    $transaksiAlatBarang = TransaksiAlatBarang::with(["alatBarangs"])->whereCodeUnique($order->id)->first();
+                    AlatBarang::find($transaksiAlatBarang->alatBarangs->id)->update([
+                        "a_qty" => $transaksiAlatBarang->alatBarangs->a_qty - 1
+                    ]);
+                }
             }
 
             if ($callback->isExpire()) {
