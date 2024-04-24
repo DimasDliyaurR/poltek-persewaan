@@ -30,7 +30,18 @@ body {
 .hover\:fill-white:hover {
     fill: #ffffff;
 }
-
+/* Border */
+.roundedrl {
+    border-top-left-radius: 60px;
+    border-bottom-right-radius: 60px;
+}
+.roundedlr {
+    border-top-right-radius: 60px;
+    border-bottom-left-radius: 60px;
+}
+.space-kanan {
+    margin-right: 3px;
+}
 .navbar-fixed {
     @apply fixed z-[9999] bg-white bg-opacity-80;
     backdrop-filter: blur(10px);

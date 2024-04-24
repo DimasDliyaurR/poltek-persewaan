@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 
-use App\Models\Kendaraan;
+use App\Models\Kendaraan;   
 use App\Models\MerkKendaraan;
 use App\Http\Controllers\Controller;
 use App\Models\TransaksiKendaraan;
@@ -13,17 +13,16 @@ class FEKendaraanController extends Controller
 {
     public function index()
     {
-        $kendaraans = MerkKendaraan::with("kendaraans")->withCount([
-            "kendaraans" => fn ($q) => $q->where("k_status", "=", "tersedia")
+        $transportasi = MerkKendaraan::with("transportasi")->withCount([
+            "transportasi" => fn ($q) => $q->where("k_status", "=", "tersedia")
         ]);
-        $kendaraans = MerkKendaraan::latest();
+        $transportasi = MerkKendaraan::latest();
         if(request('search')){
-            $kendaraans->where('mk_seri', 'like', '%' . request('search'). '%');
+            $transportasi->where('mk_seri', 'like', '%' . request('search'). '%');
         }
-
         return view('transportasi.index', [
             "title" => "Transportasi",
-            "kendaraans" => $kendaraans->paginate(6)
+            "transportasi" => $transportasi->paginate(6)
         ]);
     }
     public function detail()

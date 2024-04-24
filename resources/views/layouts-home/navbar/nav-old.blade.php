@@ -4,30 +4,32 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{{$title }}| PERSEWAAAN ASET</title>
-    <link rel="icon" href="{{asset('img/logo.png') }}" type="image/png"  sizes="36x50">
+    <link rel="icon" href="{{asset('img/logo.png') }}" type="image/png"  sizes="16x35">
     <link  href="https://icons8.com/icon/E4FAF4hA9ugF/help">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.css" rel="stylesheet" />
+    <!-- <link rel="stylesheet" href="{{asset('css/slider.css')}}"> -->
+    <!-- Link Swiper's CSS -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
     @vite('resources/css/app.css')
     @vite('resources/js/app.js')
-
+  
 </head>
 <body >
     
 <header class="bg-transparent absolute top-0 left-0 w-full flex items-center z-10">
-      <div class="container">
-        <div class="flex items-center justify-between relative">
-          <div class="px-4 flex items-center">
-            <!-- <img src="./dist/img/Logo Poltekbang.png" width="50" alt="" /> -->
-            <img src="{{ asset('img/LogoPoltekbang.png') }}" class="h-11 w-15" alt="Logo ">  
-            <div class="ml-1">
-            <a href="/index #home" class="font-bold text-lg text-black">
-            SEWA ASET<br>
-            <span class="font-bold text-lg text-black">POLITEKNIK PENERBANGAN SURABAYA</span>
-          </a>
+      <div class="container ">
+          <div class="flex items-center justify-between relative">
+            <div class=" flex items-center xl:px-8 py-2">
+              <!-- <img src="./dist/img/Logo Poltekbang.png" width="50" alt="" /> -->
+              <img src="{{ asset('img/LogoPoltekbang.png') }}" class="h-11 w-15" alt="Logo">  
+              <div class="ml-1">
+                <a href="/index #home" class="font-bold xl:text-lg md:text-lg  text-black">
+                SEWA ASET<br>
+                <span class="font-bold xl:text-lg md:text-lg text-xs text-black">POLITEKNIK PENERBANGAN SURABAYA</span>
+                </a>
+              </div>
             </div>
-            
-          </div>
-          <div class="flex items-center px-4">
+          <div class="flex items-center px-8">
             <button id="hamburger" name="hamburger" type="button" class="block absolute right-4 lg:hidden">
               <span class="hamburger-line transition duration-300 origin-top-left"></span>
               <span class="hamburger-line"></span>
@@ -37,28 +39,29 @@
             <nav id="nav-menu" class="hidden absolute py-5 bg-transparent shadow-lg rounded-lg max-w-[250px] w-full right-4 top-full lg:block lg:static lg:max-w-full lg:shadow-none lg:rounded-none  ">
               <ul class="block lg:flex">
                 <li class="group"></li>
-                <a href="#home" class="text-base font-normal text-black py-2 mx-8 flex group-hover:text-primary">Beranda</a>
+                <a href="#home" class="text-base font-normal text-black py-2 mx-6 flex group-hover:text-primary">Beranda</a>
                 <li class="group">
-                  <a href="#kategori" class="text-base text-black py-2 mx-8 flex group-hover:text-primary">Kategori</a>
+                  <a href="#kategori" class="text-base text-black py-2 mx-6 flex group-hover:text-primary">Kategori</a>
                 </li>
                 <li class="group">
-                  <a href="#promo" class="text-base text-black py-2 mx-8 flex group-hover:text-primary">Promo</a>
+                  <a href="#promo" class="text-base text-black py-2 mx-6 flex group-hover:text-primary">Promo</a>
                 </li>
                 <!-- <li class="group">
-                  <a href="#FAQ" class="text-base text-black py-2 mx-8 flex group-hover:text-primary">FAQ</a>
+                  <a href="#FAQ" class="text-base text-black py-2 mx-6 flex group-hover:text-primary">FAQ</a>
                 </li> -->
                 <li class="group">
-                  <a href="#syarat" class="text-base text-black py-2 mx-8 flex group-hover:text-primary">Syarat</a>
+                  <a href="#syarat" class="text-base text-black py-2 mx-6 flex group-hover:text-primary">Syarat</a>
                 </li>
                 <li class="group">
-                  <a href="#FAQ" class="text-base text-black py-2 mx-8 flex group-hover:text-primary">Pesanan</a>
+                  <a href="#FAQ" class="text-base text-black py-2 mx-6 flex group-hover:text-primary">Pesanan</a>
                 </li>
                 <li class="group">
-                  <a href="/login" class="text-base text-black py-2 mx-8 flex group-hover:text-primary">Daftar</a>
+                  <a href="/login" class="text-base text-black py-2 mx-6 flex group-hover:text-primary">Daftar</a>
                 </li>
               </ul>
             </nav>
           </div>
+
         </div>
       </div>
     </header>
@@ -151,7 +154,7 @@
               <img src="{{ asset('img/LogoPoltekbang.png') }}" class="h-11 w-15 " alt="Logo ">  
               </a>
               <p class="font-bold text-4xl ">SEWA ASET  <br>
-              <span class="text-xl">POLITEKNIK PENERBANGAN SURABAYA</span>
+              <span class="text-xl ">POLITEKNIK PENERBANGAN SURABAYA</span>
               </p>
             </div>
             <div class="mt-6 flex px-16">
@@ -237,5 +240,6 @@
     <!-- <script src="../path/to/flowbite/dist/flowbite.min.js"></script> -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.js"></script>
     <script src="../path/to/flowbite/dist/datepicker.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
 </body>
 </html>

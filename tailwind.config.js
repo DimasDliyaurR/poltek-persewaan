@@ -16,7 +16,7 @@ export default {
             plaster: "#F4EADE",
             coral: "#ED8C72",
             black: "#000000",
-            white: "#FFFFFF",
+            white: "#ffffff",
             softblue: "#F2FBFF",
         },
         fontFamily: {

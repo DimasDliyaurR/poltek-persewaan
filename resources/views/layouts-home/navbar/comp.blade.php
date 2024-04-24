@@ -6,17 +6,43 @@
     <title>{{ $title }} | PERSEWAAN ASET</title>
     <link  href="https://icons8.com/icon/E4FAF4hA9ugF/help">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.css" rel="stylesheet" />
-    <!-- <link rel="stylesheet" href="{{ asset('css/style.css') }}">
-    <link rel="stylesheet" href="{{ asset('js/kategori.js') }}"> -->
+    
+    <link rel="stylesheet" href="{{ asset('css/slider.css') }}"
+    
+
     @vite('resources/css/app.css')
-    <!-- @vite('resources/js/app.js') -->
-    @stack('styles')
+    @vite('resources/js/app.js')
+
 
 </head>
 <body >
+<header class="bg-transparent absolute top-0 left-0 w-full flex items-center z-10">
+      <div class="container">
+        <div class="flex items-center justify-between relative">
+          <div class="px-4 flex items-center">
+            <!-- <img src="./dist/img/Logo Poltekbang.png" width="50" alt="" /> -->
+            <img src="{{ asset('img/LogoPoltekbang.png') }}" class="h-11 w-15" alt="Logo ">  
+            <div class="ml-1">
+            <a href="/index #home" class="font-bold text-lg text-black">
+            SEWA ASET<br>
+            <span class="font-bold text-lg text-black">POLITEKNIK PENERBANGAN SURABAYA</span>
+          </a>
+            </div>
+            
+          </div>
+          <div class="flex items-center px-4 py-3">
+            <button id="hamburger" name="hamburger" type="button" class="block absolute right-4 lg:hidden">
+              <span class="hamburger-line transition duration-300 origin-top-left"></span>
+              <span class="hamburger-line"></span>
+              <span class="hamburger-line origin-bottom-left"></span>
+            </button>
+
+            
+          </div>
+        </div>
+      </div>
+</header>
 @yield('content')
-
-
 <footer class="bg-plaster p-16 ">
       <div class="container mx-auto  px-6 ">
         <div class="grid md:grid-cols-12 grid-cols-1 gap-7 pb-16">

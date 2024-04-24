@@ -23,7 +23,7 @@ hamburger.addEventListener("click", function () {
     navMenu.classList.toggle("bg-white");
 });
 // back to top LP
-const btnBTT = document.querySelector(".btnbtt .btndt");
+const btnBTT = document.querySelector(".btnbtt");
 let windowPosition = false;
 window.addEventListener("scroll", function () {
     windowPosition = window.scrollY > 300;

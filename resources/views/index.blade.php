@@ -1,31 +1,27 @@
 @extends('layouts-home.navbar.nav-old')
 @section('content')
 <!-- Hero Section Start -->
-<section id="home" class="pt-36 pb-56 h-screen relative  ">
-<div class="absolute inset-0 bg-white opacity-10">
+<section id="home" class="pt-36 pb-64 h-2/5 relative  ">
+<div class="absolute inset-0 bg-white opacity-10 ">
   <div class=" h-full  bg-cover " style="background-image: url('{{ asset('img/gerbang.jpg') }}');">
   </div> 
 </div>     
-<div class="container relative z-10">
+<div class="container relative z-10 pb-56">
   <div class="flex flex-wrap">
     <div class="w-full self-end px-4  ">
-      <div class="relative mt-10  pb-3 lg:mt-9 lg:right-0">
+      <!-- <div class="relative mt-10  pb-3 lg:mt-9 lg:right-0">
         <img src="{{  asset('img/LogoPoltekbang.png')}}" alt="Logo Poltekbang" class="max-w-full mx-auto w-96 h-64" />
-      </div>
+      </div> -->
     </div>
     <div class="w-full text-center px-4 ">
-      <h1 class="block font-bold text-slate-900 text-4xl lg:text-5xl pb-2">SEWA ASET </h1>
+      <h1 class="block font-bold text-slate-900 text-4xl lg:text-5xl pt-10 pb-2">SEWA ASET </h1>
         <h2 class="font-semibold md:text-xl lg:text-2xl mt-6 leading relaxed mb-8 ">Mudah, Aman , Terjangkau !</h2>
     </div>
     <div id="buttondropdown" class="mx-auto flex">
       <div id="dropdownKategori" class="relative">
-        <div 
-            class="border-solid text-sm border-gray-400 border-[1px] px-5 py-2 rounded cursor-pointer  flex justify-between bg-white shadow-sm ">
+        <div class="border-solid text-sm border-gray-400 border-[1px] px-5 py-2 rounded cursor-pointer  flex justify-between bg-white shadow-sm ">
                <a href="#kat">Booking dari sekarang !  | Kategori </a>
-              
         </div>
-        
-      
     </div>
     <div id="dropdownJadwal" class="relative">
       <div onclick="toggleDropdown2()" class="border-solid w-28 text-sm border-gray-400 border-[1px] px-5 py-2 rounded cursor-pointer  flex  bg-white shadow-sm items-center">
@@ -47,27 +43,18 @@
         }
       </script>
     </div>
-    <!-- <div class="relative">
-      <div class="border-solid w-28 text-sm border-gray-400 border-[1px] px-5 py-2 rounded cursor-pointer  flex  bg-white shadow-sm " >
-      <form action="">
-      Search 
-      </form>  
-      
-      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5">
-        <path stroke-linecap="round" stroke-linejoin="round" d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z" />
-      </svg>
-      </div>
-    </div> -->
+
     </div>
   </div>
 </div>
 
-  <!-- <div id="kat" class="  container relative mb-40 mt-40  h-40  w-3/4 bg-white mx-auto rounded-lg shadow-lg text-center justify-center overflow-hidden  "> -->
-  <div id="kat" class=" mb-40 mt-40 w-3/4 h-40 bg-white mx-auto rounded-lg shadow-lg text-center justify-center items-center  ">
-    <div class="flex z-10">
-      <div class="w-1/5 h-40 hover:bg-primary hover:text-white rounded-lg p-4 cursor-pointer">
-        <a href="/transportasi" class=" m-auto ">Transportasi
-          <svg version="1.1" class="hover:text-white  mt-6 h-16 w-16 mx-auto" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="100%" viewBox="0 0 500 500" enable-background="new 0 0 500 500" xml:space="preserve">
+  </section>
+
+    <!-- Hero Section End -->
+    <div id="kat" class=" relative bg-white rounded-lg flex  flex-wrap xl:w-3/4 mx-auto xl:shadow-lg  -mt-20">
+      <div class="xl:w-1/5 md:w-1/3 w-1/2 shadow-lg xl:shadow-none  h-40 hover:bg-gray-300 rounded-lg p-4 cursor-pointer flex justify-center items-center ">
+        <a href="">Transportasi
+        <svg version="1.1" class="hover:text-white  mt-6 h-16 w-16 mx-auto" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="100%" viewBox="0 0 500 500" enable-background="new 0 0 500 500" xml:space="preserve">
           
           <path fill="#FB761C" opacity="1.000000" stroke="none" 
             d="
@@ -307,35 +294,29 @@
           </svg>
         </a>
       </div>
-      <div class="w-1/5 h-40 hover:bg-primary hover:text-white rounded-lg p-4">
+      <div class="xl:w-1/5  md:w-1/3 w-1/2 shadow-lg xl:shadow-none h-40 hover:bg-gray-300 rounded-lg p-4 cursor-pointer  flex justify-center items-center">
         <a href="/gedung">Gedung
-        <img src="{{ asset('img/kategori/gedung.png') }}" alt="" class="mt-6 hover:filter hover:invert h-16 w-16  mx-auto">
+          <img src="{{ asset('img/kategori/gedung.png') }}" alt="" class="mt-6 hover:filter hover:invert h-16 w-16  mx-auto">
         </a>
       </div>
-      <div class="w-1/5 h-40 hover:bg-primary hover:text-white rounded-lg p-4">
+      <div class="xl:w-1/5 w-1/2  md:w-1/3 shadow-lg xl:shadow-none h-40 hover:bg-gray-300 rounded-lg p-4 cursor-pointer flex justify-center items-center">
         <a href="/layanan">Layanan
-        <img src="{{ ('img/kategori/layanan.png') }}" alt="" class=" mt-6 hover:filter hover:invert h-16 w-16 mx-auto">
+          <img src="{{ ('img/kategori/layanan.png') }}" alt="" class=" mt-6 hover:filter hover:invert h-16 w-16  mx-auto">
         </a>
       </div>
-      <div class="w-1/5 h-40 hover:bg-primary hover:text-white rounded-lg p-4">
-        <a href="/asrama" ><span class="mb-8">Asrama</span>
-        <img src="{{ asset('img/kategori/hotel.png') }}" alt="" class=" mt-6 hover:filter hover:invert h-16 w-16 mx-auto">
-        </a>
-      </div>
-      <div class="w-1/5 h-40 hover:bg-primary hover:text-white rounded-lg p-4">
-        <a href="/alatbarang">Alat Barang
-        
-
-        </a>
-      </div>
-    </div>  
-  </div>
-</section>
-
-    <!-- Hero Section End -->
-  
+        <div class="xl:w-1/5 w-1/2  md:w-1/3  shadow-lg xl:shadow-none h-40   hover:bg-gray-300 rounded-lg p-4 cursor-pointer flex justify-center items-center">
+          <a href="/asrama" ><span class="mb-8">Asrama</span>
+            <img src="{{ asset('img/kategori/hotel.png') }}" alt="" class=" mt-6 hover:filter hover:invert h-16 w-16 mx-auto">
+          </a>
+        </div>
+        <div class="xl:w-1/5 w-1/2  md:w-1/3 shadow-lg xl:shadow-none  h-40 hover:bg-gray-300 rounded-lg p-4 cursor-pointer sm:mx-auto mx-auto xs:mx-auto flex justify-center items-center">
+          <a href="/alatbarang">Alat Barang
+          </a>
+        </div>
+    </div>
     <!-- kategori section -->
-<section id="kategori" class="pt-56 pb-16 bg-slate-100 ">
+<section id="kategori" class="pt-16 pb-16 bg-slate-100 px-4">
+  
   <div class="container  ">
     <div class="w-full ">
       <div class="max-w-xl mx-auto text-center mb-16">
@@ -343,7 +324,7 @@
         <h2 class="font-bold text-black text-3xl mb-4 sm:text-2xl lg:text-xl">Home > Kategori</h2>
       </div>
     </div>
-    <div class="flex flex-wrap">
+    <div class="flex flex-wrap xl:w-11/12 mx-auto">
       <div class="w-full px-4 sm:w-1/2 lg:w-1/2 xl:w-1/3 mb-3">
           <div class="bg-white rounded-xl shadow-lg overflow-hidden ">
               <div class="py-8 px-6">
@@ -557,110 +538,33 @@
 </section>
     <!-- kategori section End -->
     <!-- Promo Section start -->
+  
   <section id="promo" class="pt-36 pb-36 bg-plaster" >
   <div class="container">
-      <div class="w-full px-4 ">
-        <div class="max-w-xl mx-auto text-center mb-12">
-          <h4 class="font-semibold text-2xl text-primary mb-2">PROMO</h4>
+      <div class="w-full xl:px-36 px-4 ">
+        <div class=" mx-auto text-center mb-12">
+          <!-- <h4 class="font-semibold text-2xl text-primary mb-2">PROMO</h4> -->
+          <h2 class="font-bold text-black text-3xl mb-4 sm:text-4xl lg:text-5xl">PROMO</h2>
+          <p class="font-medium text-base md:text-lg">Penawaran promo sangat beragam dan dapat berubah sewaktu-waktu. Lakukan penyewaan sekarang juga dan dapatkan promo menarik lainnya !</p>
         </div>
       </div>
-    
+      
     <div class=" container  ">
-      <div class="flex flex-wrap xl:px-32 mx-auto pb-2 kategori-promo  space-x-2  text-[14px] ">
-        <div class="bg-white  h-8 w-28 flex items-center justify-center rounded-md mb-2 cursor-pointer hover:focus:ring-primary hover:border-primary hover:border-2  "><a href="">Semua</a>  </div>
-        <div class="bg-white  h-8 w-28 flex items-center justify-center rounded-md mb-2 cursor-pointer hover:focus:ring-primary hover:border-primary hover:border-2  "><a href="">Transportasi</a>  </div>
-        <div class="bg-white w-28 h-8 flex items-center justify-center rounded-md mb-2 cursor-pointer  hover:focus:ring-primary hover:border-primary hover:border-2  "> <a href="">Gedung Lap</a></div>
-        <div class="bg-white w-28 h-8 flex items-center justify-center rounded-md mb-2 cursor-pointer  hover:focus:ring-primary hover:border-primary hover:border-2  "> <a href="">Asrama</a></div>
-        <div class="bg-white w-28 h-8 flex items-center justify-center rounded-md mb-2 cursor-pointer  hover:focus:ring-primary hover:border-primary hover:border-2  "> <a href="">Layanan</a></div>
-        <div class="bg-white w-28 h-8  flex items-center justify-center  rounded-md mb-2 cursor-pointer  hover:focus:ring-primary hover:border-primary hover:border-2 "> <a href="">Alat Barang</a></div>
+      <div class="flex flex-wrap xl:px-32 pb-2 kategori-promo  xl:space-x-2   text-[14px] ">
+        <div class="bg-white w-1/4  h-8 xl:w-28 flex items-center justify-center rounded-md mb-2 space-kanan cursor-pointer hover:focus:ring-primary hover:border-primary hover:border-2  "><a href="" class="overflow-hidden">Semua</a>  </div>
+        <div class="bg-white  w-1/4  h-8 xl:w-28 flex items-center justify-center rounded-md mb-2 space-kanan  cursor-pointer hover:focus:ring-primary hover:border-primary hover:border-2  "><a href="" class="overflow-hidden">Transportasi</a>  </div>
+        <div class="bg-white w-1/4  xl:w-28 h-8 flex items-center justify-center rounded-md mb-2 space-kanan  cursor-pointer   hover:focus:ring-primary hover:border-primary hover:border-2  "> <a href="" class="overflow-hidden">GedungLap</a></div>
+        <div class="bg-white w-1/4  xl:w-28 h-8 flex items-center justify-center rounded-md mb-2 space-kanan cursor-pointer  hover:focus:ring-primary hover:border-primary hover:border-2  "> <a href="" class="overflow-hidden">Asrama</a></div>
+        <div class="bg-white w-1/4  xl:w-28 h-8 flex items-center justify-center rounded-md mb-2 space-kanan cursor-pointer  hover:focus:ring-primary hover:border-primary hover:border-2  "> <a href="" class="overflow-hidden">Layanan</a></div>
+        <div class="bg-white w-1/4  xl:w-28 h-8  flex items-center justify-center  rounded-md mb-2 space-kanan cursor-pointer  hover:focus:ring-primary hover:border-primary hover:border-2 "> <a href="" class="overflow-hidden">Alat Barang</a></div>
       </div>
         <!-- start promo flex -->
-      <div class=" flex flex-wrap m-auto xl:mx-32 2xl:mx-32 lg:mx-32   ">
-        <!-- <div class="w-full  sm:w-1/2 lg:w-1/2 xl:w-1/3 hover:scale-105 transition  ease-in-out delay-150  ">
-          <a href="#" class="block max-w-sm p-4  bg-white border border-gray-200 rounded-lg shadow hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700">
-          <div class="flex">
-  
-            <img src="{{ asset('img/landingpage/sale.png') }}" alt="logo sale" class="h-20 w-15 mb-4 sm:mb-0 ">
-            <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">Noteworthy technology acquisitions 2021</h5>
-          </div>  
-          <p class="font-normal text-gray-700 dark:text-gray-400">Here are the biggest enterprise technology acquisitions of 2021 so far, in reverse chronological order.</p>
-          <p class= "right-8 xl:top-8 bg-plaster rounded-sm h-6 w-60 text-center mt-3 tracking-wider bottom-4  ">  2024SEWA </p>
-          </a>
-        </div> -->
-        <div class="w-full  sm:w-1/2 lg:w-1/2 xl:w-1/3 hover:scale-105 transition  ease-in-out delay-150  ">
-          <div class="flex flex-row"><a href="#" class="block max-w-sm p-4  bg-white border border-gray-200 rounded-lg shadow hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700">
-            <div class="flex space-x-2">
-              <div class="basis-1/2">
-                <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900">Promo April MOP</h5>
-                <div class="flex  items-center">
-                    <h4 class="text-base mr-2">Hemat</h4>
-                    <span class="text-4xl font-bold">50%</span>
-                </div>
-                <p class="mt-5 inline-block bg-plaster h-6 w-full text-center rounded-md tracking-widest text-sm mb-4" > 2024IED</p>
-              </div>
-              <div class="basis-1/2 relative">
-                <div class="absolute right-0 top-2 text-center h-6 w-32 rounded-s-lg bg-primary">
-                  <p class="text-sm text-white">Sewa sekarang!</p>
-                </div>
-                <img src="{{ asset('img/layanan/marching band.jpg') }}" alt="picture 1"  class=" rounded-md w-full "/>
-              </div>
-              
-            </div>  
-            <p class="text-gray-400 text-sm ">*periode 1 Januari - 1 Februari</p>
-            </a>
-          </div>
-        </div>
-        <div class="w-full  sm:w-1/2 lg:w-1/2 xl:w-1/3 hover:scale-105 transition  ease-in-out delay-150  ">
-          <div class="flex flex-row"><a href="#" class="block max-w-sm p-4  bg-white border border-gray-200 rounded-lg shadow hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700">
-            <div class="flex space-x-2">
-              <div class="basis-1/2">
-                <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900">Promo Idul Fitri</h5>
-                <div class="flex  items-center">
-                    <h4 class="text-base mr-2">Hemat</h4>
-                    <span class="text-4xl font-bold">50%</span>
-                </div>
-                <p class="mt-5 inline-block bg-plaster h-6 w-full text-center rounded-md tracking-widest text-sm mb-4" > 2024IED</p>
-              </div>
-              <div class="basis-1/2 relative">
-                <div class="absolute right-0 top-2 text-center h-6 w-32 rounded-s-lg bg-primary">
-                  <p class="text-sm text-white">Sewa sekarang!</p>
-                </div>
-                <img src="{{ asset('img/layanan/marching band.jpg') }}" alt="picture 1"  class=" rounded-md w-full "/>
-              </div>
-            </div>  
-            <p class="text-gray-400 text-sm ">*periode 1 Januari - 1 Februari</p>
-            </a>
-          </div>
-        </div>
-        <div class="w-full  sm:w-1/2 lg:w-1/2 xl:w-1/3 hover:scale-105 transition  ease-in-out delay-150  ">
-          <div class="flex flex-row"><a href="#" class="block max-w-sm p-4  bg-white border border-gray-200 rounded-lg shadow hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700">
-            <div class="flex space-x-2">
-              <div class="basis-1/2">
-                <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900">Promo Idul Fitri</h5>
-                <div class="flex  items-center">
-                    <h4 class="text-base mr-2">Hemat</h4>
-                    <span class="text-4xl font-bold">50%</span>
-                </div>
-              </div>
-              <div class="basis-1/2 relative">
-                <div class="absolute right-0 top-2 text-center h-6 w-32 rounded-s-lg bg-primary">
-                  <p class="text-sm text-white">Sewa sekarang!</p>
-                </div>
-                <!-- <div class=" flex justify-center items-center absolute left-0 bottom-0 text-center h-20 w-20 rounded-full opacity-50 bg-primary">
-                  <p class=" text-center text-sm text-white">Diskon 50 %</p>
 
-                </div> -->
-                <img src="{{ asset('img/layanan/marching band.jpg') }}" alt="picture 1"  class=" rounded-md w-full "/>
-              </div>
-              
-            </div>  
-            <p class="text-gray-400 text-sm ">*periode 1 Januari - 1 Februari</p>
-            </a>
-          </div>
-        </div>
-        
-      </div>
+      
       <!-- end promo flex -->
+      <!-- Swiper -->
+      
+        <!-- end swwper -->
       <!-- coba  new -->
     <div id="controls-carousel" class="relative  xl:mx-32 2xl:mx-32 lg:mx-32  " data-carousel="static">
       <!-- Carousel wrapper -->
@@ -817,11 +721,6 @@
         </button>
       </div>
     </div>
-  
-
-
-
-
       <!-- end coba new -->
       
       
@@ -852,7 +751,7 @@
           dropdownPromo.classList.toggle("hidden");
         }
       </script>  -->
-    
+  </div>
   </div>
   </section>
     <!-- Promo Section End -->
@@ -861,7 +760,8 @@
       <div class="container">
         <div cl ass="w-full px-4">
           <div class="mx-auto text-center mb-12 ">
-            <h4 class="font-semibold text-lg text-primary mb-2">PERTANYAAN UMUM SEWA ASET</h4>
+          <!-- <h2 class="font-bold text-black text-3xl mb-4 sm:text-4xl lg:text-5xl">Informasi Kontak</h2> -->
+            <h4 class="font-semibold text-black text-3xl mb-2">PERTANYAAN UMUM SEWA ASET</h4>
             <!-- <h2 class="font-bold text-black text-3xl mb-4 sm:text-4xl lg:text-5xl">Ketentuan sewa</h2> -->
             <!-- <p class="font-medium text-medium md:text-lg">Lorem ipsum dolor sit amet consectetur adipisicing elit. Minus quas corrupti ducimus, explicabo possimus tenetur tempore repellat obcaecati aperiam voluptatibus.</p> -->
           </div>
@@ -987,7 +887,7 @@
     <section id="plus" class="pt-20 pb-16 bg-plaster">
       <div class="container">
         <div class=" w-full px-4">
-          <div class="mx-auto text-right mr-20 mb-20">
+          <div class="mx-auto text-right xl:mr-20 mb-20">
             <h4 class="font-bold text-xl  uppercase text-primary ">Mengapa harus sewa di sewaaset poltkebang surabaya?</h4>
           </div>
           <div class="flex flex-wrap px-6">
@@ -995,16 +895,20 @@
               <!-- <div class=" bg-white w-96 h-48 rounded-xl "></div> -->
               <div class="flex flex-row mx-auto xl:w-1/2">
               <div class="flex-col">
-                <div class="bg-white rounded-s-xl ">
-                  <img src="{{ asset('img/tar.png')}}" alt="Foto Taruna Taruni" class="object-cover  ">
+                <div class="bg-white roundedlr space-y-2 ">
+                  <img src="{{ asset('img/tar.png')}}" alt="Foto Taruna Taruni" class="object-cover p-2 ">
                 </div>
-              
-                <img src="{{ asset('img/tar.png')}}" alt="Foto Taruna Taruni" class="object-cover  ">
+                <div class="bg-softblue roundedrl space-x-2 ">
+                  <img src="{{ asset('img/tar.png')}}" alt="Foto Taruna Taruni" class="object-cover  p-2  ">
+                </div>
               </div>
-              <div class="flex-col">
-                <img src="{{ asset('img/tar.png')}}" alt="Foto Taruna Taruni" class="object-cover  ">
-              
-                <img src="{{ asset('img/tar.png')}}" alt="Foto Taruna Taruni" class="object-cover  ">
+              <div class="flex-col ">
+                <div  class="bg-softblue roundedrl space-y-2 ">
+                  <img src="{{ asset('img/tar.png')}}" alt="Foto Taruna Taruni" class="object-cover p-2 ">
+                </div>
+                <div class="bg-white roundedlr ">
+                  <img src="{{ asset('img/tar.png')}}" alt="Foto Taruna Taruni" class="object-cover p-2  ">
+                </div>
               </div>
               </div>
             </div> 
@@ -1065,22 +969,24 @@
         </div>
     </div>
   <!-- End Contact -->
-  <!-- back to top -->
-    <div class="flex flex-row ">
-      <div class="basis-4">
-        <a href="#home" class=""> 
-        <i class=" btnbtt btn-active  fixed bottom-10 right-10 text-5xl cursor pointer text-primary hover:bg-gray-100 z-20 hidden bg-white rounded-full w-8 h-8 " title="Kembali ke atas"
-        ><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 ml-1 mt-1">
-          <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 10.5 12 3m0 0 7.5 7.5M12 3v18" />
-        </svg>
-        </i>
-      </a>
+</section>
+<!-- back to top -->
+  <div class=" ">
+      <a href="#home" class=""> 
+      <i class=" btnbtt btn-active fixed bottom-6 right-9 text-5xl cursor pointer text-primary hover:bg-gray-100 z-20 hidden bg-softblue rounded-full w-10 h-10 " title="Kembali ke atas"
+      ><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-7 h-7 mt-1 ml-1">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 10.5 12 3m0 0 7.5 7.5M12 3v18" />
+      </svg>
+      </i>
+    </a>
+  </div>
+<!-- end back to top -->
+    
+    <div class="relative">
+      <div class=" cursor-pointer w-10 h-10 border rounded-full bg-softblue  flex fixed  right-20 bottom-6 bocursor-pointer " title="Chat sekarang ! "> 
+      <span  class="w-6 h-7 text-lg m-auto ">📞</span>
       </div>
-      <div class="basis-1/2">
-        Basis 2
-      </div>
+      
     </div>
-  <!-- end back to top -->
-    </section>
 @endsection
 

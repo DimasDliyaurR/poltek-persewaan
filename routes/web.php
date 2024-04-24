@@ -344,6 +344,7 @@ Route::controller(FEAlatBarangController::class)->group(function() {
     Route::get('/alatbarang','index');
 });
 
+
 //Route::controller(KendaraanFeController::class)->group(function () {
   //  Route::get('/transportasi', 'index');
     //FE
@@ -365,7 +366,7 @@ Route::controller(FEKendaraanController::class)->group(function () {
     Route::get('/transportasi/invoice', 'invoice');
 
 });
-
+// ASRAMA FE
 Route::view('/asrama/detail', 'asrama.detail', [
     "title" => "Detail Asrama",
 ]);
@@ -375,40 +376,60 @@ Route::view('/asrama/pesan', 'asrama.transaksi_pemesanan', [
 Route::view('/asrama/invoice', 'asrama.transaksi_invoice', [
     "title" => "Invoice Asrama",
 ]);
-// Route::view('/penginapan', 'kategori.penginapan', [
-//     "title" => "Penginapan"
-// ]);
 
-// Route::view('/aset', 'kategori.aset', [
-//     "title" => "Aset"
-// ]);
-// Route::view('/asset', 'kategori.aset', [
-//     "title" => "Aset"
-// ]);
-
-// Kategori
-// Route::view('/sewaBus', 'sewa.sewa_bus', [
-//     "title" => "Sewa Bus",
-// ]);
-// // Transaksi
-
+// LAYANAN FE
+Route::view('/transportasi', 'transportasi.index', [
+    "title" => "Transportasi",
+]);
+Route::view('/layanan/detail', 'layanan.detail', [
+    "title" => "Detail Layanan",
+]);
 Route::view('/bayar', 'user_transaksi.bayar', [
     "title" => "Pembayaran",
 ]);
+Route::view('/layanan', 'layanan.index', [
+    "title" => "Layanan",
+]);
 
+// ALAT BARANG FE
+
+Route::view('/alat-barang', 'alatBarang.index', [
+    "title" => "Alat Barang",
+]);
+Route::view('/alat-barang/detail', 'alatBarang.detail', [
+    "title" => "Detail Alat Barang",
+]);
+
+// GEDUNG LAP FE
+Route::view('/gedung','gedung.index', [
+    "title" => "Gedung",
+]);
+Route::view('/gedung/detail', 'gedung.detail', [
+    "title" => "Detail Gedung",
+]);
+// TRANSAKSI
 Route::view('/invoice', 'user.invoice', [
     "title" => "Invoice",
 ]);
-
-// Route::view('/detailbus', 'detail.detail_bus', ["title" => "Detail Bus "])
-//     ->name('detailbus');
-// Route::view('/login', 'login', [
-//     "title" => "Login",
-// ]);
-// Route::view(
-//     '/transportasi',
-//     'kategori.transportasi',
-//     [
-//         "title" => "Transportasi"
-//     ]
-// );
+Route::view('/riwayat','user.riwayat_pesanan', [
+    "title"=>  "Riwayat Pesanan"
+]);
+Route::view('/indexnew', 'indexnew', [
+    "title" => "Home",
+]);
+// USER
+Route::view('/user', 'layouts-user.main',[
+    "title"=> "Dashboard User"
+]);
+Route::view('/edit-profile', 'user.edit-profile',[
+    "title"=> "Edit Profile"
+]);
+Route::view('/profile', 'user.profile',[
+    "title"=> " View Profile"
+]);
+Route::view('/voucher', 'user.riwayat_voucher',[
+    "title" => "Riwayat Voucher"
+]);
+Route::view('/dashboard', 'user.dash' ,[
+    "title"=> "Dashboard"
+]);
