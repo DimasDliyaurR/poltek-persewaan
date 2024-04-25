@@ -1,20 +1,26 @@
 <?php
 
-use App\Http\Controllers\AlatBarangController;
-use App\Http\Controllers\AsramaController;
+use App\Http\Controllers\admin\AlatBarangController;
+use App\Http\Controllers\admin\AsramaController;
 use App\Http\Controllers\auth\LoginController;
 use App\Http\Controllers\auth\RegistrationController;
 use App\Http\Controllers\FEGedungLapController;
-use App\Http\Controllers\GedungLapController;
-use App\Http\Controllers\KendaraanController;
-use App\Http\Controllers\KendaraanFeController;
-use App\Http\Controllers\LayananController;
-use App\Http\Controllers\PromoController;
-use App\Http\Controllers\TransaksiController;
+use App\Http\Controllers\admin\GedungLapController;
+use App\Http\Controllers\admin\KendaraanController;
+use App\Http\Controllers\transaksi\KendaraanFeController;
+use App\Http\Controllers\admin\LayananController;
+use App\Http\Controllers\admin\PromoController;
+use App\Http\Controllers\admin\TransaksiController;
 use Illuminate\Support\Facades\Route;
 use App\Services\GedungLap\GedungLapService;
 use App\Services\AlatBarang\AlatBarangService;
-use Illuminate\Http\Request;
+use App\Http\Controllers\FEKendaraanController;
+use App\Http\Controllers\FETransaksiController;
+use App\Http\Controllers\LandingPageController;
+use App\Http\Controllers\transaksi\AlatBarangFeController;
+use App\Http\Controllers\transaksi\AsramaFeController;
+use App\Http\Controllers\transaksi\GedungFeController;
+use App\Http\Controllers\transaksi\LayananFeController;
 
 /*
 |--------------------------------------------------------------------------
@@ -27,19 +33,20 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome', [
-        "title" => "Home",
-    ]);
-});
+// Route::get('/', function () {
+//     return view('welcome', [
+//         "title" => "Home",
+//     ]);
+// });
 
 Route::group(["auth" => "guest"], function () {
-    Route::post('register', [RegistrationController::class, "register"]);
+    Route::get('register', [RegistrationController::class, "showRegistrationForm"]);
+    Route::post('register/action', [RegistrationController::class, "register"]);
 });
 
 // BackEnd
 
-Route::group(["prefix" => "admin", "middleware" => "auth"], function () {
+Route::group(["prefix" => "admin"], function () {
     Route::controller(KendaraanController::class)->group(function () {
         // Index Merk Kendaraan
         Route::get("merkKendaraans", "indexMerkKendaraan");
@@ -303,72 +310,59 @@ Route::group(["prefix" => "admin", "middleware" => "auth"], function () {
 
 Route::controller(LoginController::class)->group(function () {
     Route::group(["middleware" => "guest"], function () {
-        Route::get("login", "showLoginForm");
-        Route::post("login/action", "login")->name("login");
+        Route::get("login", "showLoginForm")->name("login");
+        Route::post("login/action", "login");
     });
+
     Route::get("logout", "logout")->name("logout");
 });
 
 
 // FrontEnd
-Route::view('/', 'index', [
-    "title" => "Home",
-]);
-Route::get('/gedung', [FEGedungLapController::class, 'index']);
+Route::view('/kalender', [LandingPageController::class, 'kalender']);
+Route::get('/kalender/list', [LandingPageController::class, 'listEvent'])->name('kalender.list');
+
+Route::get('/', [LandingPageController::class, 'promo']);
 Route::get('/detailgedung/{id}', [FEgedungLapController::class, 'detail'])->name('detailgedung');
 
-Route::get('/transportasi', [KendaraanFeController::class, 'index']);
-Route::view('/detailbus', 'detail.detail_bus', [
-    "title" => "Detail Bus "
-])->name('detailbus');
+Route::group(["prefix" => "transportasi"], function () {
+    Route::controller(KendaraanFeController::class)->group(function () {
+        Route::get('/', 'index');
+        Route::get('/{slug}', 'detail');
+        Route::get('/{slug}/pesan', 'pesanForm');
+        Route::get('/{slug}/pesan', 'pesanForm')->middleware("auth");
+        Route::post('/beli-langsung', 'pesan')->name('transportasi.pesan')->middleware("auth");
+    });
+});
 
-// Route::view('/login', 'login', [
-//     "title" => "Login",
-// ]);
-// Route::view('/signup', 'signup', [
-//     "title" => "Sign Up",
-// ]);
+Route::group(["prefix" => "gedung"], function () {
+    Route::controller(GedungFeController::class)->group(function () {
+        Route::get("/", "index");
+        Route::get("/{slug}/pesan", "pesanForm")->middleware("auth");
+        Route::post("/beli-langsung", "pesan")->middleware("auth")->name("gedung.pesan");
+    });
+});
 
-// Route::view('/gedung', 'kategori.gedung',[
-//     "title" => "Gedung"
-// ]);
-Route::view('/layanan', 'kategori.layanan', [
-    "title" => "Layanan"
-]);
-Route::view('/penginapan', 'kategori.penginapan', [
-    "title" => "Penginapan"
-]);
-Route::view('/aset', 'kategori.aset', [
-    "title" => "Aset"
-]);
-Route::view('/asset', 'kategori.aset', [
-    "title" => "Aset"
-]);
+Route::group(["prefix" => "layanan"], function () {
+    Route::controller(LayananFeController::class)->group(function () {
+        Route::get("/", "index");
+        Route::get("/{slug}/pesan", "pesanForm")->middleware("auth");
+        Route::post("/beli-langsung", "pesan")->middleware("auth")->name("layanan.pesan");
+    });
+});
 
-// Kategori
-Route::view('/sewaBus', 'sewa.sewa_bus', [
-    "title" => "Sewa Bus",
-]);
-// Transaksi
-Route::view('/pesan', 'user_transaksi.pesan', [
-    "title" => "Pemesanan",
-]);
-Route::view('/bayar', 'user_transaksi.bayar', [
-    "title" => "Pembayaran",
-]);
-Route::view('/invoice', 'user_transaksi.invoice', [
-    "title" => "Invoice",
-]);
+Route::group(["prefix" => "asrama"], function () {
+    Route::controller(AsramaFeController::class)->group(function () {
+        Route::get("/", "index");
+        Route::get("/{slug}/pesan", "pesanForm")->middleware("auth");
+        Route::post("/beli-langsung", "pesan")->middleware("auth")->name("asrama.pesan");
+    });
+});
 
-Route::view('/detailbus', 'detail.detail_bus', ["title" => "Detail Bus "])
-    ->name('detailbus');
-Route::view('/login', 'login', [
-    "title" => "Login",
-]);
-Route::view(
-    '/transportasi',
-    'kategori.transportasi',
-    [
-        "title" => "Transportasi"
-    ]
-);
+Route::group(["prefix" => "alat-barang"], function () {
+    Route::controller(AlatBarangFeController::class)->group(function () {
+        Route::get("/", "index");
+        Route::get("/{slug}/pesan", "pesanForm")->middleware("auth");
+        Route::post("/beli-langsung", "pesan")->middleware("auth")->name("alat-barang.pesan");
+    });
+});

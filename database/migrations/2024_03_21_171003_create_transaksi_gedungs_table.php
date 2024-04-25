@@ -15,10 +15,13 @@ return new class extends Migration
 
         Schema::create('transaksi_gedungs', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id')->constrained();
+            $table->foreignId('user_id')->constrained("users");
+            $table->foreignId('promo_id')->nullable()->constrained("promos");
+            $table->string('code_unique')->unique();
             $table->string('tg_tujuan');
             $table->dateTime('tg_tanggal_sewa');
             $table->dateTime('tg_tanggal_kembali');
+            $table->enum('status', ["belum bayar", "terbayar", "kadaluarsa", "batal"])->default("belum bayar");
             $table->timestamp('tg_tanggal_pelaksanaan');
             $table->timestamps();
         });

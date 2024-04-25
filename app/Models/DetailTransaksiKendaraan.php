@@ -20,6 +20,7 @@ class DetailTransaksiKendaraan extends Pivot
     protected $fillable = [
         'transaksi_kendaraan_id',
         'kendaraan_id',
+        'dtk_harga',
     ];
 
     /**

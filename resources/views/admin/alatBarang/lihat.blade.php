@@ -91,16 +91,16 @@
                         <tr class="bg-white border-b dark:bg-gray-700 dark:border-gray-700 dark:hover:bg-gray-400">
                             <th scope="row"
                                 class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                {{ $row->a_nama }}
+                                {{ $row->ab_nama }}
                             </th>
                             <td class="px-6 py-4 dark:text-white">
-                                Rp. {{ number_format($row->a_tarif, 0, ',', '.') }}
+                                Rp. {{ number_format($row->ab_tarif, 0, ',', '.') }}
                             </td>
                             <td class="px-6 py-4 dark:text-white">
-                                {{ $row->a_qty }}
+                                {{ $row->ab_qty }}
                             </td>
                             <td class="px-6 py-4 dark:text-white">
-                                <img src="{{ Storage::url($row->a_foto) }}" alt="Foto Kendaraan"
+                                <img src="{{ Storage::url($row->ab_foto) }}" alt="Foto Kendaraan"
                                     class="h-72 max-w-xl rounded-lg shadow-xl dark:shadow-gray-800">
 
                             </td>
@@ -120,7 +120,7 @@
                             </td>
                             <td class="px-6 py-4 text-right">
                                 <x-delete-button action="admin/alatBarang/delete/{{ $row->id }}"
-                                    id="{{ $row->id }}" nama="{{ $row->a_nama }}"></x-delete-button>
+                                    id="{{ $row->id }}" nama="{{ $row->ab_nama }}"></x-delete-button>
                             </td>
                         </tr>
                     @empty
@@ -156,46 +156,46 @@
         <form action="{{ asset('admin/alatBarangs/create') }}" method="post" enctype="multipart/form-data">
             @csrf
             <div class="mb-5">
-                <label for="a_foto" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Foto
+                <label for="ab_foto" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Foto
                     Alat Barang</label>
-                <input name="a_foto"
-                    class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-blue file:text-violet-700 hover:file:bg-blue-400 @error('a_foto') border-red-500 @enderror"
+                <input name="ab_foto"
+                    class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-blue file:text-violet-700 hover:file:bg-blue-400 @error('ab_foto') border-red-500 @enderror"
                     id="multiple_files" type="file">
-                @error('a_foto')
+                @error('ab_foto')
                     <span class="text-red-600 text-sm">{{ $message }}</span>
                 @enderror
             </div>
 
             <div class="mb-5">
-                <label for="a_nama" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Nama
+                <label for="ab_nama" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Nama
                     Alat Barang</label>
-                <input name="a_nama"
-                    class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-4 @error('a_nama') border-red-500 @enderror"
-                    value="{{ old('a_nama') }}" type="text">
+                <input name="ab_nama"
+                    class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-4 @error('ab_nama') border-red-500 @enderror"
+                    value="{{ old('ab_nama') }}" type="text">
 
-                @error('a_nama')
+                @error('ab_nama')
                     <span class="text-red-600 text-sm">{{ $message }}</span>
                 @enderror
             </div>
 
             <div class="mb-5">
-                <label for="a_tarif" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Tarif
+                <label for="ab_tarif" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Tarif
                     Harga</label>
-                <input name="a_tarif"
-                    class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-4 @error('a_tarif') border-red-500 @enderror"
-                    value="{{ old('a_tarif') }}" type="text">
-                @error('a_tarif')
+                <input name="ab_tarif"
+                    class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-4 @error('ab_tarif') border-red-500 @enderror"
+                    value="{{ old('ab_tarif') }}" type="text">
+                @error('ab_tarif')
                     <span class="text-red-600 text-sm">{{ $message }}</span>
                 @enderror
             </div>
 
             <div class="mb-5">
-                <label for="a_qty" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Jumlah
+                <label for="ab_qty" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Jumlah
                     Unit</label>
-                <input name="a_qty"
-                    class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-4 @error('a_qty') border-red-500 @enderror"
-                    value="{{ old('a_qty') }}" type="text">
-                @error('a_qty')
+                <input name="ab_qty"
+                    class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-4 @error('ab_qty') border-red-500 @enderror"
+                    value="{{ old('ab_qty') }}" type="text">
+                @error('ab_qty')
                     <span class="text-red-600 text-sm">{{ $message }}</span>
                 @enderror
             </div>
@@ -220,12 +220,12 @@
             </div>
 
             <div class="mb-5">
-                <label for="a_keterangan"
+                <label for="ab_keterangan"
                     class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Keterangan</label>
                 <div id="container">
-                    <textarea id="editor" class="@error('a_keterangan') border-red-500 @enderror" name="a_keterangan">{{ old('a_keterangan') }}</textarea>
+                    <textarea id="editor" class="@error('ab_keterangan') border-red-500 @enderror" name="ab_keterangan">{{ old('ab_keterangan') }}</textarea>
                 </div>
-                @error('a_keterangan')
+                @error('ab_keterangan')
                     <span class="text-red-600 text-sm">{{ $message }}</span>
                 @enderror
             </div>

@@ -12,6 +12,10 @@
             </x-alert-success>
         @endsession
 
+        {{-- @php
+            dd($promo->p_tipe_stok == 'unlimited');
+        @endphp --}}
+
         <form action="{{ asset('admin/promo/update/' . $promo->id) }}" method="post" enctype="multipart/form-data">
             @csrf
             @method('PUT')
@@ -57,6 +61,7 @@
                 <input name="p_isi"
                     class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-4 @error('p_isi') border-red-500 @enderror"
                     value="{{ $promo->p_isi }}" type="text">
+                <span class="text-red-600 text-sm" id="ME-isi"></span>
 
                 @error('p_isi')
                     <span class="text-red-600 text-sm">{{ $message }}</span>
@@ -66,7 +71,7 @@
             <div class="mb-5">
                 <label for="p_tipe" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Tipe
                     Promo</label>
-                <select name="p_tipe"
+                <select name="p_tipe" id="p_tipe"
                     class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-4 @error('p_tipe') border-red-500 @enderror">
                     <option disabled selected>-- Pilih Tipe --</option>
                     <option value="fixed" {{ $promo->p_tipe == 'fixed' ? 'selected' : '' }}>Harga Nominal</option>
@@ -183,9 +188,24 @@
             </div>
 
             <div class="mb-5">
+                <label for="p_tipe_stok" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Perilaku
+                    Stok</label>
+                <select name="p_tipe_stok"
+                    class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-4 @error('p_kategori') border-red-500 @enderror">
+                    <option value="unlimited" {{ $promo->p_tipe_stok == 'unlimited' ? 'selected' : '' }}>Tidak Terbatas
+                    </option>
+
+                    <option value="limit" {{ $promo->p_tipe_stok === 'limit' ? 'selected' : '' }}>Terbatas</option>
+                </select>
+                @error('p_tipe_stok')
+                    <span class="text-red-600 text-sm">{{ $message }}</span>
+                @enderror
+            </div>
+
+            <div class="mb-5">
                 <label for="p_tipe" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Kategori
                     Promo</label>
-                <select name="p_kategori"
+                <select name="p_kategori" id="p_tipe"
                     class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-4 @error('p_kategori') border-red-500 @enderror">
                     <option disabled selected>-- Pilih Kategori --</option>
                     <option value="asramas" {{ $promo->p_kategori == 'asramas' ? 'selected' : '' }}>Asrama</option>
@@ -210,5 +230,5 @@
 @endsection
 
 @section('script')
-    <script src="{{ asset('js/feature/promoForm.js') }}"></script>
+    <script src="{{ asset('js/validasi/promoForm.js') }}"></script>
 @endsection

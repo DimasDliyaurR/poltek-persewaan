@@ -5,7 +5,7 @@
             <h1 class="text-center pb-2 text-xl block">Daftar</h1>
 
             <hr class="mt-1 mb-4 border-t-1 border-primary">
-            <form action="{{ asset('register') }}" method="POST" enctype="multipart/form-data">
+            <form action="{{ asset('register/action') }}" method="POST" enctype="multipart/form-data">
                 @csrf
                 {{-- Email --}}
                 <div class="mt-1 mb-1 text-sm flex flex-col justify-between ">

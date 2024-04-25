@@ -42,7 +42,7 @@ class Kendaraan extends Model
 
     public function merkKendaraan(): BelongsTo
     {
-        return $this->belongsTo(MerkKendaraan::class);
+        return $this->belongsTo(MerkKendaraan::class, "merk_kendaraan_id");
     }
 
     public function detailKategoriPromo(): HasMany

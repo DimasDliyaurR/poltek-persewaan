@@ -33,13 +33,7 @@ class LoginController extends Controller
             case 'customer':
                 $redirectTo = "/";
                 break;
-            case 'admin_dpupk':
-                $redirectTo = "/admin";
-                break;
-            case 'admin_keuangan':
-                $redirectTo = "/admin";
-                break;
-            case 'super_admin':
+            default:
                 $redirectTo = "/admin";
                 break;
         }
@@ -64,7 +58,9 @@ class LoginController extends Controller
      */
     public function showLoginForm()
     {
-        return view('login');
+        return view('login', [
+            "title" => "Login"
+        ]);
     }
 
     /**
@@ -87,6 +83,5 @@ class LoginController extends Controller
         if (method_exists($this, 'redirectTo')) {
             return $this->redirectTo();
         }
-        return property_exists($this, 'redirectTo') ? $this->redirectTo : '/m';
     }
 }

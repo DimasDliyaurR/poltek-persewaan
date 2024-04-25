@@ -17,6 +17,7 @@ class GedungLap extends Model
      */
     protected $fillable = [
         'gl_foto',
+        'code_unique',
         'gl_nama',
         'gl_keterangan',
         'gl_tarif',
@@ -24,6 +25,7 @@ class GedungLap extends Model
         'gl_kapasitas_gedung',
         'gl_ukuran_gedung',
         'gl_slug',
+        'status',
     ];
 
     /**

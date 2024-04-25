@@ -16,10 +16,12 @@ return new class extends Migration
         Schema::create('transaksi_kendaraans', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->constrained("users");
-            $table->string('foto_sim');
+            $table->foreignId('promo_id')->nullable()->constrained("promos");
+            $table->string('code_unique');
             $table->string('tk_durasi');
             $table->timestamp('tk_tanggal_sewa');
             $table->dateTime('tk_tanggal_kembali');
+            $table->enum('status', ["belum bayar", "terbayar", "kadaluarsa", "batal"])->default("belum bayar");
             $table->timestamps();
         });
 

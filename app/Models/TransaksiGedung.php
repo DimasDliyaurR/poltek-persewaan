@@ -2,11 +2,18 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Models\User;
+use App\Models\Event;
+use App\Models\GedungLap;
+use App\Models\PropertyGedung;
+use App\Models\DetailTransaksiGedung;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use App\Models\DetailTransaksiPropertyGedung;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\MorphMany;
 
 class TransaksiGedung extends Model
 {
@@ -19,6 +26,8 @@ class TransaksiGedung extends Model
      */
     protected $fillable = [
         'user_id',
+        'promo_id',
+        'code_unique',
         'tg_tujuan',
         'tg_tanggal_sewa',
         'tg_tanggal_kembali',
@@ -33,6 +42,7 @@ class TransaksiGedung extends Model
     protected $casts = [
         'id' => 'integer',
         'user_id' => 'integer',
+        'promo_id' => 'integer',
         'tg_tanggal_sewa' => 'datetime',
         'tg_tanggal_kembali' => 'datetime',
         'tg_tanggal_pelaksanaan' => 'timestamp',
@@ -63,5 +73,15 @@ class TransaksiGedung extends Model
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
+    }
+
+    public function promo(): BelongsTo
+    {
+        return $this->belongsTo(Promo::class);
+    }
+
+    public function events(): MorphMany
+    {
+        return $this->morphMany(Event::class, 'eventable');
     }
 }
