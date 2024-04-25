@@ -6,10 +6,11 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Promo extends Model
 {
-    use HasFactory;
+    use HasFactory, SoftDeletes;
 
     protected $guarded = ["id"];
 
@@ -45,7 +46,7 @@ class Promo extends Model
 
     public function user(): BelongsToMany
     {
-        return $this->belongsToMany(User::class, "detail_user_promos", "promo_is", "user_id")->using(DetailUserPromo::class);
+        return $this->belongsToMany(User::class, "detail_user_promos", "promo_id", "user_id")->using(DetailUserPromo::class);
     }
 
     public function detailUserPromo(): HasMany

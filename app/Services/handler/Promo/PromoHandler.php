@@ -3,20 +3,52 @@
 namespace App\Services\handler\Promo;
 
 use App\Models\Promo;
+use App\Models\DetailUserPromo;
+use App\Services\Promo\PromoService;
 
 class PromoHandler
 {
+    /**
+     * data pertama
+     * @var object $promo
+     */
     protected $promo;
+
+    /**
+     * Object Model Promo
+     * @var object $promoModel
+     */
     protected $promoModel;
+
+    /**
+     * Object Model Detail User Promo
+     * @var object $detailUserPromo
+     */
+    protected $detailUserPromo;
+
+    /**
+     * Code Promo
+     * @var string $promoCode
+     */
     protected $promoCode;
+
+    /**
+     * id user terkini
+     * @var int $user_id 
+     */
     protected $user_id;
+
+    /**
+     * Kategori
+     * @var string $category
+     */
     protected $category;
 
     /**
      * @param string $promoCode Code Promo
      * @param string|null $category Kategori untuk memeriksa promo
      */
-    public function __construct($promoCode, $category = null)
+    public function __construct($promoCode, $category)
     {
         $this->promoCode = $promoCode;
         $this->category = $category;
@@ -26,14 +58,13 @@ class PromoHandler
 
     public function isExpired(): bool
     {
-        $timeExpired = strtotime($this->promo->p_kadaluarsa) - now();
-
+        $timeExpired = strtotime($this->promo->p_kadaluarsa) - strtotime(now());
         return ($timeExpired < 0);
     }
 
     public function isActive(): bool
     {
-        return $this->promo->p_is_umum;
+        return $this->promo->p_is_aktif && strtotime($this->promo->p_mulai) < strtotime(now());
     }
 
     public function isExist(): bool
@@ -53,14 +84,14 @@ class PromoHandler
 
     public function isUserAlreadyUsing()
     {
-        $numberOfUser = $this->promoModel::withCount("user", fn ($q) => $q->where("id", $this->user_id))->get();
+        $numberOfUser = $this->promoModel::withCount(["user" => fn ($q) => $q->where("users.id", $this->user_id)])->where("p_kode", $this->promoCode)->first();
 
         return $numberOfUser->user_count != 0;
     }
 
     public function getStok()
     {
-        return $this->promo->p_kapasitas;
+        return $this->promo->p_jumlah;
     }
 
     public function isStokUnlimited()
@@ -77,18 +108,28 @@ class PromoHandler
     {
         $tipe = $this->promo->p_tipe;
 
-        return ($tipe == "fixed") ? $subTotal - $this->promo->p_isi : ($subTotal * ($this->promo->p_isi / 100));
+        return ($tipe == "fixed") ?
+            $subTotal - $this->promo->p_isi : $subTotal - ($subTotal * ($this->promo->p_isi / 100));
     }
 
     public function decreaseStok()
     {
         return $this->promoModel::where("p_kode", $this->promoCode)->update([
-            "p_kapasitas" => $this->promo->p_kapasitas - 1
+            "p_jumlah" => $this->promo->p_jumlah - 1
+        ]);
+    }
+
+    public function addDetailUser()
+    {
+        $this->detailUserPromo::create([
+            "user_id" => $this->user_id,
+            "promo_id" => $this->promo->id,
         ]);
     }
 
     public function _model()
     {
+        $this->detailUserPromo = new DetailUserPromo();
         $this->promoModel = new Promo();
         $this->promo = $this->promoModel::with("user")->where("p_kode", $this->promoCode)->first();
     }

@@ -113,7 +113,7 @@ class LayananFeController extends Controller
         });
 
         // Apakah Promo sudah terdeteksi
-        if ($this->checkPromo()) {
+        if (!$this->checkPromo()) {
             return back()->withErrors([
                 "promo" => "Promo Sudah Habis"
             ]);

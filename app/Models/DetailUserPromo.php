@@ -11,6 +11,7 @@ class DetailUserPromo extends Pivot
     use HasFactory;
 
     protected $guarded = ["id"];
+    protected $table = "detail_user_promos";
 
     public function promos(): BelongsTo
     {

@@ -41,6 +41,9 @@ class PromoController extends Controller
     {
         $validation  = $request->validated();
 
+        $validation["p_tipe_stok"] = $validation["p_jumlah"] == 0 ? "unlimited" : "limit";
+
+        // dd($validation["p_tipe_stok"]);
         if ($request->hasFile("p_foto")) {
             $file_promo = $request->file("p_foto");
 
@@ -80,6 +83,7 @@ class PromoController extends Controller
     public function storePromo($id)
     {
         $promo = $this->promoService->getDataPromoById($id);
+        // $promo = Promo::findOrFail($id);
 
         return view("admin.promo.detail", [
             "title" => "Promo",
@@ -91,7 +95,7 @@ class PromoController extends Controller
     /**
      * Update Promo
      */
-    public function updatePromo(RequestPromo $request, $id)
+    public function updatePromo($id, RequestPromo $request)
     {
         $validation = $request->validated(); // Data yang sudah ter-validasi
         $promo = $this->promoService->getDataPromoById($id); // Get Old Data
@@ -111,10 +115,11 @@ class PromoController extends Controller
             $foto_promo = $file_promo->hashName();
 
             // Tambahkan File
+            $foto_promo_path = $file_promo->storeAs("/promo", $foto_promo);
             $foto_promo_path = Storage::disk("public")->put("/promo", $file_promo);
 
             // Ubah Isi dari request foto di validation
-            $validation["p_promo"] == $foto_promo_path;
+            $validation["p_foto"] = $foto_promo_path;
         }
 
         // Update

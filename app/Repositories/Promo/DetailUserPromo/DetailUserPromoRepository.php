@@ -1,14 +1,9 @@
 <?php
 
-namespace App\Repositories\Promo\DetailKategoriPromo;
+namespace App\Repositories\Promo\DetailUserPromo;
 
-interface DetailKategoriPromoRepository
+interface DetailUserPromoRepository
 {
-    /**
-     * Get All Data Detail Kategori Promo With All Relationship Eager Loading
-     * @return array
-     */
-    public function getAllWithAllRelation();
 
     /**
      * Get All Data Detail Kategori Promo

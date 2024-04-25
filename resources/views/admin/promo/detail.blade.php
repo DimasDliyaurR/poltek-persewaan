@@ -54,14 +54,26 @@
             </div>
 
             <div class="flex flex-col mb-4">
-                <span class="font-semibold mb-3">Bahan Bakar</span>
-                <span class="p-4 rounded-lg bg-gray-100">{{ $promo->mk_bahan_bakar }}</span>
+                <span class="font-semibold mb-3">Keaktivan</span>
+                <span class="p-4 rounded-lg bg-gray-100">{{ $promo->p_is_aktif ? 'Aktif' : 'Non aktif' }}</span>
+            </div>
+
+            <div class="flex flex-col mb-4">
+                <span class="font-semibold mb-3">Status Ketersediaan</span>
+                <span class="p-4 rounded-lg bg-gray-100">{{ $promo->p_is_umum ? 'Umum' : ' Tidak Umum' }}</span>
+            </div>
+
+            <div class="flex flex-col mb-4">
+                <span class="font-semibold mb-3">Stok Kapasitas</span>
+                <span
+                    class="p-4 rounded-lg bg-gray-100">{{ $promo->p_tipe_stok == 'unlimited' ? '∞ ' : $promo->p_jumlah }}</span>
             </div>
         </div>
     </x-inner-layout>
 @endsection
 
 @section('script')
+    <script src="{{ asset('js/validasi/promoForm.js') }}"></script>
     <script>
         // Inisialisasi
         var countdown = document.getElementById("time")

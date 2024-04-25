@@ -28,7 +28,7 @@ trait HandlerPromo
             // Apakah promo ada dan sesuai kategori
             if ($this->promo->isExist() && ($this->promo->isCategorySame() or $this->promo->isAppliesForAllCategories())) {
                 // Apakah Promo Tidak Kadaluarsa dan Aktif
-                if (!(!($this->promo->isExpired()) && $this->promo->isActive())) {
+                if ((!$this->promo->isExpired()) && $this->promo->isActive()) {
                     // Apakah Promo sudah digunakan oleh user
                     if ($this->promo->isUserAlreadyUsing()) {
                         return 3;
@@ -56,7 +56,11 @@ trait HandlerPromo
                 // Perhitungan Promo dengan Subtotal
                 $this->total_transaksi = $this->promo->total($this->total_transaksi);
                 // Pengurangan Kapasitas Promo
-                $this->promo->decreaseStok();
+                if (!$this->promo->isStokUnlimited()) {
+                    $this->promo->decreaseStok();
+                }
+
+                $this->promo->addDetailUser();
                 return true;
             }
         }

@@ -26,6 +26,7 @@ class TransaksiGedung extends Model
      */
     protected $fillable = [
         'user_id',
+        'promo_id',
         'code_unique',
         'tg_tujuan',
         'tg_tanggal_sewa',
@@ -41,6 +42,7 @@ class TransaksiGedung extends Model
     protected $casts = [
         'id' => 'integer',
         'user_id' => 'integer',
+        'promo_id' => 'integer',
         'tg_tanggal_sewa' => 'datetime',
         'tg_tanggal_kembali' => 'datetime',
         'tg_tanggal_pelaksanaan' => 'timestamp',
