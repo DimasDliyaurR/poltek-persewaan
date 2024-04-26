@@ -308,15 +308,6 @@ Route::group(["prefix" => "admin"], function () {
     });
 });
 
-Route::controller(LoginController::class)->group(function () {
-    Route::group(["middleware" => "guest"], function () {
-        Route::get("login", "showLoginForm")->name("login");
-        Route::post("login/action", "login");
-    });
-
-    Route::get("logout", "logout")->name("logout");
-});
-
 
 // FrontEnd
 Route::view('/kalender', [LandingPageController::class, 'kalender']);
@@ -366,3 +357,7 @@ Route::group(["prefix" => "alat-barang"], function () {
         Route::post("/beli-langsung", "pesan")->middleware("auth")->name("alat-barang.pesan");
     });
 });
+
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

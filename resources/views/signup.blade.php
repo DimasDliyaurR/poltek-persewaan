@@ -5,14 +5,15 @@
             <h1 class="text-center pb-2 text-xl block">Daftar</h1>
 
             <hr class="mt-1 mb-4 border-t-1 border-primary">
-            <form action="{{ asset('register/action') }}" method="POST" enctype="multipart/form-data">
+            <form method="POST" action="{{ route('register') }}" enctype="multipart/form-data">
                 @csrf
                 {{-- Email --}}
                 <div class="mt-1 mb-1 text-sm flex flex-col justify-between ">
                     <label for="email" class="">Email</label>
                     <input type="text"
                         class="border w-full text-sm  focus:outline-none focus:ring-0 focus:border-gray-600 rounded-md "
-                        id="email" name="email" placeholder="masukkan alamat email" value="{{ old('email') }}">
+                        id="email" name="email" placeholder="masukkan alamat email" value="{{ old('email') }}"
+                        autocomplete="email">
                     @error('email')
                         {{ $message }}
                     @enderror
@@ -66,20 +67,22 @@
                 <div class="mt-1 text-sm">
                     <label for="password">Kata sandi</label>
                     <input type="password" id="password" name="password" placeholder="Password"
-                        class="bg-none border w-full text-sm  mb-2 focus:outline-none focus:ring-0 focus:border-gray-600 rounded-md">
+                        class="bg-none border w-full text-sm  mb-2 focus:outline-none focus:ring-0 focus:border-gray-600 rounded-md"
+                        autocomplete="new-password">
                 </div>
                 <div class="mt-1 text-sm">
                     <label for="password_confirmation">Konfirmasi kata sandi</label>
                     <input type="password" id="password_confirmation" name="password_confirmation"
                         placeholder="Konfirmasi Password"
-                        class="bg-none border w-full text-sm  mb-2 focus:outline-none focus:ring-0 focus:border-gray-600 rounded-md">
+                        class="bg-none border w-full text-sm  mb-2 focus:outline-none focus:ring-0 focus:border-gray-600 rounded-md"
+                        autocomplete="new-password">
                     @error('password')
                         {{ $message }}
                     @enderror
                 </div>
 
                 <div class="mt-1 text-sm">
-                    <label for="alamat">Konfirmasi kata sandi</label>
+                    <label for="alamat">Alamat</label>
                     <input type="text" id="alamat" name="alamat" placeholder="Konfirmasi Password"
                         class="bg-none border w-full text-sm  mb-2 focus:outline-none focus:ring-0 focus:border-gray-600 rounded-md">
                     @error('alamat')
