@@ -11,7 +11,7 @@ class RequestAlatBarang extends FormRequest
      */
     public function authorize(): bool
     {
-        return true;
+        return auth()->user()->level == 'admin';
     }
 
     /**
@@ -21,10 +21,9 @@ class RequestAlatBarang extends FormRequest
      */
     public function rules(): array
     {
-        $rules = [];
 
         if ($this->getMethod() == "PUT") {
-            $rules += [
+            return [
                 "ab_foto" => "image",
                 "ab_nama" => "required",
                 "ab_keterangan" => "required",
@@ -33,7 +32,7 @@ class RequestAlatBarang extends FormRequest
                 "satuan_alat_barang_id" => "required",
             ];
         } else {
-            $rules += [
+            return [
                 "ab_foto" => "required|image",
                 "ab_nama" => "required",
                 "ab_keterangan" => "required",
@@ -42,8 +41,6 @@ class RequestAlatBarang extends FormRequest
                 "satuan_alat_barang_id" => "required",
             ];
         }
-
-        return $rules;
     }
 
     public function messages()

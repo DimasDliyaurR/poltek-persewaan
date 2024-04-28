@@ -14,9 +14,9 @@
     <!-- TABLE END -->
 
     <!-- FORM START -->
-    <div class="uppercase text-lg font-bold m-4">
+    <x-title-component>
         Form {{ $title }}
-    </div>
+    </x-title-component>
 
     <x-inner-layout>
 

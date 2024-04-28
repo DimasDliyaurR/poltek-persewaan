@@ -11,7 +11,7 @@ class RequestGedungLap extends FormRequest
      */
     public function authorize(): bool
     {
-        return true;
+        return auth()->user()->level == 'admin';
     }
 
     /**
@@ -21,10 +21,9 @@ class RequestGedungLap extends FormRequest
      */
     public function rules(): array
     {
-        $rules = [];
 
         if ($this->getMethod() == "PUT") {
-            $rules += [
+            return [
                 "gl_foto" => "image",
                 "gl_nama" => "required",
                 "gl_keterangan" => "required",
@@ -34,7 +33,7 @@ class RequestGedungLap extends FormRequest
                 "gl_ukuran_gedung" => "required",
             ];
         } else {
-            $rules += [
+            return [
                 "gl_foto" => "required|image",
                 "gl_nama" => "required",
                 "gl_keterangan" => "required",
@@ -44,8 +43,6 @@ class RequestGedungLap extends FormRequest
                 "gl_ukuran_gedung" => "required",
             ];
         }
-
-        return $rules;
     }
 
     public function messages()

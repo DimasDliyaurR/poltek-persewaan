@@ -21,6 +21,11 @@ class RequestRegister extends FormRequest
      */
     public function rules(): array
     {
+        if ($this->getMethod() == "PUT") {
+            return [
+                'level' => 'required',
+            ];
+        }
         return [
             'username' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users',
@@ -37,6 +42,8 @@ class RequestRegister extends FormRequest
         return [
             'username.required' => 'username mohon diisi !',
             'username.max' => 'username terlalu panjang !',
+
+            'level.required' => 'Level mohon diisi !',
 
             'email.required' => 'Email mohon diisi !',
             'email.email' => 'Format email tidak sah !',

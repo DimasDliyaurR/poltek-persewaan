@@ -11,7 +11,7 @@ class RequestMerkKendaraan extends FormRequest
      */
     public function authorize(): bool
     {
-        return true;
+        return auth()->user()->level == 'admin';
     }
 
     /**
@@ -21,6 +21,17 @@ class RequestMerkKendaraan extends FormRequest
      */
     public function rules(): array
     {
+        if ($this->getMethod() == "PUT") {
+            return [
+                "mk_foto" => "image|extensions:jpg,png",
+                "mk_merk" => "required",
+                "mk_seri" => "required|",
+                "mk_tarif" => "required|numeric|max_digits:10",
+                "mk_kapasitas" => "required",
+                "mk_bahan_bakar" => "required",
+                "mk_deskripsi" => "required",
+            ];
+        }
 
         return [
             "mk_foto" => "required|image|extensions:jpg,png",

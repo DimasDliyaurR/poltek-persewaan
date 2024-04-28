@@ -21,6 +21,7 @@ export default {
         },
         fontFamily: {
             sans: ["Century Gothic", "sans-serif"],
+            poppins: ["Poppins", "sans-serif"],
         },
     },
     plugins: [
