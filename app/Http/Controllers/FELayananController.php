@@ -9,7 +9,7 @@ class FELayananController extends Controller
 {
     public function index()
     {
-        $layanans = Layanan::latest();
+        $layanans = Layanan::get();
         if(request('search')){
             $layanans->where('l_nama', 'like', '%' . request('search'). '%');
         }

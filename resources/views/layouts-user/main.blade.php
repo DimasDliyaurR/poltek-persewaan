@@ -17,15 +17,15 @@
 <body >
 
 <!-- drawer init and show -->
-@include('layouts-user.nav')
-<div class="p-4 sm:ml-64 mt-14 bg-softblue">
+
+
+@include('layouts-user.sidebar')
+<div class="p-4 sm:ml-64  ">
 
     @yield('content')
 
    
 </div>
-
-@include('layouts-user.sidebar')
 
 
 @vite('resources/js/app.js')

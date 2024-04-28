@@ -48,7 +48,6 @@
           events: '{{ route('kalender.list') }}',
           dateClick: function(info){
             console.log(info);
-            
           }
         });
         calendar.render();

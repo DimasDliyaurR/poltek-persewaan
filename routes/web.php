@@ -377,6 +377,8 @@ Route::view('/asrama/invoice', 'asrama.transaksi_invoice', [
     "title" => "Invoice Asrama",
 ]);
 
+Route::get('/asrama/printpdf',[FEAsramaController::class, 'cetak'])->name('asrama.printpdf');
+
 // LAYANAN FE
 Route::view('/transportasi', 'transportasi.index', [
     "title" => "Transportasi",
@@ -393,7 +395,7 @@ Route::view('/layanan', 'layanan.index', [
 
 // ALAT BARANG FE
 
-Route::view('/alat-barang', 'alatBarang.index', [
+Route::view('/alatbarang', 'alatBarang.index', [
     "title" => "Alat Barang",
 ]);
 Route::view('/alat-barang/detail', 'alatBarang.detail', [
@@ -401,10 +403,10 @@ Route::view('/alat-barang/detail', 'alatBarang.detail', [
 ]);
 
 // GEDUNG LAP FE
-Route::view('/gedung','gedung.index', [
-    "title" => "Gedung",
-]);
-Route::view('/gedung/detail', 'gedung.detail', [
+// Route::view('/gedung','GedungLap.index', [
+//     "title" => "Kategori Gedung",
+// ]);
+Route::view('/gedung/detail', 'GedungLap.detail', [
     "title" => "Detail Gedung",
 ]);
 // TRANSAKSI
@@ -432,4 +434,7 @@ Route::view('/voucher', 'user.riwayat_voucher',[
 ]);
 Route::view('/dashboard', 'user.dash' ,[
     "title"=> "Dashboard"
+]);
+Route::view('/invoice', 'user.riwayat_invoice', [
+    "title" => "Invoice",
 ]);

@@ -1,34 +1,36 @@
 @extends('layouts-home.navbar.nav-old')
 @section('content')
 <section id="home" class="pt-36 pb-56 h-screen relative  ">
-
+<div class="absolute inset-0 bg-white  opacity-10 ">
+  <div class=" h-full  bg-cover " style="background-image: url('{{ asset('img/gerbang.jpg') }}');">
+    <div class="relative opacity-10 w-1/2"></div>
+  </div> 
+</div>  
 <div class="container relative  z-10 ">
     <div class="flex flex-wrap mx-auto">
       <div class="w-full  self-center px-10  xl:w-1/2 lg:w-1/2 ">
-        <div>
-          <h1 class="text-base text-grecianblue font-semibold  md:text-xl lg:text-2xl">Ayoo <span class="text-black block font-bold text-slate-900 text-4xl lg:text-5xl pb-2">SEWA ASET </span></h1>
-          <h2 class="flex justify-center xl:justify-start font-semibold md:text-xl lg:text-2xl mt-6 leading relaxed mb-8  ">Mudah, Aman , Terjangkau !</h2>
-          </div>
-          <div class="flex xl:flex-row ">
-              <div class="border-solid basis- text-sm border-gray-400 border-[1px] px-5 py-2 rounded cursor-pointer  flex justify-between bg-white shadow-sm ">
-                  <a href="#kat">Booking dari sekarang !  | Kategori </a>
-              </div>
-              <div class="border-solid w-28 text-sm border-gray-400 border-[1px] px-5 py-2 rounded cursor-pointer  flex  bg-white shadow-sm items-center">
-                  <a href="/kalender">Jadwal</a>
-              </div>
-          </div>
+        <h1 class="text-base text-grecianblue font-semibold  md:text-xl lg:text-2xl">Ayoo <span class="text-black block font-bold text-slate-900 text-4xl lg:text-5xl pb-2">SEWA ASET </span></h1>
+        <h2 class="flex justify-center xl:justify-start font-semibold md:text-xl lg:text-2xl mt-6 leading relaxed mb-8  ">Mudah, Aman , Terjangkau !</h2>
+        
+        <div class="flex xl:flex-row ">
+            <div class="border-solid basis- text-sm border-gray-400 border-[1px] px-5 py-2 rounded cursor-pointer  flex justify-between bg-white shadow-sm ">
+                <a href="#kat">Booking dari sekarang !  | Kategori </a>
+            </div>
+            <div class="border-solid w-28 text-sm border-gray-400 border-[1px] px-5 py-2 rounded cursor-pointer  flex  bg-white shadow-sm items-center">
+                <a href="/kalender">Jadwal</a>
+            </div>
+        </div>
       </div>
+      <!-- pict -->
       <div class="w-full container self-end px-10 xl:w-1/2 lg:w-1/2">
           <div class="relative mt-10 lg:mt-9 lg:right-0 object-cover">
-              <img src="{{asset('img/LogoPoltekbang.png')}}" alt="Logo Poltekbang" class="max-w-full mx-auto" />
+              <img src="{{asset('img/landingpage/lp.png')}}" alt="Logo Poltekbang" class="max-w-3xl mx-auto" />
           </div>
       </div>
     </div>
 </div>
 </section>
-<section>
-  <div class=" container pt-20 pb-36">
-    <div class=" rounded-lg flex flex-wrap xl:w-3/4 mx-auto xl:shadow-lg">
+<div id="kat" class=" relative bg-white rounded-lg flex  flex-wrap xl:w-3/4 mx-auto xl:shadow-lg  -mt-20">
       <div class="xl:w-1/5 md:w-1/3 w-1/2 shadow-lg xl:shadow-none  h-40 hover:bg-gray-300 rounded-lg p-4 cursor-pointer flex justify-center items-center ">
         <a href="">Transportasi
         <svg version="1.1" class="hover:text-white  mt-6 h-16 w-16 mx-auto" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="100%" viewBox="0 0 500 500" enable-background="new 0 0 500 500" xml:space="preserve">
@@ -281,16 +283,14 @@
           <img src="{{ ('img/kategori/layanan.png') }}" alt="" class=" mt-6 hover:filter hover:invert h-16 w-16  mx-auto">
         </a>
       </div>
-      <div class="xl:w-1/5 w-1/2  md:w-1/3  shadow-lg xl:shadow-none h-40 hover:bg-gray-300 rounded-lg p-4 cursor-pointer flex justify-center items-center">
-        <a href="/asrama" ><span class="mb-8">Asrama</span>
-          <img src="{{ asset('img/kategori/hotel.png') }}" alt="" class=" mt-6 hover:filter hover:invert h-16 w-16 mx-auto">
-        </a>
-      </div>
-      <div class="xl:w-1/5 w-1/2  md:w-1/3 shadow-lg xl:shadow-none  h-40 hover:bg-gray-300 rounded-lg p-4 cursor-pointer mx-auto flex justify-center items-center">
-        <a href="/alatbarang">Alat Barang
-        </a>
-      </div>
+        <div class="xl:w-1/5 w-1/2  md:w-1/3  shadow-lg xl:shadow-none h-40   hover:bg-gray-300 rounded-lg p-4 cursor-pointer flex justify-center items-center">
+          <a href="/asrama" ><span class="mb-8">Asrama</span>
+            <img src="{{ asset('img/kategori/hotel.png') }}" alt="" class=" mt-6 hover:filter hover:invert h-16 w-16 mx-auto">
+          </a>
+        </div>
+        <div class="xl:w-1/5 w-1/2  md:w-1/3 shadow-lg xl:shadow-none  h-40 hover:bg-gray-300 rounded-lg p-4 cursor-pointer sm:mx-auto mx-auto xs:mx-auto flex justify-center items-center">
+          <a href="/alatbarang">Alat Barang
+          </a>
+        </div>
     </div>
-  </div>
-</section>
 @endsection

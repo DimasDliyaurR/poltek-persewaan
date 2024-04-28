@@ -4,12 +4,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{{$title }}| PERSEWAAAN ASET</title>
-    <link rel="icon" href="{{asset('img/logo.png') }}" type="image/png"  sizes="16x35">
+    <link rel="icon" href="{{asset('img/icon-logo.png') }}">
     <link  href="https://icons8.com/icon/E4FAF4hA9ugF/help">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.css" rel="stylesheet" />
     <!-- <link rel="stylesheet" href="{{asset('css/slider.css')}}"> -->
     <!-- Link Swiper's CSS -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+  <link rel="stylesheet" href="{{asset('css/style.css')}}">
+  
     @vite('resources/css/app.css')
     @vite('resources/js/app.js')
   
@@ -46,18 +48,25 @@
                 <li class="group">
                   <a href="#promo" class="text-base text-black py-2 mx-6 flex group-hover:text-primary">Promo</a>
                 </li>
-                <!-- <li class="group">
-                  <a href="#FAQ" class="text-base text-black py-2 mx-6 flex group-hover:text-primary">FAQ</a>
-                </li> -->
                 <li class="group">
                   <a href="#syarat" class="text-base text-black py-2 mx-6 flex group-hover:text-primary">Syarat</a>
                 </li>
                 <li class="group">
-                  <a href="#FAQ" class="text-base text-black py-2 mx-6 flex group-hover:text-primary">Pesanan</a>
-                </li>
-                <li class="group">
                   <a href="/login" class="text-base text-black py-2 mx-6 flex group-hover:text-primary">Daftar</a>
                 </li>
+                <div class="dropdownProfile">
+                  <li class="group">
+                  <button id="dropdownHoverButton" data-dropdown-toggle="dropdownHover" data-dropdown-trigger="hover" >
+                    <img src="{{asset('img/lab.jpg')}}" alt="" class="w-8 h-8 rounded-full mx-6 flex p-1">
+                  </button>
+                  </li>
+                  <div id="dropdownHover" class="z-10 hidden bg-white shadow-xl divide-y divide-gray-100 rounded-lg  w-32">
+                    <ul class="py-2 text-sm text-gray-700 " aria-labelledby="dropdownHoverButton">
+                      <li><a href="/dashboard" class="px-4 py-2 hover:bg-gray-100 hover:w-full">Dashboard</a></li>
+                      <li><a href="" class="px-4 py-2 hover:bg-gray-100">Logout</a></li>
+                    </ul>
+                  </div>
+                </div>
               </ul>
             </nav>
           </div>
@@ -237,6 +246,7 @@
     </footer>
 
     @vite('resources/js/app.js')
+    <script src="{{asset('js/main.js')}}"></script>
     <!-- <script src="../path/to/flowbite/dist/flowbite.min.js"></script> -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.js"></script>
     <script src="../path/to/flowbite/dist/datepicker.js"></script>

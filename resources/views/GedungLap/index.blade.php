@@ -1,17 +1,15 @@
-
 @extends('layouts-home.navbar.comp')
 @section('content')
 
-
-<div class="pt-40 pb-16 bg-slate-100 px-20 ">
-    <div class="container">
+<div class="pt-40">
+    <div class="container px-20">
             <div class="w-full">
                 <div class="max-w-xl mx-auto text-center mb-16">
                     <h4 class="font-semibold text-lg text-primary mb-2">Kategori</h4>
                     <h2 class="font-bold text-black text-3xl mb-8 sm:text-2xl lg:text-xl"> <a href="/" class="hover:text-primary" title="Kembali ke halaman awal">Home  </a>> Kategori > {{ $title}}</h2>
                 </div>
                 
-                <div class="pt-10 pb-20  relative md:max-auto">
+                <div class="pt-10 pb-20 relative md:max-auto">
                     <form action="/gedung" class="w-56 absolute right-4" >   
                         <label for="default-search" class="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white ">Search</label>
                         <div class="relative">
@@ -34,7 +32,6 @@
                     <div class="py-8 px-6">
                         <div id="default-carousel" class="relative w-full" data-carousel="slide">
                             <!-- Carousel wrapper -->
-                            <!-- <div class="relative h-56 overflow-hidden rounded-lg md:h-96"> -->
                             <div class="relative h-56 overflow-hidden rounded-md ">
                                 <!-- Item 1 -->
                                 <div class="hidden duration-700 ease-in-out" data-carousel-item>
@@ -89,11 +86,6 @@
                             <p class="text-sm font-semibold ml-1">{{$gl->gl_kapasitas_gedung}}</p>
                             <sup class="text-xs text-gray-500"> Orang / kamar </sup>
                         </div>
-                        <!-- <div class="flex mb-2">
-                            <img src="{{ ('img/penginapan/bensin.png') }}" alt="bbm" class="w-5 h-5">
-                            <p class="text-sm font-semibold ml-2">Bensin</p>
-                            <sup class="text-xs text-gray-500"> Fuel </sup>
-                        </div> -->
                         <p class="text-xs text-gray-500 mb-1  flex justify-between">*check out 12.00 a.m <span class=" text-black font-bold text-base">Rp {{ $gl->gl_tarif}}</span></p>
                         <p class=" text-sm text-gray-500 mb-1 float-right "> {{$gl -> gl_satuan_gedung}}</p>
                         <button class=" h-8 w-full bg-primary rounded-lg hover:opacity-50"><a href="{{ route('pesan',$gl->id)}}" class=" text-sm   text-white    " >Sewa</a></button>

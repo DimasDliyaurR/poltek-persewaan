@@ -25,9 +25,9 @@
                     </form>
                 </div>
             </div>
-@if($layanan->count())
+
         <div class="flex flex-wrap">
-            @foreach($layanan as $l)
+
             <div class="w-full px-4 lg:w-1/2 xl:w-1/3">
                 <div class="bg-white  rounded-xl shadow-lg overflow-hidden ">
                     <div class="py-8 px-6">
@@ -77,7 +77,7 @@
                             </button>
                         </div>
                         <h3>
-                        <a href=" /detailbus" class="block mb-3 mt-3 font-semibold text-xl text-black hover:text-primary truncate"> {{ $l->l_nama }}
+                        <a href=" /detailbus" class="block mb-3 mt-3 font-semibold text-xl text-black hover:text-primary truncate"> Nama Layanan
                         </a>
                         </h3>
                         <div class="flex mb-2"> 
@@ -98,13 +98,13 @@
                     </div>
                 </div>
             </div>
-        @endforeach
+
         </div>
     </div>
-    @else
-        <p class="font-bold uppercase pb-20">cari dengan kata kunci lain </p>
-    @endif
-    {{ $layanan->links() }}
+
+        <!-- <p class="font-bold uppercase pb-20">cari dengan kata kunci lain </p> -->
+
+
 </div>
 
 @endsection
