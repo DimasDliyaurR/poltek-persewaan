@@ -1,8 +1,8 @@
 @extends('layouts-home.navbar.nav-old')
 @section('content')
-<div class="p-36">
+<div class="xl:p-36 pt-20">
 
-  <div class="flex flex-wrap  xl:px-32 mx-auto pb-2 kategori-promo   space-x-2  text-[14px] ">
+  <div class="flex flex-wrap  xl:px-32 mx-auto px-2 pb-2 kategori-promo   space-x-2  text-[14px] ">
     <div class="bg-gray-100  h-10 w-28 flex items-center justify-center rounded-md mb-2 cursor-pointer hover:focus:ring-primary hover:border-primary hover:border-2  "><a href="">Semua</a>  </div>
     <div class="bg-gray-100  h-10 w-28 flex items-center justify-center rounded-md mb-2 cursor-pointer hover:focus:ring-primary hover:border-primary hover:border-2  "><a href="">Transportasi</a>  </div>
     <div class="bg-gray-100 w-28 h-10 flex items-center justify-center rounded-md mb-2 cursor-pointer  hover:focus:ring-primary hover:border-primary hover:border-2  "> <a href="">Gedung Lap</a></div>
@@ -10,11 +10,13 @@
     <div class="bg-gray-100 w-28 h-10 flex items-center justify-center rounded-md mb-2 cursor-pointer  hover:focus:ring-primary hover:border-primary hover:border-2  "> <a href="">Layanan</a></div>
     <div class="bg-gray-100 w-28 h-10  flex items-center justify-center  rounded-md mb-2 cursor-pointer  hover:focus:ring-primary hover:border-primary hover:border-2 "> <a href="">Alat Barang</a></div>
   </div>
-
-  <!-- start -->
-  <section>
+  <!-- start berhasil -->
+  <section >
+    <div class="flex w-10/12 px-16 xl:px-32 ">
+    <h4 class="font-bold my-4">Nama Kategori</h4>
+    </div>
     <div class="flex">
-      <div class="w-2/12 flex items-center">
+      <div class="w-1/12 flex items-center">
         <div class="w-full text-right">
           <button onclick="prev()" class="p-3 rounded-full bg-white border border-gray-100 shadow-lg">
           <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
@@ -23,7 +25,7 @@
           </button>
         </div>
       </div>
-      <div id="sliderContainer" class="w-10/12 overflow-hidden ">
+      <!-- <div id="sliderContainer" class="w-10/12 overflow-hidden ">
         <ul id="slider" class="flex w-full border border-gray-200  duration-700 ">
           <li class="p-5">
             <div class="border rounded-lg p-5 h-full">
@@ -80,8 +82,108 @@
             </div>
           </li>
         </ul>
+      </div> -->
+      <div id="sliderContainer"  class="w-10/12 overflow-hidden">
+        <ul id="slider" class="flex w-full space-x-2 mb-6 duration-700">
+        <li>
+          <div class="hover:scale-105 transition  ease-in-out delay-150  ">
+            <div class="flex flex-row"><a href="#" class="block max-w-sm p-4  bg-white border border-gray-200 rounded-lg shadow hover:bg-gray-100 ">
+              <div class="flex space-x-2">
+                <div class="basis-1/2">
+                  <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900">Promo Idul Fitri</h5>
+                  <div class="flex  items-center">
+                      <h4 class="text-base mr-2">Hemat</h4>
+                      <span class="text-4xl font-bold">50%</span>
+                  </div>
+                  <p class="mt-5 inline-block bg-plaster h-6 w-full text-center rounded-md tracking-widest text-sm mb-4" > 2024IED</p>
+                </div>
+                <div class="basis-1/2 relative">
+                  <div class="absolute right-0 top-2 text-center h-6 w-32 rounded-s-lg bg-primary">
+                    <p class="text-sm text-white">Sewa sekarang!</p>
+                  </div>
+                  <img src="{{ asset('img/layanan/marching band.jpg') }}" alt="picture 1"  class=" rounded-md w-full "/>
+                </div>
+              </div>  
+              <p class="text-gray-400 text-sm ">*periode 1 Januari - 1 Februari</p>
+              </a>
+            </div>
+          </div>
+        </li>
+        <li>
+          <div class="hover:scale-105 transition  ease-in-out delay-150  ">
+            <div class="flex flex-row"><a href="#" class="block max-w-sm p-4  bg-white border border-gray-200 rounded-lg shadow hover:bg-gray-100 ">
+              <div class="flex space-x-2">
+                <div class="basis-1/2">
+                  <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900">Promo Idul Adha</h5>
+                  <div class="flex  items-center">
+                      <h4 class="text-base mr-2">Hemat</h4>
+                      <span class="text-4xl font-bold">50%</span>
+                  </div>
+                  <p class="mt-5 inline-block bg-plaster h-6 w-full text-center rounded-md tracking-widest text-sm mb-4" > 2024IED</p>
+                </div>
+                <div class="basis-1/2 relative">
+                  <div class="absolute right-0 top-2 text-center h-6 w-32 rounded-s-lg bg-primary">
+                    <p class="text-sm text-white">Sewa sekarang!</p>
+                  </div>
+                  <img src="{{ asset('img/layanan/marching band.jpg') }}" alt="picture 1"  class=" rounded-md w-full "/>
+                </div>
+              </div>  
+              <p class="text-gray-400 text-sm ">*periode 1 Januari - 1 Februari</p>
+              </a>
+            </div>
+          </div>
+        </li>
+        <li>
+          <div class="hover:scale-105 transition  ease-in-out delay-150  ">
+            <div class="flex flex-row"><a href="#" class="block max-w-sm p-4  bg-white border border-gray-200 rounded-lg shadow hover:bg-gray-100 ">
+              <div class="flex space-x-2">
+                <div class="basis-1/2">
+                  <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900">Promo Ketupat</h5>
+                  <div class="flex  items-center">
+                      <h4 class="text-base mr-2">Hemat</h4>
+                      <span class="text-4xl font-bold">50%</span>
+                  </div>
+                  <p class="mt-5 inline-block bg-plaster h-6 w-full text-center rounded-md tracking-widest text-sm mb-4" > 2024IED</p>
+                </div>
+                <div class="basis-1/2 relative">
+                  <div class="absolute right-0 top-2 text-center h-6 w-32 rounded-s-lg bg-primary">
+                    <p class="text-sm text-white">Sewa sekarang!</p>
+                  </div>
+                  <img src="{{ asset('img/layanan/marching band.jpg') }}" alt="picture 1"  class=" rounded-md w-full "/>
+                </div>
+              </div>  
+              <p class="text-gray-400 text-sm ">*periode 1 Januari - 1 Februari</p>
+              </a>
+            </div>
+          </div>
+        </li>
+        <li> 
+          <div class="  hover:scale-105 transition  ease-in-out delay-150  ">
+              <div class="flex flex-row"><a href="#" class="block max-w-sm p-4  bg-white border border-gray-200 rounded-lg shadow hover:bg-gray-100 ">
+                <div class="flex space-x-2">
+                  <div class="basis-1/2">
+                    <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900">Promo Nataru</h5>
+                    <div class="flex  items-center">
+                        <h4 class="text-base mr-2">Hemat</h4>
+                        <span class="text-4xl font-bold">50%</span>
+                    </div>
+                    <p class="mt-5 inline-block bg-plaster h-6 w-full text-center rounded-md tracking-widest text-sm mb-4" > 2024IED</p>
+                  </div>
+                  <div class="basis-1/2 relative">
+                    <div class="absolute right-0 top-2 text-center h-6 w-32 rounded-s-lg bg-primary">
+                      <p class="text-sm text-white">Sewa sekarang!</p>
+                    </div>
+                    <img src="{{ asset('img/layanan/marching band.jpg') }}" alt="picture 1"  class=" rounded-md w-full "/>
+                  </div>
+                </div>  
+                <p class="text-gray-400 text-sm ">*periode 1 Januari - 1 Februari</p>
+                </a>
+              </div>
+            </div>
+        </li>
+        </ul>
       </div>
-      <div class="w-2/12 flex items-center ">
+        <div class="w-1/12 flex items-center ">
         <div class="w-full">
           <button onclick="next()" class="p-3 rounded-full bg-white border border-gray-100 shadow-lg">
           <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
@@ -94,7 +196,7 @@
   </section>
       <!-- end -->
 
-  <section id="Gedung">
+  <!-- <section id="Gedung">
     <h4 class="font-bold my-4"> Kategori Gedung Lap</h4>
   <div class="flex">
     <div class="w-2/12 flex items-center">
@@ -156,7 +258,7 @@
         </div>
       </div>
   </div>
-  </section>
+  </section> -->
   <div class="w-full px-4  justify-center xl:w-10/12 xl:mx-auto">
       <!-- Kategori 3 dari DB -->
       <div class=" container  my-4 ">
@@ -229,7 +331,6 @@
               </a>
             </div>
           </div>
-
         </div>
       </div>
       <!-- end 3 -->

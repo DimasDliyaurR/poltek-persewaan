@@ -16,6 +16,7 @@ return new class extends Migration
         Schema::create('transaksi_alat_barangs', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->constrained("users");
+            $table->string('tab_title');
             $table->dateTime('tab_tanggal_pesanan');
             $table->dateTime('tab_tanggal_kembali');
             $table->timestamps();

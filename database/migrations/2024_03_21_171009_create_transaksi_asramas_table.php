@@ -16,6 +16,7 @@ return new class extends Migration
         Schema::create('transaksi_asramas', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->constrained();
+            $table->string('ta_title');
             $table->dateTime('ta_tanggal_sewa');
             $table->dateTime('ta_check_in');
             $table->dateTime('ta_check_out');

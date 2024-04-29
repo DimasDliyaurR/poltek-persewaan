@@ -328,20 +328,33 @@ Route::get('/kalender/list', [LandingPageController::class, 'listEvent'])->name(
 //     return view('index', ['promo' => $promo]);
 // });
 Route::get('/promo', [LandingPageController::class, 'promo']);
-Route::get('/gedung', [FEGedungLapController::class, 'index']);
+
+
+Route::controller(FEGedungLapController::class)->group(function()
+{
+    Route::get('/gedung', 'index');
+    Route::get('/gedung/detail', 'detail');
+    Route::get('/gedung/kalender', 'kalenderGedungLap');
+});
 Route::get('/detailgedung/{id}', [FEgedungLapController::class, 'detail'])->name('detailgedung');
 // Route::get('/k_pesan/{id}', [FEgedungLapController::class, 'store'])->name('k_pesan');
 Route::get('/k_pesan/{id}', [FEKendaraanController::class, 'store'])->name('k_pesan');
 
 Route::controller(FELayananController::class)->group(function() {
     Route::get('/layanan', 'index');
+    Route::get('/layanan/kalender', 'kalenderLayanan');
+    Route::get('layanan/list', 'listEventLayanan')->name('layanan.list');
 });
 
 Route::controller(FEAsramaController::class)->group(function() {
     Route::get('/asrama', 'index');
+    Route::get('/asrama/kalender', 'kalenderAsrama');
+    Route::get('/asrama/list', 'listEventAsrama')->name('asrama.list');
 });
 Route::controller(FEAlatBarangController::class)->group(function() {
     Route::get('/alatbarang','index');
+    Route::get('/alatbarang/kalender','kalenderAlatBarang');
+    Route::get('/alatbarang/list', 'listEventAb')->name('ab.list');
 });
 
 

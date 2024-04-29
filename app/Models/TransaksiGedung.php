@@ -40,6 +40,7 @@ class TransaksiGedung extends Model
     protected $casts = [
         'id' => 'integer',
         'user_id' => 'integer',
+        'title' => 'string',
         'tg_tanggal_sewa' => 'datetime',
         'tg_tanggal_kembali' => 'datetime',
         'tg_tanggal_pelaksanaan' => 'timestamp',

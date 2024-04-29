@@ -16,10 +16,11 @@ return new class extends Migration
         Schema::create('transaksi_layanans', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->constrained();
+            $table->string('tl_title');
             $table->dateTime('tl_tanggal_sewa');
             $table->dateTime('tl_tanggal_pelaksanaan');
+            $table->dateTime('tl_tanggal_selesai');
             $table->time('tl_durasi_sewa');
-            $table->string('tl_tujuan');
             $table->boolean('tl_is_only_property');
             $table->timestamps();
         });

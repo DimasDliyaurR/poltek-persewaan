@@ -17,6 +17,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('user_id')->constrained("users");
             $table->string('code_unique');
+            $table->string('tk_title');
             $table->string('tk_durasi');
             $table->timestamp('tk_tanggal_sewa');
             $table->dateTime('tk_tanggal_kembali');
