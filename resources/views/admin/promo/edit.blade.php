@@ -5,6 +5,11 @@
         Form Update {{ $title }}
     </x-title-component>
 
+    @php
+        dd(auth()->user());
+
+    @endphp
+
     <x-inner-layout>
         @session('successForm')
             <x-alert-success>

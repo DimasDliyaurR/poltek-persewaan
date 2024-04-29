@@ -43,7 +43,7 @@ use App\Http\Controllers\transaksi\AlatBarangFeController;
 
 // BackEnd
 
-Route::group(["prefix" => "admin"], function () {
+Route::group(["prefix" => "admin", "middleware" => "auth"], function () {
 
     Route::group(["middleware" => "admin"], function () {
         Route::controller(KendaraanController::class)->group(function () {
@@ -278,6 +278,20 @@ Route::group(["prefix" => "admin"], function () {
             Route::delete("detailFotoLayanan/delete/{id}", "destroyDetailFotoLayanan");
         });
 
+        Route::controller(UserController::class)->group(function () {
+            // Index User
+            Route::get("users", "indexUser")->name("user.index");
+
+            // Index Show
+            Route::get("/user/{id}", "showUser")->name("user.show");
+
+            // Index Store
+            Route::get("user/store/{id}", "storeUser")->name("user.store");
+
+            // Index Update
+            Route::put("user/update/{id}", "updateUser")->name("user.update");
+        });
+
         Route::controller(PromoController::class)->group(function () {
             // Index Promo
             Route::get("promos", "indexPromo");
@@ -314,20 +328,6 @@ Route::group(["prefix" => "admin"], function () {
 
         // Index Transaksi Gedung & Lapangan
         Route::get("transaksi-gedungLaps", "indexTransaksiGedungLap");
-    });
-
-    Route::controller(UserController::class)->group(function () {
-        // Index User
-        Route::get("users", "indexUser")->name("user.index");
-
-        // Index Show
-        Route::get("/user/{id}", "showUser")->name("user.show");
-
-        // Index Store
-        Route::get("user/store/{id}", "storeUser")->name("user.store");
-
-        // Index Update
-        Route::put("user/update/{id}", "updateUser")->name("user.update");
     });
 });
 

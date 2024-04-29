@@ -49,8 +49,8 @@
                             class="border-solid w-28 text-sm border-gray-400 border-[1px] px-5 py-2 rounded cursor-pointer  flex  bg-white shadow-sm items-center">
                             <a href="/kalender">Jadwal</a>
                             <!-- <svg class="w-5 " xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
-                                                <path stroke-linecap="round" stroke-linejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5" />
-                                            </svg> -->
+                                                        <path stroke-linecap="round" stroke-linejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5" />
+                                                    </svg> -->
                         </div>
                         <div id="dropdownKal"
                             class="rounded border-[2px] border-white bg-white p-2 absolute top-[50px] w-[185px]  shadow-md hidden">
@@ -67,16 +67,16 @@
                         </script>
                     </div>
                     <!-- <div class="relative">
-                                          <div class="border-solid w-28 text-sm border-gray-400 border-[1px] px-5 py-2 rounded cursor-pointer  flex  bg-white shadow-sm " >
-                                          <form action="">
-                                          Search
-                                          </form>
-                                          
-                                          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5">
-                                            <path stroke-linecap="round" stroke-linejoin="round" d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z" />
-                                          </svg>
-                                          </div>
-                                        </div> -->
+                                                  <div class="border-solid w-28 text-sm border-gray-400 border-[1px] px-5 py-2 rounded cursor-pointer  flex  bg-white shadow-sm " >
+                                                  <form action="">
+                                                  Search
+                                                  </form>
+                                                  
+                                                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5">
+                                                    <path stroke-linecap="round" stroke-linejoin="round" d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z" />
+                                                  </svg>
+                                                  </div>
+                                                </div> -->
                 </div>
             </div>
         </div>
@@ -264,8 +264,8 @@
                                     </div>
                                     <!-- Item 4 -->
                                     <!-- <div class="hidden duration-700 ease-in-out" data-carousel-item>
-                                                                        <img src="{{ 'img/penginapan/truk_kanan.JPG' }}" class="absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2 shadow-lg rounded-md" alt="...">
-                                                                    </div> -->
+                                                                                <img src="{{ 'img/penginapan/truk_kanan.JPG' }}" class="absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2 shadow-lg rounded-md" alt="...">
+                                                                            </div> -->
                                 </div>
                                 <!-- Slider indicators -->
                                 <div

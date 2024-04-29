@@ -28,7 +28,7 @@
                     <option value="customer" {{ $user->level == 'customer' ? 'selected' : '' }}>Customer</option>
                     <option value="admin_dpupk" {{ $user->level == 'admin_dpupk' ? 'selected' : '' }}>DPUPK</option>
                     <option value="admin_keuangan" {{ $user->level == 'admin_keuangan' ? 'selected' : '' }}>KEUANGAN
-                    <option value="admin_keuangan" {{ $user->level == 'admin' ? 'selected' : '' }}>SUPER ADMIN
+                    <option value="admin" {{ $user->level == 'admin' ? 'selected' : '' }}>SUPER ADMIN
                     </option>
                 </select>
                 @error('level')
