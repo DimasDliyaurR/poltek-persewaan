@@ -18,7 +18,6 @@ class LandingPageController extends Controller
      {
         $start = date('Y-m-d', strtotime($request->start));
         $end = date('Y-m-d', strtotime($request->end));
-
         $events = Event::where('tgl_mulai', '>=', $start)
             ->where('tgl_kembali', '<=', $end)
             ->get()
@@ -41,11 +40,11 @@ class LandingPageController extends Controller
     public function getTransaksiEvents($start, $end)
     {
         $transaksiKendaraan = DB::table('transaksi_kendaraans')
-        ->select('tk_tanggal_sewa as start', 'tk_tanggal_kembali as end')
-        ->where('tk_tanggal_sewa', '>=', $start)
-        ->where('tk_tanggal_kembali', '<=', $end)
-        ->get()
-        ->toArray();
+            ->select('tk_tanggal_sewa as start', 'tk_tanggal_kembali as end')
+            ->where('tk_tanggal_sewa', '>=', $start)
+            ->where('tk_tanggal_kembali', '<=', $end)
+            ->get()
+            ->toArray();
         $transaksiGedung = DB::table('transaksi_gedungs')
             ->select('tg_tanggal_sewa as start', 'tg_tanggal_kembali as end')
             ->where('tg_tanggal_sewa', '>=', $start)
@@ -59,7 +58,7 @@ class LandingPageController extends Controller
             ->get()
             ->toArray();
         $transaksiAlatBarang = DB::table('transaksi_alat_barangs')
-            ->select('tab_tanggal_pesanan as start', 'tab_tanggal_kembali as end')
+            ->select('tab_tanggal_pesanan as start', 'tab_tanggal_kembali as end', DB::raw("'#FF5733' as color"))
             ->where('tab_tanggal_pesanan', '>=', $start)
             ->where('tab_tanggal_kembali','<=', $end)
             ->get()
@@ -72,15 +71,17 @@ class LandingPageController extends Controller
             ->toArray();
         
         $transaksiEvents = array_merge($transaksiKendaraan, $transaksiGedung, $transaksiAsrama, $transaksiAlatBarang, $transaksiLayanan);
-
         return $transaksiEvents;
     }
 
     public function promo()
     {
-        $promo = Promo::take(3)->get();
+        $promo = Promo::paginate(3);
         $title  ="Home";
-        return view('index', ['promo'=>$promo, 'title'=>$title]
+        return view('promo', [
+        
+        'title'=>$title,
+        'promo'=>$promo]
     );
     }
 }

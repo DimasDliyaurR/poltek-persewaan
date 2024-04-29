@@ -1,13 +1,6 @@
 @extends('layouts-home.navbar.nav')
 @section('content')
-    <div class=" grid place-items-center h-screen justify-center bg-gray-200">
-        <!-- <div id="modal-wrapper" class="">
-                                                                                                                                <div class="flex items-center justify-center min-h-screen bg-primary bg-opacity-75 transition-all ">
-                                                                                                                                    <div>
-                                                                                                                                        <h3>LOGIN</h3>
-                                                                                                                                    </div>
-                                                                                                                                </div>
-                                                                                                                            </div> -->
+    <div class=" grid place-items-center h-screen justify-center bg-gray-200">                                                                                                                    </div> -->
         <div class="w-96 p-6 shadow-lg bg-white rounded-md">
             <h1 class="text-center text-3xl mb-3 block">Login</h1>
 

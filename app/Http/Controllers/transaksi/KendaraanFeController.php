@@ -38,10 +38,14 @@ class KendaraanFeController extends Controller
         $kendaraans = MerkKendaraan::with("kendaraans")->withCount([
             "kendaraans" => fn ($q) => $q->where("k_status", "=", "tersedia")
         ]);
+        $kendaraans = MerkKendaraan::latest();
+        if(request('search')){
+            $kendaraans->where('mk_seri', 'like', '%' . request('search'). '%');
+        }
 
-        return view('kategori.transportasi', [
-            "title" => "Kendaraan",
-            "kendaraans" => $kendaraans->get()
+        return view('transportasi.index', [
+            "title" => "Transportasi",
+            "kendaraans" => $kendaraans->paginate(6)
         ]);
     }
 
