@@ -25,7 +25,7 @@
       <div id="buttondropdown" class="mx-auto flex">
         <div id="dropdownKategori" class="relative">
           <div class="border-solid text-sm border-gray-400 border-[1px] px-5 py-2 rounded cursor-pointer  flex justify-between bg-white shadow-sm ">
-                <a href="#kat">Booking dari sekarang !  | Kategori </a>
+                <a href="#kat">Booking dari sekarang !</a>
           </div>
         </div>
         <div id="dropdownJadwal" class="relative">
@@ -603,7 +603,7 @@
       </div>
 
     <div class=" container xl:w-10/12  ">
-      <div class="flex flex-wrap  pb-2 kategori-promo  xl:space-x-2   text-[14px] ">
+      <div class="flex flex-wrap xl:px-24 pb-2 kategori-promo  xl:space-x-2   text-[14px] ">
         <div class="bg-white w-1/4  h-8 xl:w-28 flex items-center justify-center rounded-md mb-2 space-kanan cursor-pointer hover:focus:ring-primary hover:border-primary hover:border-2  "><a href="" class="overflow-hidden">Semua</a>  </div>
         <div class="bg-white  w-1/4  h-8 xl:w-28 flex items-center justify-center rounded-md mb-2 space-kanan  cursor-pointer hover:focus:ring-primary hover:border-primary hover:border-2  "><a href="" class="overflow-hidden">Transportasi</a>  </div>
         <div class="bg-white w-1/4  xl:w-28 h-8 flex items-center justify-center rounded-md mb-2 space-kanan  cursor-pointer   hover:focus:ring-primary hover:border-primary hover:border-2  "> <a href="" class="overflow-hidden">GedungLap</a></div>
@@ -611,168 +611,131 @@
         <div class="bg-white w-1/4  xl:w-28 h-8 flex items-center justify-center rounded-md mb-2 space-kanan cursor-pointer  hover:focus:ring-primary hover:border-primary hover:border-2  "> <a href="" class="overflow-hidden">Layanan</a></div>
         <div class="bg-white w-1/4  xl:w-28 h-8  flex items-center justify-center  rounded-md mb-2 space-kanan cursor-pointer  hover:focus:ring-primary hover:border-primary hover:border-2 "> <a href="" class="overflow-hidden">Alat Barang</a></div>
       </div>
-      <div id="controls-carousel" class="relative    " data-carousel="static">
-        <!-- Carousel wrapper -->
-        <div class="relative h-56 overflow-hidden rounded-lg md:h-96">
-              <!-- Item 1 -->
-            <div class="duration-700 ease-in-out" data-carousel-item>
-                <!-- <img src="/docs/images/carousel/carousel-1.svg" class="absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2" alt="..."> -->
-                <div class="absolute block w-full  sm:w-1/2 lg:w-1/2 xl:w-1/3 hover:scale-105 transition  ease-in-out delay-150  ">
-                  <div class="flex flex-row"><a href="#" class="block max-w-sm p-4  bg-white border border-gray-200 rounded-lg shadow hover:bg-gray-100 ">
-                    <div class="flex space-x-2">
-                      <div class="basis-1/2">
-                        <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900">Promo Idul Fitri</h5>
-                        <div class="flex  items-center">
-                            <h4 class="text-base mr-2">Hemat</h4>
-                            <span class="text-4xl font-bold">50%</span>
-                        </div>
-                        <p class="mt-5 inline-block bg-plaster h-6 w-full text-center rounded-md tracking-widest text-sm mb-4" > 2024IED</p>
-                      </div>
-                      <div class="basis-1/2 relative">
-                        <div class="absolute right-0 top-2 text-center h-6 w-32 rounded-s-lg bg-primary">
-                          <p class="text-sm text-white">Sewa sekarang!</p>
-                        </div>
-                        <img src="{{ asset('img/layanan/marching band.jpg') }}" alt="picture 1"  class=" rounded-md w-full "/>
-                      </div>
-                      
-                    </div>  
-                    <p class="text-gray-400 text-sm ">*periode 1 Januari - 1 Februari</p>
-                    </a>
-                  </div>
-                </div>
-            </div>
-            <!-- Item 2 -->
-            <div class="duration-700 ease-in-out" data-carousel-item="active">
-              <div class="absolute block w-full  sm:w-1/2 lg:w-1/2 xl:w-1/3 hover:scale-105 transition  ease-in-out delay-150  ">
-                  <div class="flex flex-row"><a href="#" class="block max-w-sm p-4  bg-white border border-gray-200 rounded-lg shadow hover:bg-gray-100 ">
-                    <div class="flex space-x-2">
-                      <div class="basis-1/2">
-                        <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900">Promo Natal</h5>
-                        <div class="flex  items-center">
-                            <h4 class="text-base mr-2">Hemat</h4>
-                            <span class="text-4xl font-bold">50%</span>
-                        </div>
-                        <p class="mt-5 inline-block bg-plaster h-6 w-full text-center rounded-md tracking-widest text-sm mb-4" > 2024IED</p>
-                      </div>
-                      <div class="basis-1/2 relative">
-                        <div class="absolute right-0 top-2 text-center h-6 w-32 rounded-s-lg bg-primary">
-                          <p class="text-sm text-white">Sewa sekarang!</p>
-                        </div>
-                        <img src="{{ asset('img/layanan/marching band.jpg') }}" alt="picture 1"  class=" rounded-md w-full "/>
-                      </div>
-                      
-                    </div>  
-                    <p class="text-gray-400 text-sm ">*periode 1 Januari - 1 Februari</p>
-                    </a>
-                  </div>
-                </div>
-            </div>
-            <!-- Item 3 -->
-            <div class="duration-700 ease-in-out" data-carousel-item>
-            <div class="absolute block w-full  sm:w-1/2 lg:w-1/2 xl:w-1/3 hover:scale-105 transition  ease-in-out delay-150  ">
-                  <div class="flex flex-row"><a href="#" class="block max-w-sm p-4  bg-white border border-gray-200 rounded-lg shadow hover:bg-gray-100 ">
-                    <div class="flex space-x-2">
-                      <div class="basis-1/2">
-                        <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900">Promo Ramadhan</h5>
-                        <div class="flex  items-center">
-                            <h4 class="text-base mr-2">Hemat</h4>
-                            <span class="text-4xl font-bold">50%</span>
-                        </div>
-                        <p class="mt-5 inline-block bg-plaster h-6 w-full text-center rounded-md tracking-widest text-sm mb-4" > 2024IED</p>
-                      </div>
-                      <div class="basis-1/2 relative">
-                        <div class="absolute right-0 top-2 text-center h-6 w-32 rounded-s-lg bg-primary">
-                          <p class="text-sm text-white">Sewa sekarang!</p>
-                        </div>
-                        <img src="{{ asset('img/layanan/marching band.jpg') }}" alt="picture 1"  class=" rounded-md w-full "/>
-                      </div>
-                      
-                    </div>  
-                    <p class="text-gray-400 text-sm ">*periode 1 Januari - 1 Februari</p>
-                    </a>
-                  </div>
-                </div>
-            </div>
-            <!-- Item 4 -->
-            <div class="duration-700 ease-in-out" data-carousel-item>
-            <div class="absolute block w-full  sm:w-1/2 lg:w-1/2 xl:w-1/3 hover:scale-105 transition  ease-in-out delay-150  ">
-                  <div class="flex flex-row"><a href="#" class="block max-w-sm p-4  bg-white border border-gray-200 rounded-lg shadow hover:bg-gray-100 ">
-                    <div class="flex space-x-2">
-                      <div class="basis-1/2">
-                        <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900">Promo Tahun Baru</h5>
-                        <div class="flex  items-center">
-                            <h4 class="text-base mr-2">Hemat</h4>
-                            <span class="text-4xl font-bold">50%</span>
-                        </div>
-                        <p class="mt-5 inline-block bg-plaster h-6 w-full text-center rounded-md tracking-widest text-sm mb-4" > 2024IED</p>
-                      </div>
-                      <div class="basis-1/2 relative">
-                        <div class="absolute right-0 top-2 text-center h-6 w-32 rounded-s-lg bg-primary">
-                          <p class="text-sm text-white">Sewa sekarang!</p>
-                        </div>
-                        <img src="{{ asset('img/layanan/marching band.jpg') }}" alt="picture 1"  class=" rounded-md w-full "/>
-                      </div>
-                      
-                    </div>  
-                    <p class="text-gray-400 text-sm ">*periode 1 Januari - 1 Februari</p>
-                    </a>
-                  </div>
-                </div>
-            </div>
-            <!-- Item 5 -->
-            <div class="duration-700 ease-in-out" data-carousel-item>
-              <div class="absolute block w-full  sm:w-1/2 lg:w-1/2 xl:w-1/3 hover:scale-105 transition  ease-in-out delay-150  ">
-                  <div class="flex flex-row"><a href="#" class="block max-w-sm p-4  bg-white border border-gray-200 rounded-lg shadow hover:bg-gray-100 ">
-                    <div class="flex space-x-2">
-                      <div class="basis-1/2">
-                        <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900">Promo Idul Adha</h5>
-                        <div class="flex  items-center">
-                            <h4 class="text-base mr-2">Hemat</h4>
-                            <span class="text-4xl font-bold">50%</span>
-                        </div>
-                        <p class="mt-5 inline-block bg-plaster h-6 w-full text-center rounded-md tracking-widest text-sm mb-4" > 2024IED</p>
-                      </div>
-                      <div class="basis-1/2 relative">
-                        <div class="absolute right-0 top-2 text-center h-6 w-32 rounded-s-lg bg-primary">
-                          <p class="text-sm text-white">Sewa sekarang!</p>
-                        </div>
-                        <img src="{{ asset('img/layanan/marching band.jpg') }}" alt="picture 1"  class=" rounded-md w-full "/>
-                      </div>
-                      
-                    </div>  
-                    <p class="text-gray-400 text-sm ">*periode 1 Januari - 1 Februari</p>
-                    </a>
-                  </div>
-                </div>
-            </div>
+
+      <div class="flex">
+        <div class="w-1/12 flex items-center">
+          <div class="w-full text-right">
+            <button onclick="prev()" class="p-3 rounded-full bg-white border border-gray-100 shadow-lg">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M10.5 19.5 3 12m0 0 7.5-7.5M3 12h18" />
+            </svg>
+            </button>
+          </div>
         </div>
-        <!-- Slider controls -->
-        <div class="controls-wrapper flex -mt-28">
-          <button type="button" class="absolute top-0 start-0 z-30 flex items-center justify-center h-full px-4 cursor-pointer group focus:outline-none" data-carousel-prev>
-            <span class="inline-flex items-center justify-center w-10 h-10 rounded-full bg-white/30  group-hover:bg-white/50  group-focus:ring-4 group-focus:ring-white  group-focus:outline-none">
-                <svg class="w-4 h-4 text-white  rtl:rotate-180" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
-                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 1 1 5l4 4"/>
-                </svg>
-                <span class="sr-only">Previous</span>
-            </span>
-          </button>
-          <button type="button" class="absolute top-0 end-0 z-30 flex items-center justify-center h-full px-4 cursor-pointer group focus:outline-none" data-carousel-next>
-            <span class="inline-flex items-center justify-center w-10 h-10 rounded-full bg-white/30  group-hover:bg-white/50  group-focus:ring-4 group-focus:ring-white  group-focus:outline-none">
-                <svg class="w-4 h-4 text-white  rtl:rotate-180" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
-                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 9 4-4-4-4"/>
-                </svg>
-                <span class="sr-only">Next</span>
-            </span>
-          </button>
+        <div id="sliderContainer"  class="w-11/12 overflow-hidden">
+          <ul id="slider" class="flex w-full space-x-2 mb-6 duration-700">
+          <li>
+            <div class="hover:scale-105 transition  ease-in-out delay-150  ">
+              <div class="flex flex-row"><a href="#" class="block max-w-sm p-4  bg-white border border-gray-200 rounded-lg shadow hover:bg-gray-100 ">
+                <div class="flex space-x-2">
+                  <div class="basis-1/2">
+                    <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900">Promo Idul Fitri</h5>
+                    <div class="flex  items-center">
+                        <h4 class="text-base mr-2">Hemat</h4>
+                        <span class="text-4xl font-bold">50%</span>
+                    </div>
+                    <p class="mt-5 inline-block bg-plaster h-6 w-full text-center rounded-md tracking-widest text-sm mb-4" > 2024IED</p>
+                  </div>
+                  <div class="basis-1/2 relative">
+                    <div class="absolute right-0 top-2 text-center h-6 w-32 rounded-s-lg bg-primary">
+                      <p class="text-sm text-white">Sewa sekarang!</p>
+                    </div>
+                    <img src="{{ asset('img/layanan/marching band.jpg') }}" alt="picture 1"  class=" rounded-md w-full "/>
+                  </div>
+                </div>  
+                <p class="text-gray-400 text-sm ">*periode 1 Januari - 1 Februari</p>
+                </a>
+              </div>
+            </div>
+          </li>
+          <li>
+            <div class="hover:scale-105 transition  ease-in-out delay-150  ">
+              <div class="flex flex-row"><a href="#" class="block max-w-sm p-4  bg-white border border-gray-200 rounded-lg shadow hover:bg-gray-100 ">
+                <div class="flex space-x-2">
+                  <div class="basis-1/2">
+                    <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900">Promo Idul Adha</h5>
+                    <div class="flex  items-center">
+                        <h4 class="text-base mr-2">Hemat</h4>
+                        <span class="text-4xl font-bold">50%</span>
+                    </div>
+                    <p class="mt-5 inline-block bg-plaster h-6 w-full text-center rounded-md tracking-widest text-sm mb-4" > 2024IED</p>
+                  </div>
+                  <div class="basis-1/2 relative">
+                    <div class="absolute right-0 top-2 text-center h-6 w-32 rounded-s-lg bg-primary">
+                      <p class="text-sm text-white">Sewa sekarang!</p>
+                    </div>
+                    <img src="{{ asset('img/layanan/marching band.jpg') }}" alt="picture 1"  class=" rounded-md w-full "/>
+                  </div>
+                </div>  
+                <p class="text-gray-400 text-sm ">*periode 1 Januari - 1 Februari</p>
+                </a>
+              </div>
+            </div>
+          </li>
+          <li>
+            <div class="hover:scale-105 transition  ease-in-out delay-150  ">
+              <div class="flex flex-row"><a href="#" class="block max-w-sm p-4  bg-white border border-gray-200 rounded-lg shadow hover:bg-gray-100 ">
+                <div class="flex space-x-2">
+                  <div class="basis-1/2">
+                    <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900">Promo Ketupat</h5>
+                    <div class="flex  items-center">
+                        <h4 class="text-base mr-2">Hemat</h4>
+                        <span class="text-4xl font-bold">50%</span>
+                    </div>
+                    <p class="mt-5 inline-block bg-plaster h-6 w-full text-center rounded-md tracking-widest text-sm mb-4" > 2024IED</p>
+                  </div>
+                  <div class="basis-1/2 relative">
+                    <div class="absolute right-0 top-2 text-center h-6 w-32 rounded-s-lg bg-primary">
+                      <p class="text-sm text-white">Sewa sekarang!</p>
+                    </div>
+                    <img src="{{ asset('img/layanan/marching band.jpg') }}" alt="picture 1"  class=" rounded-md w-full "/>
+                  </div>
+                </div>  
+                <p class="text-gray-400 text-sm ">*periode 1 Januari - 1 Februari</p>
+                </a>
+              </div>
+            </div>
+          </li>
+          <li> 
+            <div class="  hover:scale-105 transition  ease-in-out delay-150  ">
+                <div class="flex flex-row"><a href="#" class="block max-w-sm p-4  bg-white border border-gray-200 rounded-lg shadow hover:bg-gray-100 ">
+                  <div class="flex space-x-2">
+                    <div class="basis-1/2">
+                      <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900">Promo Nataru</h5>
+                      <div class="flex  items-center">
+                          <h4 class="text-base mr-2">Hemat</h4>
+                          <span class="text-4xl font-bold">50%</span>
+                      </div>
+                      <p class="mt-5 inline-block bg-plaster h-6 w-full text-center rounded-md tracking-widest text-sm mb-4" > 2024IED</p>
+                    </div>
+                    <div class="basis-1/2 relative">
+                      <div class="absolute right-0 top-2 text-center h-6 w-32 rounded-s-lg bg-primary">
+                        <p class="text-sm text-white">Sewa sekarang!</p>
+                      </div>
+                      <img src="{{ asset('img/layanan/marching band.jpg') }}" alt="picture 1"  class=" rounded-md w-full "/>
+                    </div>
+                  </div>  
+                  <p class="text-gray-400 text-sm ">*periode 1 Januari - 1 Februari</p>
+                  </a>
+                </div>
+              </div>
+          </li>
+          </ul>
+        </div>
+        <div class="w-1/12 flex items-center ">
+          <div class="w-full">
+            <button onclick="next()" class="p-3 rounded-full bg-white border border-gray-100 shadow-lg">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3" />
+            </svg>
+            </button>
+          </div>
         </div>
       </div>
-      <!-- end coba new -->
-      
-      
-      <div class="flex justify-center">
+      <!-- <div class="flex justify-center">
         <a href="/promo"><button id="loadmore_promo" class="font-semibold text-medium text-black mt-6 mb-8 uppercase underline underline-offset-2 mx-auto">Lihat Lebih Banyak</button></a>
         <button id="hidemore_promo" class="font-semibold text-medium text-black mb-8 uppercase underline underline-offset-2 mx-auto hidden">Sembunyikan</button>
-      </div>
+      </div> -->
     </div>
     
     <!-- <div id="buttonpromo" class=" relative  mb-4 mt-4">
@@ -797,9 +760,9 @@
         }
       </script>  -->
   </div>
-  </div>
   </section>
     <!-- Promo Section End -->
+
   <!-- Section Syarat dan Ketentuan Start -->
     <section id="syarat" class="pt-36 pb-28 bg-white">
       <div class="container">
