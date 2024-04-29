@@ -3,15 +3,12 @@
 namespace App\Http\Controllers\admin;
 
 use Illuminate\Support\Str;
-use Illuminate\Http\Request;
-use App\Models\MerkKendaraan;
 use InvalidArgumentException;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Storage;
 use App\Http\Requests\RequestMerkKendaraan;
 use App\Services\Kendaraan\KendaraanService;
 use App\Http\Requests\kendaraan\RequestKendaraan;
-use App\Http\Requests\RequestMerkKendaraanUpdate;
 use App\Http\Requests\kendaraan\RequestKendaraanUpdate;
 
 class KendaraanController extends Controller
@@ -111,7 +108,7 @@ class KendaraanController extends Controller
      * Merk Kendaraan
      * Update
      */
-    public function updateMerkKendaraan(RequestMerkKendaraanUpdate $request, $id)
+    public function updateMerkKendaraan(RequestMerkKendaraan $request, $id)
     {
         $validation = $request->validated();
 

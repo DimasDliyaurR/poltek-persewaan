@@ -2,13 +2,12 @@
     <div class="flex flex-wrap items-center justify-between mx-auto p-4">
 
         <div class="flex flex-row items-center gap-5">
-            <img class="h-[50px] w-[70px]" src="{{ asset('img/LogoPoltekbang.png') }}" alt="Logo">
+            <img class="h-[50px] w-[70px]" src="{{ asset('/img/LogoPoltekbang.png') }}" alt="Logo">
             <div class="uppercase font-bold text-center text-lg">
                 SewaAset
             </div>
         </div>
-
-        <div class="">
+        <div class="flex">
             {{-- <button id="theme-toggle" type="button"
                 class="text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 rounded-lg text-sm p-2.5">
                 <svg id="theme-toggle-dark-icon" class="hidden w-5 h-5" fill="currentColor" viewBox="0 0 20 20"
@@ -23,7 +22,42 @@
                 </svg>
             </button> --}}
 
-            <img class="rounded-full w-10 h-10" src="" alt="image description">
+            <div>
+
+                <img class="rounded-full w-10 h-10" src="{{ asset('img/photo-profile.png') }}" alt="image description"
+                    data-dropdown-toggle="dropdown-profile">
+                <!-- Dropdown menu -->
+                <div id="dropdown-profile"
+                    class="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700">
+                    <ul class="py-2 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdownDefaultButton">
+                        <li>
+                            <a href="#"
+                                class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Dashboard</a>
+                        </li>
+                        <li>
+                            <a href="#"
+                                class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Settings</a>
+                        </li>
+                        <li>
+                            <a href="#"
+                                class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Earnings</a>
+                        </li>
+                        <li>
+                            <a class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
+                                href="{{ route('logout') }}"
+                                onclick="event.preventDefault();
+                                          document.getElementById('logout-form').submit();">
+                                {{ __('Logout') }}
+                            </a>
+
+                            <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                                @csrf
+                            </form>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
 
         </div>
     </div>

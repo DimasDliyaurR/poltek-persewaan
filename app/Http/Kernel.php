@@ -65,6 +65,8 @@ class Kernel extends HttpKernel
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
         'admin' => \App\Http\Middleware\AdminMiddleware::class,
+        'admin-dpupk' => \App\Http\Middleware\AdminDPUPKMiddleware::class,
+        'admin-keuangan' => \App\Http\Middleware\AdminKeuanganMiddleware::class,
         'pre-pesanan' => \App\Http\Middleware\PrePesanan::class,
     ];
 }

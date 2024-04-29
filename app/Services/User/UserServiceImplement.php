@@ -67,6 +67,23 @@ class UserServiceImplement implements UserService
     }
 
     /**
+     * Get Data User By Id
+     * @param integer $id
+     * @return boolean
+     * @throws InvalidArgumentException
+     */
+    public function getDataUserById($id)
+    {
+        try {
+            $data = $this->userRepository->getDataById($id);
+        } catch (\Exception $th) {
+            throw new InvalidArgumentException();
+        }
+
+        return $data;
+    }
+
+    /**
      * Create Data User
      * @param array $data
      * @return boolean
@@ -95,6 +112,34 @@ class UserServiceImplement implements UserService
         // } catch (\Exception $th) {
         //     throw new InvalidArgumentException();
         // }
+
+        return $data;
+    }
+
+    /**
+     * Update Data User
+     * @param array $data
+     * @param int $id
+     * @return boolean
+     * @throws InvalidArgumentException
+     */
+    public function updateUser($data, $id)
+    {
+        $data = $this->userRepository->update($data, $id);
+
+        return $data;
+    }
+
+    /**
+     * Update Data Profile
+     * @param array $data
+     * @param int $id
+     * @return boolean
+     * @throws InvalidArgumentException
+     */
+    public function updateProfile($data, $id)
+    {
+        $data = $this->profileRepository->update($data, $id);
 
         return $data;
     }

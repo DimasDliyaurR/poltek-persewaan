@@ -10,7 +10,7 @@
     @livewireStyles
 </head>
 
-<body class="dark:bg-gray-800">
+<body class="dark:bg-gray-800 font-poppins">
 
     @include('layouts-admin.nav')
     <div class="flex flex-col sm:flex-row">

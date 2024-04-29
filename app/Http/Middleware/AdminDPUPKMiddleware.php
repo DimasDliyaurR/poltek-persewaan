@@ -15,8 +15,8 @@ class AdminDPUPKMiddleware
      */
     public function handle(Request $request, Closure $next): Response
     {
-        if (auth()->user()->level != "admin_dpupk") {
-            return abort(404);
+        if (auth()->user()->level != "admin_dpupk" or auth()->user()->level != "admin") {
+            return abort(401);
         }
 
         return $next($request);

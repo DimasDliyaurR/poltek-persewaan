@@ -15,15 +15,16 @@ use App\Http\Controllers\FEAlatBarangController;
 use App\Http\Controllers\FEAsramaController;
 use Illuminate\Support\Facades\Route;
 use App\Services\GedungLap\GedungLapService;
+use App\Http\Controllers\admin\UserController;
 use App\Services\AlatBarang\AlatBarangService;
 use App\Http\Controllers\FEKendaraanController;
 use App\Http\Controllers\FELayananController;
 use App\Http\Controllers\FETransaksiController;
 use App\Http\Controllers\LandingPageController;
-use App\Http\Controllers\transaksi\AlatBarangFeController;
 use App\Http\Controllers\transaksi\AsramaFeController;
 use App\Http\Controllers\transaksi\GedungFeController;
 use App\Http\Controllers\transaksi\LayananFeController;
+use App\Http\Controllers\transaksi\AlatBarangFeController;
 
 /*
 |--------------------------------------------------------------------------
@@ -42,282 +43,294 @@ use App\Http\Controllers\transaksi\LayananFeController;
 //     ]);
 // });
 
-Route::group(["auth" => "guest"], function () {
-    Route::get('register', [RegistrationController::class, "showRegistrationForm"]);
-    Route::post('register/action', [RegistrationController::class, "register"]);
-});
-
 // BackEnd
 
-Route::group(["prefix" => "admin"], function () {
-    Route::controller(KendaraanController::class)->group(function () {
-        // Index Merk Kendaraan
-        Route::get("merkKendaraans", "indexMerkKendaraan");
+Route::group(["prefix" => "admin", "middleware" => "auth"], function () {
 
-        // Create Merk Kendaraan
-        Route::post("merkKendaraans/create", "createMerkKendaraan");
+    Route::group(["middleware" => "admin"], function () {
+        Route::controller(KendaraanController::class)->group(function () {
+            // Index Merk Kendaraan
+            Route::get("merkKendaraans", "indexMerkKendaraan");
 
-        // store Merk Kendaraan
-        Route::get("merkKendaraan/store/{id}", "storeMerkKendaraan");
+            // Create Merk Kendaraan
+            Route::post("merkKendaraans/create", "createMerkKendaraan");
 
-        // Show Merk Kendaraan
-        Route::get("merkKendaraan/show/{id}", "showMerkKendaraan");
+            // store Merk Kendaraan
+            Route::get("merkKendaraan/store/{id}", "storeMerkKendaraan");
 
-        // Update Merk Kendaraan
-        Route::put("merkKendaraan/update/{id}", "updateMerkKendaraan");
+            // Show Merk Kendaraan
+            Route::get("merkKendaraan/show/{id}", "showMerkKendaraan");
 
-        // Destroy Merk Kendaraan
-        Route::delete("merkKendaraan/delete/{id}", "destroyMerkKendaraan");
+            // Update Merk Kendaraan
+            Route::put("merkKendaraan/update/{id}", "updateMerkKendaraan");
 
-        // Index Kendaraan
-        Route::get("kendaraans", "indexKendaraan");
+            // Destroy Merk Kendaraan
+            Route::delete("merkKendaraan/delete/{id}", "destroyMerkKendaraan");
 
-        // Create Kendaraan
-        Route::post("kendaraans/create", "createKendaraan");
+            // Index Kendaraan
+            Route::get("kendaraans", "indexKendaraan");
 
-        // Show Kendaraan
-        Route::get("kendaraan/show/{id}", "showKendaraan");
+            // Create Kendaraan
+            Route::post("kendaraans/create", "createKendaraan");
 
-        // Update Kendaraan
-        Route::put("kendaraan/update/{id}", "updateKendaraan");
+            // Show Kendaraan
+            Route::get("kendaraan/show/{id}", "showKendaraan");
 
-        // Destroy Kendaraan
-        Route::delete("kendaraan/delete/{id}", "destroyKendaraan");
-    });
+            // Update Kendaraan
+            Route::put("kendaraan/update/{id}", "updateKendaraan");
 
-    Route::controller(AsramaController::class)->group(function () {
-        // Index Fasilitas Asrama
-        Route::get("fasilitasAsramas", "indexFasilitasAsrama");
+            // Destroy Kendaraan
+            Route::delete("kendaraan/delete/{id}", "destroyKendaraan");
+        });
 
-        // Create Fasilitas Asrama
-        Route::post("fasilitasAsramas/create", "createFasilitasAsrama");
+        Route::controller(AsramaController::class)->group(function () {
+            // Index Fasilitas Asrama
+            Route::get("fasilitasAsramas", "indexFasilitasAsrama");
 
-        // store Fasilitas Asrama
-        Route::get("fasilitasAsrama/store/{id}", "storeFasilitasAsrama");
+            // Create Fasilitas Asrama
+            Route::post("fasilitasAsramas/create", "createFasilitasAsrama");
 
-        // Show Fasilitas Asrama
-        Route::get("fasilitasAsrama/show/{id}", "showFasilitasAsrama");
+            // store Fasilitas Asrama
+            Route::get("fasilitasAsrama/store/{id}", "storeFasilitasAsrama");
 
-        // Update Fasilitas Asrama
-        Route::put("fasilitasAsrama/update/{id}", "updateFasilitasAsrama");
+            // Show Fasilitas Asrama
+            Route::get("fasilitasAsrama/show/{id}", "showFasilitasAsrama");
 
-        // Destroy Fasilitas Asrama
-        Route::delete("fasilitasAsrama/delete/{id}", "destroyFasilitasAsrama");
+            // Update Fasilitas Asrama
+            Route::put("fasilitasAsrama/update/{id}", "updateFasilitasAsrama");
 
-        // Index Asrama
-        Route::get("asramas", "indexAsrama");
+            // Destroy Fasilitas Asrama
+            Route::delete("fasilitasAsrama/delete/{id}", "destroyFasilitasAsrama");
 
-        // Create Asrama
-        Route::post("asramas/create", "createAsrama");
+            // Index Asrama
+            Route::get("asramas", "indexAsrama");
 
-        // store Asrama
-        Route::get("asrama/store/{id}", "storeAsrama");
+            // Create Asrama
+            Route::post("asramas/create", "createAsrama");
 
-        // Show Fasilitas Asrama
-        Route::get("asrama/show/{id}", "showAsrama");
+            // store Asrama
+            Route::get("asrama/store/{id}", "storeAsrama");
 
-        // Update Fasilitas Asrama
-        Route::put("asrama/update/{id}", "updateAsrama");
+            // Show Fasilitas Asrama
+            Route::get("asrama/show/{id}", "showAsrama");
 
-        // Destroy Fasilitas Asrama
-        Route::delete("asrama/delete/{id}", "destroyAsrama");
+            // Update Fasilitas Asrama
+            Route::put("asrama/update/{id}", "updateAsrama");
 
-        // Index Detail Fasilitas Asrama
-        Route::get("detailFasilitasAsrama/{id}", "indexDetailFasilitasAsrama");
+            // Destroy Fasilitas Asrama
+            Route::delete("asrama/delete/{id}", "destroyAsrama");
 
-        // Add Fasilitas Asrama
-        Route::post("detailFasilitasAsrama/create/fasilitas/{id}", "createDetailFasilitasAsrama");
+            // Index Detail Fasilitas Asrama
+            Route::get("detailFasilitasAsrama/{id}", "indexDetailFasilitasAsrama");
 
-        // Delete Detail Fasilitas Asrama
-        Route::delete("detailFasilitasAsrama/delete/{id}", "destroyDetailFasilitas");
+            // Add Fasilitas Asrama
+            Route::post("detailFasilitasAsrama/create/fasilitas/{id}", "createDetailFasilitasAsrama");
 
-        // Index Tipe Asrama
-        Route::get("tipeAsramas", "indexTipeAsrama");
+            // Delete Detail Fasilitas Asrama
+            Route::delete("detailFasilitasAsrama/delete/{id}", "destroyDetailFasilitas");
 
-        // Create Tipe Asrama
-        Route::post("tipeAsramas/create", "createTipeAsrama");
+            // Index Tipe Asrama
+            Route::get("tipeAsramas", "indexTipeAsrama");
 
-        // store Tipe Asrama
-        Route::get("tipeAsrama/store/{id}", "storeTipeAsrama");
+            // Create Tipe Asrama
+            Route::post("tipeAsramas/create", "createTipeAsrama");
 
-        // Show Tipe Asrama
-        Route::get("tipeAsrama/show/{id}", "showTipeAsrama");
+            // store Tipe Asrama
+            Route::get("tipeAsrama/store/{id}", "storeTipeAsrama");
 
-        // Update Tipe Asrama
-        Route::put("tipeAsrama/update/{id}", "updateTipeAsrama");
+            // Show Tipe Asrama
+            Route::get("tipeAsrama/show/{id}", "showTipeAsrama");
 
-        // Destroy Tipe Asrama
-        Route::delete("tipeAsrama/delete/{id}", "destroyTipeAsrama");
+            // Update Tipe Asrama
+            Route::put("tipeAsrama/update/{id}", "updateTipeAsrama");
 
-        // Restore Tipe Asrama
-        Route::get("tipeAsrama/restore/{id}", "restoreTipeAsrama");
-    });
+            // Destroy Tipe Asrama
+            Route::delete("tipeAsrama/delete/{id}", "destroyTipeAsrama");
 
-    Route::controller(AlatBarangController::class)->group(function () {
-        // Index Alat Barang
-        Route::get("alatBarangs", "indexAlatBarang");
+            // Restore Tipe Asrama
+            Route::get("tipeAsrama/restore/{id}", "restoreTipeAsrama");
+        });
 
-        // Create Alat Barang
-        Route::post("alatBarangs/create", "createAlatBarang");
+        Route::controller(AlatBarangController::class)->group(function () {
+            // Index Alat Barang
+            Route::get("alatBarangs", "indexAlatBarang");
 
-        // store Alat Barang
-        Route::get("alatBarang/store/{id}", "storeAlatBarang");
+            // Create Alat Barang
+            Route::post("alatBarangs/create", "createAlatBarang");
 
-        // Show Alat Barang
-        Route::get("alatBarang/show/{id}", "showAlatBarang");
+            // store Alat Barang
+            Route::get("alatBarang/store/{id}", "storeAlatBarang");
 
-        // Update Alat Barang
-        Route::put("alatBarang/update/{id}", "updateAlatBarang");
+            // Show Alat Barang
+            Route::get("alatBarang/show/{id}", "showAlatBarang");
 
-        // Destroy Alat Barang
-        Route::delete("alatBarang/delete/{id}", "destroyAlatBarang");
+            // Update Alat Barang
+            Route::put("alatBarang/update/{id}", "updateAlatBarang");
 
-        // Index Alat Barang
-        Route::get("detailFotoAlatBarangs/{id}", "indexFotoAlatBarang");
+            // Destroy Alat Barang
+            Route::delete("alatBarang/delete/{id}", "destroyAlatBarang");
 
-        // Create Alat Barang
-        Route::post("detailFotoAlatBarang/create/{id}", "createFotoAlatBarang");
+            // Index Alat Barang
+            Route::get("detailFotoAlatBarangs/{id}", "indexFotoAlatBarang");
 
-        // Index Satuan Alat Barang
-        Route::get("satuanAlatBarangs", "indexSatuanAlatBarang");
+            // Create Alat Barang
+            Route::post("detailFotoAlatBarang/create/{id}", "createFotoAlatBarang");
 
-        // Create Satuan Alat Barang
-        Route::post("satuanAlatBarangs/create", "createSatuanAlatBarang");
+            // Index Satuan Alat Barang
+            Route::get("satuanAlatBarangs", "indexSatuanAlatBarang");
 
-        // store Satuan Alat Barang
-        Route::get("satuanAlatBarang/store/{id}", "storeSatuanAlatBarang");
+            // Create Satuan Alat Barang
+            Route::post("satuanAlatBarangs/create", "createSatuanAlatBarang");
 
-        // Show Satuan Alat Barang
-        Route::get("satuanAlatBarang/show/{id}", "showSatuanAlatBarang");
+            // store Satuan Alat Barang
+            Route::get("satuanAlatBarang/store/{id}", "storeSatuanAlatBarang");
 
-        // Update Satuan Alat Barang
-        Route::put("satuanAlatBarang/update/{id}", "updateSatuanAlatBarang");
+            // Show Satuan Alat Barang
+            Route::get("satuanAlatBarang/show/{id}", "showSatuanAlatBarang");
 
-        // Destroy Satuan Alat Barang
-        Route::delete("satuanAlatBarang/delete/{id}", "destroySatuanAlatBarang");
-    });
+            // Update Satuan Alat Barang
+            Route::put("satuanAlatBarang/update/{id}", "updateSatuanAlatBarang");
 
-    Route::controller(GedungLapController::class)->group(function () {
-        // Index Gedung Lapangan
-        Route::get("gedungLaps", "indexGedungLap");
+            // Destroy Satuan Alat Barang
+            Route::delete("satuanAlatBarang/delete/{id}", "destroySatuanAlatBarang");
+        });
 
-        // Create Gedung Lapangan
-        Route::post("gedungLaps/create", "createGedungLap");
+        Route::controller(GedungLapController::class)->group(function () {
+            // Index Gedung Lapangan
+            Route::get("gedungLaps", "indexGedungLap");
 
-        // store Gedung Lapangan
-        Route::get("gedungLap/store/{id}", "storeGedungLap");
+            // Create Gedung Lapangan
+            Route::post("gedungLaps/create", "createGedungLap");
 
-        // Show Gedung Lapangan
-        Route::get("gedungLap/show/{id}", "showGedungLap");
+            // store Gedung Lapangan
+            Route::get("gedungLap/store/{id}", "storeGedungLap");
 
-        // Update Gedung Lapangan
-        Route::put("gedungLap/update/{id}", "updateGedungLap");
+            // Show Gedung Lapangan
+            Route::get("gedungLap/show/{id}", "showGedungLap");
 
-        // Destroy Gedung Lapangan
-        Route::delete("gedungLap/delete/{id}", "destroyGedungLap");
+            // Update Gedung Lapangan
+            Route::put("gedungLap/update/{id}", "updateGedungLap");
 
-        // Index Property Gedung Lapangan
-        Route::get("propertyGedungLaps", "indexPropertyGedungLap");
+            // Destroy Gedung Lapangan
+            Route::delete("gedungLap/delete/{id}", "destroyGedungLap");
 
-        // Create Property Gedung Lapangan
-        Route::post("propertyGedungLaps/create", "createPropertyGedungLap");
+            // Index Property Gedung Lapangan
+            Route::get("propertyGedungLaps", "indexPropertyGedungLap");
 
-        // Destroy Property Gedung Lapangan
-        Route::delete("propertyGedungLap/delete/{id}", "destroyPropertyGedungLap");
-    });
+            // Create Property Gedung Lapangan
+            Route::post("propertyGedungLaps/create", "createPropertyGedungLap");
 
-    Route::controller(LayananController::class)->group(function () {
-        // Index Layanan
-        Route::get("layanans", "indexLayanan");
+            // Destroy Property Gedung Lapangan
+            Route::delete("propertyGedungLap/delete/{id}", "destroyPropertyGedungLap");
+        });
 
-        // Create Layanan
-        Route::post("layanans/create", "createLayanan");
+        Route::controller(LayananController::class)->group(function () {
+            // Index Layanan
+            Route::get("layanans", "indexLayanan");
 
-        // store Layanan
-        Route::get("layanan/store/{id}", "storeLayanan");
+            // Create Layanan
+            Route::post("layanans/create", "createLayanan");
 
-        // Show Layanan
-        Route::get("layanan/show/{id}", "showLayanan");
+            // store Layanan
+            Route::get("layanan/store/{id}", "storeLayanan");
 
-        // Update Layanan
-        Route::put("layanan/update/{id}", "updateLayanan");
+            // Show Layanan
+            Route::get("layanan/show/{id}", "showLayanan");
 
-        // Destroy Layanan
-        Route::delete("layanan/delete/{id}", "destroyLayanan");
+            // Update Layanan
+            Route::put("layanan/update/{id}", "updateLayanan");
 
-        // Index Tim Layanan
-        Route::get("timLayanans/{id}", "indexTimLayanan");
+            // Destroy Layanan
+            Route::delete("layanan/delete/{id}", "destroyLayanan");
 
-        // Create Tim Layanan
-        Route::post("timLayanans/create/{id}", "createTimLayanan");
+            // Index Tim Layanan
+            Route::get("timLayanans/{id}", "indexTimLayanan");
 
-        // update Tim Layanan
-        Route::put("timLayanan/update/{id}", "updateTimLayanan");
+            // Create Tim Layanan
+            Route::post("timLayanans/create/{id}", "createTimLayanan");
 
-        // Destroy Tim Layanan
-        Route::delete("timLayanan/delete/{id}", "destroyTimLayanan");
+            // update Tim Layanan
+            Route::put("timLayanan/update/{id}", "updateTimLayanan");
 
-        // Index Video Layanan
-        Route::get("videoLayanans/{id}", "indexVideoLayanan");
+            // Destroy Tim Layanan
+            Route::delete("timLayanan/delete/{id}", "destroyTimLayanan");
 
-        // Create Video Layanan
-        Route::post("videoLayanans/create/{id}", "createVideoLayanan");
+            // Index Video Layanan
+            Route::get("videoLayanans/{id}", "indexVideoLayanan");
 
-        // update Video Layanan
-        Route::put("videoLayanan/update/{id}", "updateVideoLayanan");
+            // Create Video Layanan
+            Route::post("videoLayanans/create/{id}", "createVideoLayanan");
 
-        // Destroy Video Layanan
-        Route::delete("videoLayanan/delete/{id}", "destroyVideoLayanan");
+            // update Video Layanan
+            Route::put("videoLayanan/update/{id}", "updateVideoLayanan");
 
-        // Index Detail Foto Layanan
-        Route::get("detailFotoLayanans/{id}", "indexDetailFotoLayanan");
+            // Destroy Video Layanan
+            Route::delete("videoLayanan/delete/{id}", "destroyVideoLayanan");
 
-        // Create Detail Foto Layanan
-        Route::post("detailFotoLayanans/create/{id}", "createDetailFotoLayanan");
+            // Index Detail Foto Layanan
+            Route::get("detailFotoLayanans/{id}", "indexDetailFotoLayanan");
 
-        // update Detail Foto Layanan
-        Route::put("detailFotoLayanan/update/{id}", "updateDetailFotoLayanan");
+            // Create Detail Foto Layanan
+            Route::post("detailFotoLayanans/create/{id}", "createDetailFotoLayanan");
 
-        // Destroy Detail Foto Layanan
-        Route::delete("detailFotoLayanan/delete/{id}", "destroyDetailFotoLayanan");
-    });
+            // update Detail Foto Layanan
+            Route::put("detailFotoLayanan/update/{id}", "updateDetailFotoLayanan");
 
-    Route::controller(PromoController::class)->group(function () {
-        // Index Promo
-        Route::get("promos", "indexPromo");
-        // Create Promo
-        Route::post("promos/create", "createPromo");
-        // Store Promo
-        Route::get("promo/store/{id}", "storePromo");
-        // Show Promo
-        Route::get("promo/show/{id}", "showPromo");
-        // Update Promo
-        Route::put("promo/update/{id}", "updatePromo");
-        // Destroy Promo
-        Route::delete("promo/delete/{id}", "destroyPromo");
+            // Destroy Detail Foto Layanan
+            Route::delete("detailFotoLayanan/delete/{id}", "destroyDetailFotoLayanan");
+        });
+
+        Route::controller(UserController::class)->group(function () {
+            // Index User
+            Route::get("users", "indexUser")->name("user.index");
+
+            // Index Show
+            Route::get("/user/{id}", "showUser")->name("user.show");
+
+            // Index Store
+            Route::get("user/store/{id}", "storeUser")->name("user.store");
+
+            // Index Update
+            Route::put("user/update/{id}", "updateUser")->name("user.update");
+        });
+
+        Route::controller(PromoController::class)->group(function () {
+            // Index Promo
+            Route::get("promos", "indexPromo");
+
+            // Create Promo
+            Route::post("promos/create", "createPromo");
+
+            // Store Promo
+            Route::get("promo/store/{id}", "storePromo");
+
+            // Show Promo
+            Route::get("promo/show/{id}", "showPromo");
+
+            // Update Promo
+            Route::put("promo/update/{id}", "updatePromo");
+
+            // Destroy Promo
+            Route::delete("promo/delete/{id}", "destroyPromo");
+        });
     });
 
     Route::controller(TransaksiController::class)->group(function () {
         // Index Transaksi Kendaraan
         Route::get("transaksi-kendaraans", "indexTransaksiKendaraan");
+
         // Index Transaksi Layanan
         Route::get("transaksi-layanans", "indexTransaksiLayanan");
+
         // Index Transaksi Asrama
         Route::get("transaksi-asramas", "indexTransaksiAsrama");
+
         // Index Transaksi Alat Barang
         Route::get("transaksi-alatBarangs", "indexTransaksiAlatBarang");
+
         // Index Transaksi Gedung & Lapangan
         Route::get("transaksi-gedungLaps", "indexTransaksiGedungLap");
     });
-});
-
-Route::controller(LoginController::class)->group(function () {
-    Route::group(["middleware" => "guest"], function () {
-        Route::get("login", "showLoginForm")->name("login");
-        Route::post("login/action", "login");
-    });
-
-    Route::get("logout", "logout")->name("logout");
 });
 
 

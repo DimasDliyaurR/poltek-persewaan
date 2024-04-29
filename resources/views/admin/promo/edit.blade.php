@@ -5,6 +5,11 @@
         Form Update {{ $title }}
     </x-title-component>
 
+    @php
+        dd(auth()->user());
+
+    @endphp
+
     <x-inner-layout>
         @session('successForm')
             <x-alert-success>
@@ -19,7 +24,6 @@
         <form action="{{ asset('admin/promo/update/' . $promo->id) }}" method="post" enctype="multipart/form-data">
             @csrf
             @method('PUT')
-            @csrf
             <div class="mb-5">
                 <label for="p_foto" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Foto Thubmnail
                     Promo</label>
@@ -224,7 +228,6 @@
             </div>
 
             <button id="submit" class="p-2 w-80 bg-gray-900 rounded-md text-white text-sm">Submit</button>
-        </form>
         </form>
     </x-inner-layout>
 @endsection

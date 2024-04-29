@@ -23,6 +23,16 @@ class UserRepositoryImplement implements UserRepository
     }
 
     /**
+     * Get Users By Id
+     * @param int $id
+     * @return boolean
+     */
+    public function getDataById($id)
+    {
+        return $this->user::with("profile")->findOrFail($id);
+    }
+
+    /**
      * Create User
      * @param array $data
      * @return boolean
@@ -30,5 +40,16 @@ class UserRepositoryImplement implements UserRepository
     public function create($data)
     {
         return $this->user::create($data);
+    }
+
+    /**
+     * Create User
+     * @param int $id
+     * @param array $data
+     * @return boolean
+     */
+    public function update($data, $id)
+    {
+        return $this->user::findOrFail($id)->update($data);
     }
 }

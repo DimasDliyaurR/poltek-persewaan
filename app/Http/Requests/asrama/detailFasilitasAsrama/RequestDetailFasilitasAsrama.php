@@ -12,7 +12,7 @@ class RequestDetailFasilitasAsrama extends FormRequest
      */
     public function authorize(): bool
     {
-        return true;
+        return auth()->user()->level == 'admin';
     }
 
     /**
@@ -22,7 +22,6 @@ class RequestDetailFasilitasAsrama extends FormRequest
      */
     public function rules(): array
     {
-        $detailFasilitasAsrama = $this->route();
         return [
             "fasilitas_asrama_id" => "required",
             "dfa_status" => "required",

@@ -39,11 +39,8 @@ class PromoServiceImplement implements PromoService
      */
     public function getDataPromoById($id)
     {
-        try {
-            $data = $this->promoRepository->getDataById($id);
-        } catch (\Exception $th) {
-            throw new InvalidArgumentException();
-        }
+        $data = $this->promoRepository->getDataById($id);
+
         return $data;
     }
 
