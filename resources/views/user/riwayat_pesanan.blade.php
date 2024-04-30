@@ -62,13 +62,13 @@
         </div>
     </div>
     <hr class="w-3/4 mx-auto pt-4">
-    <div class="xl:px-14 py-4">
-      <h5 class="font-bold text-gray-500">Riwayat Transaksi Terbaru</h5>
-      <p class="text-base text-gray-300">31 Juni 2023</p>
-      <h5 class="font-bold text-gray-500">Riwayat Transaksi Berhasil</h5>
-      <p class="text-base text-gray-300">0</p>
-      <h5 class="font-bold text-gray-500">Riwayat Transaksi Dibatalkan</h5>
-      <p class="text-base text-gray-300">0</p>
+    <div class="xl:px-14 py-4 ">
+      <h5 class="font-bold text-gray-500 py-2">Riwayat Transaksi Terbaru</h5>
+      <p class="text-base text-gray-300 py-2">31 Juni 2023</p>
+      <h5 class="font-bold text-gray-500 py-2">Riwayat Transaksi Berhasil</h5>
+      <p class="text-base text-gray-300 py-2">0</p>
+      <h5 class="font-bold text-gray-500 py-2">Riwayat Transaksi Dibatalkan</h5>
+      <p class="text-base text-gray-300 py-2">0</p>
     </div>
   </div>
 </div>

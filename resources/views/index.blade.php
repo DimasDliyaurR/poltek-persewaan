@@ -1,7 +1,7 @@
 @extends('layouts-home.navbar.nav-old')
 @section('content')
 <!-- Hero Section Start -->
-<section id="home" class="pt-36 pb-64 h-2/5 relative  ">
+<section id="home" class="pt-20 pb-64 h-2/5 relative  ">
 <!-- <div class="absolute inset-0 bg-white opacity-10 "> -->
 <div class="absolute inset-0 bg-white  opacity-10 ">
   <div class=" h-full  bg-cover " style="background-image: url('{{ asset('img/gerbang.jpg') }}');">
@@ -61,7 +61,7 @@
         </div>
       </div>
     </div>
-    <div class="container w-full xl:w-1/2 self-end ">
+    <div class="container w-full xl:w-1/2 mt-3 self-end ">
       <img src="{{asset('img/landingpage/lp.png')}}" alt="Logo Poltekbang" class="w-3xl h-full mx-auto" />
     </div>
   </div>
@@ -311,7 +311,17 @@
       </div>
       <div class="xl:w-1/5  md:w-1/3 w-1/2 shadow-lg xl:shadow-none h-40 hover:bg-gray-300 rounded-lg p-4 cursor-pointer  flex justify-center items-center">
         <a href="/gedung">Gedung
-          <img src="{{ asset('img/kategori/gedung.png') }}" alt="" class="mt-6 hover:filter hover:invert h-16 w-16  mx-auto">
+          <!-- <img src="{{ asset('img/kategori/gedung.png') }}" alt="" class="mt-6 hover:filter hover:invert h-16 w-16  mx-auto"> -->
+          <svg version="1.0" class="hover:text-white  mt-6 h-16 w-16 mx-auto" xmlns="http://www.w3.org/2000/svg"
+          width="500.000000pt" height="500.000000pt" viewBox="0 0 500.000000 500.000000"
+          preserveAspectRatio="xMidYMid meet">
+
+          <g transform="translate(0.000000,500.000000) scale(0.100000,-0.100000)"
+          fill="#FF7417" stroke="none">
+          </g>
+          </svg>
+
+
         </a>
       </div>
       <div class="xl:w-1/5 w-1/2  md:w-1/3 shadow-lg xl:shadow-none h-40 hover:bg-gray-300 rounded-lg p-4 cursor-pointer flex justify-center items-center">
@@ -326,6 +336,10 @@
         </div>
         <div class="xl:w-1/5 w-1/2  md:w-1/3 shadow-lg xl:shadow-none  h-40 hover:bg-gray-300 rounded-lg p-4 cursor-pointer sm:mx-auto mx-auto xs:mx-auto flex justify-center items-center">
           <a href="/alatbarang">Alat Barang
+          <svg version="1.0" xmlns="http://www.w3.org/2000/svg" class="hover:text-white  mt-6 h-16 w-16 mx-auto" width="500.000000pt" height="500.000000pt" viewBox="0 0 500.000000 500.000000" preserveAspectRatio="xMidYMid meet" xmlns:xlink="http://www.w3.org/1999/xlink" zoomAndPan="magnify" contentScriptType="text/ecmascript" contentStyleType="text/css">
+            <g transform="translate(0.000000,500.000000) scale(0.100000,-0.100000)" fill="#000000" stroke="none">
+            </g>
+          </svg>
           </a>
         </div>
     </div>
@@ -603,7 +617,7 @@
       </div>
 
     <div class=" container xl:w-10/12  ">
-      <div class="flex flex-wrap xl:px-24 pb-2 kategori-promo  xl:space-x-2   text-[14px] ">
+      <div class="flex flex-wrap xl:px-24 pb-2 kategori-promo  xl:space-x-2  mx-auto text-[14px] ">
         <div class="bg-white w-1/4  h-8 xl:w-28 flex items-center justify-center rounded-md mb-2 space-kanan cursor-pointer hover:focus:ring-primary hover:border-primary hover:border-2  "><a href="" class="overflow-hidden">Semua</a>  </div>
         <div class="bg-white  w-1/4  h-8 xl:w-28 flex items-center justify-center rounded-md mb-2 space-kanan  cursor-pointer hover:focus:ring-primary hover:border-primary hover:border-2  "><a href="" class="overflow-hidden">Transportasi</a>  </div>
         <div class="bg-white w-1/4  xl:w-28 h-8 flex items-center justify-center rounded-md mb-2 space-kanan  cursor-pointer   hover:focus:ring-primary hover:border-primary hover:border-2  "> <a href="" class="overflow-hidden">GedungLap</a></div>
@@ -634,17 +648,17 @@
                         <h4 class="text-base mr-2">Hemat</h4>
                         <span class="text-4xl font-bold">50%</span>
                     </div>
-                    <p class="mt-5 inline-block bg-plaster h-6 w-full text-center rounded-md tracking-widest text-sm mb-4" > 2024IED</p>
                   </div>
                   <div class="basis-1/2 relative">
-                    <div class="absolute right-0 top-2 text-center h-6 w-32 rounded-s-lg bg-primary">
+                    <div class="absolute right-0 top-2 text-center h-6 w-32 rounded-s-lg bg-primary overflow-hidden">
                       <p class="text-sm text-white">Sewa sekarang!</p>
                     </div>
                     <img src="{{ asset('img/layanan/marching band.jpg') }}" alt="picture 1"  class=" rounded-md w-full "/>
                   </div>
                 </div>  
                 <p class="text-gray-400 text-sm ">*periode 1 Januari - 1 Februari</p>
-                </a>
+                <p class="mt-5 inline-block bg-plaster h-6 w-full text-center rounded-md tracking-widest text-sm mb-4" > Lihat Detail</p>
+              </a>
               </div>
             </div>
           </li>
@@ -769,123 +783,76 @@
         <div cl ass="w-full px-4">
           <div class="mx-auto text-center mb-12 ">
             <h4 class="font-semibold text-black text-3xl mb-2">PERTANYAAN UMUM SEWA ASET</h4>
-            <!-- <h2 class="font-bold text-black text-3xl mb-4 sm:text-4xl lg:text-5xl">Ketentuan sewa</h2> -->
+            <!-- <h2 class="font-bold text-black text-3xl mb-4 sm:text-4xl lg:text-5  xl">Ketentuan sewa</h2> -->
             <!-- <p class="font-medium text-medium md:text-lg">Lorem ipsum dolor sit amet consectetur adipisicing elit. Minus quas corrupti ducimus, explicabo possimus tenetur tempore repellat obcaecati aperiam voluptatibus.</p> -->
           </div>
         </div>
         <div class="w-full px-12  xl:w-10/12  mx-auto">
-          <div id="accordion-color" data-accordion="collapse" data-active-classes="bg-blue-100  text-blue-600 " >
-            <div class="pb-4 pt-4">
-              <h2 id="accordion-color-heading-1">
-                <button type="button" class="flex items-center justify-between w-full p-5 font-medium rtl:text-right text-gray-500 border  border-grecianblue  focus:ring-4 focus:ring-blue-200    hover:bg-blue-100  gap-3" data-accordion-target="#accordion-color-body-1" aria-expanded="true" aria-controls="accordion-color-body-1">
-                  <span class="flex gap-2 " >
-                    <img class="max-w-none max-h-none " width="23" height="23" src="https://img.icons8.com/ios/50/help--v2.png" alt="help--v2"/>
-                    Tarif dan Biaya
-                  </span>
-                  <svg data-accordion-icon class="w-3 h-3 rotate-180 shrink-0" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
-                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5 5 1 1 5"/>
-                  </svg>
-                </button>
-              </h2>
-              <div id="accordion-color-body-1" class="hidden" aria-labelledby="accordion-color-heading-1">
-                <div class="p-5 border border-t-0 border-grecianblue ">
-                  <p class="mb-2 text-gray-500 ">Tarif persewaan tidak ada tambahan lain. Biaya administrasi pelayanan di sewa aset poltekbang gratis.</p>
-                  <p class="text-gray-500 "> Keterlambatan dan kerusakan barang dikenakan denda sampai dengan  <a href="/docs/getting-started/introduction/" class="text-blue-600  hover:underline">30%</a>.</p>
-                </div>
-              </div>
+          
+      <div id="accordion-color" data-accordion="collapse" data-active-classes="bg-blue-100 dark:bg-gray-800 text-blue-600 dark:text-white">
+        <div class="pb-4 pt-4">
+          <h2 id="accordion-color-heading-1">
+            <button type="button" class="flex items-center justify-between w-full p-5 font-medium rtl:text-right text-gray-500 border border-grecianblue focus:ring-4 focus:ring-blue-200 dark:focus:ring-blue-800 dark:border-gray-700 dark:text-gray-400 hover:bg-blue-100 dark:hover:bg-gray-800 gap-3" data-accordion-target="#accordion-color-body-1" aria-expanded="true" aria-controls="accordion-color-body-1">
+            <span class="flex gap-2 " >
+              <img class="max-w-none max-h-none " width="23" height="23" src="https://img.icons8.com/ios/50/help--v2.png" alt="help--v2"/>
+              Tarif dan Biaya
+            </span>
+              <svg data-accordion-icon class="w-3 h-3 rotate-180 shrink-0" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
+                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5 5 1 1 5"/>
+              </svg>
+            </button>
+          </h2>
+          <div id="accordion-color-body-1" class="hidden" aria-labelledby="accordion-color-heading-1">
+            <div class="p-5 border border-t-0 border-grecianblue  dark:bg-gray-900">
+              <p class="mb-2 text-gray-500 dark:text-gray-400">Flowbite is an open-source library of interactive components built on top of Tailwind CSS including buttons, dropdowns, modals, navbars, and more.</p>
+              <p class="text-gray-500 dark:text-gray-400">Check out this guide to learn how to <a href="/docs/getting-started/introduction/" class="text-blue-600 dark:text-blue-500 hover:underline">get started</a> and start developing websites even faster with components on top of Tailwind CSS.</p>
             </div>
-            <div class="pb-4 pt-4">
-              <h2 id="accordion-color-heading-2">
-                <button type="button" class="flex items-center justify-between w-full p-5 font-medium rtl:text-right text-gray-500 border  border-grecianblue focus:ring-4 focus:ring-blue-200    hover:bg-blue-100  gap-3" data-accordion-target="#accordion-color-body-2" aria-expanded="false" aria-controls="accordion-color-body-2">
-                <div class="flex items-center gap-2">
-                  <img width="23" height="23"  class="p-0" src="https://img.icons8.com/ios/50/help--v2.png" alt="help--v2"/>
-                  <span>Bagaimana saya melakukan sewa transportasi dari lokasi yang berbeda?</span>
-                </div>
-                  <svg data-accordion-icon class="w-3 h-3 rotate-180 shrink-0 max-w-none max-h-none" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
-                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5 5 1 1 5"/>
-                  </svg>
-                </button>
-              </h2>
-              <div id="accordion-color-body-2" class="hidden" aria-labelledby="accordion-color-heading-2">
-                <div class="p-5 border border-t-0 border-grecianblue ">
-                  <p class="mb-2 text-gray-500 ">Sewa transportasi di kami, <span class="font-bold">gratis</span> antar jemput dengan sopir yang profesional.</p>
-                </div>
-              </div>
-            </div>
-              <div class="pb-4 pt-4">
-                <h2 id="accordion-color-heading-3">
-                  <button type="button" class="flex items-center justify-between w-full p-5 font-medium rtl:text-right text-gray-500 border border-grecianblue focus:ring-4 focus:ring-blue-200    hover:bg-blue-100  gap-3" data-accordion-target="#accordion-color-body-3" aria-expanded="false" aria-controls="accordion-color-body-3">
-                  <div class="flex items-center gap-2 " > 
-                    <img width="23" height="23" src="https://img.icons8.com/ios/50/help--v2.png" alt="help--v2"/>
-                    <span>Ketentuan Pembayaran </span>
-                  </div>
-                    <svg data-accordion-icon class="w-3 h-3 rotate-180 shrink-0" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
-                      <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5 5 1 1 5"/>
-                    </svg>
-                  </button>
-                </h2>
-                <div id="accordion-color-body-3" class="hidden" aria-labelledby="accordion-color-heading-3">
-                  <div class="p-5 border border-t-0 border-grecianblue">
-                    <p class="mb-2 text-gray-500 ">Seluruh aset wajib dilakukan pembayaran DP 30%.</p>
-                    <p class="mb-2 text-gray-500 ">Minimal DP 30% :</p>
-                    <ul class="ps-5 text-gray-500 list-disc ">
-                      <li><a href="https://flowbite.com/pro/" class="text-blue-600  hover:underline">Kategori Transportasi</a></li>
-                      <li><a href="https://tailwindui.com/" rel="nofollow" class="text-blue-600  hover:underline">Kategori Gedung</a></li>
-                      <li><a href="https://tailwindui.com/" rel="nofollow" class="text-blue-600  hover:underline">Kategori Layanan</a></li>
-                      <li><a href="https://tailwindui.com/" rel="nofollow" class="text-blue-600  hover:underline">Kategori Asset</a></li>
-                    </ul>
-                    <p class="mb-2 text-gray-500 ">Kecuali kategori penginapan, pembayaran dilakukan secara lunas 100%.</p>
-                  </div>
-                </div>
-              </div>
-              <div class="pb-4 pt-4">
-                <h2 id="accordion-color-heading-4">
-                  <button type="button" class="flex items-center justify-between w-full p-5 font-medium rtl:text-right text-gray-500 border border-grecianblue focus:ring-4 focus:ring-blue-200    hover:bg-blue-100  gap-3" data-accordion-target="#accordion-color-body-4" aria-expanded="false" aria-controls="accordion-color-body-4">
-                  <div class="flex items-center gap-2 " > 
-                    <img width="23" height="23" class="p-0" src="https://img.icons8.com/ios/50/help--v2.png" alt="help--v2"/>
-                    <span>Jangka Waktu Penyelesaian </span>  
-                  </div>
-                  <svg data-accordion-icon class="w-3 h-3 rotate-180 shrink-0" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
-                      <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5 5 1 1 5"/>
-                    </svg>
-                  </button>
-                </h2>
-                <div id="accordion-color-body-4" class="hidden" aria-labelledby="accordion-color-heading-4">
-                  <div class="p-5 border border-t-0 border-grecianblue">
-                    <p class="mb-2 text-gray-500 ">The main difference is that the core components from Flowbite are open source under the MIT license, whereas Tailwind UI is a paid product. Another difference is that Flowbite relies on smaller and standalone components, whereas Tailwind UI offers sections of pages.</p>
-                    <p class="mb-2 text-gray-500 ">However, we actually recommend using both Flowbite, Flowbite Pro, and even Tailwind UI as there is no technical reason stopping you from using the best of two worlds.</p>
-                    <p class="mb-2 text-gray-500 ">Learn more about these technologies:</p>
-                    <ul class="ps-5 text-gray-500 list-disc ">
-                      <li><a href="https://flowbite.com/pro/" class="text-blue-600  hover:underline">Flowbite </a></li>
-                      <li><a href="https://tailwindui.com/" rel="nofollow" class="text-blue-600  hover:underline">Tailwind UI</a></li>
-                    </ul>
-                  </div>
-                </div>
-              </div>
-              <div class="pb-4 pt-4">
-                <h2 id="accordion-color-heading-5">
-                  <button type="button" class="flex items-center justify-between w-full p-5 font-medium rtl:text-right text-gray-500 border border-grecianblue focus:ring-4 focus:ring-blue-200    hover:bg-blue-100  gap-3" data-accordion-target="#accordion-color-body-5" aria-expanded="false" aria-controls="accordion-color-body-5">
-                  <div class="flex items-center gap-2 " > 
-                    <img width="23" height="23" class="p-0" src="https://img.icons8.com/ios/50/help--v2.png" alt="help--v2"/> 
-                    <span>Persyaratan Peminjaman </span>  
-                  </div>
-                  <svg data-accordion-icon class="w-3 h-3 rotate-180 shrink-0" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
-                      <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5 5 1 1 5"/>
-                    </svg>
-                  </button>
-                </h2>
-                <div id="accordion-color-body-5" class="hidden" aria-labelledby="accordion-color-heading-4">
-                  <div class="p-5 border border-t-0 border-grecianblue">
-                    <p class="mb-2 text-gray-500 ">1. Memiliki akun / mendaftar terlebih dahulu di sistem SEWA ASET.</p>
-                    <p class="mb-2 text-gray-500 ">2. Berkas yang harus disiapkan ketika mendaftar:</p>
-                    <ul class="ps-5 text-gray-500 list-disc ">
-                      <li><a href="https://flowbite.com/pro/" class="text-blue-600  hover:underline">Foto KTP</a></li>
-                      <li><a href="https://tailwindui.com/" rel="nofollow" class="text-blue-600  hover:underline"></a></li>
-                    </ul>
-                  </div>
-                </div>
-              </div>
           </div>
+        </div>
+        <div class="pb-4 pt-4">
+          <h2 id="accordion-color-heading-2">
+            <button type="button" class="flex items-center justify-between w-full p-5 font-medium rtl:text-right text-gray-500 border border-grecianblue  focus:ring-4 focus:ring-blue-200 dark:focus:ring-blue-800  dark:text-gray-400 hover:bg-blue-100 dark:hover:bg-gray-800 gap-3" data-accordion-target="#accordion-color-body-2" aria-expanded="false" aria-controls="accordion-color-body-2">
+              <div class="flex items-center gap-2">
+                <img width="23" height="23"  class="p-0" src="https://img.icons8.com/ios/50/help--v2.png" alt="help--v2"/>
+                <span>Bagaimana saya melakukan sewa transportasi dari lokasi yang berbeda?</span>
+              </div>
+              <svg data-accordion-icon class="w-3 h-3 rotate-180 shrink-0" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
+                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5 5 1 1 5"/>
+              </svg>
+            </button>
+          </h2>
+          <div id="accordion-color-body-2" class="hidden" aria-labelledby="accordion-color-heading-2">
+            <div class="p-5 border border-t-0 border-grecianblue ">
+              <p class="mb-2 text-gray-500 dark:text-gray-400">Flowbite is first conceptualized and designed using the Figma software so everything you see in the library has a design equivalent in our Figma file.</p>
+              <p class="text-gray-500 dark:text-gray-400">Check out the <a href="https://flowbite.com/figma/" class="text-blue-600 dark:text-blue-500 hover:underline">Figma design system</a> based on the utility classes from Tailwind CSS and components from Flowbite.</p>
+            </div>
+          </div>
+        </div>
+        <div class="pb-4 pt-4">
+          <h2 id="accordion-color-heading-3">
+            <button type="button" class="flex items-center justify-between w-full p-5 font-medium rtl:text-right text-gray-500 border border-grecianblue focus:ring-4 focus:ring-blue-200 dark:focus:ring-blue-800  dark:text-gray-400 hover:bg-blue-100 dark:hover:bg-gray-800 gap-3" data-accordion-target="#accordion-color-body-3" aria-expanded="false" aria-controls="accordion-color-body-3">
+              <div class="flex items-center gap-2 ">
+              <img width="23" height="23" src="https://img.icons8.com/ios/50/help--v2.png" alt="help--v2"/>
+                <span>Ketentuan Pembayaran </span>
+              </div>
+              <svg data-accordion-icon class="w-3 h-3 rotate-180 shrink-0" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
+                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5 5 1 1 5"/>
+              </svg>
+            </button>
+          </h2>
+          <div id="accordion-color-body-3" class="hidden" aria-labelledby="accordion-color-heading-3">
+            <div class="p-5 border border-t-0 border-gray-200 ">
+              <p class="mb-2 text-gray-500 dark:text-gray-400">The main difference is that the core components from Flowbite are open source under the MIT license, whereas Tailwind UI is a paid product. Another difference is that Flowbite relies on smaller and standalone components, whereas Tailwind UI offers sections of pages.</p>
+              <p class="mb-2 text-gray-500 dark:text-gray-400">However, we actually recommend using both Flowbite, Flowbite Pro, and even Tailwind UI as there is no technical reason stopping you from using the best of two worlds.</p>
+              <p class="mb-2 text-gray-500 dark:text-gray-400">Learn more about these technologies:</p>
+              <ul class="ps-5 text-gray-500 list-disc dark:text-gray-400">
+                <li><a href="https://flowbite.com/pro/" class="text-blue-600 dark:text-blue-500 hover:underline">Flowbite Pro</a></li>
+                <li><a href="https://tailwindui.com/" rel="nofollow" class="text-blue-600 dark:text-blue-500 hover:underline">Tailwind UI</a></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
 
         </div>
       </div>

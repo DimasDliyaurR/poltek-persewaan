@@ -1,36 +1,51 @@
 @extends('layouts-home.navbar.nav-transaksi')
 @section('content')
 
-<div class=" py-36">
+<div class="bg-plaster py-36">
+    @if (session('success'))
+        <div class="alert alert-success mb-4">
+            {{ session('success') }}
+        </div>
+    @endif
+    @if ($errors->any())
+    <div class="alert alert-danger mb-10">
+        <ul>
+            @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
+    @endif
+
     <!-- /content -->
-    <div class="flex  mx-auto xl:flex-row md:flex-row lg:flex-row  flex-col justify-center  xl:space-x-2 p-3 ">
-        <div class=" max-w-md h-full border-2 rounded-md">
+    <div class="flex  mx-auto xl:flex-row md:flex-row lg:flex-row  flex-col justify-center  space-x-2">
+        <div class=" basis-2/3 h-full bg-white ">
             <div class="container  p-6 rounded-md ">
-                <h4 class="font-semibold mb-4 ">Pemesanan Asrama</h4>
+                <h4 class="font-semibold mb-6 ">Pemesanan Asrama</h4>
                 <form action="" >
                     @csrf
-                    <div class=" flex flex-col xl:flex-row md:flex-row lg:flex-row xl:space-x-2 md:space-x-2 sm:space-x-2 mb-2">
-                        <div class=" mb-2 space-y-2  " >
-                            <label for="tk_tanggal_sewa" class=" block mb-2 text-sm font-medium text-gray-900 dark:text-white">Tanggal Mulai</label>
-                            <input id="tk_tanggal_sewa" name="tk_tanggal_sewa" type="date" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                    <div class=" flex flex-col xl:flex-row md:flex-row lg:flex-row space-x-2 mb-2">
+                        <div class="flex flex-col mb-2 space-y-2  " >
+                            <label for="tk_tanggal_sewa">Tanggal Mulai</label>
+                            <input id="tk_tanggal_sewa" name="tk_tanggal_sewa" type="date" class="shadow-md border border-plaster">
                         </div>
-                        <div class=" mb-2 space-y-2">
-                            <label for="tk_tanggal_kembali" class=" block mb-2 text-sm font-medium text-gray-900 dark:text-white">Tanggal Kembali</label>
-                            <input id="tk_tanggal_kembali" name="tk_tanggal_kembali" type="date" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                        <div class="flex flex-col mb-2 space-y-2 rounded-md">
+                            <label for="tk_tanggal_kembali">Tanggal Kembali</label>
+                            <input id="tk_tanggal_kembali" name="tk_tanggal_kembali" type="date" class="shadow-md border border-plaster">
                         </div>
-                        <div class=" mb-2 ">
-                        <label for="durasi" class=" block mb-2 text-sm font-medium text-gray-900 dark:text-white">Durasi</label>
-                        <input id="durasi" placeholder="2023VOUCHER" type="text" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                        <div class="flex flex-col mb-2 ">
+                            <label for="tk_durasi" >Durasi</label><br>
+                            <input  placeholder="1 hari" id="tk_durasi" name="tk_durasi" class="shadow-md border border-plaster">
                         </div>
                     </div>
                     <hr>
                     <div class="mb-2">
-                        <label for="voucher" class=" block mb-2 text-sm font-medium text-gray-900 dark:text-white">Kode Voucher</label>
-                        <input id="voucher" placeholder="2023VOUCHER" type="text" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                        <label for="voucher">Kode Voucher</label>
+                        <br><input id="voucher" placeholder="2023VOUCHER" type="text" class="shadow-md border-gray-100">
                     </div>
                     <div class="mb-2">
-                        <label for="metode_bayar" class=" block mb-2 text-sm font-medium text-gray-900 dark:text-white" >Tipe Pembayaran</label>
-                        <select name="metode_bayar" id="metode_bayar" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                        <br><label for="metode_bayar">Tipe Pembayaran</label><br>
+                        <select name="metode_bayar" id="metode_bayar" class="shadow-md border-gray-100">
                             <option value="transfer">DP</option>
                             <option value="transfer">Lunas</option>
                         </select>
@@ -45,7 +60,7 @@
                         <p>Voucher</p>
                         <p>Rp 0</p>
                     </div>
-
+                    <hr>
                     <div class="flex justify-between mb-2 mt-2">
                         <h4 class="font-semibold">Harga Total</h4>
                         <!-- harga total = harga_item - harga_promo  -->
@@ -57,56 +72,17 @@
                 </form>
             </div>
         </div>
-        <div class="basis-1/6 flex-col space-y-2">
-            <div class="bg-white  relative  p-3  rounded-md  border-2" >
-                <div class="absolute right-0 top-2 text-center h-5 w-28 rounded-s-lg bg-primary ">
-                  <p class="text-[12px] items-center text-white">+Tambah Item </p>
+        <div class="basis-1/5 flex-col space-y-2">
+            <div class="bg-white  relative  p-3  rounded-md" >
+                <h4 class="font-semibold mb-2">Nama Kendaraan</h4>
+                <div class="absolute right-0 top-2 text-center h-6 w-32 rounded-s-lg bg-primary">
+                  <p class="text-sm text-white">+Tambah Item </p>
                 </div>
-                <h4 class="font-semibold mb-2 mt-3">Nama Asrama</h4>
-                <!-- carousel -->
-                <div id="indicators-carousel" class="relative w-full" data-carousel="static">
-                    <!-- Carousel wrapper -->
-                    <div class="relative h-36 overflow-hidden rounded-lg ">
-                        <!-- Item 1 -->
-                        <div class="hidden duration-700 ease-in-out" data-carousel-item="active">
-                            <img src="{{ asset('img/transportasi/bus.jpg') }}" class=" rounded-lg absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2" alt="...">
-                        </div>
-                        <!-- Item 2 -->
-                        <div class="hidden duration-700 ease-in-out" data-carousel-item>
-                            <img src="{{ asset('img/transportasi/bus.jpg') }}" class="rounded-lg absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2" alt="...">
-                        </div>
-                        <!-- Item 3 -->
-                        <div class="hidden duration-700 ease-in-out" data-carousel-item>
-                            <img src="/docs/images/carousel/carousel-3.svg" class="rounded-lg absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2" alt="...">
-                        </div>
-
-                    </div>
-                    <!-- Slider indicators -->
-                    <div class="absolute z-30 flex -translate-x-1/2 space-x-3 rtl:space-x-2 -bottom-3 left-1/2">
-                        <button type="button" class="w-2 h-2 rounded-full bg-gray-300" aria-current="true" aria-label="Slide 1" data-carousel-slide-to="0"></button>
-                        <button type="button" class="w-2 h-2 rounded-full  bg-gray-300" aria-current="false" aria-label="Slide 2" data-carousel-slide-to="1"></button>
-                        <button type="button" class="w-2 h-2 rounded-full  bg-gray-300" aria-current="false" aria-label="Slide 3" data-carousel-slide-to="2"></button>
-                    </div>
-                    <!-- Slider controls -->
-                    <button type="button" class="absolute top-0 start-0 z-30 flex items-center justify-center h-full px-4 cursor-pointer group focus:outline-none" data-carousel-prev>
-                        <span class="inline-flex items-center justify-center w-5 h-5 rounded-full bg-white/30 dark:bg-gray-800/30 group-hover:bg-white/50 dark:group-hover:bg-gray-800/60 group-focus:ring-4 group-focus:ring-white dark:group-focus:ring-gray-800/70 group-focus:outline-none">
-                            <svg class="w-2 h-2 text-white dark:text-gray-800 rtl:rotate-180" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
-                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 1 1 5l4 4"/>
-                            </svg>
-                            <span class="sr-only">Previous</span>
-                        </span>
-                    </button>
-                    <button type="button" class="absolute top-0 end-0 z-30 flex items-center justify-center h-full px-4 cursor-pointer group focus:outline-none" data-carousel-next>
-                        <span class="inline-flex items-center justify-center w-5 h-5 rounded-full bg-white/30 dark:bg-gray-800/30 group-hover:bg-white/50 dark:group-hover:bg-gray-800/60 group-focus:ring-4 group-focus:ring-white dark:group-focus:ring-gray-800/70 group-focus:outline-none">
-                            <svg class="w-2 h-2 text-white dark:text-gray-800 rtl:rotate-180" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
-                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 9 4-4-4-4"/>
-                            </svg>
-                            <span class="sr-only">Next</span>
-                        </span>
-                    </button>
+                <img src="{{ asset('img/transportasi/bus.jpg') }}" alt="">
+                <div class="flex gap-2 w-14 mt-2">
+                    <img src="{{ asset('img/transportasi/bus.jpg') }}" alt="">
+                    <img src="{{ asset('img/transportasi/bus.jpg') }}" alt="">
                 </div>
-<!-- /carousel -->
-                <!-- <img src="{{ asset('img/transportasi/bus.jpg') }}" class="rounded-lg" alt=""> -->
                 <p class="text-base mt-2 mb-2 font-semibold">tarif Rp </p>
                 <div class="flex mb-2"> 
                     <svg class="w-6 h-6 text-primary" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
@@ -116,7 +92,7 @@
                     <sup class="text-xs text-gray-500"> Kapasitas </sup>
                 </div>
             </div>
-            <div class="bg-white p-3 rounded-md  border-2">
+            <div class="bg-white p-3 rounded-md">
                 <h4 class="font-semibold mb-3">Informasi</h4>
                 <p class="text-xs text-gray-400 mb-2"> * untuk survey dan pertanyaan lainnya bisa menghubungi whatsapp berikut.</p>
                 <div class="flex hover:bg-primary hover:text-white">

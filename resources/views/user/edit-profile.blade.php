@@ -64,7 +64,7 @@
             </form>
         </div>
     </div>
-    <div class=" xl:w-1/3 md:w-1/3 lg:w-1/3  w-full bg-white border-2  border-gray-200 rounded-lg shadow h-full">
+    <div class=" xl:w-1/3 md:w-1/3 lg:w-1/3  w-full bg-white border-2  border-gray-200 rounded-lg shadow h-screen">
         <div class="flex justify-end px-4 pt-4">
             <button id="dropdownButton" data-dropdown-toggle="dropdown" class="inline-block text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 focus:ring-4 focus:outline-none focus:ring-gray-200 dark:focus:ring-gray-700 rounded-lg text-sm p-1.5" type="button">
                 <span class="sr-only">Open dropdown</span>
@@ -98,13 +98,13 @@
             </div>
         </div>
         <hr class="w-3/4 mx-auto pt-4">
-        <div class="xl:px-14 py-4">
-        <h5 class="font-bold text-gray-500">Riwayat Transaksi Terbaru</h5>
-        <p class="text-base text-gray-300">31 Juni 2023</p>
-        <h5 class="font-bold text-gray-500">Riwayat Transaksi Berhasil</h5>
-        <p class="text-base text-gray-300">0</p>
-        <h5 class="font-bold text-gray-500">Riwayat Transaksi Dibatalkan</h5>
-        <p class="text-base text-gray-300">0</p>
+        <div class="xl:px-14 py-4 ">
+            <h5 class="font-bold text-gray-500 py-2">Riwayat Transaksi Terbaru</h5>
+            <p class="text-base text-gray-300 py-2">31 Juni 2023</p>
+            <h5 class="font-bold text-gray-500 py-2">Riwayat Transaksi Berhasil</h5>
+            <p class="text-base text-gray-300 py-2">0</p>
+            <h5 class="font-bold text-gray-500 py-2">Riwayat Transaksi Dibatalkan</h5>
+            <p class="text-base text-gray-300 py-2">0</p>
         </div>
     </div>
 </div>

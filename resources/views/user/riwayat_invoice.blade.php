@@ -1,7 +1,7 @@
 @extends('layouts-user.main')
 @section('content')
 
-<div class="flex flex-col  w-full p-7">
+<div class="flex  flex-col   w-full p-7">
     <div id="kat" class=" relative  rounded-lg flex xl:flex-row    w-full  xl:shadow-lg mb-10 space-x-2 ">
       <div class="xl:w-1/5 md:w-1/3 w-1/2 shadow-lg xl:shadow-none bg-grecianblue  h-40 hover:bg-gray-300 rounded-lg p-4 cursor-pointer  justify-center items-center ">
         <a href="">Transportasi</a><br>
@@ -188,6 +188,7 @@
                 </div>
             </div>
         </div>
-</div>
+
+    </div>
 
 @endsection
