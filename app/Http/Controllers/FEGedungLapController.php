@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\GedungLap;
+use App\Models\TransaksiGedung;
 use Illuminate\Http\Request;
 use App\Services\KendaraanFE\KendaraanFeService;
 
@@ -27,6 +28,27 @@ class FEGedungLapController extends Controller
         return view('detail.detail_gedung', [
             "title" => "Detail Gedung",
             "gedung_lap" => $gedung_lap
+        ]);
+    }
+    public function listEventGedungLap(Request $request)
+    {
+        $start = date('Y-m-d', strtotime($request->start));
+        $end = date('Y-m-d', strtotime($request->end));
+        $events = TransaksiGedung::where('tg_tanggal_pelaksanaan', '>=' ,$start)
+        ->where('tg_tanggal_kembali', '<=', $end)
+        ->get()
+        ->map(fn ($item)=>[
+            'id'=>$item->id,
+            'title'=>$item->tg_title,
+            'start'=>$item->tg_tanggal_pelaksanaan,
+            'end'=>$item->tg_tanggal_kembali
+        ]);
+        return response()->json($events);
+    }
+    public function kalenderGedungLap()
+    {
+        return view('GedungLap.kalender', [
+            "title" => "Kalender Gedung Lapangan"
         ]);
     }
 }

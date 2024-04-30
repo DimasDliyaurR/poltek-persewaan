@@ -335,6 +335,7 @@ Route::controller(FEGedungLapController::class)->group(function()
     Route::get('/gedung', 'index');
     Route::get('/gedung/detail', 'detail');
     Route::get('/gedung/kalender', 'kalenderGedungLap');
+    Route::get('/gedung/list', 'listEventGedungLap')->name('gedunglap.list');
 });
 Route::get('/detailgedung/{id}', [FEgedungLapController::class, 'detail'])->name('detailgedung');
 // Route::get('/k_pesan/{id}', [FEgedungLapController::class, 'store'])->name('k_pesan');
@@ -358,8 +359,12 @@ Route::controller(FEAlatBarangController::class)->group(function() {
 });
 
 
-//Route::controller(KendaraanFeController::class)->group(function () {
-  //  Route::get('/transportasi', 'index');
+Route::controller(FEKendaraanController::class)->group(function () {
+    Route::get('/transportasi', 'index');
+    Route::get('/transportasi/detail', 'detail');
+    Route::get('/transportasi/kalender', 'kalender');
+    Route::get('/transportasi/list', 'listEventTransportasi')->name('transportasi.list');
+});
     //FE
     //Route::get('/transportasi/detail', 'detail');
     //end FE

@@ -13,18 +13,22 @@ class FEKendaraanController extends Controller
 {
     public function index()
     {
-        $transportasi = MerkKendaraan::with("transportasi")->withCount([
+        $query = MerkKendaraan::with("transportasi")->withCount([
             "transportasi" => fn ($q) => $q->where("k_status", "=", "tersedia")
-        ]);
-        $transportasi = MerkKendaraan::latest();
-        if(request('search')){
-            $transportasi->where('mk_seri', 'like', '%' . request('search'). '%');
+        ])->latest();
+
+        if (request('search')) {
+            $query->where('mk_seri', 'like', '%' . request('search'). '%');
         }
+
+        $transportasi = $query->paginate(6);
+
         return view('transportasi.index', [
             "title" => "Transportasi",
-            "transportasi" => $transportasi->paginate(6)
+            "transportasi" => $transportasi
         ]);
     }
+
     public function detail()
     {
         //$kendaraans = Kendaraan::with('MerkKendaraan')->find($id);
@@ -53,6 +57,27 @@ class FEKendaraanController extends Controller
     {
         return view('transportasi.transaksi_invoice',[
             "title" => "Invoice Transportasi"
+        ]);
+    }
+    public function listEventTransportasi(Request $request)
+    {
+        $start = date('Y-m-d', strtotime($request->start));
+        $end = date('Y-m-d', strtotime($request->end));
+        $events = TransaksiKendaraan::where('tk_tanggal_pelaksanaan', '>=', $start) 
+        ->where('tk_tanggal_kembali', '<=', $end)
+        ->get()
+        ->map(fn ($item)=>[
+            'id'=>$item->id,
+            'title'=>$item->tk_title,
+            'start'=>$item->tk_tanggal_pelaksanaan,
+            'end'=>$item->tk_tanggal_kembali
+        ]);
+        return response()->json($events);
+    }
+    public function kalender()
+    {
+        return view('transportasi.kalender',[
+            "title" => "Kalender Transportasi"
         ]);
     }
 }

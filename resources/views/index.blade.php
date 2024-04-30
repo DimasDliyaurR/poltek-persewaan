@@ -20,8 +20,8 @@
     </div> -->
     <!-- new -->
     <div class="w-full  self-center px-10  xl:w-1/2 lg:w-1/2 ">
-      <h1 class="text-base text-grecianblue font-semibold  md:text-xl lg:text-2xl">Ayoo <span class="text-black block font-bold text-slate-900 text-4xl lg:text-5xl pb-2">SEWA ASET </span></h1>
-      <h2 class="flex justify-center xl:justify-start font-semibold md:text-xl lg:text-2xl mt-6 leading relaxed mb-8  ">Mudah, Aman , Terjangkau !</h2>
+      <h1 class="text-base text-grecianblue font-semibold  md:text-xl lg:text-2xl">Ayoo <span class="text-black block font-bold text-slate-900 xl:text-8xl lg:text-5xl pb-2">SEWA ASET </span></h1>
+      <h2 class="flex justify-center xl:justify-start font-semibold md:text-xl lg:text-2xl  xl:text-4xl mt-6 leading relaxed mb-8   ">Mudah, Aman , Terjangkau !</h2>
       <div id="buttondropdown" class="mx-auto flex">
         <div id="dropdownKategori" class="relative">
           <div class="border-solid text-sm border-gray-400 border-[1px] px-5 py-2 rounded cursor-pointer  flex justify-between bg-white shadow-sm ">
@@ -29,7 +29,7 @@
           </div>
         </div>
         <div id="dropdownJadwal" class="relative">
-          <div onclick="toggleDropdown2()" class="border-solid w-28 text-sm border-gray-400 border-[1px] px-5 py-2 rounded cursor-pointer  flex  bg-white shadow-sm items-center">
+          <div onclick="toggleDropdown2()" class="border-solid w-28 text-sm border-gray-400 border-[1px] px-5 py-2 rounded cursor-pointer  flex  bg-white shadow-sm items-center" title="Lihat jadwal">
             <a href="/kalender">Jadwal</a>
             <svg class=" pl-2 w-5 " xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
                 <path stroke-linecap="round" stroke-linejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5" />

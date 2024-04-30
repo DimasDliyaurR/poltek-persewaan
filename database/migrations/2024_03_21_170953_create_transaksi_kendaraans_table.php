@@ -20,7 +20,9 @@ return new class extends Migration
             $table->string('tk_title');
             $table->string('tk_durasi');
             $table->timestamp('tk_tanggal_sewa');
+            $table->dateTime('tk_tanggal_pelaksanaan');
             $table->dateTime('tk_tanggal_kembali');
+            
             $table->timestamps();
         });
 

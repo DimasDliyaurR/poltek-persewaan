@@ -18,8 +18,8 @@ return new class extends Migration
             $table->foreignId('user_id')->constrained();
             $table->string('tg_title');
             $table->dateTime('tg_tanggal_sewa');
-            $table->dateTime('tg_tanggal_kembali');
             $table->timestamp('tg_tanggal_pelaksanaan');
+            $table->dateTime('tg_tanggal_kembali');
             $table->timestamps();
         });
 
