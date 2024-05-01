@@ -35,25 +35,25 @@ class KendaraanFeController extends Controller
 
     public function index()
     {
-        $kendaraans = MerkKendaraan::with("kendaraans")->withCount([
-            "kendaraans" => fn ($q) => $q->where("k_status", "=", "tersedia")
+        $transportasi = MerkKendaraan::with("kendaraans")->withCount([
+            "kendaraans" => fn ($q) => $q->where("k_status", "=", "tersedia")->latest()
         ]);
-        $kendaraans = MerkKendaraan::latest();
-        if(request('search')){
-            $kendaraans->where('mk_seri', 'like', '%' . request('search'). '%');
+        if (request('search')) {
+            $transportasi->where('mk_seri', 'like', '%' . request('search') . '%');
         }
-
         return view('transportasi.index', [
             "title" => "Transportasi",
-            "kendaraans" => $kendaraans->paginate(6)
+            "transportasi" => $transportasi->paginate(6),
         ]);
     }
 
     public function detail($slug)
     {
-        $kendaraans = MerkKendaraan::with("kendaraans")->where("mk_slug", "=", $slug);
+        $kendaraans = MerkKendaraan::with("kendaraans")->withCount([
+            "kendaraans" => fn ($q) => $q->where("k_status", "=", "tersedia")->latest()
+        ])->where("mk_slug", "=", $slug);
 
-        return view('detail.detail_kendaraan', [
+        return view('transportasi.detail', [
             "title" => "Kendaraan",
             "kendaraan" => $kendaraans->first()
         ]);
@@ -65,15 +65,15 @@ class KendaraanFeController extends Controller
             $item = $slug;
             $item = MerkKendaraan::whereMkSlug($item)->withCount([
                 "kendaraans" => fn ($q) => $q->where("k_status", "!=", "tersedia")
-            ])->first();
+            ]);
             $MerkKendaraan = MerkKendaraan::with("kendaraans")->withCount(["kendaraans" => fn ($q) => $q->where("k_status", "=", "tersedia")])->get();
         } catch (\Throwable $th) {
             throw new Exception($th->getMessage());
         }
 
-        return view("transaksi.kendaraan.pesan", [
+        return view("transportasi.transaksi_pesan", [
             "title" => "Pesan Kendaraan",
-            "merkKendaraan" => $MerkKendaraan,
+            "merkKendaraan" => $MerkKendaraan->first(),
             "item" => $item,
         ]);
     }

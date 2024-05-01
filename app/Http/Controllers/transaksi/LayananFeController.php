@@ -23,14 +23,46 @@ class LayananFeController extends Controller
 
     public function index()
     {
-        $layanan = Layanan::latest();
+        $layanans = new Layanan();
         if (request('search')) {
-            $layanan->where('gl_nama', 'like', "%" . request('search') . "%")
-                ->orWhere('gl_keterangan', 'like', '%' . request('search') . '%');
+            $layanans->where('l_nama', 'like', '%' . request('search') . '%');
         }
-        return view('kategori.layanan', [
+        return view('layanan.index', [
             "title" => "Layanan",
-            "layanan" => $layanan->paginate(3)
+            "layanan" => $layanans->paginate(6)
+
+        ]);
+    }
+
+    public function detail($slug)
+    {
+        $layanan = Layanan::with("detailFotoLayanans")->whereLSlug($slug);
+        return view('layanan.detail', [
+            "title" => "Detail Gedung",
+            "layanan" => $layanan->first()
+        ]);
+    }
+
+    public function listEventLayanan(Request $request)
+    {
+        $start =  date('Y-m-d', strtotime($request->start));
+        $end = date('Y-m-d', strtotime($request->end));
+        $events = TransaksiLayanan::where('tl_tanggal_pelaksanaan', '>=', $start)
+            ->where('tl_tanggal_selesai', '<=', $end)
+            ->get()
+            ->map(fn ($item) => [
+                'id' => $item->id,
+                'title' => $item->tl_title,
+                'start' => $item->tl_tanggal_pelaksanaan,
+                'end' => $item->tl_tanggal_selesai
+            ]);
+        return response()->json($events);
+    }
+
+    public function kalenderLayanan()
+    {
+        return view('layanan.kalender', [
+            "title" => "Kalender Layanan"
         ]);
     }
 

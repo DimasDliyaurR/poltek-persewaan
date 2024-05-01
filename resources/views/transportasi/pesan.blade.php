@@ -7,8 +7,6 @@
                     <h4 class="font-semibold mb-6">Pemesanan Transportasi</h4>
                     {{-- Form START --}}
 
-                    <livewire:transaksi.transaksi-kendaraan-form slug="{{ $item->mk_slug }}" />
-
                     <!-- ... -->
                     {{-- <div class=" grid md:grid-rows-2 md:grid-flow-col  xl:gap-3 gap-1 xl:w-56 p-4   md:gap-52 w-full  ">
                     <div class="bg-white w-56 relative -mt-4 p-3  pb-2 rounded-md">

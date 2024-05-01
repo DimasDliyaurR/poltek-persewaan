@@ -2,12 +2,13 @@
 
 namespace App\Services\Asrama;
 
-use App\Repositories\Asrama\AsramaRepository;
-use App\Repositories\Asrama\DetailFasilitasAsrama\DetailFasilitasAsramaRepository;
-use App\Repositories\Asrama\FasilitasAsrama\FasilitasAsramaRepository;
-use App\Repositories\Asrama\TipeAsrama\TipeAsramaRepository;
-use App\Services\Asrama\AsramaService;
 use InvalidArgumentException;
+use App\Services\Asrama\AsramaService;
+use App\Repositories\Asrama\AsramaRepository;
+use App\Repositories\Asrama\TipeAsrama\TipeAsramaRepository;
+use App\Repositories\Asrama\FasilitasAsrama\FasilitasAsramaRepository;
+use App\Repositories\Asrama\DetailFotoTipeAsrama\DetailFotoTipeAsramaRepository;
+use App\Repositories\Asrama\DetailFasilitasAsrama\DetailFasilitasAsramaRepository;
 
 class AsramaServiceImplement implements AsramaService
 {
@@ -15,13 +16,66 @@ class AsramaServiceImplement implements AsramaService
     private $fasilitasAsramaRepository;
     private $tipeAsramaRepository;
     private $detailFasilitasAsramaRepository;
+    private $detailFotoTipeAsramaRepository;
 
-    public function __construct(AsramaRepository $asramaRepository, FasilitasAsramaRepository $fasilitasAsramaRepository, DetailFasilitasAsramaRepository $detailFasilitasAsramaRepository, TipeAsramaRepository $tipeAsramaRepository)
-    {
+    public function __construct(
+        AsramaRepository $asramaRepository,
+        FasilitasAsramaRepository $fasilitasAsramaRepository,
+        DetailFasilitasAsramaRepository $detailFasilitasAsramaRepository,
+        TipeAsramaRepository $tipeAsramaRepository,
+        DetailFotoTipeAsramaRepository $detailFotoTipeAsramaRepository
+    ) {
         $this->asramaRepository = $asramaRepository;
         $this->fasilitasAsramaRepository = $fasilitasAsramaRepository;
         $this->tipeAsramaRepository = $tipeAsramaRepository;
         $this->detailFasilitasAsramaRepository = $detailFasilitasAsramaRepository;
+        $this->detailFotoTipeAsramaRepository = $detailFotoTipeAsramaRepository;
+    }
+
+    /**
+     * Get Data Asrama By Id Detail Foto Tipe Asrama
+     * @param int $id
+     * @return object
+     */
+    public function getDataFotoTipeAsrama($id)
+    {
+        $data = $this->detailFotoTipeAsramaRepository->getDataById($id);
+
+        return $data;
+    }
+
+    /**
+     * Get Data Detail Foto Tipe Asrama By Id Asrama
+     * @param id string
+     * @return array
+     * @throws InvalidArgumentException Jika terdapat kesalahan Exception
+     */
+    public function getDataDetailFotoTipeAsramaById($id)
+    {
+        try {
+            $data = $this->detailFotoTipeAsramaRepository->getDataById($id);
+        } catch (\Exception $th) {
+            throw new InvalidArgumentException();
+        }
+
+        return $data;
+    }
+
+    /**
+     * Get Data Detail Foto Tipe Asrama By Id Tipe Asrama Asrama
+     * @param id string
+     * @return array
+     * @throws InvalidArgumentException Jika terdapat kesalahan Exception
+     */
+    public function getDataDetailFotoTipeAsramaByTipeAsramaId($id)
+    {
+        try {
+            $data = $this->detailFotoTipeAsramaRepository->getDataByTipeAsramaId($id);
+        } catch (\Exception $th) {
+            throw new InvalidArgumentException();
+        }
+
+        return $data;
     }
 
     /**
@@ -93,7 +147,7 @@ class AsramaServiceImplement implements AsramaService
     }
 
     /**
-     * Get Data Tipe Asrama By Asrama Id
+     * Get Data Tipe Asrama By Tipe Asrama Id
      * @param Id
      * @return array
      * @throws InvalidArgumentException Jika Terdapat Kesalahan Exception
@@ -102,6 +156,22 @@ class AsramaServiceImplement implements AsramaService
     {
         try {
             $data = $this->tipeAsramaRepository->getDataById($id);
+        } catch (\Exception $th) {
+            throw new InvalidArgumentException();
+        }
+
+        return $data;
+    }
+
+    /**
+     * Get All Data Fasilitas Asrama
+     * @return array
+     * @throws InvalidArgumentException Jika terdapat kesalahan Exception
+     */
+    public function getAllDataDetailFotoTipeAsrama()
+    {
+        try {
+            $data = $this->detailFotoTipeAsramaRepository->getAll();
         } catch (\Exception $th) {
             throw new InvalidArgumentException();
         }
@@ -150,6 +220,23 @@ class AsramaServiceImplement implements AsramaService
     {
         try {
             $data = $this->tipeAsramaRepository->getAll();
+        } catch (\Exception $th) {
+            throw new InvalidArgumentException();
+        }
+
+        return $data;
+    }
+
+    /**
+     * Store Data Foto Tipe Asrama
+     * @param  array $data
+     * @return object
+     * @throws InvalidArgumentException Jika terdapat kesalahan Exception
+     */
+    public function storeDetailFotoTipeAsrama($data)
+    {
+        try {
+            $dataAsrama = $this->detailFotoTipeAsramaRepository->store($data);
         } catch (\Exception $th) {
             throw new InvalidArgumentException();
         }
@@ -226,6 +313,21 @@ class AsramaServiceImplement implements AsramaService
     }
 
     /**
+     * Update Detail Foto Tipe Asrama
+     * @param array $dara
+     * @param int $id
+     * @return array
+     * @throws InvalidArgumentException Jika terdapat kesalahan Exception
+     */
+    public function updateDetailFotoTipeAsrama($data, $id)
+    {
+        $data = $this->detailFotoTipeAsramaRepository->update($data, $id);
+
+
+        return $data;
+    }
+
+    /**
      * Update Asrama
      * @param data
      * @return array
@@ -290,6 +392,19 @@ class AsramaServiceImplement implements AsramaService
         } catch (\Exception $th) {
             throw new InvalidArgumentException();
         }
+
+        return $data;
+    }
+
+    /**
+     * Delete Asrama
+     * @param id
+     * @return array
+     * @throws InvalidArgumentException Jika terdapat kesalahan Exception
+     */
+    public function destroyDetailFotoTipeAsrama($id)
+    {
+        $data = $this->detailFotoTipeAsramaRepository->delete($id);
 
         return $data;
     }

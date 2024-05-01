@@ -129,11 +129,11 @@ class GedungLapController extends Controller
 
         $validation['gl_slug'] = Str::slug($validation["gl_nama"]); // Menambahkan slug
 
-        try {
-            $this->gedungLapService->updateGedungLap($validation, $id); // Update Gedung Lapangan
-        } catch (\Exception $th) {
-            throw new InvalidArgumentException();
-        }
+        // try {
+        $this->gedungLapService->updateGedungLap($validation, $id); // Update Gedung Lapangan
+        // } catch (\Exception $th) {
+        //     throw new InvalidArgumentException();
+        // }
 
         return back()->with("successForm", "Berhasil Mengubah Gedung Lapangan");
     }

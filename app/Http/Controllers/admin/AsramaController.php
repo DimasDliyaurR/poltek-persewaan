@@ -13,6 +13,7 @@ use Illuminate\Support\Facades\Storage;
 use App\Http\Requests\asrama\RequestAsrama;
 use App\Http\Requests\asrama\tipeAsrama\RequestTipeAsrama;
 use App\Http\Requests\asrama\fasilitasAsrama\RequestFasilitasAsrama;
+use App\Http\Requests\asrama\detailFotoTipeAsrama\RequestDetailFotoTipeAsrama;
 use App\Http\Requests\asrama\detailFasilitasAsrama\RequestDetailFasilitasAsrama;
 
 class AsramaController extends Controller
@@ -160,7 +161,7 @@ class AsramaController extends Controller
             return abort(404);
         }
 
-        return view("admin.kendaraan.merkKendaraan.detail", [
+        return view("admin.asrama.detail", [
             "title" => "Detail",
             "action" => "kendaraan",
             "merkKendaraan" => $asrama,
@@ -426,6 +427,114 @@ class AsramaController extends Controller
     {
         try {
             $this->asramaService->destroyDetailFasilitasAsrama($id);
+        } catch (\Exception $th) {
+            throw new InvalidArgumentException();
+        }
+
+        return back()->with("successTable", "Berhasil Menghapus");
+    }
+
+    /**
+     * Detail Foto Tipe Asrama
+     * Index
+     */
+    public function indexDetailFotoTipeAsrama($id)
+    {
+        $asramas = $this->asramaService->getDataDetailFotoTipeAsramaByTipeAsramaId($id);
+        $tipeAsrama = $this->asramaService->getDataTipeAsramaById($id);
+
+        return view("admin.asrama.detailFotoTipeAsrama.lihat", [
+            "title" => "Detail Foto Tipe Asrama",
+            "action" => "Detail Foto Tipe Asrama",
+            "tipeAsrama" => $tipeAsrama->first(),
+            "detailFotoTipeAsrama" => $asramas->get(),
+        ]);
+    }
+
+    /**
+     * Detail Foto Tipe Asrama
+     * Create
+     */
+    public function createDetailFotoTipeAsrama(RequestDetailFotoTipeAsrama $request, $id)
+    {
+        $validation = $request->validated();
+
+        $validation["tipe_asrama_id"] = $id;
+
+        if ($request->hasFile('dfta_foto')) {
+            $file_asrama = $request->file('dfta_foto');
+            $foto_asrama = $file_asrama->hashName();
+
+            $foto_asrama_path = $file_asrama->storeAs("/detail_foto_tipe_asrama", $foto_asrama);
+            $foto_asrama_path = Storage::disk("public")->put("/detail_foto_tipe_asrama", $file_asrama);
+            $validation['dfta_foto'] = $foto_asrama_path;
+        }
+
+        $this->asramaService->storeDetailFotoTipeAsrama($validation);
+
+        return back()->with("successForm", "Berhasil Menambahkan");
+    }
+
+    /**
+     * Asmara
+     * Store
+     */
+    public function storeDetailFotoTipeAsrama($id)
+    {
+        try {
+            $asrama = $this->asramaService->getDataDetailFotoTipeAsramaById($id);
+        } catch (\Exception $th) {
+            return abort(404);
+        }
+
+        return view("admin.asrama.detailFotoTipeAsrama.detail", [
+            "title" => "Detail",
+            "action" => "kendaraan",
+            "detailFotoTipeAsrama" => $asrama,
+        ]);
+    }
+
+    /**
+     * Detail Foto Tipe Asrama
+     * Update
+     */
+    public function updateDetailFotoTipeAsramaAsrama(RequestDetailFotoTipeAsrama $request, $id)
+    {
+        $validation = $request->validated();
+
+        $detailFotoTipeAsramaOld = $this->asramaService->getDataDetailFotoTipeAsramaById($id);
+
+        if ($request->hasFile('dfta_foto')) {
+            if (Storage::disk('public')->exists($detailFotoTipeAsramaOld['dfta_foto'])) {
+                Storage::disk('public')->delete($detailFotoTipeAsramaOld['dfta_foto']);
+            }
+            $file_detail_foto_tipe_asrama = $request->file('dfta_foto');
+            $foto_detail_foto_tipe_asrama = $file_detail_foto_tipe_asrama->hashName();
+
+            $foto_detail_foto_tipe_asrama_path = $file_detail_foto_tipe_asrama->storeAs("/detail_foto_tipe_asrama", $foto_detail_foto_tipe_asrama);
+            $foto_detail_foto_tipe_asrama_path = Storage::disk("public")->put("/detail_foto_tipe_asrama", $file_detail_foto_tipe_asrama);
+            $validation['dfta_foto'] = $foto_detail_foto_tipe_asrama_path;
+        }
+
+        try {
+            $this->asramaService->updateAsrama($validation, $id);
+        } catch (\Exception $th) {
+            throw new InvalidArgumentException();
+        }
+
+        return back()->with("successForm", "Berhasil Mengubah Asrama pada ruangan ");
+    }
+
+    /**
+     * Asrama
+     * Destroy
+     */
+    public function destroyDetailFotoTipeAsrama($id)
+    {
+        $asrama = $this->asramaService->getDataDetailFotoTipeAsramaById($id);
+
+        try {
+            $this->asramaService->destroyDetailFotoTipeAsrama($id);
         } catch (\Exception $th) {
             throw new InvalidArgumentException();
         }

@@ -169,11 +169,7 @@
                             <a href="{{ asset('admin/tipeAsrama/store/' . $row->id) }}"
                                 class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Lihat Detail</a>
                         </td>
-                        <td class="px-6 py-4 text-right">
-                            <a href="{{ asset('admin/detailFasilitasAsrama/' . $row->id) }}"
-                                class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Tambah
-                                Fasilitas</a>
-                        </td>
+
                         <td class="px-6 py-4 text-right">
                             <a href="{{ asset('admin/tipeAsrama/show/' . $row->id) }}"
                                 class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit</a>
@@ -181,6 +177,33 @@
                         <td class="px-6 py-4 text-right">
                             <x-delete-button action="admin/tipeAsrama/delete/{{ $row->id }}"
                                 id="{{ $row->id }}" nama="{{ $row->ta_nama }}"></x-delete-button>
+                        </td>
+                        <td>
+                            <button id="dropdownDefaultButton" data-dropdown-toggle="dropdown-{{ $row->id }}"
+                                class="text-black" type="button"><svg xmlns="http://www.w3.org/2000/svg"
+                                    width="1em" height="1em" viewBox="0 0 24 24">
+                                    <path fill="currentColor"
+                                        d="M10 12a2 2 0 1 0 4 0a2 2 0 0 0-4 0m0-6a2 2 0 1 0 4 0a2 2 0 0 0-4 0m0 12a2 2 0 1 0 4 0a2 2 0 0 0-4 0" />
+                                </svg>
+                            </button>
+
+                            <!-- Dropdown menu -->
+                            <div id="dropdown-{{ $row->id }}"
+                                class="z-10 hidden bg-white divide-y divide-gray-100 border-gray-400 border-2 rounded-lg w-auto text-left">
+                                <ul class="py-2 text-sm text-gray-700 dark:text-gray-200"
+                                    aria-labelledby="dropdownDefaultButton">
+                                    <li>
+                                        <a href="{{ route('detailFotoTipeAsrama.index', $row->id) }}"
+                                            class="block px-4  hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Tambah
+                                            Foto</a>
+                                    </li>
+                                    <li>
+                                        <a href="{{ asset('admin/detailFasilitasAsrama/' . $row->id) }}"
+                                            class="block px-4  hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Tambah
+                                            Fasilitas</a>
+                                    </li>
+                                </ul>
+                            </div>
                         </td>
                     </tr>
                 @empty

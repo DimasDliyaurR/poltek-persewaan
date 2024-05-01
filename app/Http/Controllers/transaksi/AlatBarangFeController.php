@@ -21,15 +21,48 @@ class AlatBarangFeController extends Controller
 
     public function index()
     {
-        $alatBarang = AlatBarang::latest();
+        $alatbarang = AlatBarang::with('satuanAlatBarangs')->latest();
         if (request('search')) {
-            $alatBarang->where('ab_nama', 'like', "%" . request('search') . "%")
-                ->orWhere('ab_keterangan', 'like', '%' . request('search') . '%');
+            $alatbarang->WHERE('a_nama', 'like', '%' . request('search') . '%');
         }
-        return view('kategori.penginapan', [
+
+        return view('alatBarang.index', [
             "title" => "Alat Barang",
-            "alatBarang" => $alatBarang->paginate(5)
+            "alatBarangs" => $alatbarang->paginate(6),
         ]);
+    }
+
+    public function detail($slug)
+    {
+        $alatbarang = AlatBarang::whereAbSlug($slug);
+
+        return view('alatBarang.detail', [
+            "title" => "Alat Barang",
+            "AlatBarang" => $alatbarang->first(),
+        ]);
+    }
+
+    public function kalenderAlatBarang()
+    {
+        return view('alatBarang.kalender', [
+            "title" => 'Kalender Alat Barang'
+        ]);
+    }
+
+    public function listEventAb(Request $request)
+    {
+        $start = date('Y-m-d', strtotime($request->start));
+        $end = date('Y-m-d', strtotime($request->end));
+        $events = TransaksiAlatBarang::where('tab_tanggal_pesanan', '>=', $start)
+            ->where('tab_tanggal_kembali', '<=', $end)->get()
+            ->map(fn ($item) => [
+                'id' => $item->id,
+                'title' => $item->tab_title,
+                'start' => $item->tab_tanggal_pesanan,
+                'end' => $item->tab_tanggal_kembali,
+            ]);
+
+        return response()->json($events);
     }
 
     public function pesanForm($slug)

@@ -127,11 +127,11 @@ class GedungLapServiceImplement implements GedungLapService
      */
     public function updateGedungLap($data, $id)
     {
-        try {
-            $data = $this->gedungLapRepository->update($data, $id);
-        } catch (\Exception $th) {
-            throw new InvalidArgumentException();
-        }
+        // try {
+        $data = $this->gedungLapRepository->update($data, $id);
+        // } catch (\Exception $th) {
+        //     throw new InvalidArgumentException();
+        // }
 
         return $data;
     }

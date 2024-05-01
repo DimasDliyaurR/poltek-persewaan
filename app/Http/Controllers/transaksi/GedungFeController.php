@@ -29,9 +29,18 @@ class GedungFeController extends Controller
             $gedung_lap->where('gl_nama', 'like', "%" . request('search') . "%")
                 ->orWhere('gl_keterangan', 'like', '%' . request('search') . '%');
         }
-        return view('kategori.gedung', [
+        return view('GedungLap.index', [
             "title" => "Gedung Lapangan",
             "gedung_lap" => $gedung_lap->paginate(3)
+        ]);
+    }
+
+    public function detail($slug)
+    {
+        $gedung_lap = GedungLap::whereGlSlug($slug);
+        return view('gedungLap.detail', [
+            "title" => "Detail Gedung",
+            "gedung_lap" => $gedung_lap->first()
         ]);
     }
 

@@ -16,9 +16,9 @@ class PromoHandler
 
     /**
      * Object Model Promo
-     * @var object $promoModel
+     * @var object $promoQuery
      */
-    protected $promoModel;
+    protected $promoQuery;
 
     /**
      * Object Model Detail User Promo
@@ -84,7 +84,7 @@ class PromoHandler
 
     public function isUserAlreadyUsing()
     {
-        $numberOfUser = $this->promoModel::withCount(["user" => fn ($q) => $q->where("users.id", $this->user_id)])->where("p_kode", $this->promoCode)->first();
+        $numberOfUser = $this->promoQuery::withCount(["user" => fn ($q) => $q->where("users.id", $this->user_id)])->where("p_kode", $this->promoCode)->first();
 
         return $numberOfUser->user_count != 0;
     }
@@ -114,7 +114,7 @@ class PromoHandler
 
     public function decreaseStok()
     {
-        return $this->promoModel::where("p_kode", $this->promoCode)->update([
+        return $this->promoQuery::where("p_kode", $this->promoCode)->update([
             "p_jumlah" => $this->promo->p_jumlah - 1
         ]);
     }
@@ -130,7 +130,7 @@ class PromoHandler
     public function _model()
     {
         $this->detailUserPromo = new DetailUserPromo();
-        $this->promoModel = new Promo();
-        $this->promo = $this->promoModel::with("user")->where("p_kode", $this->promoCode)->first();
+        $this->promoQuery = new Promo();
+        $this->promo = $this->promoQuery::with("user")->where("p_kode", $this->promoCode)->first();
     }
 }

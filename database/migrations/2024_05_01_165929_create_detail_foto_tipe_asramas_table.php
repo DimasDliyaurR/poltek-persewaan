@@ -13,16 +13,10 @@ return new class extends Migration
     {
         Schema::disableForeignKeyConstraints();
 
-        Schema::create('gedung_laps', function (Blueprint $table) {
+        Schema::create('detail_foto_tipe_asramas', function (Blueprint $table) {
             $table->id();
-            $table->string('gl_foto');
-            $table->string('gl_nama');
-            $table->text('gl_keterangan');
-            $table->string('gl_tarif');
-            $table->string('gl_satuan_gedung');
-            $table->integer('gl_kapasitas_gedung');
-            $table->string('gl_ukuran_gedung');
-            $table->string('gl_slug');
+            $table->foreignId("tipe_asrama_id")->constrained("tipe_asramas");
+            $table->string("dfta_foto");
             $table->timestamps();
         });
 
@@ -34,6 +28,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('gedung_laps');
+        Schema::dropIfExists('detail_foto_tipe_asramas');
     }
 };

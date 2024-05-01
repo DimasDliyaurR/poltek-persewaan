@@ -5,6 +5,29 @@ namespace App\Services\Asrama;
 interface AsramaService
 {
     /**
+     * Get Data Asrama By Id Detail Foto Tipe Asrama
+     * @param int $id
+     * @return object
+     */
+    public function getDataFotoTipeAsrama($id);
+
+    /**
+     * Get Data Detail Foto Tipe Asrama By Id Asrama
+     * @param id string
+     * @return object
+     * @throws InvalidArgumentException Jika terdapat kesalahan Exception
+     */
+    public function getDataDetailFotoTipeAsramaById($id);
+
+    /**
+     * Get Data Detail Foto Tipe Asrama By Id Tipe Asrama Asrama
+     * @param id string
+     * @return object
+     * @throws InvalidArgumentException Jika terdapat kesalahan Exception
+     */
+    public function getDataDetailFotoTipeAsramaByTipeAsramaId($id);
+
+    /**
      * Get Data Asrama By Id Asrama
      * @param id string
      * @return object
@@ -27,6 +50,13 @@ interface AsramaService
      * @throws InvalidArgumentException Jika terdapat kesalahan Exception
      */
     public function getDataFasilitasAsramaById($id);
+
+    /**
+     * Get All Data Fasilitas Asrama
+     * @return object
+     * @throws InvalidArgumentException Jika terdapat kesalahan Exception
+     */
+    public function getAllDataDetailFotoTipeAsrama();
 
     /**
      * Get All Data Fasilitas Asrama
@@ -66,6 +96,14 @@ interface AsramaService
     public function getDataTipeAsramaById($id);
 
     /**
+     * Store Data Foto Tipe Asrama
+     * @param  array $data
+     * @return object
+     * @throws InvalidArgumentException Jika terdapat kesalahan Exception
+     */
+    public function storeDetailFotoTipeAsrama($data);
+
+    /**
      * Store Data Fasilitas Asrama
      * @param data object
      * @return object
@@ -96,6 +134,15 @@ interface AsramaService
      * @throws InvalidArgumentException Jika terdapat kesalahan Exception
      */
     public function storeTipeAsrama($data);
+
+    /**
+     * Update Detail Foto Tipe Asrama
+     * @param array $dara
+     * @param int $id
+     * @return object
+     * @throws InvalidArgumentException Jika terdapat kesalahan Exception
+     */
+    public function updateDetailFotoTipeAsrama($data, $id);
 
     /**
      * Update Asrama
@@ -130,6 +177,14 @@ interface AsramaService
      * @throws InvalidArgumentException Jika terdapat kesalahan Exception
      */
     public function updateTipeAsrama($data, $id);
+
+    /**
+     * Delete Asrama
+     * @param id
+     * @return object
+     * @throws InvalidArgumentException Jika terdapat kesalahan Exception
+     */
+    public function destroyDetailFotoTipeAsrama($id);
 
     /**
      * Delete Asrama

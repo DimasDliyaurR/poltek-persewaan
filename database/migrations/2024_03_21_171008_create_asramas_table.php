@@ -18,7 +18,7 @@ return new class extends Migration
             $table->foreignId('tipe_asrama_id')->constrained("tipe_asramas")->onDelete("CASCADE");
             $table->string('a_nama_ruangan');
             $table->string('a_slug');
-            $table->enum('a_status', ["tersedia", "tidak"]);
+            $table->enum('a_status', ["tersedia", "tidak tersedia"]);
             $table->timestamps();
         });
 

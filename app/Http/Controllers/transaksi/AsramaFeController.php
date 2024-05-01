@@ -27,14 +27,50 @@ class AsramaFeController extends Controller
 
     public function index()
     {
-        $tipeAsrama = TipeAsrama::latest();
+        $tipeAsrama = TipeAsrama::withCount(['asramas' => fn ($q) => $q->whereAStatus("tersedia")])->latest();
         if (request('search')) {
             $tipeAsrama->where('gl_nama', 'like', "%" . request('search') . "%")
                 ->orWhere('gl_keterangan', 'like', '%' . request('search') . '%');
         }
-        return view('kategori.penginapan', [
-            "title" => "Gedung Lapangan",
+        return view('asrama.index', [
+            "title" => "Asrama",
             "tipeAsrama" => $tipeAsrama->paginate(3)
+        ]);
+    }
+
+
+    public function detail($slug)
+    {
+        $tipeAsrama = TipeAsrama::with("asramas")->whereTaSlug($slug);
+
+        if (!$tipeAsrama->first()) abort(404);
+
+        return view('asrama.detail', [
+            "title" => "Detail Asrama",
+            "tipeAsrama" => $tipeAsrama->first()
+        ]);
+    }
+
+    public function listEventAsrama(Request $request)
+    {
+        $start = date('Y-m-d', strtotime($request->start));
+        $end = date('Y-m-d', strtotime($request->end));
+        $events = TransaksiAsrama::where('ta_check_in', '>=', $start)
+            ->where('ta_check_out', '<=', $end)->get()
+            ->map(fn ($item) => [
+                'id' => $item->id,
+                'title' => $item->ta_title,
+                'start' => $item->ta_check_in,
+                'end' => $item->ta_check_out,
+            ]);
+
+        return response()->json($events);
+    }
+
+    public function kalenderAsrama()
+    {
+        return view('asrama.kalender', [
+            "title" => "Kalender Asrama"
         ]);
     }
 
@@ -57,6 +93,7 @@ class AsramaFeController extends Controller
             "fasilitasAsrama" => $fasilitasAsrama,
         ]);
     }
+
 
     public function pesan(Request $request)
     {
