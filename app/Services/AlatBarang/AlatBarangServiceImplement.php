@@ -145,11 +145,11 @@ class AlatBarangServiceImplement implements AlatBarangService
      */
     public function createAlatBarang($data)
     {
-        try {
-            $data = $this->alatBarangRepository->store($data);
-        } catch (\Exception $th) {
-            throw new InvalidArgumentException();
-        }
+        // try {
+        $data = $this->alatBarangRepository->store($data);
+        // } catch (\Exception $th) {
+        //     throw new InvalidArgumentException();
+        // }
 
         return $data;
     }

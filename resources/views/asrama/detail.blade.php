@@ -4,7 +4,7 @@
         <div class="container">
             <!-- <div class="w-10/12  "> -->
             <!-- <div class=" flex justify-center items-center h-screen">   -->
-            <!-- <div class="flex justify-start items-center"> -->
+            <!-- <div class="fl   ex justify-start items-center"> -->
             <div class="justify-start ml-36 mb-2 mt-2">
                 <h2 class="text-base"> <a class="hover:text-primary hover:font-bold" href="/index#kategori">Kategori > </a>
                     {{ $title }}</h2>
@@ -13,28 +13,15 @@
             <!-- </div> -->
             <div class="flex xl:flex-row md:flex-row lg:flex-row  flex-col justify-center space-x-2  ">
                 <div class="basis-3/5  bg-white border-2  h-full  rounded-md p-4 mb-2 ml-2 ">
-                    <div class="relative rounded-lg border border-1 border-gray-200 p-4">
-                        <div id="container" class="relative hidden">
-                            <!-- Close the image -->
-                            {{-- <span onclick="this.parentElement.style.display='none'"
-                                class=" absolute mt-10 mr-15 bg-white cursor-pointer">&times;</span> --}}
-                            <!-- Expanded image -->
-                            <!-- <img id="expandedImg" style="width:100%"> -->
-                            <img id="expandedImg" class="xl:w-8/12 object-cover h-96 w-6/12 lg:w-7/12">
-
-                            <!-- Image text -->
-                            <div id="imgtext"></div>
-                        </div>
-                        <div class=" flex gap-2 mt-5">
-                            <img src="" alt="Nature"
-                                class="rounded-sm cursor-pointer shadow-md overflow-hidden w-36  mb-4"
-                                onclick="myFunction(this);">
-                        </div>
-                    </div>
+                    <x-multiple-image>
+                        @foreach ($tipeAsrama->detailFotoTipeAsrama as $image)
+                            <x-sub-multiple-image src="{{ $image->dfta_foto }}" />
+                        @endforeach
+                    </x-multiple-image>
                     <div class="mt-4 font">
                         <p class="text-base font-bold">Tentang Pesanan</p>
                         <div class="mt-5">
-                            {!! $tipeAsrama->l_deskripsi !!}
+                            {!! $tipeAsrama->ta_deskripsi !!}
                         </div>
                         <p class="text-base font-bold">Gratis Penjemputan</p>
                         <p class="text-sm text-gray-400 p-2 overflow-hidden">Info lebih lanjut hubungi kontak WhatsApp di
@@ -64,10 +51,10 @@
                     </div> --}}
                     <div class=" bg-white p-3 rounded-md border-2">
                         <h4 class="font-semibold mb-2">Harga</h4>
-                        <p class="text-primary font-bold">Rp. {{ number_format($tipeAsrama->l_tarif, 0, ',', '.') }}</p>
+                        <p class="text-primary font-bold">Rp. {{ number_format($tipeAsrama->ta_tarif, 0, ',', '.') }}</p>
                         <p class="text-xs text-gray-400"> * belum termasuk voucher</p>
                         <a href="{{ route('asrama.pesan', $tipeAsrama->ta_slug) }}"
-                            class="block text-center mt-4 h-6 w-full bg-primary rounded-lg hover:opacity-50 text-sm   text-white">Pesan</a>
+                            class="block text-center mt-4 h-6 w-full bg-primary rounded-lg hover:opacity-50 text-sm text-white">Pesan</a>
                     </div>
                 </div>
             </div>
@@ -79,23 +66,5 @@
 
     </div>
 
-    <script>
-        // Tampilkan gambar pertama secara default
-        var defaultImg = document.querySelector('.rounded-sm.cursor-pointer');
-        var expandImg = document.getElementById("expandedImg");
-        // var imgText = document.getElementById("imgtext");
-        expandImg.src = defaultImg.src;
-        // imgText.innerHTML = defaultImg.alt;
-        expandImg.parentElement.style.display = "block";
-
-        // Fungsi untuk mengganti gambar besar saat gambar kecil diklik
-        function myFunction(imgs) {
-            expandImg.src = imgs.src;
-            imgText.innerHTML = imgs.alt;
-        }
-
-        function closeImage() {
-            expandImg.parentElement.style.display = "none";
-        }
-    </script>
+    <script src="{{ asset('js/feature/multiple-images.js') }}"></script>
 @endsection

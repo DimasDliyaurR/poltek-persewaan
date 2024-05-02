@@ -54,7 +54,7 @@ class KendaraanFeController extends Controller
         ])->where("mk_slug", "=", $slug);
 
         return view('transportasi.detail', [
-            "title" => "Kendaraan",
+            "title" => "Transportasi",
             "kendaraan" => $kendaraans->first()
         ]);
     }

@@ -21,7 +21,7 @@ class AlatBarangFeController extends Controller
 
     public function index()
     {
-        $alatbarang = AlatBarang::with('satuanAlatBarangs')->latest();
+        $alatbarang = AlatBarang::with(['satuanAlatBarangs'])->latest();
         if (request('search')) {
             $alatbarang->WHERE('a_nama', 'like', '%' . request('search') . '%');
         }
@@ -34,11 +34,11 @@ class AlatBarangFeController extends Controller
 
     public function detail($slug)
     {
-        $alatbarang = AlatBarang::whereAbSlug($slug);
+        $alatbarang = AlatBarang::with("fotoAlatBarangs")->whereAbSlug($slug);
 
         return view('alatBarang.detail', [
             "title" => "Alat Barang",
-            "AlatBarang" => $alatbarang->first(),
+            "alatBarangs" => $alatbarang->first(),
         ]);
     }
 
