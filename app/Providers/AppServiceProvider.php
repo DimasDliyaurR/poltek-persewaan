@@ -58,8 +58,10 @@ use App\Repositories\Promo\DetailUserPromo\DetailUserPromoRepositoryImplement;
 use App\Repositories\Asrama\FasilitasAsrama\FasilitasAsramaRepositoryImplement;
 use App\Repositories\Asrama\TransaksiAsrama\TransaksiAsramaRepositoryImplement;
 use App\Repositories\Kendaraan\TransaksiKendaraan\TransaksiKendaraanRepository;
+use App\Repositories\Asrama\DetailFotoTipeAsrama\DetailFotoTipeAsramaRepository;
 use App\Repositories\GedungLap\PropertyGedung\PropertyGedungRepositoryImplement;
 use App\Repositories\AlatBarang\FotoAlatBarang\FotoAlatBarangRepositoryImplement;
+use App\Repositories\GedungLap\DetailFotoGedungLap\DetailFotoGedungLapRepository;
 use App\Repositories\AlatBarang\TransaksiAlatBarang\TransaksiAlatBarangRepository;
 use App\Repositories\Asrama\DetailFasilitasAsrama\DetailFasilitasAsramaRepository;
 use App\Repositories\Asrama\DetailTransaksiAsrama\DetailTransaksiAsramaRepository;
@@ -71,6 +73,7 @@ use App\Repositories\GedungLap\DetailTransaksiGedung\DetailTransaksiGedungReposi
 use App\Repositories\Layanan\DetailTransaksiLayanan\DetailTransaksiLayananRepository;
 use App\Repositories\Promo\DetailKategoriPromo\DetailKategoriPromoRepositoryImplement;
 use App\Repositories\Kendaraan\TransaksiKendaraan\TransaksiKendaraanRepositoryImplement;
+use App\Repositories\Asrama\DetailFotoTipeAsrama\DetailFotoTipeAsramaRepositoryImplement;
 use App\Repositories\AlatBarang\TransaksiAlatBarang\TransaksiAlatBarangRepositoryImplement;
 use App\Repositories\Asrama\DetailFasilitasAsrama\DetailFasilitasAsramaRepositoryImplement;
 use App\Repositories\Asrama\DetailTransaksiAsrama\DetailTransaksiAsramaRepositoryImplement;
@@ -81,8 +84,7 @@ use App\Repositories\Layanan\DetailTransaksiLayanan\DetailTransaksiLayananReposi
 use App\Repositories\Kendaraan\DetailTransaksiKendaraan\DetailTransaksiKendaraanRepositoryImplement;
 use App\Repositories\GedungLap\DetailTransaksiPropertyGedung\DetailTransaksiPropertyGedungRepository;
 use App\Repositories\AlatBarang\DetailTransaksiAlatBarang\DetailTransaksiAlatBarangRepositoryImplement;
-use App\Repositories\Asrama\DetailFotoTipeAsrama\DetailFotoTipeAsramaRepository;
-use App\Repositories\Asrama\DetailFotoTipeAsrama\DetailFotoTipeAsramaRepositoryImplement;
+use App\Repositories\GedungLap\DetailFotoGedungLap\DetailFotoGedungLapRepositoryImplement;
 use App\Repositories\GedungLap\DetailTransaksiPropertyGedung\DetailTransaksiPropertyGedungRepositoryImplement;
 
 class AppServiceProvider extends ServiceProvider
@@ -139,6 +141,7 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(TransaksiGedungRepository::class, TransaksiGedungRepositoryImplement::class);
         $this->app->bind(DetailTransaksiPropertyGedungRepository::class, DetailTransaksiPropertyGedungRepositoryImplement::class);
         $this->app->bind(DetailTransaksiGedungRepository::class, DetailTransaksiGedungRepositoryImplement::class);
+        $this->app->bind(DetailFotoGedungLapRepository::class, DetailFotoGedungLapRepositoryImplement::class);
 
         /**
          * Bind Promo Repository

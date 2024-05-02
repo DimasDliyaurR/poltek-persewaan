@@ -11,15 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::disableForeignKeyConstraints();
-
-        Schema::create('foto_gedung_laps', function (Blueprint $table) {
+        Schema::create('detail_foto_gedung_laps', function (Blueprint $table) {
             $table->id();
             $table->foreignId("gedung_lap_id")->constrained("gedung_laps");
+            $table->string("dfgl_foto");
             $table->timestamps();
         });
-
-        Schema::enableForeignKeyConstraints();
     }
 
     /**
@@ -27,6 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('foto_gedung_laps');
+        Schema::dropIfExists('detail_foto_gedung_laps');
     }
 };

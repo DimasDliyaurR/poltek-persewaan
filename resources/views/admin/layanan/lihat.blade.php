@@ -107,17 +107,10 @@
                             </td>
                             <td class="px-6 py-4 text-right">
 
-                                <button id="dropdownDefaultButton" data-dropdown-toggle="dropdown-{{ $row->id }}"
-                                    class="text-black" type="button"><svg xmlns="http://www.w3.org/2000/svg" width="1em"
-                                        height="1em" viewBox="0 0 24 24">
-                                        <path fill="currentColor"
-                                            d="M10 12a2 2 0 1 0 4 0a2 2 0 0 0-4 0m0-6a2 2 0 1 0 4 0a2 2 0 0 0-4 0m0 12a2 2 0 1 0 4 0a2 2 0 0 0-4 0" />
-                                    </svg>
-                                </button>
+                                <x-button-dropdown-option-table targe="dropdown-{{ $row->id }}" />
 
                                 <!-- Dropdown menu -->
-                                <div id="dropdown-{{ $row->id }}"
-                                    class="z-10 hidden bg-white divide-y divide-gray-100 border-gray-400 border-2 rounded-lg w-auto text-left">
+                                <x-dropdown-option-table id="dropdown-{{ $row->id }}">
                                     @if ($row->l_personil)
                                         <ul class="py-2 text-sm text-gray-700 dark:text-gray-200"
                                             aria-labelledby="dropdownDefaultButton">
@@ -128,23 +121,13 @@
                                             </li>
                                         </ul>
                                     @endif
-                                    <ul class="py-2 text-sm text-gray-700 dark:text-gray-200"
-                                        aria-labelledby="dropdownDefaultButton">
-                                        <li>
-                                            <a href="{{ asset('admin/videoLayanans/' . $row->id) }}"
-                                                class="block px-4  hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Tambah
-                                                Video</a>
-                                        </li>
-                                    </ul>
-                                    <ul class="py-2 text-sm text-gray-700 dark:text-gray-200"
-                                        aria-labelledby="dropdownDefaultButton">
-                                        <li>
-                                            <a href="{{ asset('admin/detailFotoLayanans/' . $row->id) }}"
-                                                class="block px-4  hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Tambah
-                                                Foto</a>
-                                        </li>
-                                    </ul>
-                                </div>
+                                    <x-list-dropdown-option-table
+                                        href="{{ asset('admin/videoLayanans/' . $row->id) }}">Tambah
+                                        Video</x-list-dropdown-option-table>
+                                    <x-list-dropdown-option-table
+                                        href="{{ asset('admin/detailFotoLayanans/' . $row->id) }}">Tambah
+                                        Foto</x-list-dropdown-option-table>
+                                </x-dropdown-option-table>
 
                             </td>
                         </tr>

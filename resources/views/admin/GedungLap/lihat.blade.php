@@ -71,6 +71,12 @@
                         <th scope="col" class="px-6 py-3">
                             <span class="sr-only">Edit</span>
                         </th>
+                        <th scope="col" class="px-6 py-3">
+                            <span class="sr-only">Hapus</span>
+                        </th>
+                        <th scope="col" class="px-6 py-3">
+                            <span class="sr-only">Option</span>
+                        </th>
                     </tr>
                 </thead>
                 <tbody>
@@ -85,7 +91,7 @@
                                 {{ $row->gl_nama }}
                             </td>
                             <td class="px-6 py-4 dark:text-white">
-                                Rp. {{ number_format($row->gl_tarif, 0, '.', ',') }}
+                                Rp. {{ number_format($row->gl_tarif, 0, ',', '.') }}
                             </td>
                             <td class="px-6 py-4 text-right">
                                 <a href="{{ asset('admin/gedungLap/store/' . $row->id) }}"
@@ -99,6 +105,16 @@
                             <td class="px-6 py-4 text-right">
                                 <x-delete-button action="admin/gedungLap/delete/{{ $row->id }}"
                                     id="{{ $row->id }}" nama="{{ $row->gl_nama }}"></x-delete-button>
+                            </td>
+                            <td>
+                                <x-button-dropdown-option-table targe="dropdown-{{ $row->id }}" />
+
+                                <!-- Dropdown menu -->
+                                <x-dropdown-option-table id="dropdown-{{ $row->id }}">
+                                    <x-list-dropdown-option-table
+                                        href="{{ route('detailFotoGedungLap.index', $row->id) }}">Tambah
+                                        Foto</x-list-dropdown-option-table>
+                                </x-dropdown-option-table>
                             </td>
                         </tr>
                     @empty

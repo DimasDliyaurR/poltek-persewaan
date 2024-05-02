@@ -37,7 +37,7 @@ class GedungFeController extends Controller
 
     public function detail($slug)
     {
-        $gedung_lap = GedungLap::whereGlSlug($slug);
+        $gedung_lap = GedungLap::with("detailFotoGedungLap")->whereGlSlug($slug);
         return view('gedungLap.detail', [
             "title" => "Detail Gedung",
             "gedung_lap" => $gedung_lap->first()

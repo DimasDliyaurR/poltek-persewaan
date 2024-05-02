@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class GedungLap extends Model
@@ -47,8 +48,13 @@ class GedungLap extends Model
         return $this->hasMany(DetailKategoriPromo::class);
     }
 
-    public function promos()
+    public function detailFotoGedungLap(): HasMany
     {
-        $this->belongsToMany(Promo::class);
+        return $this->hasMany(DetailFotoGedungLap::class);
+    }
+
+    public function promos(): BelongsToMany
+    {
+        return  $this->belongsToMany(Promo::class);
     }
 }

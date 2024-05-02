@@ -143,10 +143,6 @@
                                     class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Lihat
                                     Detail</a>
                             </td>
-                            {{-- <td class="px-6 py-4 text-right">
-                                <x-delete-button action="admin/layanan/delete/{{ $row->id }}" id="{{ $row->id }}"
-                                    nama="{{ $row->l_nama }}"></x-delete-button>
-                            </td> --}}
                         </tr>
                     @empty
                         <tr>

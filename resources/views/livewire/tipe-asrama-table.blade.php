@@ -179,16 +179,10 @@
                                 id="{{ $row->id }}" nama="{{ $row->ta_nama }}"></x-delete-button>
                         </td>
                         <td>
-                            <button id="dropdownDefaultButton" data-dropdown-toggle="dropdown-{{ $row->id }}"
-                                class="text-black" type="button"><svg xmlns="http://www.w3.org/2000/svg"
-                                    width="1em" height="1em" viewBox="0 0 24 24">
-                                    <path fill="currentColor"
-                                        d="M10 12a2 2 0 1 0 4 0a2 2 0 0 0-4 0m0-6a2 2 0 1 0 4 0a2 2 0 0 0-4 0m0 12a2 2 0 1 0 4 0a2 2 0 0 0-4 0" />
-                                </svg>
-                            </button>
+                            <x-button-dropdown-option-table target="dropdown-{{ $row->id }}" />
 
                             <!-- Dropdown menu -->
-                            <div id="dropdown-{{ $row->id }}"
+                            <x-dropdown-option-table id="dropdown-{{ $row->id }}"
                                 class="z-10 hidden bg-white divide-y divide-gray-100 border-gray-400 border-2 rounded-lg w-auto text-left">
                                 <ul class="py-2 text-sm text-gray-700 dark:text-gray-200"
                                     aria-labelledby="dropdownDefaultButton">
@@ -203,7 +197,7 @@
                                             Fasilitas</a>
                                     </li>
                                 </ul>
-                            </div>
+                            </x-dropdown-option-table>
                         </td>
                     </tr>
                 @empty

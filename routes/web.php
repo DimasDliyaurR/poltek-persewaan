@@ -42,10 +42,10 @@ use App\Http\Controllers\transaksi\AlatBarangFeController;
 // BackEnd
 /**
  * _____________________________________________________________________________
- * |
- * |                             ADMIN ROUTE
- * |
- * |****************************************************************************
+ * |                                                                            |
+ * |                             ADMIN ROUTE                                    |
+ * |                                                                            |
+ * |****************************************************************************|
  * |
  * |
  * |
@@ -254,6 +254,26 @@ Route::group(["prefix" => "admin", "middleware" => "auth"], function () {
 
             // Destroy Property Gedung Lapangan
             Route::delete("propertyGedungLap/delete/{id}", "destroyPropertyGedungLap");
+
+            Route::group(["prefix" => "detailFotoGedungLap", "as" => "detailFotoGedungLap."], function () {
+                // Index Detail Foto Tipe Asrama
+                Route::get("/{id}", "indexDetailFotoGedungLap")->name("index");
+
+                // Create Detail Foto Tipe Asrama
+                Route::post("/create/{id}", "createDetailFotoGedungLap")->name("create");
+
+                // store Detail Foto Tipe Asrama
+                Route::get("/store/{id}", "storeDetailFotoGedungLap")->name("store");
+
+                // Show Detail Foto Tipe Asrama
+                Route::get("/show/{id}", "showDetailFotoGedungLap")->name("show");
+
+                // Update Detail Foto Tipe Asrama
+                Route::put("/update/{id}", "updateDetailFotoGedungLap")->name("update");
+
+                // Destroy Detail Foto Tipe Asrama
+                Route::delete("/delete/{id}", "destroyDetailFotoGedungLap")->name("destroy");
+            });
         });
 
         Route::controller(LayananController::class)->group(function () {
