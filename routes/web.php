@@ -398,6 +398,9 @@ Route::view('/asrama/bayar', 'asrama.transaksi_pembayaran', [
 Route::view('/asrama/invoice', 'asrama.transaksi_invoice', [
     "title" => "Invoice Asrama",
 ]);
+Route::view('/print', 'asrama.print_invoice', [
+    "title" => " Print Invoice Asrama",
+]);
 
 Route::get('/asrama/printpdf',[FEAsramaController::class, 'cetak'])->name('asrama.printpdf');
 //TRANSPORTASI FE
