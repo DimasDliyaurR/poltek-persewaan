@@ -32,7 +32,7 @@ class GedungLapController extends Controller
         return view("admin.gedungLap.lihat", [
             "title" => "Gedung & Lapangan",
             "action" => "gedunglap",
-            "gedungLaps" => $gedungLaps,
+            "gedungLaps" => $gedungLaps->paginate(5),
         ]);
     }
 

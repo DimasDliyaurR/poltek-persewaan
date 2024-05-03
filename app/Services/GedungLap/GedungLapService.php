@@ -24,7 +24,7 @@ interface GedungLapService
     /**
      * Get Data Gedung Lapangan By Id
      * @param id integer
-     * @return array
+     * @return object
      * @throws InvalidArgumentException Jika terdapat Exception
      */
     public function getDataGedungLapById($id);
@@ -32,28 +32,28 @@ interface GedungLapService
     /**
      * Get Data Property Gedung By Id
      * @param id integer
-     * @return array
+     * @return object
      * @throws InvalidArgumentException Jika terdapat Exception
      */
     public function getDataPropertyGedungById($id);
 
     /**
      * Get All data Gedung Lapangan
-     * @return array
+     * @return object
      * @throws InvalidArgumentException Jika terdapat Exception
      */
     public function getAllDetailFotoGedungLap();
 
     /**
      * Get All data Gedung Lapangan
-     * @return array
+     * @return object
      * @throws InvalidArgumentException Jika terdapat Exception
      */
     public function getAllGedungLap();
 
     /**
      * Get All data Property Gedung
-     * @return array
+     * @return object
      * @throws InvalidArgumentException Jika terdapat Exception
      */
     public function getAllPropertyGedung();
@@ -61,7 +61,7 @@ interface GedungLapService
     /**
      * Store Detail Foto Gedung Lapangan
      * @param array $data
-     * @return array
+     * @return object
      * @throws InvalidArgumentException Jika terdapat Exception
      */
     public function storeDetailFotoGedungLap($data);
@@ -69,7 +69,7 @@ interface GedungLapService
     /**
      * Store Gedung Lapangan
      * @param data array
-     * @return array
+     * @return object
      * @throws InvalidArgumentException Jika terdapat Exception
      */
     public function storeGedungLap($data);
@@ -77,7 +77,7 @@ interface GedungLapService
     /**
      * Store Gedung Lapangan
      * @param data array
-     * @return array
+     * @return object
      * @throws InvalidArgumentException Jika terdapat Exception
      */
     public function storePropertyGedung($data);
@@ -86,7 +86,7 @@ interface GedungLapService
      * Update Gedung Lapangan
      * @param Data array
      * @param id integer
-     * @return array
+     * @return object
      */
     public function updateDetailFotoGedungLap($data, $id);
 
@@ -94,7 +94,7 @@ interface GedungLapService
      * Update Gedung Lapangan
      * @param Data array
      * @param id integer
-     * @return array
+     * @return object
      * @throws InvalidArgumentException Jika Terdapat Exception
      */
     public function updateGedungLap($data, $id);
@@ -111,7 +111,7 @@ interface GedungLapService
      * Update Gedung Lapangan
      * @param Data array
      * @param id integer
-     * @return array
+     * @return object
      * @throws InvalidArgumentException Jika Terdapat Exception
      */
     public function updatePropertyGedung($data, $id);

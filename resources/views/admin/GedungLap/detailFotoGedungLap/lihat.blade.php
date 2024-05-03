@@ -2,7 +2,7 @@
 
 @section('content')
     <x-title-component>
-        Form Tambah {{ $title }} Dari <span class="font-normal">{{ $gedungLaps->ta_nama }}</span>
+        Form Tambah {{ $title }} Dari <span class="font-normal">{{ $gedungLaps->gl_nama }}</span>
     </x-title-component>
 
     <x-inner-layout>

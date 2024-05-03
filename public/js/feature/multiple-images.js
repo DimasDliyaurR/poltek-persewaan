@@ -1,5 +1,5 @@
 // Tampilkan gambar pertama secara default
-var defaultImg = document.querySelector('.rounded-sm.cursor-pointer');
+var defaultImg = document.getElementById('sub-image-multiple');
 var expandImg = document.getElementById("expandedImg");
 // var imgText = document.getElementById("imgtext");
 expandImg.src = defaultImg.src;

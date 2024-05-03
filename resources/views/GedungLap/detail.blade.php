@@ -1,8 +1,5 @@
 @extends('layouts-home.navbar.nav-old')
 @section('content')
-    <style>
-        ul {}
-    </style>
     <div class=" bg-plaster py-24 ">
         <div class=" container  ">
             <!-- <div class="w-10/12  "> -->
@@ -12,7 +9,7 @@
 
             </div> --}}
 
-            <x-layout-detail-transaksi class="text-xl font-bold">
+            <x-layout-detail-transaksi class="mb-4 text-xl font-bold">
                 <a class="text-primary hover:font-bold hover:underline" href="{{ route('gedung.index') }}">{{ $title }}
                 </a>
                 / {{ $gedung_lap->gl_nama }}</h2>
@@ -103,24 +100,8 @@
     </div>
 
     </div>
+@endsection
 
-    <script>
-        // Tampilkan gambar pertama secara default
-        var defaultImg = document.querySelector('.rounded-sm.cursor-pointer');
-        var expandImg = document.getElementById("expandedImg");
-        var imgText = document.getElementById("imgtext");
-        expandImg.src = defaultImg.src;
-        imgText.innerHTML = defaultImg.alt;
-        expandImg.parentElement.style.display = "block";
-
-        // Fungsi untuk mengganti gambar besar saat gambar kecil diklik
-        function myFunction(imgs) {
-            expandImg.src = imgs.src;
-            imgText.innerHTML = imgs.alt;
-        }
-
-        function closeImage() {
-            expandImg.parentElement.style.display = "none";
-        }
-    </script>
+@section('script')
+    <script src="{{ asset('js/feature/multiple-images.js') }}"></script>
 @endsection
