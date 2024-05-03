@@ -35,9 +35,9 @@ function next() {
 }
 
 // Gedung Lap
-let sliderContainerGL = document.getElementById("sliderContainer");
-let sliderGL = document.getElementById("slider");
-let cardsGL = slider.getElementsByTagName("li");
+let sliderContainerGL = document.getElementById("sliderContainerGL");
+let sliderGL = document.getElementById("sliderGL");
+let cardsGL = sliderGL.getElementsByTagName("li");
 
 let elementsToShowGL = 3;
 if (document.body.clientWidth < 1000) {
@@ -68,4 +68,109 @@ function nextGL() {
     if (+sliderGL.style.marginLeft.slice(0, -2) != 0)
         sliderGL.style.marginLeft =
             +sliderGL.style.marginLeft.slice(0, -2) + cardWidthGL + "px";
+}
+// ASRAMA
+let sliderContainerA = document.getElementById("sliderContainerA");
+let sliderA = document.getElementById("sliderA");
+let cardA = sliderA.getElementsByTagName("li");
+
+let elementsToShowA = 3;
+if (document.body.clientWidth < 1000) {
+    elementsToShowA = 1;
+} else if (document.body.clientWidth < 1500) {
+    elementsToShowA = 2;
+}
+
+let sliderContainerWidthA = sliderContainerA.clientWidth;
+let cardWidthA = sliderContainerWidthA / elementsToShowA;
+
+sliderA.style.width = cardA.length * cardWidthA + "px";
+sliderA.style.transition = "margin ";
+sliderA.style.transitionDuration = "1s";
+for (let index = 0; index < cardA.length; index++) {
+    const element = cardA[index];
+    element.style.width = cardWidthA + "px";
+}
+function prevA() {
+    if (
+        +sliderA.style.marginLeft.slice(0, -2) !=
+        -cardWidthA * (cardA.length - elementsToShowA)
+    )
+        sliderA.style.marginLeft =
+            +sliderA.style.marginLeft.slice(0, -2) - cardWidthA + "px";
+}
+function nextA() {
+    if (+sliderA.style.marginLeft.slice(0, -2) != 0)
+        sliderA.style.marginLeft =
+            +sliderA.style.marginLeft.slice(0, -2) + cardWidthA + "px";
+}
+// LAYANAN
+let sliderContainerL = document.getElementById("sliderContainerL");
+let sliderL = document.getElementById("sliderL");
+let cardsL = sliderL.getElementsByTagName("li");
+
+let elementsToShowL = 3;
+if (document.body.clientWidth < 1000) {
+    elementsToShowL = 1;
+} else if (document.body.clientWidth < 1500) {
+    elementsToShowL = 2;
+}
+
+let sliderContainerWidthL = sliderContainerL.clientWidth;
+let cardWidthL = sliderContainerWidthL / elementsToShowL;
+
+sliderL.style.width = cardsL.length * cardWidthL + "px";
+sliderL.style.transition = "margin ";
+sliderL.style.transitionDuration = "1s";
+for (let index = 0; index < cardsL.length; index++) {
+    const element = cardsL[index];
+    element.style.width = cardWidthL + "px";
+}
+function prevL() {
+    if (
+        +sliderL.style.marginLeft.slice(0, -2) !=
+        -cardWidthL * (cardsL.length - elementsToShowL)
+    )
+        sliderL.style.marginLeft =
+            +sliderL.style.marginLeft.slice(0, -2) - cardWidthL + "px";
+}
+function nextL() {
+    if (+sliderL.style.marginLeft.slice(0, -2) != 0)
+        sliderL.style.marginLeft =
+            +sliderL.style.marginLeft.slice(0, -2) + cardWidthL + "px";
+}
+// ALAT BARANG
+let sliderContainerAB = document.getElementById("sliderContainerAB");
+let sliderAB = document.getElementById("sliderAB");
+let cardAB = sliderAB.getElementsByTagName("li");
+
+let elementsToShowAB = 3;
+if (document.body.clientWidth < 1000) {
+    elementsToShowAB = 1;
+} else if (document.body.clientWidth < 1500) {
+    elementsToShowAB = 2;
+}
+
+let sliderContainerWidthAB = sliderContainerAB.clientWidth;
+let cardWidthAB = sliderContainerWidthAB / elementsToShowAB;
+
+sliderAB.style.width = cardAB.length * cardWidthAB + "px";
+sliderAB.style.transition = "margin ";
+sliderAB.style.transitionDuration = "1s";
+for (let index = 0; index < cardAB.length; index++) {
+    const element = cardAB[index];
+    element.style.width = cardWidthAB + "px";
+}
+function prevAB() {
+    if (
+        +sliderAB.style.marginLeft.slice(0, -2) !=
+        -cardWidthAB * (cardAB.length - elementsToShowAB)
+    )
+        sliderAB.style.marginLeft =
+            +sliderAB.style.marginLeft.slice(0, -2) - cardWidthAB + "px";
+}
+function nextAB() {
+    if (+sliderAB.style.marginLeft.slice(0, -2) != 0)
+        sliderAB.style.marginLeft =
+            +sliderAB.style.marginLeft.slice(0, -2) + cardWidthAB + "px";
 }

@@ -11,7 +11,7 @@
     <!-- Link Swiper's CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
     <link rel="stylesheet" href="{{asset('css/style.css')}}">
-  
+    @yield('scriptlink')
     @vite('resources/css/app.css')
     @vite('resources/js/app.js')
   
@@ -23,9 +23,9 @@
           <div class="flex items-center justify-between relative">
             <div class=" flex items-center xl:px-8 py-2">
               <!-- <img src="./dist/img/Logo Poltekbang.png" width="50" alt="" /> -->
-              <img src="{{ asset('img/LogoPoltekbang.png') }}" class="h-11 w-15" alt="Logo">  
+              <a href="/"><img src="{{ asset('img/LogoPoltekbang.png') }}" class="h-11 w-15" alt="Logo">  </a>
               <div class="ml-1">
-                <a href="/index #home" class="font-bold xl:text-lg md:text-lg  text-black">
+                <a href="/" class="font-bold xl:text-lg md:text-lg  text-black">
                 SEWA ASET<br>
                 <span class="font-bold xl:text-lg md:text-lg text-xs text-black">POLITEKNIK PENERBANGAN SURABAYA</span>
                 </a>
@@ -154,7 +154,7 @@
     </footer> -->
     <!-- Footer End -->
     <!-- footer New -->
-    <footer class="bg-plaster p-16 ">
+    <footer class="bg-plaster 2xl:p-16 xl:p-16 lg:p-16 md:p-16 p-6 ">
       <div class="container mx-auto  px-6 ">
         <div class="grid md:grid-cols-12 grid-cols-1 gap-7 pb-16">
           <div class="lg:col-span-5 col-span-12 " >
@@ -204,6 +204,9 @@
               <li>
                 <a href="#" class="inline-block text-base text-black hover:text-primary mb-3">Web Utama</a>
               </li>
+              <li>
+                <a href="#" class="inline-block text-base text-black hover:text-primary mb-3">Klinik</a>
+              </li>
             </ul>
           </div>
           <div class="lg:col-span-2 md:col-span-4 col-span-12">
@@ -246,6 +249,7 @@
     </footer>
 
     @vite('resources/js/app.js')
+    @yield('script')
     <script src="{{asset('js/main.js')}}"></script>
     <!-- <script src="../path/to/flowbite/dist/flowbite.min.js"></script> -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.js"></script>

@@ -1,7 +1,7 @@
 @extends('layouts-home.navbar.comp')
 @section('content')
-<div class="pt-40 pb-16 bg-slate-100 px-20 ">
-    <div class="container">
+<div class="pt-40 pb-16 bg-slate-100 ">
+    <div class="container px-20 ">
             <div class="w-full">
                 <div class="max-w-xl mx-auto text-center mb-16">
                     <h4 class="font-semibold text-lg text-primary mb-2">Kategori</h4>

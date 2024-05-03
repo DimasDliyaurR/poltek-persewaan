@@ -24,6 +24,7 @@ class TransaksiAsrama extends Model
      */
     protected $fillable = [
         'user_id',
+        'ta_title',
         'ta_tanggal_sewa',
         'ta_check_in',
         'ta_check_out',
@@ -38,6 +39,7 @@ class TransaksiAsrama extends Model
     protected $casts = [
         'id' => 'integer',
         'user_id' => 'integer',
+        'ta_title'=>'string',
         'ta_tanggal_sewa' => 'datetime',
         'ta_check_in' => 'datetime',
         'ta_check_out' => 'datetime',

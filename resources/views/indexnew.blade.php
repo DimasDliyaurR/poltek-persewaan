@@ -1,11 +1,58 @@
 @extends('layouts-home.navbar.nav-old')
+@section('scriptlink')
+<style>
+.bgImage {
+    position: relative;
+    animation: bgChange 20s linear infinite;
+    background-image: url("{{ asset("../../img/landingpage/gerbang.jpg") }}");
+}
+@keyframes bgChange {
+    0% {
+        background-image: url("{{ asset("../../img/landingpage/gerbang.jpg") }}");
+    }
+    20% {
+        background-image: url("{{ asset("../../img/landingpage/bad_2.jpg") }}");
+    }
+    25% {
+        background-image: url("{{ asset("../../img/landingpage/bus_kiri.jpg") }}");
+    }
+    45% {
+        background-image: url("{{ asset("../../img/landingpage/lab.jpg") }}");
+    }
+    50% {
+        background-image: url("{{ asset("../../img/landingpage/marchingband.jpg") }}");
+    }
+    70% {
+        background-image: url("{{ asset("../../img/landingpage/marchingband.jpg") }}");
+    }
+    75% {
+        background-image: url("{{ asset("../../img/landingpage/lab.jpg") }}");
+    }
+    95% {
+        background-image: url("{{ asset("../../img/landingpage/marchingband.jpg") }}");
+    }
+}
+/* } */
+/* overlay sama dengan opasitas */
+.overlay {
+    position: absolute;
+    inset: 0;
+    background-color: rgba(
+        255,
+        255,
+        255,
+        0.5
+    ); /* Warna hitam semi-transparan dengan opasitas 0.5 */
+}
+</style>
+@endsection
 @section('content')
 <section id="home" class="pt-36 pb-56 h-screen relative  ">
-<div class="absolute inset-0 bg-white  opacity-10 ">
-  <div class=" h-full  bg-cover " style="background-image: url('{{ asset('img/gerbang.jpg') }}');">
-    <div class="relative opacity-10 w-1/2"></div>
-  </div> 
+<div class=" bgImage absolute inset-0   h-full  bg-cover bg-no-repeat bg-center  ">
+</div> 
+<div class="overlay"></div>
 </div>  
+
 <div class="container relative  z-10 ">
     <div class="flex flex-wrap mx-auto">
       <div class="w-full  self-center px-10  xl:w-1/2 lg:w-1/2 ">
@@ -23,14 +70,14 @@
       </div>
       <!-- pict -->
       <div class="w-full container self-end px-10 xl:w-1/2 lg:w-1/2">
-          <div class="relative mt-10 lg:mt-9 lg:right-0 object-cover">
+          <!-- <div class="relative mt-10 lg:mt-9 lg:right-0 object-cover">
               <img src="{{asset('img/landingpage/lp.png')}}" alt="Logo Poltekbang" class="max-w-3xl mx-auto" />
-          </div>
+          </div> -->
       </div>
     </div>
 </div>
 </section>
-<div id="kat" class=" relative bg-white rounded-lg flex  flex-wrap xl:w-3/4 mx-auto xl:shadow-lg  -mt-20">
+  <!-- <div id="kat" class=" relative bg-white rounded-lg flex  flex-wrap xl:w-3/4 mx-auto xl:shadow-lg  -mt-20">
       <div class="xl:w-1/5 md:w-1/3 w-1/2 shadow-lg xl:shadow-none  h-40 hover:bg-gray-300 rounded-lg p-4 cursor-pointer flex justify-center items-center ">
         <a href="">Transportasi
         <svg version="1.1" class="hover:text-white  mt-6 h-16 w-16 mx-auto" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="100%" viewBox="0 0 500 500" enable-background="new 0 0 500 500" xml:space="preserve">
@@ -292,5 +339,20 @@
           <a href="/alatbarang">Alat Barang
           </a>
         </div>
+  </div> -->
+
+<!-- <section>
+  <div class="bgImage">
+    <div class="overlay"></div>
+    <div class="content">
+      <h1>SEWA ASET <span>Poltekbang</span></h1>
+      <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Nesciunt saepe quo quis quibusdam pariatur totam! Illum ad maxime natus quae.</p>
+      <button>Explore Now</button>
     </div>
+  </div>
+</section> -->
+@endsection
+
+@section('script')
+
 @endsection

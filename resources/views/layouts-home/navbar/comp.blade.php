@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{{ $title }} | PERSEWAAN ASET</title>
+    <link rel="icon" href="{{asset('img/icon-logo.png') }}">
     <link  href="https://icons8.com/icon/E4FAF4hA9ugF/help">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.css" rel="stylesheet" />
     
@@ -16,7 +17,7 @@
 
 </head>
 <body >
-<header class="bg-transparent absolute top-0 left-0 w-full flex items-center z-10">
+<header class=" bg-transparent absolute top-0 left-0 w-full flex items-center z-10">
       <div class="container">
         <div class="flex items-center justify-between relative">
           <div class="px-4 flex items-center">

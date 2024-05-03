@@ -1,0 +1,42 @@
+.bgImage {
+    position: relative;
+    animation: bgChange 20s linear infinite;
+    background-image: url("{{ asset("../../img/landingpage/gerbang.jpg") }}");
+}
+@keyframes bgChange {
+    0% {
+        background-image: url("{{ asset("../../img/landingpage/gerbang.jpg") }}");
+    }
+    20% {
+        background-image: url("{{ asset("../../img/landingpage/bad_2.jpg") }}");
+    }
+    25% {
+        background-image: url("{{ asset("../../img/landingpage/bus_kiri.jpg") }}");
+    }
+    45% {
+        background-image: url("{{ asset("../../img/landingpage/lab.jpg") }}");
+    }
+    50% {
+        background-image: url("{{ asset("../../img/landingpage/marchingband.jpg") }}");
+    }
+    70% {
+        background-image: url("{{ asset("../../img/landingpage/marchingband.jpg") }}");
+    }
+    75% {
+        background-image: url("{{ asset("../../img/landingpage/lab.jpg") }}");
+    }
+    95% {
+        background-image: url("{{ asset("../../img/landingpage/marchingband.jpg") }}");
+    }
+}
+/* } */
+/* overlay sama dengan opasitas */
+.overlay {
+    position: absolute;
+    inset: 0;
+    background-color: rgb(
+        255,
+        255,
+        255
+    ); /* Warna hitam semi-transparan dengan opasitas 0.5 */
+}

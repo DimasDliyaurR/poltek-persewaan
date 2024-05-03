@@ -2,11 +2,13 @@
 @section('content')
 
     <div class=" flex xl:flex-row flex-col xl:space-x-2">
+        
         <!-- <div class="flex flex-col relative"> -->
             <div class=" flex flex-col xl:w-2/3 w-full  ">
                 <div class="p-4 h-48 mb-2  rounded bg-primary relative">
                     <p class="text-2xl text-gray-400 dark:text-gray-500">
                         <h4 class="text-2xl font-bold "> Halo, ... User !</h4>
+                        <h4>Selamat datang di sistem informasi SEWA ASET Politeknik Penerbangan Surabaya</h4>
                         <img src="{{('img/icon-dash.png')}}" alt="hallo icon" class=" flex absolute right-4 w-32 h-32">
                     </p>
                 </div>
@@ -20,12 +22,11 @@
                         </p>
                         <h4 class="text-4xl text-white font-bold ">2</h4>
                     </div>
-                    <div class=" w-1/2 flex items-center justify-center rounded bg-sea h-36 ">
-                        <p class="text-2xl text-gray-400 dark:text-gray-500">
-                            <svg class="w-3.5 h-3.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 18 18">
-                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 1v16M1 9h16"/>
-                            </svg>
+                    <div class=" w-1/2 p-4 rounded bg-sea h-36 ">
+                        <p class="text-lg text-gray-400  ">
+                            Pemesanan Berlangsung
                         </p>
+                        <h4 class="text-4xl text-white font-bold ">2</h4>
                     </div>
                 </div>
             </div>
