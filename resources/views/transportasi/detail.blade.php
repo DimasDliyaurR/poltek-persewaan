@@ -23,7 +23,7 @@
             <div class="flex xl:flex-row md:flex-row lg:flex-row flex-col justify-center space-x-2">
 
                 <x-layout-detail-transaksi
-                    class="flex xl:flex-row w-full md:flex-row lg:flex-row flex-col justify-between space-x-2">
+                    class="flex xl:flex-row w-full md:items-end md:flex-row lg:flex-row flex-col-reverse justify-between space-x-2">
                     <img src="{{ Storage::url($kendaraan->mk_foto) }}"
                         class="rounded-md shadow-lg w-[40rem] h-80 object-cover" alt="">
 

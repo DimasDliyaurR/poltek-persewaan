@@ -19,7 +19,7 @@
             <div class="flex xl:flex-row md:flex-row lg:flex-row flex-col justify-center space-x-2">
 
                 <x-layout-detail-transaksi
-                    class="flex xl:flex-row w-full md:flex-row lg:flex-row flex-col justify-between space-x-2">
+                    class="flex xl:flex-row w-full md:items-end md:flex-row lg:flex-row flex-col-reverse justify-between space-x-2">
                     {{-- <img src="{{ Storage::url($gedung_lap->gl_foto) }}"
                         class="rounded-md shadow-lg w-[40rem] h-80 object-cover" alt=""> --}}
 
@@ -38,23 +38,13 @@
                                 {{ number_format($gedung_lap->gl_tarif, 0, ',', '.') }}
 
                             <div class=" bg-white p-3 rounded-md">
-                                <h4 class="font-semibold mb-2">Detail Mobil</h4>
                                 <ul class="text-gray-500 text-sm ">
                                     <div class="flex mb-2">
-                                        <img src="{{ asset('img/transportasi/bensin.png') }}" alt="bbm"
-                                            class="w-5 h-5">
-                                        <p class="text-sm font-semibold ml-2">{{ $gedung_lap->gl_bahan_bakar }}</p>
-                                        <sup class="text-xs text-gray-500"> Fuel </sup>
+                                        <p class="text-sm font-semibold ml-2">{{ $gedung_lap->gl_ukuran_gedung }}</p>
+                                        <sup class="text-xs text-gray-500">Ukuran</sup>
                                     </div>
                                     <div class="flex mb-2">
-                                        <svg class="w-6 h-6 text-primary" aria-hidden="true"
-                                            xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                                            fill="currentColor" viewBox="0 0 24 24">
-                                            <path fill-rule="evenodd"
-                                                d="M9 4a4 4 0 1 0 0 8 4 4 0 0 0 0-8Zm-2 9a4 4 0 0 0-4 4v1a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2v-1a4 4 0 0 0-4-4H7Zm8-1a1 1 0 0 1 1-1h1v-1a1 1 0 1 1 2 0v1h1a1 1 0 1 1 0 2h-1v1a1 1 0 1 1-2 0v-1h-1a1 1 0 0 1-1-1Z"
-                                                clip-rule="evenodd" />
-                                        </svg>
-                                        <p class="text-sm font-semibold ml-1">{{ $gedung_lap->kendaraans_count }}</p>
+                                        <p class="text-sm font-semibold ml-1">{{ $gedung_lap->gl_kapasitas_gedung }}</p>
                                         <p class="text-xs text-gray-500 ml-1">Kapasitas</sup>
                                     </div>
 
@@ -78,9 +68,7 @@
                     </div>
                     <p class="text-base font-bold">Gratis Penjemputan</p>
                     <p class="text-sm text-gray-400 p-2 overflow-hidden">Info lebih lanjut hubungi kontak
-                        WhatsApp
-                        di
-                        bawah ini : </p>
+                        WhatsApp di bawah ini : </p>
                     <div class="flex  p-2 w-30">
                         <a aria-label="Chat on WhatsApp" href="https://wa.me/6289529811097/?text=Hello Saya Ingin bertanya">
                             <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="20" height="20"

@@ -41,11 +41,11 @@ class AsramaFeController extends Controller
 
     public function detail($slug)
     {
-        $tipeAsrama = TipeAsrama::with(["asramas", "detailFotoTipeAsrama"])->whereTaSlug($slug);
+        $tipeAsrama = TipeAsrama::with(["asramas", "detailFotoTipeAsrama", "fasilitasAsramas"])->whereTaSlug($slug);
         if (!$tipeAsrama->first()) abort(404);
 
         return view('asrama.detail', [
-            "title" => "Detail Asrama",
+            "title" => "Asrama",
             "tipeAsrama" => $tipeAsrama->first()
         ]);
     }

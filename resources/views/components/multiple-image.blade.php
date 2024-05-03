@@ -11,7 +11,7 @@
         <!-- Image text -->
         <div id="imgtext"></div>
     </div>
-    <div class="flex gap-2 mt-5">
+    <div class="flex gap-2 mt-5 w-80 md:w-80">
         {{ $slot }}
     </div>
 </div>
