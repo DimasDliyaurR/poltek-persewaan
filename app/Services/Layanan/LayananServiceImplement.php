@@ -4,6 +4,7 @@ namespace App\Services\Layanan;
 
 use App\Repositories\Layanan\DetailFotoLayanan\DetailFotoLayananRepository;
 use App\Repositories\Layanan\LayananRepository;
+use App\Repositories\Layanan\PaymentMethod\LayananPaymentMethodRepository;
 use App\Repositories\Layanan\TimLayanan\TimLayananRepository;
 use App\Repositories\Layanan\TransaksiLayanan\TransaksiLayananRepository;
 use App\Repositories\Layanan\VideoLayanan\VideoLayananRepository;
@@ -16,20 +17,20 @@ class LayananServiceImplement implements LayananService
     private $detailFotoLayananRepository;
     private $timLayananRepository;
     private $videoLayananRepository;
-    private $transaksiLayananRepository;
+    private $paymentMethodRepository;
 
     public function __construct(
         LayananRepository $layananRepository,
         DetailFotoLayananRepository $detailFotoLayananRepository,
         TimLayananRepository $timLayananRepository,
         VideoLayananRepository $videoLayananRepository,
-        TransaksiLayananRepository $transaksiLayananRepository
+        LayananPaymentMethodRepository $paymentMethodRepository
     ) {
         $this->layananRepository = $layananRepository;
         $this->detailFotoLayananRepository = $detailFotoLayananRepository;
         $this->timLayananRepository = $timLayananRepository;
         $this->videoLayananRepository = $videoLayananRepository;
-        $this->transaksiLayananRepository = $transaksiLayananRepository;
+        $this->paymentMethodRepository = $paymentMethodRepository;
     }
 
     /**
@@ -207,6 +208,23 @@ class LayananServiceImplement implements LayananService
     {
         try {
             $data = $this->videoLayananRepository->getAll();
+        } catch (\Exception $th) {
+            throw new InvalidArgumentException();
+        }
+
+        return $data;
+    }
+
+    /**
+     * Store Payment Method
+     * @param data array
+     * @return object
+     * @throws InvalidArgumentException Jika terdapat Exception
+     */
+    public function storePaymentMethod($data)
+    {
+        try {
+            $data = $this->paymentMethodRepository->store($data);
         } catch (\Exception $th) {
             throw new InvalidArgumentException();
         }

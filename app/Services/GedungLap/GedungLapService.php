@@ -52,6 +52,14 @@ interface GedungLapService
     public function getAllGedungLap();
 
     /**
+     * Store Payment Method
+     * @param data array
+     * @return object
+     * @throws InvalidArgumentException Jika terdapat Exception
+     */
+    public function storePaymentMethod($data);
+
+    /**
      * Get All data Property Gedung
      * @return object
      * @throws InvalidArgumentException Jika terdapat Exception

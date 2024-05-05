@@ -9,6 +9,7 @@ use App\Repositories\Asrama\TipeAsrama\TipeAsramaRepository;
 use App\Repositories\Asrama\FasilitasAsrama\FasilitasAsramaRepository;
 use App\Repositories\Asrama\DetailFotoTipeAsrama\DetailFotoTipeAsramaRepository;
 use App\Repositories\Asrama\DetailFasilitasAsrama\DetailFasilitasAsramaRepository;
+use App\Repositories\Asrama\PaymentMethod\AsramaPaymentMethodRepository;
 
 class AsramaServiceImplement implements AsramaService
 {
@@ -17,19 +18,22 @@ class AsramaServiceImplement implements AsramaService
     private $tipeAsramaRepository;
     private $detailFasilitasAsramaRepository;
     private $detailFotoTipeAsramaRepository;
+    private $paymentMethodRepository;
 
     public function __construct(
         AsramaRepository $asramaRepository,
         FasilitasAsramaRepository $fasilitasAsramaRepository,
         DetailFasilitasAsramaRepository $detailFasilitasAsramaRepository,
         TipeAsramaRepository $tipeAsramaRepository,
-        DetailFotoTipeAsramaRepository $detailFotoTipeAsramaRepository
+        DetailFotoTipeAsramaRepository $detailFotoTipeAsramaRepository,
+        AsramaPaymentMethodRepository $paymentMethodRepository
     ) {
         $this->asramaRepository = $asramaRepository;
         $this->fasilitasAsramaRepository = $fasilitasAsramaRepository;
         $this->tipeAsramaRepository = $tipeAsramaRepository;
         $this->detailFasilitasAsramaRepository = $detailFasilitasAsramaRepository;
         $this->detailFotoTipeAsramaRepository = $detailFotoTipeAsramaRepository;
+        $this->paymentMethodRepository = $paymentMethodRepository;
     }
 
     /**
@@ -220,6 +224,23 @@ class AsramaServiceImplement implements AsramaService
     {
         try {
             $data = $this->tipeAsramaRepository->getAll();
+        } catch (\Exception $th) {
+            throw new InvalidArgumentException();
+        }
+
+        return $data;
+    }
+
+    /**
+     * Store Payment Method
+     * @param data array
+     * @return object
+     * @throws InvalidArgumentException Jika terdapat Exception
+     */
+    public function storePaymentMethod($data)
+    {
+        try {
+            $data = $this->paymentMethodRepository->store($data);
         } catch (\Exception $th) {
             throw new InvalidArgumentException();
         }

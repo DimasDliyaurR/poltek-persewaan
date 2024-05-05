@@ -4,11 +4,6 @@ namespace App\Services\Transaksi;
 
 use InvalidArgumentException;
 use App\Services\Transaksi\TransaksiService;
-use App\Repositories\Asrama\AsramaRepository;
-use App\Repositories\Layanan\LayananRepository;
-use App\Repositories\GedungLap\GedungLapRepository;
-use App\Repositories\Kendaraan\KendaraanRepository;
-use App\Repositories\AlatBarang\AlatBarangRepository;
 use App\Repositories\Asrama\TransaksiAsrama\TransaksiAsramaRepository;
 use App\Repositories\GedungLap\TransaksiGedung\TransaksiGedungRepository;
 use App\Repositories\Layanan\TransaksiLayanan\TransaksiLayananRepository;

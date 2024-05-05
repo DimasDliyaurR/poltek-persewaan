@@ -2,7 +2,7 @@
 @section('content')
     <div class="w-screen h-screen flex flex-row justify-center items-center">
         <div class="container">
-            <form class="p-2 mx-auto" action="{{ route('asrama.pesan') }}" method="POST">
+            <form class="p-2 mx-auto" action="{{ route('asrama.pesan.action') }}" method="POST">
                 @csrf
                 <div class="grid md:grid-cols-2 md:gap-6">
 

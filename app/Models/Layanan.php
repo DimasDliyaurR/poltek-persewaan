@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class Layanan extends Model
 {
@@ -67,8 +68,13 @@ class Layanan extends Model
         return $this->hasMany(DetailKategoriPromo::class);
     }
 
-    public function promos()
+    public function promos(): BelongsToMany
     {
-        $this->belongsToMany(Promo::class);
+        return $this->belongsToMany(Promo::class);
+    }
+
+    public function paymentMethod(): HasOne
+    {
+        return $this->hasOne(LayananPaymentMethod::class);
     }
 }

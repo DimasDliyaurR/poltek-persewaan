@@ -21,7 +21,7 @@ class AlatBarangFeController extends Controller
 
     public function index()
     {
-        $alatbarang = AlatBarang::with(['satuanAlatBarangs'])->latest();
+        $alatbarang = AlatBarang::with(['satuanAlatBarangs', 'fotoAlatBarangs'])->latest();
         if (request('search')) {
             $alatbarang->WHERE('a_nama', 'like', '%' . request('search') . '%');
         }

@@ -54,11 +54,11 @@ class AsramaFeController extends Controller
     {
         $start = date('Y-m-d', strtotime($request->start));
         $end = date('Y-m-d', strtotime($request->end));
-        $events = TransaksiAsrama::where('ta_check_in', '>=', $start)
+        $events = TransaksiAsrama::with(["asramas", "user" => ["profiles"]])->where('ta_check_in', '>=', $start)
             ->where('ta_check_out', '<=', $end)->get()
             ->map(fn ($item) => [
                 'id' => $item->id,
-                'title' => $item->ta_title,
+                'title' => $item->asramas->a_nama . "-Asrama",
                 'start' => $item->ta_check_in,
                 'end' => $item->ta_check_out,
             ]);
@@ -84,8 +84,7 @@ class AsramaFeController extends Controller
 
         // $fasilitasAsrama = Asrama::with(["tipeAsrama" => ["fasilitasAsramas"]])->whereASlug($slug)->get();
         $fasilitasAsrama = Asrama::join("tipe_asramas", "asramas.tipe_asrama_id", "=", "tipe_asramas.id")->join("detail_fasilitas_asramas", "detail_fasilitas_asramas.tipe_asrama_id", "=", "tipe_asramas.id")->join("fasilitas_asramas", "detail_fasilitas_asramas.fasilitas_asrama_id", "=", "fasilitas_asramas.id")->where("detail_fasilitas_asramas.dfa_status", "pilihan")->whereASlug($slug)->get();
-
-        return view("transaksi.asrama.pesan", [
+        return view("asrama.transaksi_pemesanan", [
             "title" => "Pesan Kendaraan",
             "tipeAsrama" => $tipeAsrama,
             "item" => $item,
@@ -101,6 +100,7 @@ class AsramaFeController extends Controller
             "ta_check_out" => "required",
             "slug" => "required",
         ]);
+
         $item = $request->slug;
         $this->inputPromo = $request->promo;
         $validation["fasilitas"] = $request->fasilitas;

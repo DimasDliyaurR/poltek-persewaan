@@ -88,6 +88,14 @@ interface LayananService
     public function getAllVideoLayanan();
 
     /**
+     * Store Payment Method
+     * @param data array
+     * @return object
+     * @throws InvalidArgumentException Jika terdapat Exception
+     */
+    public function storePaymentMethod($data);
+
+    /**
      * Store Layanan
      * @param data array
      * @return object

@@ -19,7 +19,7 @@
             <div class="flex xl:flex-row md:flex-row lg:flex-row flex-col justify-center space-x-2">
 
                 <x-layout-detail-transaksi
-                    class="flex xl:flex-row w-full md:items-end md:flex-row lg:flex-row flex-col-reverse justify-between space-x-2">
+                    class="flex xl:flex-row w-full md:items-end md:flex-row lg:flex-row flex-col-reverse justify-center gap-5 space-x-2">
                     {{-- <img src="{{ Storage::url($gedung_lap->gl_foto) }}"
                         class="rounded-md shadow-lg w-[40rem] h-80 object-cover" alt=""> --}}
 
@@ -31,10 +31,10 @@
                     </x-multiple-image>
 
 
-                    <div class="basis-3/5 h-auto flex flex-row gap-4 rounded-md p-4 mb-2 ml-2 ">
+                    <div class="basis-3/5 h-full flex flex-row gap-4 rounded-md p-4 mb-2 ml-2 ">
                         <div class="flex-col space-y-2 w-full">
                             <p class="font-bold text-4xl"> {{ $gedung_lap->gl_nama }}</p>
-                            <p class="text-primary font-bold text-2xl">Rp
+                            <p class="text-primary font-bold text-2xl">Rp.
                                 {{ number_format($gedung_lap->gl_tarif, 0, ',', '.') }}
 
                             <div class=" bg-white p-3 rounded-md">

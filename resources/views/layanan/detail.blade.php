@@ -31,7 +31,7 @@
                     </x-multiple-image>
 
 
-                    <div class="basis-3/5 h-auto flex flex-row gap-4 rounded-md p-4 mb-2 ml-2 ">
+                    <div class="basis-3/5 h-full flex flex-col gap-4 rounded-md p-4 mb-2 ml-2 ">
                         <div class="flex-col space-y-2 w-full">
                             <p class="font-bold text-4xl"> {{ $layanan->l_nama }}</p>
                             <p class="text-primary font-bold text-2xl">Rp
@@ -50,15 +50,15 @@
 
                                 </ul>
                             </div>
-                            <div class=" bg-white p-3 rounded-md">
-                                </p>
-                                {{-- <p class="text-xs text-gray-400"> * belum termasuk voucher</p> --}}<a href="{{ route('gedung.pesan', $layanan->l_slug) }}"
-                                    class="block text-center text-white p-2 text-sm mt-4 h-10 w-full bg-primary rounded-lg hover:opacity-50">Pesan</a>
-                            </div>
+                        </div>
+
+                        <div class=" bg-white p-3 rounded-md">
+                            {{-- <p class="text-xs text-gray-400"> * belum termasuk voucher</p> --}}<a href="{{ route('gedung.pesan', $layanan->l_slug) }}"
+                                class="block text-center text-white p-2 text-sm mt-4 h-10 w-full bg-primary rounded-lg hover:opacity-50">Pesan</a>
                         </div>
                     </div>
-                </x-layout-detail-transaksi>
             </div>
+            </x-layout-detail-transaksi>
 
             <x-layout-detail-transaksi class="mt-5">
                 <div class="mt-4 font">

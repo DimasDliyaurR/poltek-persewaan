@@ -4,6 +4,7 @@ namespace App\Services\AlatBarang;
 
 use App\Repositories\AlatBarang\AlatBarangRepository;
 use App\Repositories\AlatBarang\FotoAlatBarang\FotoAlatBarangRepository;
+use App\Repositories\AlatBarang\PaymentMethod\AlatBarangPaymentMethodRepository;
 use App\Repositories\AlatBarang\SatuanAlatBarang\SatuanAlatBarangRepository;
 use App\Services\AlatBarang\AlatBarangService;
 use InvalidArgumentException;
@@ -13,12 +14,18 @@ class AlatBarangServiceImplement implements AlatBarangService
     private $alatBarangRepository;
     private $satuanAlatBarangRepository;
     private $fotoAlatBarangRepository;
+    private $paymentMethodRepository;
 
-    public function __construct(AlatBarangRepository $alatBarangRepository, FotoAlatBarangRepository $fotoAlatBarangRepository, SatuanAlatBarangRepository $satuanAlatBarangRepository)
-    {
+    public function __construct(
+        AlatBarangRepository $alatBarangRepository,
+        FotoAlatBarangRepository $fotoAlatBarangRepository,
+        SatuanAlatBarangRepository $satuanAlatBarangRepository,
+        AlatBarangPaymentMethodRepository $paymentMethodRepository,
+    ) {
         $this->alatBarangRepository = $alatBarangRepository;
         $this->fotoAlatBarangRepository = $fotoAlatBarangRepository;
         $this->satuanAlatBarangRepository = $satuanAlatBarangRepository;
+        $this->paymentMethodRepository = $paymentMethodRepository;
     }
 
     /**
@@ -164,6 +171,23 @@ class AlatBarangServiceImplement implements AlatBarangService
     {
         try {
             $data = $this->fotoAlatBarangRepository->store($data);
+        } catch (\Exception $th) {
+            throw new InvalidArgumentException();
+        }
+
+        return $data;
+    }
+
+    /**
+     * Store Payment Method
+     * @param data array
+     * @return object
+     * @throws InvalidArgumentException Jika terdapat Exception
+     */
+    public function createPaymentMethod($data)
+    {
+        try {
+            $data = $this->paymentMethodRepository->store($data);
         } catch (\Exception $th) {
             throw new InvalidArgumentException();
         }

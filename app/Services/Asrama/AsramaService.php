@@ -52,6 +52,22 @@ interface AsramaService
     public function getDataFasilitasAsramaById($id);
 
     /**
+     * Get Data Detail Fasilitas By Asrama Id
+     * @param Id
+     * @return object
+     * @throws InvalidArgumentException Jika Terdapat Kesalahan Exception
+     */
+    public function getDataDetailFasilitasByTipeAsramaId($id);
+
+    /**
+     * Get Data Tipe Asrama By Asrama Id
+     * @param Id
+     * @return object
+     * @throws InvalidArgumentException Jika Terdapat Kesalahan Exception
+     */
+    public function getDataTipeAsramaById($id);
+
+    /**
      * Get All Data Fasilitas Asrama
      * @return object
      * @throws InvalidArgumentException Jika terdapat kesalahan Exception
@@ -80,20 +96,12 @@ interface AsramaService
     public function getAllDataTipeAsrama();
 
     /**
-     * Get Data Detail Fasilitas By Asrama Id
-     * @param Id
+     * Store Payment Method
+     * @param data array
      * @return object
-     * @throws InvalidArgumentException Jika Terdapat Kesalahan Exception
+     * @throws InvalidArgumentException Jika terdapat Exception
      */
-    public function getDataDetailFasilitasByTipeAsramaId($id);
-
-    /**
-     * Get Data Tipe Asrama By Asrama Id
-     * @param Id
-     * @return object
-     * @throws InvalidArgumentException Jika Terdapat Kesalahan Exception
-     */
-    public function getDataTipeAsramaById($id);
+    public function storePaymentMethod($data);
 
     /**
      * Store Data Foto Tipe Asrama

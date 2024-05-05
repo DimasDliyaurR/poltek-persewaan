@@ -2,23 +2,27 @@
 
 namespace App\Services\Kendaraan;
 
+use App\Models\KendaraanPaymentMethod;
 use InvalidArgumentException;
 use App\Services\Kendaraan\KendaraanService;
 use App\Repositories\Kendaraan\KendaraanRepository;
 use App\Repositories\Kendaraan\MerkKendaraan\MerkKendaraanRepository;
-use App\Repositories\Kendaraan\TransaksiKendaraan\TransaksiKendaraanRepository;
+use App\Repositories\Kendaraan\PaymentMethod\KendaraanPaymentMethodRepositoryImplement;
 
 class KendaraanServiceImplement implements KendaraanService
 {
     private $kendaraanRepository;
     private $merkKendaraanRepository;
-    private $transaksiKendaraanRepository;
+    private $paymentMethodRepository;
 
-    public function __construct(KendaraanRepository $kendaraanRepository, MerkKendaraanRepository $merkKendaraanRepository, TransaksiKendaraanRepository $transaksiKendaraan)
-    {
+    public function __construct(
+        KendaraanRepository $kendaraanRepository,
+        MerkKendaraanRepository $merkKendaraanRepository,
+        KendaraanPaymentMethodRepositoryImplement $paymentMethodRepository,
+    ) {
         $this->kendaraanRepository = $kendaraanRepository;
         $this->merkKendaraanRepository = $merkKendaraanRepository;
-        $this->transaksiKendaraanRepository = $transaksiKendaraan;
+        $this->paymentMethodRepository = $paymentMethodRepository;
     }
 
     /**
@@ -96,6 +100,23 @@ class KendaraanServiceImplement implements KendaraanService
         } catch (\Exception $th) {
             throw new InvalidArgumentException();
         }
+        return $data;
+    }
+
+    /**
+     * Store Payment Method
+     * @param data array
+     * @return object
+     * @throws InvalidArgumentException Jika terdapat Exception
+     */
+    public function storePaymentMethod($data)
+    {
+        try {
+            $data = $this->paymentMethodRepository->store($data);
+        } catch (\Exception $th) {
+            throw new InvalidArgumentException();
+        }
+
         return $data;
     }
 

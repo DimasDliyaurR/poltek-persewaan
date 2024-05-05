@@ -513,6 +513,10 @@ Route::get('/k_pesan/{id}', [FEKendaraanController::class, 'store'])->name('k_pe
 
 Route::get('/asrama/printpdf', [FEAsramaController::class, 'cetak'])->name('asrama.printpdf');
 
+// Route::view('pesan', "asrama.transaksi_pemesanan", [
+//     "title" => "pesan"
+// ]);
+
 // LAYANAN FE
 // Route::view('/transportasi', 'transportasi.index', [
 //     "title" => "Transportasi",

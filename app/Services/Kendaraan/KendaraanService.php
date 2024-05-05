@@ -42,6 +42,14 @@ interface KendaraanService
     public function getAllDataMerkKendaraan();
 
     /**
+     * Store Payment Method
+     * @param data array
+     * @return object
+     * @throws InvalidArgumentException Jika terdapat Exception
+     */
+    public function storePaymentMethod($data);
+
+    /**
      *  Store Data Kendaraan
      * @param data
      * @return object

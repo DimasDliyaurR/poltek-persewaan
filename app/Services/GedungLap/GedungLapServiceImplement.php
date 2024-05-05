@@ -5,6 +5,7 @@ namespace App\Services\GedungLap;
 use App\Repositories\GedungLap\DetailFotoGedungLap\DetailFotoGedungLapRepository;
 use App\Services\GedungLap\GedungLapService;
 use App\Repositories\GedungLap\GedungLapRepository;
+use App\Repositories\GedungLap\PaymentMethod\GedungLapPaymentMethodRepository;
 use App\Repositories\GedungLap\PropertyGedung\PropertyGedungRepository;
 use InvalidArgumentException;
 
@@ -13,15 +14,18 @@ class GedungLapServiceImplement implements GedungLapService
     private $gedungLapRepository;
     private $propertyGedungRepository;
     private $detailFotoGedungLapRepository;
+    private $paymentMethodRepository;
 
     public function __construct(
         GedungLapRepository $gedungLapRepository,
         PropertyGedungRepository $propertyGedungRepository,
-        DetailFotoGedungLapRepository $detailFotoGedungLapRepository
+        DetailFotoGedungLapRepository $detailFotoGedungLapRepository,
+        GedungLapPaymentMethodRepository $paymentMethodRepository
     ) {
         $this->gedungLapRepository = $gedungLapRepository;
         $this->propertyGedungRepository = $propertyGedungRepository;
         $this->detailFotoGedungLapRepository = $detailFotoGedungLapRepository;
+        $this->paymentMethodRepository = $paymentMethodRepository;
     }
 
     /**
@@ -133,6 +137,23 @@ class GedungLapServiceImplement implements GedungLapService
     {
         try {
             $data = $this->propertyGedungRepository->getAll();
+        } catch (\Exception $th) {
+            throw new InvalidArgumentException();
+        }
+
+        return $data;
+    }
+
+    /**
+     * Store Payment Method
+     * @param data array
+     * @return object
+     * @throws InvalidArgumentException Jika terdapat Exception
+     */
+    public function storePaymentMethod($data)
+    {
+        try {
+            $data = $this->paymentMethodRepository->store($data);
         } catch (\Exception $th) {
             throw new InvalidArgumentException();
         }

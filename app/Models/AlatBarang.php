@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class AlatBarang extends Model
 {
@@ -60,5 +61,10 @@ class AlatBarang extends Model
     public function satuanAlatBarangs(): BelongsTo
     {
         return $this->belongsTo(SatuanAlatBarang::class, "satuan_alat_barang_id");
+    }
+
+    public function paymentMethod(): HasOne
+    {
+        return $this->hasOne(AlatBarangPaymentMethod::class);
     }
 }
