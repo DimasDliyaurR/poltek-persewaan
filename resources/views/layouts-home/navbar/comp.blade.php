@@ -1,50 +1,42 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{ $title }} | PERSEWAAN ASET</title>
+    <title>{{$title }}| PERSEWAAAN ASET</title>
     <link rel="icon" href="{{asset('img/icon-logo.png') }}">
     <link  href="https://icons8.com/icon/E4FAF4hA9ugF/help">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.css" rel="stylesheet" />
-    
-    <link rel="stylesheet" href="{{ asset('css/slider.css') }}"
-    
-
+    <!-- <link rel="stylesheet" href="{{asset('css/slider.css')}}"> -->
+    <!-- Link Swiper's CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+    <link rel="stylesheet" href="{{asset('css/style.css')}}">
+    @yield('scriptlink')
     @vite('resources/css/app.css')
     @vite('resources/js/app.js')
-
-
+  
 </head>
 <body >
-<header class=" bg-transparent absolute top-0 left-0 w-full flex items-center z-10">
-      <div class="container">
-        <div class="flex items-center justify-between relative">
-          <div class="px-4 flex items-center">
-            <!-- <img src="./dist/img/Logo Poltekbang.png" width="50" alt="" /> -->
-            <img src="{{ asset('img/LogoPoltekbang.png') }}" class="h-11 w-15" alt="Logo ">  
-            <div class="ml-1">
-            <a href="/index #home" class="font-bold text-lg text-black">
-            SEWA ASET<br>
-            <span class="font-bold text-lg text-black">POLITEKNIK PENERBANGAN SURABAYA</span>
+    
+<header class="bg-transparent absolute top-0 left-0 w-full flex items-center z-10">
+  <div class="container ">
+    <div class="flex items-center justify-between relative">
+      <div class=" flex items-center xl:px-8 py-2">
+        <!-- <img src="./dist/img/Logo Poltekbang.png" width="50" alt="" /> -->
+        <a href="/"><img src="{{ asset('img/LogoPoltekbang.png') }}" class="h-11 w-15" alt="Logo">  </a>
+        <div class="ml-1">
+          <a href="/" class="font-bold xl:text-lg md:text-lg  text-black">
+          SEWA ASET<br>
+          <span class="font-bold xl:text-lg md:text-lg text-xs text-black">POLITEKNIK PENERBANGAN SURABAYA</span>
           </a>
-            </div>
-            
-          </div>
-          <div class="flex items-center px-4 py-3">
-            <button id="hamburger" name="hamburger" type="button" class="block absolute right-4 lg:hidden">
-              <span class="hamburger-line transition duration-300 origin-top-left"></span>
-              <span class="hamburger-line"></span>
-              <span class="hamburger-line origin-bottom-left"></span>
-            </button>
-
-            
-          </div>
         </div>
       </div>
+    </div>
+  </div>
 </header>
-@yield('content')
-<footer class="bg-plaster p-16 ">
+
+    @yield('content')
+    <footer class="bg-plaster 2xl:p-16 xl:p-16 lg:p-16 md:p-16 p-6 ">
       <div class="container mx-auto  px-6 ">
         <div class="grid md:grid-cols-12 grid-cols-1 gap-7 pb-16">
           <div class="lg:col-span-5 col-span-12 " >
@@ -53,7 +45,7 @@
               <img src="{{ asset('img/LogoPoltekbang.png') }}" class="h-11 w-15 " alt="Logo ">  
               </a>
               <p class="font-bold text-4xl ">SEWA ASET  <br>
-              <span class="text-xl">POLITEKNIK PENERBANGAN SURABAYA</span>
+              <span class="text-xl ">POLITEKNIK PENERBANGAN SURABAYA</span>
               </p>
             </div>
             <div class="mt-6 flex px-16">
@@ -83,7 +75,7 @@
             </div>
           </div>
           <div class="lg:col-span-2 md:col-span-4 col-span-12">
-              <h5 class="font-semibold text-xl mb-5">Link Cepat</h5>
+              <h5 class="font-semibold text-xl mb-5">Tautan Lainnya</h5>
               <ul class="list-none mt-6 space-y-2">
               <li>
                 <a href="#" class="inline-block text-base text-black hover:text-primary mb-3">Diklat</a>
@@ -94,11 +86,14 @@
               <li>
                 <a href="#" class="inline-block text-base text-black hover:text-primary mb-3">Web Utama</a>
               </li>
+              <li>
+                <a href="#" class="inline-block text-base text-black hover:text-primary mb-3">Klinik</a>
+              </li>
             </ul>
           </div>
           <div class="lg:col-span-2 md:col-span-4 col-span-12">
             <h5 class="tracking-wide text-xl mb-5 font-semibold">
-              Tautan
+              Informasi
             </h5>
               <ul class="list-none space-y-2 mt-6">
                 <li>
@@ -119,7 +114,10 @@
           <div class="lg:col-span-2 md:col-span-4 col-span-12" >
             <h5 class="tracking-wide text-xl font-semibold">Hubungi Kami</h5>
             <p class="mt-6 mb-3">mail@poltekbangsby.ac.id</p>
-            <p class="mb-3">Jl. Jemur Andayani I No 73</p>
+            <p class="mb-3">
+              
+              Jl. Jemur Andayani I No 73
+            </p>
             <p class="mb-3">Surabaya</p>
           </div>
         </div>
@@ -129,11 +127,15 @@
           </p>
         </div>
       </div>
+      
     </footer>
-@yield('js')
+
+    @vite('resources/js/app.js')
+    @yield('script')
+    <script src="{{asset('js/main.js')}}"></script>
     <!-- <script src="../path/to/flowbite/dist/flowbite.min.js"></script> -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.js"></script>
-
-  @stack('scripts')
-  </body>
+    <script src="../path/to/flowbite/dist/flowbite.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+</body>
 </html>

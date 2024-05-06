@@ -4,7 +4,7 @@
   .bgImage{
     
     animation: bgChange 20s linear infinite;
-    background-image: url('{{ asset('img/gerbang.jpg') }}');
+    background-image: url("{{ asset('img/gerbang.jpg') }}");
   }
   @keyframes bgChange {
       0% {

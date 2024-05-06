@@ -58,6 +58,12 @@ class FEKendaraanController extends Controller
         return view('transportasi.transaksi_invoice',[
             "title" => "Invoice Transportasi"
         ]);
+    } 
+    public function print_invoice()
+    {
+        return view('transportasi.invoice_print',[
+            "title" => "Print Invoice Transportasi"
+        ]);
     }
     public function listEventTransportasi(Request $request)
     {

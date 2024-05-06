@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{ $title }}| PERSEWAAAN ASET</title>
+    <title>{{ $title }} | PERSEWAAAN ASET</title>
     @yield('head')
     <link rel="icon" href="{{asset('img/icon-logo.png') }}">
     <link href="https://icons8.com/icon/E4FAF4hA9ugF/help">
