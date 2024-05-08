@@ -10,10 +10,12 @@ class LayananPaymentMethod extends Model
 {
     use HasFactory;
 
+    protected $primaryKey = "layanan_id";
+
     protected $fillable = [
         "layanan_id",
         "is_dp",
-        "dp_tarif",
+        "tarif_dp",
     ];
 
     public function layanan(): BelongsTo

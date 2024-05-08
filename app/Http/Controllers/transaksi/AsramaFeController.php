@@ -41,7 +41,7 @@ class AsramaFeController extends Controller
 
     public function detail($slug)
     {
-        $tipeAsrama = TipeAsrama::with(["asramas", "detailFotoTipeAsrama", "fasilitasAsramas"])->whereTaSlug($slug);
+        $tipeAsrama = TipeAsrama::with(["asramas" => fn ($q) => $q->whereAStatus("tersedia"), "detailFotoTipeAsrama", "fasilitasAsramas"])->whereTaSlug($slug);
         if (!$tipeAsrama->first()) abort(404);
 
         return view('asrama.detail', [
@@ -77,6 +77,7 @@ class AsramaFeController extends Controller
     {
         $item = $slug;
         $item = Asrama::whereASlug($item)->first();
+        // where a_slug
         if ($item == null) {
             abort(404);
         }
@@ -139,9 +140,9 @@ class AsramaFeController extends Controller
 
             // Store Detail Transaksi
             foreach ($validation["slug"] as $row => $value) {
-                $asrama = Asrama::with("tipeAsrama")->where("a_slug", "=", $value)->first();
+                $asrama = Asrama::with(["tipeAsrama.paymentMethod"])->where("a_slug", "=", $value)->first();
                 $durasi_check_in_to_check_out = intdiv(strtotime($validation["ta_check_out"]) - strtotime($validation["ta_check_in"]), (24 * 60 * 60));
-                $total_harga = $asrama->tipeAsrama->ta_tarif * $durasi_check_in_to_check_out;
+                $total_harga = ($asrama->paymentMethod->is_dp ? $asrama->paymentMethod->tarif_dp : $asrama->tipeAsrama->ta_tarif) * $durasi_check_in_to_check_out;
 
                 $this->total_transaksi += $total_harga;
 

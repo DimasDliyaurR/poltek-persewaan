@@ -239,11 +239,11 @@ class AsramaServiceImplement implements AsramaService
      */
     public function storePaymentMethod($data)
     {
-        try {
-            $data = $this->paymentMethodRepository->store($data);
-        } catch (\Exception $th) {
-            throw new InvalidArgumentException();
-        }
+        // try {
+        $data = $this->paymentMethodRepository->store($data);
+        // } catch (\Exception $th) {
+        //     throw new InvalidArgumentException();
+        // }
 
         return $data;
     }
@@ -326,6 +326,24 @@ class AsramaServiceImplement implements AsramaService
     {
         try {
             $data = $this->tipeAsramaRepository->store($data);
+        } catch (\Exception $th) {
+            throw new InvalidArgumentException();
+        }
+
+        return $data;
+    }
+
+    /**
+     * Update Alat Barang
+     * @param array $data
+     * @param integer $id
+     * @return object
+     * @throws InvalidArgumentException Jika Terdapat Exception
+     */
+    public function updatePaymentMethod($data, $id)
+    {
+        try {
+            $data = $this->paymentMethodRepository->update($data, $id);
         } catch (\Exception $th) {
             throw new InvalidArgumentException();
         }

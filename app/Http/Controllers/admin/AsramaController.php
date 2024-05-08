@@ -3,9 +3,11 @@
 namespace App\Http\Controllers\admin;
 
 use Exception;
+use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use InvalidArgumentException;
+use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use App\Models\DetailFasilitasAsrama;
 use App\Services\Asrama\AsramaService;
@@ -264,11 +266,15 @@ class AsramaController extends Controller
 
         $validation['ta_slug'] = Str::slug($validation["ta_nama"]);
 
-        try {
-            $this->asramaService->storeTipeAsrama($validation);
-        } catch (\Exception $th) {
-            throw new InvalidArgumentException();
-        }
+        // try {
+        DB::transaction(function () use ($validation) {
+            $asrama = $this->asramaService->storeTipeAsrama(Arr::except($validation, ["is_dp", "tarif_dp"]));
+            $validation["tipe_asrama_id"] = $asrama->id;
+            $this->asramaService->storePaymentMethod(Arr::only($validation, ["is_dp", "tarif_dp", "tipe_asrama_id"]));
+        });
+        // } catch (\Exception $th) {
+        //     throw new InvalidArgumentException();
+        // }
 
         return back()->with("successForm", "Berhasil Menambahkan Tipe Asrama " . $validation["ta_nama"]);
     }
@@ -321,12 +327,12 @@ class AsramaController extends Controller
     {
         $validation = $request->validated();
 
-        $asramaOld = $this->asramaService->getDataTipeAsramaById($id);
+        $asramaOld = $this->asramaService->getDataTipeAsramaById($id)->first();
 
         if ($request->hasFile('ta_foto')) {
 
-            if (Storage::disk('public')->exists($asramaOld['ta_foto'])) {
-                Storage::disk('public')->delete($asramaOld['ta_foto']);
+            if (Storage::disk('public')->exists($asramaOld->ta_foto)) {
+                Storage::disk('public')->delete($asramaOld->ta_foto);
             }
 
             $file_asrama = $request->file('ta_foto');
@@ -334,13 +340,17 @@ class AsramaController extends Controller
 
             $foto_asrama_path = $file_asrama->storeAs("/asrama", $foto_asrama);
             $foto_asrama_path = Storage::disk("public")->put("/asrama", $file_asrama);
+
             $validation['ta_foto'] = $foto_asrama_path;
         }
 
         $validation['ta_slug'] = Str::slug($validation["ta_nama"]);
 
         try {
-            $this->asramaService->updateTipeAsrama($validation, $id);
+            DB::transaction(function () use ($validation, $id) {
+                $this->asramaService->updateTipeAsrama(Arr::except($validation, ["is_dp", "tarif_dp"]), $id);
+                $this->asramaService->updatePaymentMethod(Arr::only($validation, ["is_dp", "tarif_dp"]), $id);
+            });
         } catch (\Exception $th) {
             throw new InvalidArgumentException();
         }
@@ -358,7 +368,6 @@ class AsramaController extends Controller
 
         try {
             $this->asramaService->destroyTipeAsrama($id);
-            // Storage::disk("public")->delete($asrama->ta_foto);
         } catch (\Exception $th) {
             throw new Exception($th->getMessage());
         }

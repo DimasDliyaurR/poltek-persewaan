@@ -10,14 +10,17 @@ class AsramaPaymentMethod extends Model
 {
     use HasFactory;
 
+    protected $primaryKey = "tipe_asrama_id";
+    protected $table = "asrama_payment_methods";
+
     protected $fillable = [
-        "asrama_id",
+        "tipe_asrama_id",
         "is_dp",
-        "dp_tarif",
+        "tarif_dp",
     ];
 
     public function asrama(): BelongsTo
     {
-        return $this->belongsTo(Asrama::class);
+        return $this->belongsTo(TipeAsrama::class);
     }
 }

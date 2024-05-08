@@ -54,7 +54,7 @@ class GedungFeController extends Controller
             throw new Exception($th->getMessage());
         }
 
-        return view("transaksi.gedung.pesan", [
+        return view("gedung.transaksi_pesan", [
             "title" => "Pesan Kendaraan",
             "merkKendaraan" => $MerkKendaraan,
             "item" => $item,
@@ -105,8 +105,8 @@ class GedungFeController extends Controller
 
             // Store Detail Transaksi
             foreach ($validation["slug"] as $row => $value) {
-                $gedungLap = GedungLap::where("gl_slug", "=", $value)->first();
-                $total_harga = $gedungLap->gl_tarif;
+                $gedungLap = GedungLap::with("paymentMethod")->where("gl_slug", "=", $value)->first();
+                $total_harga = $gedungLap->paymentMethod->is_dp ? $gedungLap->paymentMethod->tarif_dp : $gedungLap->gl_tarif;
 
                 $this->total_transaksi += $total_harga;
 

@@ -105,10 +105,10 @@
                                     <sup class="text-xs text-gray-500"> Orang / kamar </sup>
                                 </div>
                                 <!-- <div class="flex mb-2">
-                                                                                                                            <img src="{{ 'img/penginapan/bensin.png' }}" alt="bbm" class="w-5 h-5">
-                                                                                                                            <p class="text-sm font-semibold ml-2">Bensin</p>
-                                                                                                                            <sup class="text-xs text-gray-500"> Fuel </sup>
-                                                                                                                        </div> -->
+                                                                                                                                <img src="{{ 'img/penginapan/bensin.png' }}" alt="bbm" class="w-5 h-5">
+                                                                                                                                <p class="text-sm font-semibold ml-2">Bensin</p>
+                                                                                                                                <sup class="text-xs text-gray-500"> Fuel </sup>
+                                                                                                                            </div> -->
                                 <p class="text-xs text-gray-500 mb-1  flex justify-between">*check out 12.00 a.m <span
                                         class=" text-black font-bold text-base">Rp
                                         {{ number_format($item->ta_tarif, 0, ',', '.') }}</span></p>

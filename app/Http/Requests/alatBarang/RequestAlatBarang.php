@@ -21,7 +21,6 @@ class RequestAlatBarang extends FormRequest
      */
     public function rules(): array
     {
-
         if ($this->getMethod() == "PUT") {
             return [
                 "ab_foto" => "image",
@@ -30,6 +29,8 @@ class RequestAlatBarang extends FormRequest
                 "ab_tarif" => "required|numeric",
                 "ab_qty" => "required|numeric",
                 "satuan_alat_barang_id" => "required",
+                "is_dp" => "required|boolean",
+                "tarif_dp" => "required|numeric",
             ];
         } else {
             return [
@@ -39,6 +40,8 @@ class RequestAlatBarang extends FormRequest
                 "ab_tarif" => "required|numeric",
                 "ab_qty" => "required|numeric",
                 "satuan_alat_barang_id" => "required",
+                "is_dp" => "required|boolean",
+                "tarif_dp" => "required|numeric",
             ];
         }
     }
@@ -55,6 +58,12 @@ class RequestAlatBarang extends FormRequest
             "ab_qty.required" => "Jumlah Unit mohon diisi !",
             "ab_qty.numeric" => "Jumlah Unit mohon diisi menggunakan angka !",
             "ab_satuan.required" => "Satuan mohon diisi !",
+
+            "is_dp.boolean" => "Mohon isi dengan valid !",
+            "is_dp.required" => "Mohon diisi pertanyaannya !",
+
+            "tarif_dp.required" => "tarif dp mohon diisi !",
+            "tarif_dp.numeric" => "Mohon isi berupa angka !",
         ];
     }
 }

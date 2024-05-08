@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests\kendaraan;
 
+use Illuminate\Validation\Rule;
 use Illuminate\Foundation\Http\FormRequest;
 
 class RequestKendaraan extends FormRequest
@@ -21,6 +22,17 @@ class RequestKendaraan extends FormRequest
      */
     public function rules(): array
     {
+        $kendaraan = $this->route();
+
+        if ($this->getMethod() == "PUT") {
+            return [
+                "merk_kendaraan_id" => "required",
+                "k_plat" => [
+                    "required",
+                    Rule::unique('kendaraans', 'k_plat')->ignore($kendaraan->id),
+                ],
+            ];
+        }
         return [
             "merk_kendaraan_id" => "required",
             "k_plat" => "required|unique:kendaraans",

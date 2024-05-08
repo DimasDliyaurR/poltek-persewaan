@@ -10,10 +10,13 @@ class KendaraanPaymentMethod extends Model
 {
     use HasFactory;
 
+    protected $table = "merk_kendaraan_payment_methods";
+    protected $primaryKey = "merk_kendaraan_id";
+
     protected $fillable = [
         "merk_kendaraan_id",
         "is_dp",
-        "dp_tarif",
+        "tarif_dp",
     ];
 
     public function merkKendaraan(): BelongsTo

@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers\admin;
 
+use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use InvalidArgumentException;
+use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Storage;
 use App\Services\GedungLap\GedungLapService;
@@ -58,7 +60,11 @@ class GedungLapController extends Controller
 
         $validation['gl_slug'] = Str::slug($validation["gl_nama"]); // Menambahkan slug
 
-        $this->gedungLapService->storeGedungLap($validation); // Create Gedung lapangan
+        DB::transaction(function () use ($validation) {
+            $gedungLap = $this->gedungLapService->storeGedungLap($validation); // Create Gedung lapangan
+            $validation["gedung_lap_id"] = $gedungLap->id;
+            $this->gedungLapService->storePaymentMethod(Arr::only($validation, ["is_dp", "tarif_dp", "gedung_lap_id"]));
+        });
 
         return back()->with("successForm", "Berhasil Menambahkan Gedung & Lapangan");
     }
@@ -111,7 +117,7 @@ class GedungLapController extends Controller
     ) {
         $validation = $request->validated(); // Inisiasi Request yang sudah ter-validasi
 
-        $gedungLapOld = $this->gedungLapService->getDataGedungLapById($id);
+        $gedungLapOld = $this->gedungLapService->getDataGedungLapById($id)->first();
 
         if ($request->hasFile('gl_foto')) // Memeriksa keberadaan request file
         {
@@ -130,11 +136,14 @@ class GedungLapController extends Controller
 
         $validation['gl_slug'] = Str::slug($validation["gl_nama"]); // Menambahkan slug
 
-        // try {
-        $this->gedungLapService->updateGedungLap($validation, $id); // Update Gedung Lapangan
-        // } catch (\Exception $th) {
-        //     throw new InvalidArgumentException();
-        // }
+        try {
+            DB::transaction(function () use ($validation, $id) {
+                $this->gedungLapService->updateGedungLap($validation, $id); // Update Gedung Lapangan
+                $this->gedungLapService->updatePaymentMethod(Arr::only($validation, ["is_dp", "tarif_dp"]), $id); // Update Gedung Lapangan
+            });
+        } catch (\Exception $th) {
+            throw new InvalidArgumentException();
+        }
 
         return back()->with("successForm", "Berhasil Mengubah Gedung Lapangan");
     }

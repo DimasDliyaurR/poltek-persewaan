@@ -10,10 +10,12 @@ class GedungLapPaymentMethod extends Model
 {
     use HasFactory;
 
+    protected $primaryKey = "gedung_lap_id";
+
     protected $fillable = [
         "gedung_lap_id",
         "is_dp",
-        "dp_tarif",
+        "tarif_dp",
     ];
 
     public function gedungLap(): BelongsTo

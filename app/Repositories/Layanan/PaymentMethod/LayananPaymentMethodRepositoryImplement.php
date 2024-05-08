@@ -21,4 +21,15 @@ class LayananPaymentMethodRepositoryImplement implements LayananPaymentMethodRep
     {
         return $this->layananPaymentMethodModel::create($data);
     }
+
+
+    /**
+     *  Create Payment Method Alat Barang
+     * @param array $data
+     * @return array
+     */
+    public function update(array $data, $id)
+    {
+        return $this->layananPaymentMethodModel::findOrFail($id)->update($data);
+    }
 }

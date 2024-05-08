@@ -23,4 +23,14 @@ class GedungLapPaymentMethodRepositoryImplement implements GedungLapPaymentMetho
     {
         return $this->gedungLapPaymentMethodModel::create($data);
     }
+
+    /**
+     *  Create Payment Method Gedung Lap
+     * @param array $data
+     * @return array
+     */
+    public function update(array $data, $id)
+    {
+        return $this->gedungLapPaymentMethodModel::findOrFail($id)->update($data);
+    }
 }

@@ -71,6 +71,14 @@
                 @enderror
             </div>
 
+            <x-field-form name="ab_qty" :nameData="$alatBarang->ab_qty ?? ''" :update="true" title="Jumlah Unit" />
+
+            <x-radio-button-form title="Apakah barang ini akan menggunakan metode uang muka ?" name="is_dp"
+                :update="true" :nameData="$alatBarang->paymentMethod->is_dp == 1 ? true : false" />
+
+            <x-field-form name="tarif_dp" :nameData="$alatBarang->paymentMethod->tarif_dp ?? ''" :update="true"
+                title="Isi Tarif Dp untuk suatu saat jika barang ini memakai metode uang maka !" />
+
             <div class="mb-5">
                 <label for="ab_keterangan"
                     class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Keterangan</label>

@@ -221,6 +221,11 @@
                 <p class="text-sm">Bisa dikosongkan</p>
             </div>
 
+            <x-radio-button-form title="Apakah barang ini akan menggunakan metode uang muka ?" name="is_dp" />
+
+            <x-field-form name="tarif_dp"
+                title="Isi Tarif Dp untuk suatu saat jika barang ini memakai metode uang maka !" />
+
             <div class="mb-5">
                 <label for="gl_keterangan"
                     class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Deskripsi</label>

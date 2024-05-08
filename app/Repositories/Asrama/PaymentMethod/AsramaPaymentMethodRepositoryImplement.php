@@ -4,7 +4,7 @@ namespace App\Repositories\Asrama\PaymentMethod;
 
 use App\Models\AsramaPaymentMethod;
 
-class AsramaPaymentMethodRepository implements AsramaPaymentMethodRepository
+class AsramaPaymentMethodRepositoryImplement implements AsramaPaymentMethodRepository
 {
     private $asramaPaymentMethodModel;
 
@@ -21,5 +21,16 @@ class AsramaPaymentMethodRepository implements AsramaPaymentMethodRepository
     public function store(array $data)
     {
         return $this->asramaPaymentMethodModel::create($data);
+    }
+
+
+    /**
+     *  Create Payment Method Asrama
+     * @param array $data
+     * @return array
+     */
+    public function update(array $data, $id)
+    {
+        return $this->asramaPaymentMethodModel::findOrFail($id)->update($data);
     }
 }

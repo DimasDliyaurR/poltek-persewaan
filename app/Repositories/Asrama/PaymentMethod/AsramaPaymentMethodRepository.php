@@ -10,4 +10,11 @@ interface AsramaPaymentMethodRepository
      * @return object
      */
     public function store(array $data);
+
+    /**
+     *  Create Payment Method Asrama
+     * @param array $data
+     * @return array
+     */
+    public function update(array $data, $id);
 }

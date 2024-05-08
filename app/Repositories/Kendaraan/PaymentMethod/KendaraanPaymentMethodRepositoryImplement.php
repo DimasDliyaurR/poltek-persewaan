@@ -22,4 +22,15 @@ class KendaraanPaymentMethodRepositoryImplement implements KendaraanPaymentMetho
     {
         return $this->kendaraanPaymentMethodModel::create($data);
     }
+
+
+    /**
+     *  Create Payment Method Alat Barang
+     * @param array $data
+     * @return array
+     */
+    public function update(array $data, $id)
+    {
+        return $this->kendaraanPaymentMethodModel::findOrFail($id)->update($data);
+    }
 }

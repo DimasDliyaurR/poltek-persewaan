@@ -301,6 +301,24 @@ class LayananServiceImplement implements LayananService
     }
 
     /**
+     * Update Alat Barang
+     * @param array $data
+     * @param integer $id
+     * @return object
+     * @throws InvalidArgumentException Jika Terdapat Exception
+     */
+    public function updatePaymentMethod($data, $id)
+    {
+        try {
+            $data = $this->paymentMethodRepository->update($data, $id);
+        } catch (\Exception $th) {
+            throw new InvalidArgumentException();
+        }
+
+        return $data;
+    }
+
+    /**
      * Update Layanan
      * @param Data array
      * @param id integer

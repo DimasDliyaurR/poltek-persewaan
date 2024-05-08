@@ -73,7 +73,7 @@ class AlatBarangFeController extends Controller
             abort(404);
         }
 
-        return view("transaksi.alatBarang.pesan", [
+        return view("alatBarang.transaksi_pesan", [
             "title" => "Pesan Asrama",
             "item" => $item,
         ]);
@@ -124,8 +124,8 @@ class AlatBarangFeController extends Controller
 
             // Store Detail Transaksi
             foreach ($validation["slug"] as $row => $value) {
-                $alatBarang = AlatBarang::where("ab_slug", "=", $value)->first();
-                $total_harga = $alatBarang->ab_tarif;
+                $alatBarang = AlatBarang::with("paymentMethod")->where("ab_slug", "=", $value)->first();
+                $total_harga = $alatBarang->paymentMethod->is_dp ? $alatBarang->paymentMethod->tarif_dp : $alatBarang->ab_tarif;
 
                 $this->total_transaksi += $total_harga;
 

@@ -31,6 +31,8 @@ class RequestGedungLap extends FormRequest
                 "gl_satuan_gedung" => "required",
                 "gl_kapasitas_gedung" => "required|numeric",
                 "gl_ukuran_gedung" => "required",
+                "is_dp" => "boolean",
+                "tarif_dp" => "required|numeric",
             ];
         } else {
             return [
@@ -41,6 +43,8 @@ class RequestGedungLap extends FormRequest
                 "gl_satuan_gedung" => "required",
                 "gl_kapasitas_gedung" => "required|numeric",
                 "gl_ukuran_gedung" => "required",
+                "is_dp" => "boolean",
+                "tarif_dp" => "required|numeric",
             ];
         }
     }
@@ -62,6 +66,11 @@ class RequestGedungLap extends FormRequest
             "gl_kapasitas_gedung.numeric" => "Kapasitas mohon diisi menggunakan angka !",
 
             "gl_ukuran_gedung.required" => "Ukuran mohon diisi !",
+
+            "is_dp.boolean" => "Mohon isi dengan valid !",
+
+            "tarif_dp.required" => "tarif dp mohon diisi !",
+            "tarif_dp.numeric" => "Mohon isi berupa angka !",
         ];
     }
 }

@@ -76,7 +76,7 @@ class LayananFeController extends Controller
             throw new Exception($th->getMessage());
         }
 
-        return view("transaksi.layanan.pesan", [
+        return view("layanan.transaksi_pesan", [
             "title" => "Pesan Kendaraan",
             "layanan" => $layanan,
             "item" => $item,
@@ -131,8 +131,8 @@ class LayananFeController extends Controller
 
             // Store Detail Transaksi
             foreach ($validation["slug"] as $row => $value) {
-                $Layanan = Layanan::where("l_slug", "=", $value)->first();
-                $total_harga = $Layanan->l_tarif;
+                $Layanan = Layanan::with("paymentMethod")->where("l_slug", "=", $value)->first();
+                $total_harga = $Layanan->paymentMethod->is_dp ? $Layanan->paymentMethod->tarif_dp : $Layanan->l_tarif;
 
                 $this->total_transaksi += $total_harga;
 

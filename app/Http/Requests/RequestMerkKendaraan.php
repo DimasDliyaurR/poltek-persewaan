@@ -30,6 +30,8 @@ class RequestMerkKendaraan extends FormRequest
                 "mk_kapasitas" => "required",
                 "mk_bahan_bakar" => "required",
                 "mk_deskripsi" => "required",
+                "is_dp" => "boolean",
+                "tarif_dp" => "numeric",
             ];
         }
 
@@ -41,6 +43,8 @@ class RequestMerkKendaraan extends FormRequest
             "mk_kapasitas" => "required",
             "mk_bahan_bakar" => "required",
             "mk_deskripsi" => "required",
+            "is_dp" => "boolean",
+            "tarif_dp" => "required|numeric",
         ];
     }
 
@@ -61,13 +65,18 @@ class RequestMerkKendaraan extends FormRequest
             "mk_seri.required" => "Nama Series mohon diisi !",
 
             // Tarif Harga
-            "mk_tarif.required" => "Tarif Harga mohon diisi",
-            "mk_tarif.numeric" => "Tarif Harga mohon diisi dengan angka",
+            "mk_tarif.required" => "Tarif Harga mohon diisi !",
+            "mk_tarif.numeric" => "Tarif Harga mohon diisi dengan angka !",
             "mk_tarif.max_digits" => "Tarif Harga terlalu panjang",
 
-            "mk_kapasitas.required" => "Kapasitas belum diisi",
-            "mk_bahanbakar.required" => "Bahan bakar belum diisi",
-            "mk_deskripsi.required" => "Deskripsi belum diisi",
+            "mk_kapasitas.required" => "Kapasitas mohon diisi!",
+            "mk_bahanbakar.required" => "Bahan bakar mohon diisi!",
+            "mk_deskripsi.required" => "Deskripsi mohon diisi !",
+
+            "is_dp.boolean" => "Mohon isi dengan valid !",
+
+            "tarif_dp.required" => "tarif dp mohon diisi !",
+            "tarif_dp.numeric" => "Mohon isi berupa angka !",
         ];
     }
 }

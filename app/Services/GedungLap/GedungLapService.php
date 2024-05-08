@@ -91,6 +91,15 @@ interface GedungLapService
     public function storePropertyGedung($data);
 
     /**
+     * Update Alat Barang
+     * @param array $data
+     * @param integer $id
+     * @return object
+     * @throws InvalidArgumentException Jika Terdapat Exception
+     */
+    public function updatePaymentMethod($data, $id);
+
+    /**
      * Update Gedung Lapangan
      * @param Data array
      * @param id integer

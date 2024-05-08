@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers\admin;
 
+use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use InvalidArgumentException;
+use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Storage;
 use App\Services\AlatBarang\AlatBarangService;
@@ -59,7 +61,15 @@ class AlatBarangController extends Controller
 
         $validation['ab_slug'] = Str::slug($validation["ab_nama"]); // Menambahkan slug
 
-        $this->alatBarangService->createAlatBarang($validation); // Create alat Barang
+        try {
+            DB::transaction(function () use ($validation) {
+                $alat_barang = $this->alatBarangService->createAlatBarang($validation); // Create alat Barang
+                $validation["alat_barang_id"] = $alat_barang->id;
+                $this->alatBarangService->createPaymentMethod(Arr::only($validation, ["is_dp", "tarif_dp", "alat_barang_id"])); // Create alat Barang
+            });
+        } catch (\Exception $th) {
+            throw new InvalidArgumentException();
+        }
 
         return back()->with("successForm", "Berhasil Menambahkan Merek Kendaraan");
     }
@@ -113,7 +123,7 @@ class AlatBarangController extends Controller
     /**
      * Alat Barang
      * Update
-     * @param App\Http\Requests\alatBarang\RequestAlatBarang;
+     * @param \App\Http\Requests\alatBarang\RequestAlatBarang
      * @throws InvalidArgumentException
      */
     public function updateAlatBarang(
@@ -145,6 +155,7 @@ class AlatBarangController extends Controller
         try // Mencoba Statement di bawah 
         {
             $this->alatBarangService->updateAlatBarang($validation, $id); // Update alat Barang
+            $this->alatBarangService->updatePaymentMethod(Arr::only($validation, ["is_dp", "tarif_dp"]), $id); // Update alat Barang
         } catch (\Exception $th) // Jika statement di atas terdapat exception maka akan mengeksekusi statement di bawah 
         {
             throw new InvalidArgumentException();

@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('asrama_payment_methods', function (Blueprint $table) {
-            $table->foreignId("asrama_id")->constrained("asramas")->onDelete("CASCADE");
+            $table->foreignId("tipe_asrama_id")->constrained("tipe_asramas")->onDelete("CASCADE");
             $table->boolean("is_dp");
             $table->integer("tarif_dp");
             $table->timestamps();

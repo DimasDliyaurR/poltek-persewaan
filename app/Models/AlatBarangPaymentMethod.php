@@ -10,10 +10,12 @@ class AlatBarangPaymentMethod extends Model
 {
     use HasFactory;
 
+    protected $primaryKey = "alat_barang_id";
+
     protected $fillable = [
         "alat_barang_id",
         "is_dp",
-        "dp_tarif",
+        "tarif_dp",
     ];
 
     public function alatBarang(): BelongsTo

@@ -83,6 +83,15 @@ interface AlatBarangService
 
     /**
      * Update Alat Barang
+     * @param array $data
+     * @param integer $id
+     * @return object
+     * @throws InvalidArgumentException Jika Terdapat Exception
+     */
+    public function updatePaymentMethod($data, $id);
+
+    /**
+     * Update Alat Barang
      * @param Data array
      * @param id integer
      * @return object

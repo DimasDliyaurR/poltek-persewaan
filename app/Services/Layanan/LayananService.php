@@ -128,6 +128,15 @@ interface LayananService
     public function storeVideoLayanan($data);
 
     /**
+     * Update Alat Barang
+     * @param array $data
+     * @param integer $id
+     * @return object
+     * @throws InvalidArgumentException Jika Terdapat Exception
+     */
+    public function updatePaymentMethod($data, $id);
+
+    /**
      * Update Layanan
      * @param Data array
      * @param id integer

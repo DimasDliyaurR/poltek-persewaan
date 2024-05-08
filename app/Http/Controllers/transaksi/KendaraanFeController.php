@@ -124,8 +124,8 @@ class KendaraanFeController extends Controller
 
             // Store Detail Transaksi
             foreach ($validation["slug"] as $row => $value) {
-                $MerkKendaraan = MerkKendaraan::where("mk_slug", "=", $value)->first();
-                $total_harga = $MerkKendaraan->mk_tarif * $validation["tk_durasi"];
+                $MerkKendaraan = MerkKendaraan::with("paymentMethod")->where("mk_slug", "=", $value)->first();
+                $total_harga = ($MerkKendaraan->paymentMethod->is_dp ? $MerkKendaraan->paymentMethod->tarif_dp : $MerkKendaraan->mk_tarif) * $validation["tk_durasi"];
 
                 $this->total_transaksi += $total_harga;
 

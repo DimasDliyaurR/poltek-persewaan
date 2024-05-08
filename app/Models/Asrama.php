@@ -70,9 +70,4 @@ class Asrama extends Model
     {
         $this->belongsToMany(Promo::class);
     }
-
-    public function paymentMethod(): HasOne
-    {
-        return $this->hasOne(AsramaPaymentMethod::class);
-    }
 }

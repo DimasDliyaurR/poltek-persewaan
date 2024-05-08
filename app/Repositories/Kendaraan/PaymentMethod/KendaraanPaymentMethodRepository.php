@@ -10,4 +10,11 @@ interface KendaraanPaymentMethodRepository
      * @return object  
      */
     public function store(array $data);
+
+    /**
+     *  Create Payment Method Alat Barang
+     * @param array $data
+     * @return array
+     */
+    public function update(array $data, $id);
 }

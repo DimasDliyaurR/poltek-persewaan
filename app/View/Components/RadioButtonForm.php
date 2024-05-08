@@ -6,15 +6,19 @@ use Closure;
 use Illuminate\Contracts\View\View;
 use Illuminate\View\Component;
 
-class layoutDetailTransaksi extends Component
+class RadioButtonForm extends Component
 {
     /**
      * Create a new component instance.
      */
     public function __construct(
+        public string $name,
+        public string $title,
+        public bool $nameData = false,
+        public bool $update = false,
+        public string $option1 = "Iya",
+        public string $option2 = "Tidak",
         public string $class = "",
-        public bool $isId = false,
-        public string $id = "",
     ) {
         //
     }
@@ -24,6 +28,6 @@ class layoutDetailTransaksi extends Component
      */
     public function render(): View|Closure|string
     {
-        return view('components.layout-detail-transaksi');
+        return view('components.radio-button-form');
     }
 }

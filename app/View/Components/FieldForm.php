@@ -6,15 +6,18 @@ use Closure;
 use Illuminate\Contracts\View\View;
 use Illuminate\View\Component;
 
-class layoutDetailTransaksi extends Component
+class FieldForm extends Component
 {
     /**
      * Create a new component instance.
      */
     public function __construct(
+        public string $title,
+        public string $name,
         public string $class = "",
-        public bool $isId = false,
-        public string $id = "",
+        public string $type = "text",
+        public string $nameData = "",
+        public bool $update = false,
     ) {
         //
     }
@@ -24,6 +27,6 @@ class layoutDetailTransaksi extends Component
      */
     public function render(): View|Closure|string
     {
-        return view('components.layout-detail-transaksi');
+        return view('components.field-form');
     }
 }

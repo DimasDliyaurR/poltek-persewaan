@@ -66,6 +66,15 @@ interface KendaraanService
     public function storeMerkKendaraan($data);
 
     /**
+     * Update Alat Barang
+     * @param array $data
+     * @param integer $id
+     * @return object
+     * @throws InvalidArgumentException Jika Terdapat Exception
+     */
+    public function updatePaymentMethod($data, $id);
+
+    /**
      * Update Data Kendaraan
      * @param data , id
      * @return object

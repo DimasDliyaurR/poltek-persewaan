@@ -10,4 +10,12 @@ interface GedungLapPaymentMethodRepository
      * @return object
      */
     public function store(array $data);
+
+
+    /**
+     *  Create Payment Method Gedung Lap
+     * @param array $data
+     * @return array
+     */
+    public function update(array $data, $id);
 }

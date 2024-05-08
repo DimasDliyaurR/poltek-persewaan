@@ -4,6 +4,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    {{-- <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4="
+        crossorigin="anonymous"></script> --}}
     <title>{{ $title }}| PERSEWAAAN ASET</title>
     <link rel="icon" href="{{ asset('img/icon-logo.png') }}">
     <link href="https://icons8.com/icon/E4FAF4hA9ugF/help">
@@ -12,7 +14,6 @@
     <!-- Link Swiper's CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
     <link rel="stylesheet" href="{{ asset('css/style.css') }}">
-
     @vite('resources/css/app.css')
     @vite('resources/js/app.js')
 
@@ -76,7 +77,18 @@
                                     <ul class="py-2 text-sm text-gray-700 " aria-labelledby="dropdownHoverButton">
                                         <li><a href="/dashboard"
                                                 class="px-4 py-2 hover:bg-gray-100 hover:w-full">Dashboard</a></li>
-                                        <li><a href="" class="px-4 py-2 hover:bg-gray-100">Logout</a></li>
+                                        <li> <a class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
+                                                href="{{ route('logout') }}"
+                                                onclick="event.preventDefault();
+                                                      document.getElementById('logout-form').submit();">
+                                                {{ __('Logout') }}
+                                            </a>
+
+                                            <form id="logout-form" action="{{ route('logout') }}" method="POST"
+                                                class="hidden">
+                                                @csrf
+                                            </form>
+                                        </li>
                                     </ul>
                                 </div>
                             </div>

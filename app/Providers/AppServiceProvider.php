@@ -84,8 +84,18 @@ use App\Repositories\Layanan\DetailTransaksiLayanan\DetailTransaksiLayananReposi
 use App\Repositories\Kendaraan\DetailTransaksiKendaraan\DetailTransaksiKendaraanRepositoryImplement;
 use App\Repositories\GedungLap\DetailTransaksiPropertyGedung\DetailTransaksiPropertyGedungRepository;
 use App\Repositories\AlatBarang\DetailTransaksiAlatBarang\DetailTransaksiAlatBarangRepositoryImplement;
+use App\Repositories\AlatBarang\PaymentMethod\AlatBarangPaymentMethodRepository;
+use App\Repositories\AlatBarang\PaymentMethod\AlatBarangPaymentMethodRepositoryImplement;
+use App\Repositories\Asrama\PaymentMethod\AsramaPaymentMethodRepository;
+use App\Repositories\Asrama\PaymentMethod\AsramaPaymentMethodRepositoryImplement;
 use App\Repositories\GedungLap\DetailFotoGedungLap\DetailFotoGedungLapRepositoryImplement;
 use App\Repositories\GedungLap\DetailTransaksiPropertyGedung\DetailTransaksiPropertyGedungRepositoryImplement;
+use App\Repositories\GedungLap\PaymentMethod\GedungLapPaymentMethodRepository;
+use App\Repositories\GedungLap\PaymentMethod\GedungLapPaymentMethodRepositoryImplement;
+use App\Repositories\Kendaraan\PaymentMethod\KendaraanPaymentMethodRepository;
+use App\Repositories\Kendaraan\PaymentMethod\KendaraanPaymentMethodRepositoryImplement;
+use App\Repositories\Layanan\PaymentMethod\LayananPaymentMethodRepository;
+use App\Repositories\Layanan\PaymentMethod\LayananPaymentMethodRepositoryImplement;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -101,6 +111,7 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(MerkKendaraanRepository::class, MerkKendaraanRepositoryImplement::class);
         $this->app->bind(TransaksiKendaraanRepository::class, TransaksiKendaraanRepositoryImplement::class);
         $this->app->bind(DetailTransaksiKendaraanRepository::class, DetailTransaksiKendaraanRepositoryImplement::class);
+        $this->app->bind(KendaraanPaymentMethodRepository::class, KendaraanPaymentMethodRepositoryImplement::class);
 
         /**
          * Bind Asrama Repository And Service
@@ -112,6 +123,7 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(DetailTransaksiAsramaRepository::class, DetailTransaksiAsramaRepositoryImplement::class);
         $this->app->bind(DetailFotoTipeAsramaRepository::class, DetailFotoTipeAsramaRepositoryImplement::class);
         $this->app->bind(TipeAsramaRepository::class, TipeAsramaRepositoryImplement::class);
+        $this->app->bind(AsramaPaymentMethodRepository::class, AsramaPaymentMethodRepositoryImplement::class);
 
 
         /**
@@ -123,6 +135,7 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(TransaksiLayananRepository::class, TransaksiLayananRepositoryImplement::class);
         $this->app->bind(DetailTransaksiLayananRepository::class, DetailTransaksiLayananRepositoryImplement::class);
         $this->app->bind(DetailFotoLayananRepository::class, DetailFotoLayananRepositoryImplement::class);
+        $this->app->bind(LayananPaymentMethodRepository::class, LayananPaymentMethodRepositoryImplement::class);
 
         /**
          * Bind Alat Barang Repository And Service
@@ -132,6 +145,7 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(SatuanAlatBarangRepository::class, SatuanAlatBarangRepositoryImplement::class);
         $this->app->bind(TransaksiAlatBarangRepository::class, TransaksiAlatBarangRepositoryImplement::class);
         $this->app->bind(DetailTransaksiAlatBarangRepository::class, DetailTransaksiAlatBarangRepositoryImplement::class);
+        $this->app->bind(AlatBarangPaymentMethodRepository::class, AlatBarangPaymentMethodRepositoryImplement::class);
 
         /**
          * Bind Gedung dan Lapangan Repository
@@ -142,6 +156,7 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(DetailTransaksiPropertyGedungRepository::class, DetailTransaksiPropertyGedungRepositoryImplement::class);
         $this->app->bind(DetailTransaksiGedungRepository::class, DetailTransaksiGedungRepositoryImplement::class);
         $this->app->bind(DetailFotoGedungLapRepository::class, DetailFotoGedungLapRepositoryImplement::class);
+        $this->app->bind(GedungLapPaymentMethodRepository::class, GedungLapPaymentMethodRepositoryImplement::class);
 
         /**
          * Bind Promo Repository

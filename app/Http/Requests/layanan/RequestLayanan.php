@@ -28,6 +28,8 @@ class RequestLayanan extends FormRequest
                 "l_tarif" => "required|numeric",
                 "l_satuan" => "required",
                 "l_deskripsi" => "required",
+                "is_dp" => "boolean",
+                "tarif_dp" => "numeric",
             ];
         } else {
             return [
@@ -36,6 +38,8 @@ class RequestLayanan extends FormRequest
                 "l_tarif" => "required|numeric",
                 "l_satuan" => "required",
                 "l_deskripsi" => "required",
+                "is_dp" => "boolean",
+                "tarif_dp" => "required|numeric",
             ];
         }
     }
@@ -56,6 +60,11 @@ class RequestLayanan extends FormRequest
             "l_personil.required" => "Personil mohon diisi !",
 
             "l_deskripsi.required" => "Deskripsi mohon diisi !",
+
+            "is_dp.boolean" => "Mohon isi dengan valid !",
+
+            "tarif_dp.required" => "tarif dp mohon diisi !",
+            "tarif_dp.numeric" => "Mohon isi berupa angka !",
         ];
     }
 }

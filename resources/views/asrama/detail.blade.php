@@ -20,8 +20,6 @@
 
                 <x-layout-detail-transaksi
                     class="flex xl:flex-row w-full md:items-end md:flex-col flex-col-reverse justify-between space-x-2">
-                    {{-- <img src="{{ Storage::url($tipeAsrama->ta_foto) }}"
-                        class="rounded-md shadow-lg w-[40rem] h-80 object-cover" alt=""> --}}
 
                     <x-multiple-image>
                         <x-sub-multiple-image src="{{ $tipeAsrama->ta_foto }}" />
@@ -57,18 +55,18 @@
                 </x-layout-detail-transaksi>
             </div>
 
-            <x-layout-detail-transaksi class="mt-4">
+            <x-layout-detail-transaksi class="mt-4" :isId="true" id="pilihKamar">
                 <h4 class="font-bold">Pilih Kamar</h4>
 
                 {{-- Card Container --}}
                 <div class="w-full h-auto flex flex-row flex-wrap">
                     @forelse ($tipeAsrama->asramas as $asrama)
                         {{-- Card --}}
-                        <a href="{{ route('asrama.pesan', $asrama->a_slug) }}"
-                            class="blcok rounded-md flex flex-row w-60 h-[4rem] p-2 justify-between shadow-sm hover:shadow-md">
+                        <a {{-- href="{{ route('asrama.pesan', $asrama->a_slug) }}" --}} id="asrama-option" onclick="dropdown_form(this)"
+                            class="rounded-md flex flex-row w-auto h-[4rem] p-2 justify-between shadow-sm hover:shadow-md">
                             <div
-                                class="border border-orange-300 rounded-md w-60 gap-4 flex flex-row justify-center items-center">
-                                <p class="text-gl">{{ Str::limit($asrama->a_nama_ruangan, 18) }}</p>
+                                class="border border-orange-300 rounded-md w-auto p-2 gap-4 flex flex-row justify-center items-center">
+                                <p class="text-gl">{{ $asrama->a_nama_ruangan }}</p>
 
 
                                 <svg class="text-primary text-2xl" xmlns="http://www.w3.org/2000/svg" width="1em"
@@ -87,6 +85,64 @@
                     @endforelse
 
                 </div>
+            </x-layout-detail-transaksi>
+
+            <x-layout-detail-transaksi class="mt-5 hidden" :isId="true" id="dropdown">
+                <h4 id="dropdown-title" class="font-bold mb-4 uppercase"></h4>
+                <form action="{{ route('asrama.pesan.action') }}" method="POST">
+                    @csrf
+                    @method('POST')
+                    <div
+                        class=" flex flex-col xl:flex-row md:flex-row lg:flex-row xl:space-x-2 md:space-x-2 sm:space-x-2 mb-2">
+                        <div class=" mb-2 space-y-2  ">
+                            <label for="tk_tanggal_sewa"
+                                class=" block mb-2 text-sm font-medium text-gray-900 dark:text-white">Tanggal
+                                Mulai</label>
+                            <input id="tk_tanggal_sewa" name="tk_tanggal_sewa" type="date"
+                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                        </div>
+                        <div class=" mb-2 space-y-2">
+                            <label for="tk_tanggal_kembali"
+                                class=" block mb-2 text-sm font-medium text-gray-900 dark:text-white">Tanggal
+                                Kembali</label>
+                            <input id="tk_tanggal_kembali" name="tk_tanggal_kembali" type="date"
+                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                        </div>
+                        <div class=" mb-2 ">
+                            <label for="durasi"
+                                class=" block mb-2 text-sm font-medium text-gray-900 dark:text-white">Durasi</label>
+                            <input id="durasi" placeholder="2023VOUCHER" type="text"
+                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="mb-2">
+                        <label for="voucher" class=" block mb-2 text-sm font-medium text-gray-900 dark:text-white">Kode
+                            Voucher</label>
+                        <input id="voucher" placeholder="2023VOUCHER" type="text"
+                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                    </div>
+                    <h4 class="font-semibold mb-2">Rincian Harga</h4>
+                    <div class="flex justify-between">
+                        <p>Harga item</p>
+                        <p>Rp</p>
+                    </div>
+                    <p class="text-xs text-gray-300">(1x) Bus dengan sopir 24 jam</p>
+                    <div class="flex justify-between mb-2 mt-2">
+                        <p>Voucher</p>
+                        <p>Rp 0</p>
+                    </div>
+
+                    <div class="flex justify-between mb-2 mt-2">
+                        <h4 class="font-semibold">Harga Total</h4>
+                        <!-- harga total = harga_item - harga_promo  -->
+                        <p>Rp 2.000.000</p>
+                    </div>
+                    <button type="submit"
+                        class="mt-5 h-7 w-full bg-primary rounded-lg hover:opacity-50  text-sm   text-white">
+                        Lanjutkan Pembayaran
+                    </button>
+                </form>
             </x-layout-detail-transaksi>
 
             <x-layout-detail-transaksi class="mt-5">
@@ -121,4 +177,71 @@
 
 @section('script')
     <script src="{{ asset('js/feature/multiple-images.js') }}"></script>
+    <script>
+        function isStyleHidden(elm) {
+            return document.querySelector(elm).classList[dropdown.classList.length - 1] == "hidden"
+        }
+
+        function isSlugSame(oldSlug, newSlug) {
+            return oldSlug == newSlug
+        }
+
+        function resetUpper() {
+            var pilihKamarChildren = document.querySelector("#pilihKamar").children[1].children
+
+            for (let i = 0; i < pilihKamarChildren.length; i++) {
+                var childrenClassList = pilihKamarChildren[i].classList
+                for (let j = 0; j < childrenClassList.length; j++) {
+                    if (childrenClassList[j] == "shadow-md") {
+                        childrenClassList.remove("shadow-md")
+                        childrenClassList.add("shadow-sm")
+                        return true
+                    }
+                }
+            }
+            return false
+        }
+
+        function dropdown_form(elm) {
+            var childrenClassList = elm.classList // Akses Class list parent
+            var nameRoom = elm.children[0] // Akses nama ruangan
+            var nameRoomCore = nameRoom.children[0] // Children name room
+
+            var nameRoomSlug = nameRoomCore.innerHTML.toLowerCase().replace(/\s/g, "-");
+
+            var dropdown = document.getElementById("dropdown") // Akses parent Dropdown
+            var form = dropdown.children[1] // input slug
+            var oldSlug = form.children[0].value // Akses input slug value
+
+            var input = document.createElement("input")
+            input.className = "hidden"
+            input.name = "slug"
+            input.type = "text"
+            input.value = nameRoomSlug
+
+            var title = document.querySelector("#dropdown-title")
+            title.innerHTML = nameRoomCore.innerHTML
+
+            if (isStyleHidden('#dropdown')) {
+                form.insertAdjacentElement("afterbegin", input)
+                dropdown.classList.remove("hidden")
+            } else if (!isSlugSame(oldSlug, nameRoomSlug) && !isStyleHidden('#dropdown')) {
+                form.children[0].remove()
+                form.insertAdjacentElement("afterbegin", input)
+            } else {
+                form.children[0].remove()
+                dropdown.classList.add("hidden")
+            }
+
+            resetUpper()
+
+            if (!isSlugSame(oldSlug, nameRoomSlug)) {
+                childrenClassList.remove("shadow-sm")
+                childrenClassList.add("shadow-md")
+            } else {
+                childrenClassList.remove("shadow-md")
+                childrenClassList.add("shadow-sm")
+            }
+        }
+    </script>
 @endsection

@@ -144,6 +144,15 @@ interface AsramaService
     public function storeTipeAsrama($data);
 
     /**
+     * Update Alat Barang
+     * @param array $data
+     * @param integer $id
+     * @return object
+     * @throws InvalidArgumentException Jika Terdapat Exception
+     */
+    public function updatePaymentMethod($data, $id);
+
+    /**
      * Update Detail Foto Tipe Asrama
      * @param array $dara
      * @param int $id
