@@ -10,6 +10,9 @@
     body {
         -webkit-print-color-adjust: exact;
     }
+    .logoImage{
+      box-shadow: none;
+    }
 }
 
 </style>
@@ -17,7 +20,7 @@
 @section('content')
 <div class=" h-screen">
     <div class="container px-24 mx-auto ">
-        <div id="invoice" class=" bg-white logoImage relative bg-no-repeat  w-full xl:w-1/2 md:w-1/2 lg:w-1/2 m-auto h-full xl:p-10  py-12 ">
+        <div id="invoice" class=" bg-white shadow-lg logoImage relative bg-no-repeat  w-full xl:w-1/2 md:w-1/2 lg:w-1/2 m-auto h-full xl:p-10  py-12 ">
             <div class="relative mb-10">
                 <button onclick="window.print()" class=" absolute right-0">
                     <svg class="w-7 h-7 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">

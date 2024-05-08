@@ -19,7 +19,7 @@
 
 <body>
   @yield('header')
-
+@yield('button')
 @yield('content')
 @vite('resources/js/app.js')
 <!-- <script src="../path/to/flowbite/dist/flowbite.min.js"></script> -->
