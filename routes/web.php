@@ -492,3 +492,6 @@ Route::view('/dashboard', 'user.dash' ,[
 Route::view('/invoice', 'user.riwayat_invoice', [
     "title" => "Invoice",
 ]);
+Route::view('/detail_invoice', 'user.invoice', [
+    "title" => "Invoice",
+]);
