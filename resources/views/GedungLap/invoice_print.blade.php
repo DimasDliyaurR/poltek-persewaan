@@ -69,33 +69,13 @@
                     </thead>
                     <tbody>
                         <tr class="bg-white border-b ">
-                            <td class="px-1 py-4">Kamar tipe A</td>
+                            <td class="px-1 py-4">Gedung Serba Guna</td>
                             <td class="px-6 py-4">1</td>
                             <td class="px-6 py-4">/ hari</td>
                             <td class="px-4 py-4">Rp 500.000</td>
                             <td class="absolute right-0 py-4">Rp 500.000</td>
                         </tr>
-                        <tr class="bg-white border-b ">
-                            <td class="px-1 py-4">Kamar tipe A</td>
-                            <td class="px-6 py-4">1</td>
-                            <td class="px-6 py-4">/ hari</td>
-                            <td class="px-4 py-4">Rp 500.000</td>
-                            <td class="absolute right-0 py-4">Rp 500.000</td>
-                        </tr>
-                        <tr class="bg-white border-b ">
-                            <td class="px-1 py-4">Kamar tipe A</td>
-                            <td class="px-6 py-4">/ hari</td>
-                            <td class="px-6 py-4">1</td>
-                            <td class="px-4 py-4">Rp 500.000</td>
-                            <td class="absolute right-0 py-4">Rp 500.000</td>
-                        </tr>
-                        <tr>
-                            <td class="px-6 py-1"></td>
-                            <td class="px-6 py-1"></td>
-                            <td class="px-6 py-1"></td>
-                            <td class="px-4 py-1">Sub Total </td>
-                            <td class="absolute right-0 py-1">Rp 500.000</td>
-                        </tr>
+                        
                         <tr>
                             <td class="px-6 py-1"></td>
                             <td class="px-6 py-1"></td>
@@ -127,7 +107,7 @@
                 </div>
                 <div class="flex justify-between mb-2">
                         <h4 class="font-semibold">Total Harga</h4>
-                        <p>Rp 2.500.000</p>
+                        <p>Rp 500.000</p>
                 </div>
             </div>
         </div>

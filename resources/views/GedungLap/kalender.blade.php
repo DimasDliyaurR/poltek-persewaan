@@ -13,6 +13,7 @@
   </head>
 </head>
 <body class="mx-5 my-5">
+<h1 class="text-center">{{ $title}}</h1>
     <div class="container">
         <div class="row">
             <div class="col-12 mt-3">
@@ -30,7 +31,7 @@
         var calendar = new FullCalendar.Calendar(calendarEl, {
             initialView: 'dayGridMonth',
             themeSystem: 'bootstrap5',
-            events:'{{ route('gedunglap.list') }}' 
+            events:"{{ route('gedunglap.list') }}"
         });
         calendar.render();
         });

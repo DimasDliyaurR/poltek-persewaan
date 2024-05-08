@@ -12,10 +12,13 @@
     
 </head>
 <body class="mx-5 my-5">
+    <div ><a href="/"><i class="bi bi-arrow-left"></i></a></div>
+
+<h1 class="text-center">{{ $title}}</h1>
+
     <div class="container">
         <div class="row">
             <div class="col-12 mt-3">
-                 
             </div>
         </div>
     </div>

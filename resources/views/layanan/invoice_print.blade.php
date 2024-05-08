@@ -69,39 +69,25 @@
                     </thead>
                     <tbody>
                         <tr class="bg-white border-b ">
-                            <td class="px-1 py-4">Kamar tipe A</td>
+                            <td class="px-1 py-4">Layanan Coding Keliling</td>
                             <td class="px-6 py-4">1</td>
                             <td class="px-6 py-4">/ hari</td>
-                            <td class="px-4 py-4">Rp 500.000</td>
-                            <td class="absolute right-0 py-4">Rp 500.000</td>
-                        </tr>
-                        <tr class="bg-white border-b ">
-                            <td class="px-1 py-4">Kamar tipe A</td>
-                            <td class="px-6 py-4">1</td>
-                            <td class="px-6 py-4">/ hari</td>
-                            <td class="px-4 py-4">Rp 500.000</td>
-                            <td class="absolute right-0 py-4">Rp 500.000</td>
-                        </tr>
-                        <tr class="bg-white border-b ">
-                            <td class="px-1 py-4">Kamar tipe A</td>
-                            <td class="px-6 py-4">/ hari</td>
-                            <td class="px-6 py-4">1</td>
-                            <td class="px-4 py-4">Rp 500.000</td>
-                            <td class="absolute right-0 py-4">Rp 500.000</td>
+                            <td class="px-4 py-4">Rp 600.000</td>
+                            <td class="absolute right-0 py-4">Rp 600.000</td>
                         </tr>
                         <tr>
                             <td class="px-6 py-1"></td>
                             <td class="px-6 py-1"></td>
                             <td class="px-6 py-1"></td>
                             <td class="px-4 py-1">Sub Total </td>
-                            <td class="absolute right-0 py-1">Rp 500.000</td>
+                            <td class="absolute right-0 py-1">Rp 600.000</td>
                         </tr>
                         <tr>
                             <td class="px-6 py-1"></td>
                             <td class="px-6 py-1"></td>
                             <td class="px-6 py-1"></td>
                             <td class="px-4 py-1">Diskon </td>
-                            <td class="absolute right-0  py-1">Rp 500.000</td>
+                            <td class="absolute right-0  py-1">Rp 600.000</td>
                         </tr>
                     </tbody>
                 </table>

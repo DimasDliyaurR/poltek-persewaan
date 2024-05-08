@@ -13,6 +13,7 @@
   </head>
 </head>
 <body class="mx-5 my-5">
+    <h1 class="text-center">{{ $title}}</h1>
     <div class="container">
         <div class="row">
             <div class="col-12 mt-3">

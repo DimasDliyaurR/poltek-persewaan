@@ -1,11 +1,18 @@
 @extends('layouts-home.navbar.nav-transaksi')
+@section('scriptlink')
+<style>
+    .logoImage{
+        background-image: url("{{asset('img/logoInvoice.png')}}");
+        background-position: center;
+    }
+</style>
+@endsection
 @section('content')
 
-<div class="bg-plaster">
+<div class="bg-plaster h-screen">
     <div class="container px-24 mx-auto">
-        
-        <div id="invoice" class=" bg-white w-full xl:w-1/2 md:w-1/2 lg:w-1/2 m-auto h-full xl:p-10 p-5 py-12 ">
-            <div class="relative mb-10">
+        <div id="invoice" class=" bg-white bg-no-repeat logoImage w-full xl:w-1/2 md:w-1/2 lg:w-1/2 m-auto h-screen xl:p-10 p-5 py-12 ">
+            <div class="relative mb-10 ">
                 <button onclick="window.print()" class=" absolute right-0">
                     <svg class="w-7 h-7 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
                     <path stroke="currentColor" stroke-linejoin="round" stroke-width="2" d="M16.444 18H19a1 1 0 0 0 1-1v-5a1 1 0 0 0-1-1H5a1 1 0 0 0-1 1v5a1 1 0 0 0 1 1h2.556M17 11V5a1 1 0 0 0-1-1H8a1 1 0 0 0-1 1v6h10ZM7 15h10v4a1 1 0 0 1-1 1H8a1 1 0 0 1-1-1v-4Z"/>
@@ -26,7 +33,6 @@
                     <p>26 April 2024</p>
                 </div>
             </div>
-
             <div class="pb-5 pt-10  flex justify-between">
                 <div>
                 <p class="font-bold">No. Invoice : 1A</p>
@@ -52,12 +58,12 @@
                     </svg>
                     <div>
                         <h4>Tanggal Selesai</h4>
-                        <p class="text-gray-500 xl:text-base text-xs ">Rabu, 4 Maret 2024 12:00 WIB</p>
+                        <p class="text-gray-500  ">Rabu, 4 Maret 2024 12:00 WIB</p>
                     </div>
                 </div>
             </div>
             <div class="relative overflow-x-auto mb-8">
-                <table class="table-fixed w-full text-sm text-left rtl:text-right text-gray-500 ">
+                <table class="table-fixed w-full  text-left rtl:text-right text-gray-500 ">
                     <thead class=" text-gray-700 uppercase bg-gray-50 ">
                         <tr>
                             <th scope="col" class="px-1 py-3">Nama Barang</th>
@@ -69,44 +75,29 @@
                     </thead>
                     <tbody>
                         <tr class="bg-white border-b ">
-                            <td class="px-1 py-4">Kamar tipe A</td>
+                            <td class="px-1 py-4">Papan Coding</td>
                             <td class="px-6 py-4">1</td>
                             <td class="px-6 py-4">/ hari</td>
-                            <td class="px-4 py-4">Rp 500.000</td>
-                            <td class="absolute right-0 py-4">Rp 500.000</td>
-                        </tr>
-                        <tr class="bg-white border-b ">
-                            <td class="px-1 py-4">Kamar tipe A</td>
-                            <td class="px-6 py-4">1</td>
-                            <td class="px-6 py-4">/ hari</td>
-                            <td class="px-4 py-4">Rp 500.000</td>
-                            <td class="absolute right-0 py-4">Rp 500.000</td>
-                        </tr>
-                        <tr class="bg-white border-b ">
-                            <td class="px-1 py-4">Kamar tipe A</td>
-                            <td class="px-6 py-4">/ hari</td>
-                            <td class="px-6 py-4">1</td>
-                            <td class="px-4 py-4">Rp 500.000</td>
-                            <td class="absolute right-0 py-4">Rp 500.000</td>
+                            <td class="px-4 py-4">Rp 50.000</td>
+                            <td class="absolute right-0 py-4">Rp 50.000</td>
                         </tr>
                         <tr>
                             <td class="px-6 py-1"></td>
                             <td class="px-6 py-1"></td>
                             <td class="px-6 py-1"></td>
                             <td class="px-4 py-1">Sub Total </td>
-                            <td class="absolute right-0 py-1">Rp 500.000</td>
+                            <td class="absolute right-0 py-1">Rp 50.000</td>
                         </tr>
                         <tr>
                             <td class="px-6 py-1"></td>
                             <td class="px-6 py-1"></td>
                             <td class="px-6 py-1"></td>
                             <td class="px-4 py-1">Diskon </td>
-                            <td class="absolute right-0  py-1">Rp 500.000</td>
+                            <td class="absolute right-0  py-1">Rp 50.000</td>
                         </tr>
                     </tbody>
                 </table>
             </div>
-            
             <!-- <hr> -->
             <div class="">
                 <div class="flex justify-between mb-2 mt-2">
@@ -127,7 +118,7 @@
                 </div>
                 <div class="flex justify-between mb-2">
                         <h4 class="font-semibold">Total Harga</h4>
-                        <p>Rp 2.500.000</p>
+                        <p>Rp 50.000</p>
                 </div>
             </div>
         </div>

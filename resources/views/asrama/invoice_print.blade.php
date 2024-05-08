@@ -69,39 +69,25 @@
                     </thead>
                     <tbody>
                         <tr class="bg-white border-b ">
-                            <td class="px-1 py-4">Kamar tipe A</td>
+                            <td class="px-1 py-4">Tipe Deluxxe with swift rooms</td>
                             <td class="px-6 py-4">1</td>
                             <td class="px-6 py-4">/ hari</td>
-                            <td class="px-4 py-4">Rp 500.000</td>
-                            <td class="absolute right-0 py-4">Rp 500.000</td>
-                        </tr>
-                        <tr class="bg-white border-b ">
-                            <td class="px-1 py-4">Kamar tipe A</td>
-                            <td class="px-6 py-4">1</td>
-                            <td class="px-6 py-4">/ hari</td>
-                            <td class="px-4 py-4">Rp 500.000</td>
-                            <td class="absolute right-0 py-4">Rp 500.000</td>
-                        </tr>
-                        <tr class="bg-white border-b ">
-                            <td class="px-1 py-4">Kamar tipe A</td>
-                            <td class="px-6 py-4">/ hari</td>
-                            <td class="px-6 py-4">1</td>
-                            <td class="px-4 py-4">Rp 500.000</td>
-                            <td class="absolute right-0 py-4">Rp 500.000</td>
+                            <td class="px-4 py-4">Rp 700.000</td>
+                            <td class="absolute right-0 py-4">Rp 700.000</td>
                         </tr>
                         <tr>
                             <td class="px-6 py-1"></td>
                             <td class="px-6 py-1"></td>
                             <td class="px-6 py-1"></td>
                             <td class="px-4 py-1">Sub Total </td>
-                            <td class="absolute right-0 py-1">Rp 500.000</td>
+                            <td class="absolute right-0 py-1">Rp 700.000</td>
                         </tr>
                         <tr>
                             <td class="px-6 py-1"></td>
                             <td class="px-6 py-1"></td>
                             <td class="px-6 py-1"></td>
                             <td class="px-4 py-1">Diskon </td>
-                            <td class="absolute right-0  py-1">Rp 500.000</td>
+                            <td class="absolute right-0  py-1">Rp 700.000</td>
                         </tr>
                     </tbody>
                 </table>
@@ -110,12 +96,13 @@
             <!-- <hr> -->
             <div class="">
                 <div class="flex justify-between mb-2 mt-2">
-                    <h4 class="font-semibold xl:text-base text-[14px]">ID Pesanan</h4>
-                    <p class="">ABC001</p>
+                    <h4 class="font-semibold ">ID Pesanan</h4>
+                    <p>ABC001</p>
                 </div>
                 <div class="flex justify-between mb-2">
-                    <h4 class="font-semibold xl:text-base text-[14px]">Tanggal Pemesanan</h4>
-                    <p class="xl:text-base text-[14px]">Jumat, 1 Maret 2024 09:00 WIB</p>
+                    <h4 class="font-semibold">Tanggal Pemesanan</h4>
+                    <p>Jumat, 1 Maret 2024 09:00 WIB</p>
+                    <!-- <p class="xl:text-base text-[14px]">Jumat, 1 Maret 2024 09:00 WIB</p> -->
                 </div>
                 <div class="flex justify-between mb-2">
                         <h4 class="font-semibold ">Metode Pembayaran</h4>
