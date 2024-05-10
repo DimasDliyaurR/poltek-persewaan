@@ -27,7 +27,7 @@ class AsramaFeController extends Controller
 
     public function index()
     {
-        $tipeAsrama = TipeAsrama::withCount(['asramas' => fn ($q) => $q->whereAStatus("tersedia")])->latest();
+        $tipeAsrama = TipeAsrama::with("fasilitasAsramas")->withCount(['asramas' => fn ($q) => $q->whereAStatus("tersedia")])->latest();
         if (request('search')) {
             $tipeAsrama->where('gl_nama', 'like', "%" . request('search') . "%")
                 ->orWhere('gl_keterangan', 'like', '%' . request('search') . '%');
@@ -73,25 +73,25 @@ class AsramaFeController extends Controller
         ]);
     }
 
-    public function pesanForm($slug)
-    {
-        $item = $slug;
-        $item = Asrama::whereASlug($item)->first();
-        // where a_slug
-        if ($item == null) {
-            abort(404);
-        }
-        $tipeAsrama = TipeAsrama::all();
+    // public function pesanForm($slug)
+    // {
+    //     $item = $slug;
+    //     $item = Asrama::whereASlug($item)->first();
+    //     // where a_slug
+    //     if ($item == null) {
+    //         abort(404);
+    //     }
+    //     $tipeAsrama = TipeAsrama::all();
 
-        // $fasilitasAsrama = Asrama::with(["tipeAsrama" => ["fasilitasAsramas"]])->whereASlug($slug)->get();
-        $fasilitasAsrama = Asrama::join("tipe_asramas", "asramas.tipe_asrama_id", "=", "tipe_asramas.id")->join("detail_fasilitas_asramas", "detail_fasilitas_asramas.tipe_asrama_id", "=", "tipe_asramas.id")->join("fasilitas_asramas", "detail_fasilitas_asramas.fasilitas_asrama_id", "=", "fasilitas_asramas.id")->where("detail_fasilitas_asramas.dfa_status", "pilihan")->whereASlug($slug)->get();
-        return view("asrama.transaksi_pemesanan", [
-            "title" => "Pesan Kendaraan",
-            "tipeAsrama" => $tipeAsrama,
-            "item" => $item,
-            "fasilitasAsrama" => $fasilitasAsrama,
-        ]);
-    }
+    //     // $fasilitasAsrama = Asrama::with(["tipeAsrama" => ["fasilitasAsramas"]])->whereASlug($slug)->get();
+    //     $fasilitasAsrama = Asrama::join("tipe_asramas", "asramas.tipe_asrama_id", "=", "tipe_asramas.id")->join("detail_fasilitas_asramas", "detail_fasilitas_asramas.tipe_asrama_id", "=", "tipe_asramas.id")->join("fasilitas_asramas", "detail_fasilitas_asramas.fasilitas_asrama_id", "=", "fasilitas_asramas.id")->where("detail_fasilitas_asramas.dfa_status", "pilihan")->whereASlug($slug)->get();
+    //     return view("asrama.transaksi_pemesanan", [
+    //         "title" => "Pesan Kendaraan",
+    //         "tipeAsrama" => $tipeAsrama,
+    //         "item" => $item,
+    //         "fasilitasAsrama" => $fasilitasAsrama,
+    //     ]);
+    // }
 
 
     public function pesan(Request $request)
@@ -118,7 +118,7 @@ class AsramaFeController extends Controller
                 "promo" => "Promo tidak bisa digunakan",
             ]);
         } elseif ($promo == 3) {
-            return back()->withInput()->withErrors([
+            return back()->with("error", "")->withInput()->withErrors([
                 "promo" => "Promo sudah pernah digunakan",
             ]);
         }
@@ -126,7 +126,6 @@ class AsramaFeController extends Controller
         $validation["fasilitas"] = $request->fasilitas;
 
         DB::transaction(function () use ($validation) {
-            // Create Transaksi
             $transaksi = TransaksiAsrama::create([
                 "user_id" => auth()->user()->id,
                 "promo_id" => !($this->promo->isExist()) ? null : $this->promo->getPromo()->id,
@@ -142,7 +141,7 @@ class AsramaFeController extends Controller
             foreach ($validation["slug"] as $row => $value) {
                 $asrama = Asrama::with(["tipeAsrama.paymentMethod"])->where("a_slug", "=", $value)->first();
                 $durasi_check_in_to_check_out = intdiv(strtotime($validation["ta_check_out"]) - strtotime($validation["ta_check_in"]), (24 * 60 * 60));
-                $total_harga = ($asrama->paymentMethod->is_dp ? $asrama->paymentMethod->tarif_dp : $asrama->tipeAsrama->ta_tarif) * $durasi_check_in_to_check_out;
+                $total_harga = ($asrama->tipeAsrama->paymentMethod->is_dp ? $asrama->tipeAsrama->paymentMethod->tarif_dp : $asrama->tipeAsrama->ta_tarif) * $durasi_check_in_to_check_out;
 
                 $this->total_transaksi += $total_harga;
 
@@ -193,6 +192,8 @@ class AsramaFeController extends Controller
         $midtrans = new CreateSnapTokenService($data);
 
         $snapToken = $midtrans->getSnapToken();
+
+        dd($snapToken);
 
         return view("transaksi.kendaraan.pembayaran", [
             "title" => "pembayaran",

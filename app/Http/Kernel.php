@@ -68,5 +68,6 @@ class Kernel extends HttpKernel
         'admin-dpupk' => \App\Http\Middleware\AdminDPUPKMiddleware::class,
         'admin-keuangan' => \App\Http\Middleware\AdminKeuanganMiddleware::class,
         'pre-pesanan' => \App\Http\Middleware\PrePesanan::class,
+        'cors' => \App\Http\Middleware\Cors::class,
     ];
 }

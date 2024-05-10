@@ -7,9 +7,11 @@ use Illuminate\Http\Request;
 use App\Models\MerkKendaraan;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\Traits\HandlerPromo;
 use App\Models\AlatBarang;
 use App\Models\TransaksiAlatBarang;
 use App\Services\handler\Midtrans\Callback;
+use App\Services\handler\Promo\PromoHandler;
 
 class ApiController extends Controller
 {
@@ -70,5 +72,51 @@ class ApiController extends Controller
                     'message' => 'Signature key not verified',
                 ], 403);
         }
+    }
+
+    public function cekPromo($promoCode, $kategori)
+    {
+        $checkPromo = false;
+        $promo = new PromoHandler($promoCode, $kategori, true);
+
+        // Apakah promo ada dan sesuai kategori
+        if ($promo->isExist() && ($promo->isCategorySame() or $promo->isAppliesForAllCategories())) {
+            // Apakah Promo Tidak Kadaluarsa dan Aktif
+            if ((!$promo->isExpired()) && $promo->isActive()) {
+                // Promo sudah terdeteksi
+                $checkPromo = true;
+            } else {
+                return response()->json([
+                    "error" => true,
+                    "message" => "Promo tidak bisa digunakan",
+                ], 403);
+            }
+        } else {
+            return response()->json([
+                "error" => true,
+                "message" => "Promo tidak Valid",
+            ], 403);
+        }
+
+        if ($checkPromo) {
+            // Apakah Promo masih tersisa
+            if (!($promo->getStok() > 0 or $promo->isStokUnlimited())) {
+                return response()->json([
+                    "error" => true,
+                    "message" => "Promo sudah habis",
+                ], 403);
+            }
+        } else {
+            return response()->json([
+                "error" => true,
+                "message" => "Promo tidak valid",
+            ], 403);
+        }
+
+        return response()
+            ->json([
+                'success' => true,
+                'message' => 'Promo Berhasil',
+            ]);
     }
 }

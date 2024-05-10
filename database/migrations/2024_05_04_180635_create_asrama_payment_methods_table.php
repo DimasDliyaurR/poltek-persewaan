@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('asrama_payment_methods', function (Blueprint $table) {
             $table->foreignId("tipe_asrama_id")->constrained("tipe_asramas")->onDelete("CASCADE");
             $table->boolean("is_dp");
-            $table->integer("tarif_dp");
+            $table->integer("tarif_dp")->nullable();
             $table->timestamps();
         });
     }

@@ -24,3 +24,4 @@ Route::get("countdown/{id}", [PromoController::class, "getCountdown"]);
 
 Route::get("merkKendaraans/{slug}", [ApiController::class, "getMerkKendaraanBySlug"])->name("merkKendaraan.get");
 Route::get("callback/payment", [ApiController::class, "callback"])->name("callback.midtrans");
+Route::get("voucher/{promoCode}/{kategori}", [ApiController::class, "cekPromo"]);

@@ -69,8 +69,7 @@
             <x-radio-button-form title="Apakah barang ini akan menggunakan metode uang muka ?" :update="true"
                 :nameData="$asrama->paymentMethod->is_dp == 1 ? true : false" name="is_dp" />
 
-            <x-field-form name="tarif_dp" :nameData="$asrama->paymentMethod->tarif_dp ?? ''" :update="true"
-                title="Isi Tarif Dp untuk suatu saat jika barang ini memakai metode uang maka !" />
+            <x-field-form name="tarif_dp" :nameData="$asrama->paymentMethod->tarif_dp ?? ''" :update="true" title="Tarif Dp" />
 
             <div class="mb-5">
                 <label for="ta_deskripsi"
@@ -86,4 +85,35 @@
             <button class="p-2 w-80 bg-gray-900 rounded-md text-white text-sm">Submit</button>
         </form>
     </x-inner-layout>
+@endsection
+
+@section('script')
+    <script>
+        $(document).ready(function() {
+            var isDp = $("input[name=is_dp]")
+            const tarifDp = $("input[name=tarif_dp]").parent()
+
+            var is_dp_checked = $("input[name=is_dp]:checked")
+            console.log(is_dp_checked.val());
+            if (is_dp_checked.val() == 1) {
+                tarifDp.removeClass("hidden")
+            } else if (is_dp_checked.val() == 0) {
+                if (!tarifDp.hasClass("hidden")) {
+                    tarifDp.addClass("hidden")
+                }
+            }
+
+            isDp.click(function() {
+                var is_dp_checked = $("input[name=is_dp]:checked")
+                console.log(is_dp_checked.val());
+                if (is_dp_checked.val() == 1) {
+                    tarifDp.removeClass("hidden")
+                } else if (is_dp_checked.val() == 0) {
+                    if (!tarifDp.hasClass("hidden")) {
+                        tarifDp.addClass("hidden")
+                    }
+                }
+            });
+        });
+    </script>
 @endsection

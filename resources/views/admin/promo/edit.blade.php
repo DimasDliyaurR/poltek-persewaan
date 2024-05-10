@@ -206,16 +206,21 @@
                     Promo</label>
                 <select name="p_kategori" id="p_tipe"
                     class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-4 @error('p_kategori') border-red-500 @enderror">
-                    <option disabled selected>-- Pilih Kategori --</option>
-                    <option value="asramas" {{ $promo->p_kategori == 'asramas' ? 'selected' : '' }}>Asrama</option>
-                    <option value="layanans" {{ $promo->p_kategori == 'layanans' ? 'selected' : '' }}>Layanan</option>
-                    <option value="gedung_laps" {{ $promo->p_kategori == 'gedung_laps' ? 'selected' : '' }}>Gedung
-                        Lapangan
-                    </option>
-                    <option value="kendaraans" {{ $promo->p_kategori == 'kendaraans' ? 'selected' : '' }}>Kendaraan
-                    </option>
-                    <option value="alat_barangs" {{ $promo->p_kategori == 'alat_barangs' ? 'selected' : '' }}>Barang
-                    </option>
+                    <optgroup label="Kategori">
+                        <option disabled selected>-- Pilih Kategori --</option>
+                        <option value="asramas" {{ $promo->p_kategori == 'asramas' ? 'selected' : '' }}>Asrama</option>
+                        <option value="layanans" {{ $promo->p_kategori == 'layanans' ? 'selected' : '' }}>Layanan</option>
+                        <option value="gedung_laps" {{ $promo->p_kategori == 'gedung_laps' ? 'selected' : '' }}>Gedung
+                            Lapangan
+                        </option>
+                        <option value="kendaraans" {{ $promo->p_kategori == 'kendaraans' ? 'selected' : '' }}>Kendaraan
+                        </option>
+                        <option value="alat_barangs" {{ $promo->p_kategori == 'alat_barangs' ? 'selected' : '' }}>Barang
+                        </option>
+                    </optgroup>
+                    <optgroup label="Opsi lain">
+                        <option value="All" {{ $promo->p_kategori == 'All' ? 'selected' : '' }}>Semua Kategori</option>
+                    </optgroup>
                 </select>
                 @error('p_kategori')
                     <span class="text-red-600 text-sm">{{ $message }}</span>

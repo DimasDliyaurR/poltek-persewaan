@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\api\ApiController;
 use App\Http\Controllers\FEAsramaController;
 use App\Http\Controllers\FELayananController;
 use App\Http\Controllers\admin\UserController;
@@ -38,6 +39,8 @@ use App\Http\Controllers\transaksi\AlatBarangFeController;
 //         "title" => "Home",
 //     ]);
 // });
+
+
 
 // BackEnd
 /**

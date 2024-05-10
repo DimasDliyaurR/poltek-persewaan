@@ -10,7 +10,7 @@
     </div>
     <div class="flex items-center">
         <input {{ ($update ? ($nameData == 0 ? 'checked' : '') : old($name) == 1) ? 'checked' : '' }}
-            id="{{ $name }}-1" type="radio" value="0" name="{{ $name }}"
+            id="{{ $name }}" type="radio" value="0" name="{{ $name }}"
             class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
         <label for="{{ $name }}-1"
             class="ms-2 text-sm font-medium  dark:text-gray-500">{{ $option2 }}</label>

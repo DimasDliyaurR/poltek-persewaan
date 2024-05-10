@@ -15,7 +15,6 @@ $(document).ready(function () {
 
         // Cek
         if (!checkbox[0].checked) {
-            console.log(oldCheckbox)
             oldCheckbox.remove()
         } else {
 
@@ -26,7 +25,6 @@ $(document).ready(function () {
 
             if (wadah.children.length == 0) {
                 wadah.appendChild(input)
-                // console.log(checkbox.prop("checked", true))
             }
 
             // Cek list
@@ -39,7 +37,6 @@ $(document).ready(function () {
 
             if (isSame) {
                 wadah.appendChild(input)
-                // console.log(checkbox.prop("checked", true))
             }
         }
     });

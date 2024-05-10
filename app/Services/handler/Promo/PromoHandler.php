@@ -48,11 +48,11 @@ class PromoHandler
      * @param string $promoCode Code Promo
      * @param string|null $category Kategori untuk memeriksa promo
      */
-    public function __construct($promoCode, $category)
+    public function __construct($promoCode, $category, $withoutUser = false)
     {
         $this->promoCode = $promoCode;
         $this->category = $category;
-        $this->user_id = auth()->user()->id;
+        $this->user_id = !$withoutUser ? auth()->user()->id : null;
         $this->_model();
     }
 

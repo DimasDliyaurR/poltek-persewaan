@@ -356,7 +356,7 @@
                         </option>
                     </optgroup>
                     <optgroup label="Opsi lain">
-                        <option value="alat_barangs" {{ old('p_kategori') == 'All' ? 'selected' : '' }}>Semua Kategori
+                        <option value="All" {{ old('p_kategori') == 'All' ? 'selected' : '' }}>Semua Kategori
                         </option>
                     </optgroup>
                 </select>

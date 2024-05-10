@@ -89,61 +89,60 @@
 
             <x-layout-detail-transaksi class="mt-5 hidden" :isId="true" id="dropdown">
                 <h4 id="dropdown-title" class="font-bold mb-4 uppercase"></h4>
-                <form action="{{ route('asrama.pesan.action') }}" method="POST">
+                <form action="{{ route('asrama.pesan.action') }}" method="POST" onsubmit="return validation()">
                     @csrf
                     @method('POST')
                     <div
                         class=" flex flex-col xl:flex-row md:flex-row lg:flex-row xl:space-x-2 md:space-x-2 sm:space-x-2 mb-2">
                         <div class=" mb-2 space-y-2  ">
-                            <label for="tk_tanggal_sewa"
-                                class=" block mb-2 text-sm font-medium text-gray-900 dark:text-white">Tanggal
-                                Mulai</label>
-                            <input id="tk_tanggal_sewa" name="tk_tanggal_sewa" type="date"
+                            <label for="ta_check_in"
+                                class=" block mb-2 text-sm font-medium text-gray-900 dark:text-white">Check
+                                In</label>
+                            <input id="ta_check_in" name="ta_check_in" type="date" oninput="check_in()"
                                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+
+                            <p class="text-red-500 text-sm hidden" id="ta_check_in_error"></p>
                         </div>
                         <div class=" mb-2 space-y-2">
-                            <label for="tk_tanggal_kembali"
-                                class=" block mb-2 text-sm font-medium text-gray-900 dark:text-white">Tanggal
-                                Kembali</label>
-                            <input id="tk_tanggal_kembali" name="tk_tanggal_kembali" type="date"
+                            <label for="ta_check_out"
+                                class=" block mb-2 text-sm font-medium text-gray-900 dark:text-white">Check
+                                Out</label>
+                            <input id="ta_check_out" name="ta_check_out" oninput="check_out()" type="date"
                                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                            <p class="text-red-500 text-sm hidden" id="ta_check_out_error"></p>
                         </div>
-                        <div class=" mb-2 ">
-                            <label for="durasi"
-                                class=" block mb-2 text-sm font-medium text-gray-900 dark:text-white">Durasi</label>
-                            <input id="durasi" placeholder="2023VOUCHER" type="text"
+                        <div class=" mb-2 space-y-2">
+                            <label for="promo"
+                                class=" block mb-2 text-sm font-medium text-gray-900 dark:text-white">Voucher</label>
+                            <input id="promo" name="promo" type="text" oninput="promoValidation()"
                                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                            <p class="text-red-500 text-sm hidden" id="promo_error"></p>
                         </div>
                     </div>
-                    <hr>
-                    <div class="mb-2">
-                        <label for="voucher" class=" block mb-2 text-sm font-medium text-gray-900 dark:text-white">Kode
-                            Voucher</label>
-                        <input id="voucher" placeholder="2023VOUCHER" type="text"
-                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                    </div>
-                    <h4 class="font-semibold mb-2">Rincian Harga</h4>
-                    <div class="flex justify-between">
-                        <p>Harga item</p>
-                        <p>Rp</p>
-                    </div>
-                    <p class="text-xs text-gray-300">(1x) Bus dengan sopir 24 jam</p>
-                    <div class="flex justify-between mb-2 mt-2">
-                        <p>Voucher</p>
-                        <p>Rp 0</p>
+                    <ul id="card" class="list-disc">
+                    </ul>
+
+                    <div id="input-fasilitas" class="hidden">
+
                     </div>
 
-                    <div class="flex justify-between mb-2 mt-2">
-                        <h4 class="font-semibold">Harga Total</h4>
-                        <!-- harga total = harga_item - harga_promo  -->
-                        <p>Rp 2.000.000</p>
+                    <div class="mb-3">
+                        @foreach ($tipeAsrama->fasilitasAsramas as $item)
+                            <div class="flex items-center mb-4">
+                                <input id="fasilitas" type="checkbox" value="{{ $item->fa_nama }}"
+                                    class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+                                <label for="fasilitas"
+                                    class="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">{{ $item->fa_nama }}</label>
+                            </div>
+                        @endforeach
                     </div>
-                    <button type="submit"
+                    <button type="submit" id="submit-dropdown"
                         class="mt-5 h-7 w-full bg-primary rounded-lg hover:opacity-50  text-sm   text-white">
-                        Lanjutkan Pembayaran
+                        Pesan
                     </button>
                 </form>
             </x-layout-detail-transaksi>
+
 
             <x-layout-detail-transaksi class="mt-5">
                 <div class="mt-4 font">
@@ -155,7 +154,8 @@
                     <p class="text-sm text-gray-400 p-2 overflow-hidden">Info lebih lanjut hubungi kontak
                         WhatsApp di bawah ini : </p>
                     <div class="flex  p-2 w-30">
-                        <a aria-label="Chat on WhatsApp" href="https://wa.me/6289529811097/?text=Hello Saya Ingin bertanya">
+                        <a aria-label="Chat on WhatsApp"
+                            href="https://wa.me/6289529811097/?text=Hello Saya Ingin bertanya">
                             <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="20" height="20"
                                 viewBox="0 0 50 50">
                                 <path
@@ -176,7 +176,8 @@
 @endsection
 
 @section('script')
-    <script src="{{ asset('js/feature/multiple-images.js') }}"></script>
+    <script src="{{ asset('js\/feature\/checkbox-fasilitas.js') }}"></script>
+    <script src="{{ asset('js\/feature\/multiple-images.js') }}"></script>
     <script>
         function isStyleHidden(elm) {
             return document.querySelector(elm).classList[dropdown.classList.length - 1] == "hidden"
@@ -215,12 +216,12 @@
 
             var input = document.createElement("input")
             input.className = "hidden"
-            input.name = "slug"
+            input.name = "slug[]"
             input.type = "text"
             input.value = nameRoomSlug
 
             var title = document.querySelector("#dropdown-title")
-            title.innerHTML = nameRoomCore.innerHTML
+            title.innerHTML = "FORM " + nameRoomCore.innerHTML
 
             if (isStyleHidden('#dropdown')) {
                 form.insertAdjacentElement("afterbegin", input)
@@ -242,6 +243,137 @@
                 childrenClassList.remove("shadow-md")
                 childrenClassList.add("shadow-sm")
             }
+
+        }
+
+        var submit = document.getElementById("submit-dropdown")
+
+        console.log(submit);
+
+        function check_in() {
+            var check_in = document.getElementById("ta_check_in").value
+            var check_in_error = document.getElementById("ta_check_in_error")
+
+            if (check_in == "") {
+                check_in_error.classList.remove("hidden")
+                check_in_error.innerHTML = "Check In Mohon diisi!"
+                submit.disabled = true
+                submit.classList.add("cursor-not-allowed")
+            } else {
+                check_in_error.classList.add("hidden")
+                check_in_error.innerHTML = ""
+                submit.disabled = false
+                submit.classList.remove("cursor-not-allowed")
+            }
+        }
+
+        function check_out() {
+            var check_out = document.getElementById("ta_check_out").value
+            var check_out_error = document.getElementById("ta_check_out_error")
+
+            if (check_out == "") {
+                check_out_error.classList.remove("hidden")
+                check_out_error.innerHTML = "Check Out Mohon diisi!"
+                submit.disabled = true
+                submit.classList.add("cursor-not-allowed")
+            } else {
+                check_out_error.classList.add("hidden")
+                check_out_error.innerHTML = ""
+                submit.disabled = false
+                submit.classList.remove("cursor-not-allowed")
+            }
+        }
+
+        function promoValidation() {
+            var promo = document.getElementById("promo").value
+            var promo_error = document.getElementById("promo_error")
+
+            if (promo == "") {
+                promo_error.classList.add("hidden")
+                promo_error.innerHTML = ""
+                submit.disabled = false
+                submit.classList.remove("cursor-not-allowed")
+            }
+
+            fetch(`http://localhost:8000/api/voucher/${promo}/asramas`).then((res) => {
+                // console.log(res.json());
+                return res.json()
+            }).then((data) => {
+
+                console.log(promo);
+
+                if (data.error) {
+                    promo_error.classList.remove("hidden")
+                    promo_error.innerHTML = data.message
+                    submit.disabled = true
+                    submit.classList.add("cursor-not-allowed")
+                } else {
+                    promo_error.classList.add("hidden")
+                    promo_error.innerHTML = ""
+                    submit.disabled = false
+                    submit.classList.remove("cursor-not-allowed")
+                }
+            })
+
+        }
+
+
+
+        function validation() {
+            var check_in = document.getElementById("ta_check_in").value
+            var check_in_error = document.getElementById("ta_check_in_error")
+            var check_out = document.getElementById("ta_check_out").value
+            var check_out_error = document.getElementById("ta_check_out_error")
+            var promo = document.getElementById("promo").value
+            var promo_error = document.getElementById("promo_error")
+
+            var isFail = true
+
+            if (check_in == "") {
+                check_in_error.classList.remove("hidden")
+                check_in_error.innerHTML = "Check In Mohon diisi!"
+                isFail = false;
+            } else {
+                check_in_error.classList.add("hidden")
+                check_in_error.innerHTML = ""
+            }
+
+            if (check_out == "") {
+                check_out_error.classList.remove("hidden")
+                check_out_error.innerHTML = "Check Out Mohon diisi!"
+                isFail = false;
+            } else {
+                check_out_error.classList.add("hidden")
+                check_out_error.innerHTML = ""
+            }
+
+            // if (promo == "") {
+            //     promo_error.classList.remove("hidden")
+            //     promo_error.innerHTML = "Promo Mohon diisi!"
+            //     isFail = false;
+            // } else {
+            //     promo_error.classList.add("hidden")
+            //     promo_error.innerHTML = ""
+            // }
+            return isFail
+        }
+
+        function validationPromo() {
+            var promo = document.getElementById("promo").value
+            var promo_error = document.getElementById("promo_error")
+            var submit = document.getElementById("submit-dropdown")
+            const metaElements = document.querySelectorAll('meta[name="csrf-token"]');
+            const csrf = metaElements.length > 0 ? metaElements[0].content : "";
+
+            if (promo == "") {
+                fetch(`http://localhost:8000/api/voucher/${promo}/asramas`)
+                    .then(res => res.json())
+                    .then(data => {
+                        isFail = true
+                    })
+            }
+
+            return promo
         }
     </script>
 @endsection
