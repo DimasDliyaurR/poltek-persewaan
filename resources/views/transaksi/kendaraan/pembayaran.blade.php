@@ -1,4 +1,4 @@
-@extends('layouts-home.navbar.nav-transaksi')
+@extends('layouts-home.navbar.nav-old')
 @section('content')
     <div class="w-screen h-screen flex flex-row justify-center items-center">
         <button class="p-4 bg-primary text-white rounded-lg" id="pay-button">Pembayaran</button>

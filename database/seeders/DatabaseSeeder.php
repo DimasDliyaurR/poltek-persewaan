@@ -66,21 +66,23 @@ class DatabaseSeeder extends Seeder
          * |
          */
         DB::table("fasilitas_asramas")->insert([
-            "id" => 1,
-            "fa_icon" => "bath",
-            "fa_nama" => "Bak Mandi",
-            "fa_tarif" => 20000,
-            "fa_status" => "tersedia",
-            "created_at" => "2024-05-10 17:14:35",
-            "updated_at" => "2024-05-10 17:14:35",
-        ], [
-            "id" => 2,
-            "fa_icon" => "shower",
-            "fa_nama" => "shower",
-            "fa_tarif" => 20000,
-            "fa_status" => "tersedia",
-            "created_at" => "2024-05-10 17:14:35",
-            "updated_at" => "2024-05-10 17:14:35",
+            [
+                "id" => 1,
+                "fa_icon" => "bath",
+                "fa_nama" => "Bak Mandi",
+                "fa_tarif" => 20000,
+                "fa_status" => "tersedia",
+                "created_at" => now(),
+                "updated_at" => now(),
+            ], [
+                "id" => 2,
+                "fa_icon" => "shower",
+                "fa_nama" => "shower",
+                "fa_tarif" => 20000,
+                "fa_status" => "tersedia",
+                "created_at" => now(),
+                "updated_at" => now(),
+            ]
         ]);
 
         DB::table("tipe_asramas")->insert([
@@ -101,8 +103,8 @@ class DatabaseSeeder extends Seeder
     derhana.<br>- Tarif Standard Room juga lebih terjangkau dibanding Deluxe Room, cocok bagi yang ingin berlibur dengan budget ter
     batas.</p>",
             "ta_slug" => "tipe-deluxxe-with-swift-room",
-            "created_at" => "2024-05-10 17:15:18",
-            "updated_at" => "2024-05-10 18:43:59",
+            "created_at" => now(),
+            "updated_at" => now(),
             "deleted_at" => null,
         ]);
 
@@ -113,8 +115,8 @@ class DatabaseSeeder extends Seeder
                 "a_nama_ruangan" => "Ruangan 403 Esxtra doeble Avenged Bad",
                 "a_slug" => "ruangan-403-esxtra-doeble-avenged-bad",
                 "a_status" => "tersedia",
-                "created_at" => "2024-05-10 17:15:28",
-                "updated_at" => "2024-05-10 17:15:28",
+                "created_at" => now(),
+                "updated_at" => now(),
                 "deleted_at" => null,
             ], [
                 "id" => 2,
@@ -122,8 +124,8 @@ class DatabaseSeeder extends Seeder
                 "a_nama_ruangan" => "Ruangan 403 Esxtra doeble bath",
                 "a_slug" => "ruangan-403-esxtra-doeble-bath",
                 "a_status" => "tersedia",
-                "created_at" => "2024-05-10 17:15:32",
-                "updated_at" => "2024-05-10 17:15:32",
+                "created_at" => now(),
+                "updated_at" => now(),
                 "deleted_at" => null,
             ]
         ]);
@@ -132,24 +134,26 @@ class DatabaseSeeder extends Seeder
             "tipe_asrama_id" => 1,
             "is_dp" => 1,
             "tarif_dp" => 300000,
-            "created_at" => "2024-05-10 17:15:18",
-            "updated_at" => "2024-05-10 17:15:18",
+            "created_at" => now(),
+            "updated_at" => now(),
         ]);
 
         DB::table("detail_fasilitas_asramas")->insert([
-            "id" => 1,
-            "tipe_asrama_id" => 1,
-            "fasilitas_asrama_id" => 1,
-            "dfa_status" => "include",
-            "created_at" => "2024-05-10 17:22:43",
-            "updated_at" => "2024-05-10 17:22:43",
-        ], [
-            "id" => 2,
-            "tipe_asrama_id" => 1,
-            "fasilitas_asrama_id" => 2,
-            "dfa_status" => "pilihan",
-            "created_at" => "2024-05-10 17:22:52",
-            "updated_at" => "2024-05-10 17:22:52",
+            [
+                "id" => 1,
+                "tipe_asrama_id" => 1,
+                "fasilitas_asrama_id" => 1,
+                "dfa_status" => "include",
+                "created_at" => now(),
+                "updated_at" => now(),
+            ], [
+                "id" => 2,
+                "tipe_asrama_id" => 1,
+                "fasilitas_asrama_id" => 2,
+                "dfa_status" => "pilihan",
+                "created_at" => now(),
+                "updated_at" => now(),
+            ]
         ]);
 
         /**
@@ -177,8 +181,8 @@ class DatabaseSeeder extends Seeder
             "p_jumlah" => 0,
             "p_tipe_stok" => "unlimited",
             "p_kategori" => "All",
-            "created_at" => "2024-05-10 18:57:31",
-            "updated_at" => "2024-05-10 18:57:31",
+            "created_at" => now(),
+            "updated_at" => now(),
             "deleted_at" => null,
         ]);
     }

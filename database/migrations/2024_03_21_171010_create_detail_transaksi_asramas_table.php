@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::disableForeignKeyConstraints();
 
-        Schema::create('detail_transaksi_asrama', function (Blueprint $table) {
+        Schema::create('detail_transaksi_asramas', function (Blueprint $table) {
             $table->id();
             $table->foreignId('transaksi_asrama_id')->constrained('transaksi_asramas');
             $table->foreignId('asrama_id')->constrained("asramas");

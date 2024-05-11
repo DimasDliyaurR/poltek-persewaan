@@ -127,6 +127,7 @@
                     </div>
 
                     <div class="mb-3">
+                        <h4 class="font-bold uppercase mb-4">Fasilitas Tambahan</h4>
                         @foreach ($tipeAsrama->fasilitasAsramas as $item)
                             <div class="flex items-center mb-4">
                                 <input id="fasilitas" type="checkbox" value="{{ $item->fa_nama }}"

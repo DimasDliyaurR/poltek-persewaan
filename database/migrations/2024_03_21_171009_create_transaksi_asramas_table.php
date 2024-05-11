@@ -21,6 +21,8 @@ return new class extends Migration
             $table->dateTime('ta_tanggal_sewa')->default(now());
             $table->dateTime('ta_check_in');
             $table->dateTime('ta_check_out');
+            $table->bigInteger('ta_sub_total')->nullable();
+            $table->string('snap_token')->nullable();
             $table->enum('status', ["belum bayar", "terbayar", "kadaluarsa", "batal"])->default("belum bayar");
             $table->timestamps();
         });

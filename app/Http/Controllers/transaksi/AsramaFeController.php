@@ -14,6 +14,7 @@ use App\Models\Asrama;
 use App\Models\DetailTransaksiFasilitas;
 use App\Models\FasilitasAsrama;
 use App\Services\handler\Midtrans\CreateSnapTokenService;
+use App\Services\handler\Promo\PromoHandler;
 
 class AsramaFeController extends Controller
 {
@@ -23,6 +24,8 @@ class AsramaFeController extends Controller
     private $total_transaksi = 0;
     private $inputPromo;
     private $total_transaksi_fasilitas = 0;
+
+    private $snapToken;
 
 
     public function index()
@@ -41,7 +44,7 @@ class AsramaFeController extends Controller
 
     public function detail($slug)
     {
-        $tipeAsrama = TipeAsrama::with(["asramas" => fn ($q) => $q->whereAStatus("tersedia"), "detailFotoTipeAsrama", "fasilitasAsramas"])->whereTaSlug($slug);
+        $tipeAsrama = TipeAsrama::with(["asramas" => fn ($q) => $q->whereAStatus("tersedia"), "detailFotoTipeAsrama", "fasilitasAsramas" => fn ($q) => $q->where("dfa_status", "pilihan")])->whereTaSlug($slug);
         if (!$tipeAsrama->first()) abort(404);
 
         return view('asrama.detail', [
@@ -129,7 +132,7 @@ class AsramaFeController extends Controller
             $transaksi = TransaksiAsrama::create([
                 "user_id" => auth()->user()->id,
                 "promo_id" => !($this->promo->isExist()) ? null : $this->promo->getPromo()->id,
-                "code_unique" => auth()->user()->id . strtotime(now()) . "#400",
+                "code_unique" => auth()->user()->id . strtotime(now()) . "@400",
                 "ta_check_in" => $validation["ta_check_in"],
                 "ta_tanggal_sewa" => now(),
                 "ta_check_out" => $validation["ta_check_out"],
@@ -154,50 +157,84 @@ class AsramaFeController extends Controller
 
             // Store Detail Fasilitas Asrama Transaksi
             if ($validation["fasilitas"] != null) {
-                foreach ($validation["fasilitas"] as $row => $value) {
-                    $fasilitasAsrama = FasilitasAsrama::where("fa_nama", "=", $value)->first();
-                    $total_harga = $fasilitasAsrama->fa_tarif;
+                $fasilitas = new FasilitasAsrama();
+                $count = 1;
+                foreach ($validation["fasilitas"] as $key => $value) {
+                    if ($count == 1) $fasilitas = $fasilitas::where("fa_nama", $value);
+                    $count != 1 ? $fasilitas->orWhere("fa_nama", $value) : '';
+                    $count++;
+                }
 
-                    // Apakah Total Transaksi Fasilitas Di akumulasi kan dengan promo ?
+                foreach ($fasilitas->get() as $row => $value) {
+                    $total_harga = $value->fa_tarif;
+
                     $this->total_transaksi_fasilitas += $total_harga;
 
                     DetailTransaksiFasilitas::create([
                         "transaksi_asrama_id" => $transaksi->id,
-                        "fasilitas_asrama_id" => $fasilitasAsrama->id,
+                        "fasilitas_asrama_id" => $value->id,
                         "dtf_harga" => $total_harga,
                     ]);
                 }
             }
+            // Apakah Promo sudah terdeteksi
+            if ($this->checkPromo()) {
+                return back()->withErrors([
+                    "promo" => "Promo Sudah Habis"
+                ]);
+            }
+
+            $data = array(
+                'transaction_details' => array(
+                    'order_id' => $this->transaksi->code_unique . "-asramas",
+                    'gross_amount' => $this->total_transaksi + $this->total_transaksi_fasilitas,
+                ),
+                'customer_details' => array(
+                    'first_name' => auth()->user()->profile->nama_lengkap,
+                    'email' => auth()->user()->email,
+                    'phone' => auth()->user()->profile->no_telp,
+                ),
+            );
+
+            $midtrans = new CreateSnapTokenService($data);
+
+            $this->snapToken = $midtrans->getSnapToken();
+
+            $updateTransaksi = TransaksiAsrama::whereId($this->transaksi->id)->update([
+                "snap_token" => $this->snapToken,
+                "ta_sub_total" => $this->total_transaksi + $this->total_transaksi_fasilitas
+            ]);
         });
 
-        // Apakah Promo sudah terdeteksi
-        if (!$this->checkPromo()) {
-            return back()->withErrors([
-                "promo" => "Promo Sudah Habis"
-            ]);
+        return redirect()->route("asrama.pembayaran", $this->transaksi->code_unique);
+    }
+
+    public function pembayaran($codeUnique)
+    {
+        $detailTransaksi = TransaksiAsrama::with(["asramas.tipeAsrama.paymentMethod", "fasilitasAsrama", "promo"])->whereCodeUnique($codeUnique)->get();
+        $total = 0;
+        $sub_total = 0;
+
+        foreach ($detailTransaksi as $transaksi) {
+            $snap_token = $transaksi->snap_token;
+            $promo = $transaksi->promo;
+
+            foreach ($transaksi->asramas as $asrama) {
+                $sub_total += $asrama->tipeAsrama->ta_tarif;
+            }
+
+            $total += $transaksi->ta_sub_total;
         }
 
-        $data = array(
-            'transaction_details' => array(
-                'order_id' => $this->transaksi->code_unique . "-asramas",
-                'gross_amount' => $this->total_transaksi + $this->total_transaksi_fasilitas,
-            ),
-            'customer_details' => array(
-                'first_name' => auth()->user()->profile->nama_lengkap,
-                'email' => auth()->user()->email,
-                'phone' => auth()->user()->profile->no_telp,
-            ),
-        );
+        $promo = $promo != null ? ($detailTransaksi->promo->tipe == "fixed") ?
+            $sub_total - $this->promo->p_isi : $sub_total - ($sub_total * ($this->promo->p_isi / 100)) : null;
 
-        $midtrans = new CreateSnapTokenService($data);
-
-        $snapToken = $midtrans->getSnapToken();
-
-        dd($snapToken);
-
-        return view("transaksi.kendaraan.pembayaran", [
+        return view("asrama.transaksi_invoice", [
             "title" => "pembayaran",
-            "snapToken" => $snapToken
+            "snapToken" => $snap_token,
+            "detailTransaksi" => $detailTransaksi,
+            "totalPromo" => $promo,
+            "total" => $total,
         ]);
     }
 }

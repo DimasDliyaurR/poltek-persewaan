@@ -41,6 +41,9 @@ use App\Http\Controllers\transaksi\AlatBarangFeController;
 // });
 
 
+Route::view("/kaka", "asrama.transaksi_invoice", [
+    "title" => "kaka"
+]);
 
 // BackEnd
 /**
@@ -443,6 +446,7 @@ Route::group(["prefix" => "asrama", "as" => "asrama."], function () {
         Route::get('/{slug}', 'detail')->name("detail");
         Route::get('/{slug}/pesan', 'pesanForm')->name("pesan")->middleware("auth");
         Route::post('/beli-langsung', 'pesan')->name('pesan.action')->middleware("auth");
+        Route::get('/pembayaran/{codeUnique}', 'pembayaran')->name('pembayaran')->middleware("auth");
     });
 });
 

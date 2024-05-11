@@ -29,7 +29,7 @@ class TransaksiAsrama extends Model
         'ta_tanggal_sewa',
         'ta_check_in',
         'ta_check_out',
-        'ta_is_sarapan',
+        'ta_sub_total',
     ];
 
     /**
@@ -54,13 +54,14 @@ class TransaksiAsrama extends Model
 
     public function fasilitasAsrama()
     {
-        return $this->belongsToMany(fasilitasAsrama::class, "detail_transaksi_fasilitas", relatedPivotKey: "transaksi_asrama_id")
+        return $this->belongsToMany(FasilitasAsrama::class, "detail_transaksi_fasilitas",  "transaksi_asrama_id", "fasilitas_asrama_id")
             ->using(DetailTransaksiFasilitas::class)->withPivot("dtf_harga");
     }
 
     public function asramas(): BelongsToMany
     {
-        return $this->belongsToMany(Asrama::class);
+        return $this->belongsToMany(Asrama::class, "detail_transaksi_asramas", "transaksi_asrama_id", "asrama_id")
+            ->using(DetailTransaksiAsrama::class)->withPivot("dta_harga");
     }
 
     public function user(): BelongsTo
