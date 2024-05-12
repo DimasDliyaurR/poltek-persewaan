@@ -53,11 +53,59 @@
                         </div>
 
                         <div class=" bg-white p-3 rounded-md">
-                            {{-- <p class="text-xs text-gray-400"> * belum termasuk voucher</p> --}}<a href="{{ route('gedung.pesan', $layanan->l_slug) }}"
-                                class="block text-center text-white p-2 text-sm mt-4 h-10 w-full bg-primary rounded-lg hover:opacity-50">Pesan</a>
+                            <button id="pesan"
+                                class="block text-center text-white p-2 text-sm mt-4 h-10 w-full bg-primary rounded-lg hover:opacity-50">Pesan</button>
                         </div>
                     </div>
             </div>
+            </x-layout-detail-transaksi>
+
+            <x-layout-detail-transaksi class="mt-5 hidden" :isId="true" id="dropdown">
+                <h4 id="dropdown-title" class="font-bold mb-4 uppercase"></h4>
+                <form action="{{ route('layanan.pesan.action') }}" method="POST" id="form_asrama"
+                    onsubmit="return validation()">
+                    @csrf
+                    @method('POST')
+                    <div
+                        class=" flex flex-col xl:flex-row md:flex-row lg:flex-row xl:space-x-2 md:space-x-2 sm:space-x-2 mb-2">
+                        <div class=" mb-2 space-y-2  ">
+                            <label for="tl_tanggal_pelaksanaan"
+                                class=" block mb-2 text-sm font-medium text-gray-900 dark:text-white">Tanggal
+                                Pelaksanaan</label>
+                            <input id="tl_tanggal_pelaksanaan" name="tl_tanggal_pelaksanaan" type="date"
+                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+
+                            <p class="text-red-500 text-sm hidden" id="tl_tanggal_pelaksanaan_error"></p>
+                        </div>
+                        <div class=" mb-2 space-y-2">
+                            <label for="tl_durasi_sewa"
+                                class=" block mb-2 text-sm font-medium text-gray-900 dark:text-white">Durasi Sewa</label>
+                            <input id="tl_durasi_sewa" name="tl_durasi_sewa" type="text"
+                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                            <p class="text-red-500 text-sm hidden" id="tl_durasi_sewa_error"></p>
+                        </div>
+                        <div class=" mb-2 space-y-2">
+                            <label for="promo"
+                                class=" block mb-2 text-sm font-medium text-gray-900 dark:text-white">Voucher</label>
+                            <input id="promo" name="promo" type="text"
+                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                            <p class="text-red-500 text-sm hidden" id="promo_error"></p>
+                        </div>
+                    </div>
+                    <div class=" mb-2 space-y-2">
+                        <label for="tl_tujuan"
+                            class=" block mb-2 text-sm font-medium text-gray-900 dark:text-white">Tujuan</label>
+                        <input id="tl_tujuan" name="tl_tujuan" type="text"
+                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                        <p class="text-red-500 text-sm hidden" id="tl_tujuan_error"></p>
+                    </div>
+                    <ul id="card" class="list-disc">
+                    </ul>
+                    <button type="submit" id="submit-dropdown"
+                        class="mt-5 h-7 w-full bg-primary rounded-lg hover:opacity-50  text-sm   text-white">
+                        Pesan
+                    </button>
+                </form>
             </x-layout-detail-transaksi>
 
             <x-layout-detail-transaksi class="mt-5">
@@ -92,4 +140,193 @@
 
 @section('script')
     <script src="{{ asset('js/feature/multiple-images.js') }}"></script>
+    <script>
+        function isEmpty(elm) {
+            return elm.length === 0 ? true : false
+        }
+
+        function validation() {
+            var tl_tanggal_pelaksanaan = document.getElementById("tl_tanggal_pelaksanaan").value
+            var tl_tanggal_pelaksanaan_error = document.getElementById("tl_tanggal_pelaksanaan_error")
+            var tl_durasi_sewa = document.getElementById("tl_durasi_sewa").value
+            var tl_durasi_sewa_error = document.getElementById("tl_durasi_sewa_error")
+            var promo = document.getElementById("promo").value
+            var promo_error = document.getElementById("promo_error")
+
+            var isFail = true
+
+            if (tl_tanggal_pelaksanaan == "") {
+                tl_tanggal_pelaksanaan_error.classList.remove("hidden")
+                tl_tanggal_pelaksanaan_error.innerHTML = "Tanggal Sewa Mohon diisi!"
+                isFail = false;
+            } else {
+                tl_tanggal_pelaksanaan_error.classList.add("hidden")
+                tl_tanggal_pelaksanaan_error.innerHTML = ""
+            }
+
+            if (tl_durasi_sewa == "") {
+                tl_durasi_sewa_error.classList.remove("hidden")
+                tl_durasi_sewa_error.innerHTML = "Tanggal Kembali Mohon diisi!"
+                isFail = false;
+            } else {
+                tl_durasi_sewa_error.classList.add("hidden")
+                tl_durasi_sewa_error.innerHTML = ""
+            }
+
+            console.log(promo_error.innerHTML.length, promo_error.innerHTML.length === 0);
+            isFail = isEmpty(promo_error.innerHTML) ? true : false
+
+            return isFail
+        }
+
+        $(document).ready(function() {
+            var button = $("#pesan")
+            var dropdown = $("#dropdown")
+
+            var tl_durasi_sewa = $("#tl_durasi_sewa")
+            var tl_durasi_sewa_error = $("#tl_durasi_sewa_error")
+
+            var tl_tanggal_pelaksanaan = $("#tl_tanggal_pelaksanaan")
+            var tl_tanggal_pelaksanaan_error = $("#tl_tanggal_pelaksanaan_error")
+
+            var tl_tujuan = $("#tl_tujuan")
+            var tl_tujuan_error = $("#tl_tujuan_error")
+
+            var promo = $("#promo")
+            var promo_error = $("#promo_error")
+
+            var form = $("#form_asrama")
+
+            var submit = $("#submit-dropdown")
+
+            var timeout = null
+
+            button.click((e) => {
+                e.preventDefault();
+                var currentLocation = $(location).attr('href')
+                var nameSlug = currentLocation.split('/')[currentLocation.split('/').length - 1]
+                var input = $("<input value='" + nameSlug + "' id='slug' name='slug[]' class='hidden'/>")
+
+                if (dropdown.hasClass("hidden")) {
+                    form.append(input);
+                    dropdown.removeClass("hidden")
+                } else {
+                    var slug = $("#slug")
+                    slug.remove()
+                    dropdown.addClass("hidden")
+                }
+            });
+
+            tl_durasi_sewa.on("input", () => {
+                var val = tl_durasi_sewa.val()
+
+                console.log(val)
+
+                if (val == "") {
+                    tl_durasi_sewa_error.removeClass("hidden")
+                    tl_durasi_sewa_error.text("Tanggal Kembali mohon diisi !")
+
+                    submit.addClass("cursor-not-allowed")
+                    submit.attr("disabled", true);
+                } else {
+                    tl_durasi_sewa_error.addClass("hidden")
+                    tl_durasi_sewa_error.text("")
+
+                    submit.hasClass("cursor-not-allowed") ? submit.removeClass("cursor-not-allowed") : ''
+                    submit.attr("disabled", false);
+                }
+            });
+            tl_tujuan.on("input", () => {
+                clearTimeout(timeout)
+
+                timeout = setTimeout(() => {
+
+                    var val = tl_tujuan.val()
+
+                    console.log(val);
+
+                    if (val == "") {
+                        tl_tujuan_error.removeClass("hidden")
+                        tl_tujuan_error.text("Tanggal Sewa mohon diisi !")
+
+                        submit.addClass("cursor-not-allowed")
+                        submit.attr("disabled", true);
+                    } else {
+                        tl_tujuan_error.addClass("hidden")
+                        tl_tujuan_error.text("")
+
+                        submit.hasClass("cursor-not-allowed") ? submit.removeClass(
+                            "cursor-not-allowed") : ''
+                        submit.attr("disabled", false);
+                    }
+                }, 1000);
+            });
+
+            tl_tanggal_pelaksanaan.on("input", () => {
+                clearTimeout(timeout)
+
+                timeout = setTimeout(() => {
+
+                    var val = tl_tanggal_pelaksanaan.val()
+
+
+
+                    if (val == "") {
+                        tl_tanggal_pelaksanaan_error.removeClass("hidden")
+                        tl_tanggal_pelaksanaan_error.text("Tanggal Sewa mohon diisi !")
+
+                        submit.addClass("cursor-not-allowed")
+                        submit.attr("disabled", true);
+                    } else {
+                        tl_tanggal_pelaksanaan_error.addClass("hidden")
+                        tl_tanggal_pelaksanaan_error.text("")
+
+                        submit.hasClass("cursor-not-allowed") ? submit.removeClass(
+                            "cursor-not-allowed") : ''
+                        submit.attr("disabled", false);
+                    }
+                }, 1000);
+
+            });
+
+            promo.on("input", () => {
+
+                clearTimeout(timeout)
+
+                timeout = setTimeout(() => {
+
+                    var val = $("#promo").val()
+
+                    if (val == "") {
+                        promo_error.text("")
+
+                        submit.hasClass("cursor-not-allowed") ? submit
+                            .removeClass("cursor-not-allowed") : ''
+                        submit.attr("disabled", false);
+                    }
+
+                    fetch(`http://localhost:8000/api/voucher/${val}/kendaraans`)
+                        .then((res) => res.json())
+                        .then((data) => {
+                            console.log(data);
+
+                            if (data.error == true) {
+                                promo_error.removeClass("hidden")
+                                promo_error.text(data.message)
+
+                                submit.addClass("cursor-not-allowed")
+                                submit.attr("disabled", true);
+                            } else {
+                                promo_error.text("")
+
+                                submit.hasClass("cursor-not-allowed") ? submit
+                                    .removeClass("cursor-not-allowed") : ''
+                                submit.attr("disabled", false);
+                            }
+                        })
+                }, 1000)
+            })
+
+        });
+    </script>
 @endsection

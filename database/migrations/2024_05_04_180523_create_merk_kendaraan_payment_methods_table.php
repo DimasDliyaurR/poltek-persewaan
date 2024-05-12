@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('merk_kendaraan_payment_methods', function (Blueprint $table) {
             $table->foreignId("merk_kendaraan_id")->constrained("merk_kendaraans")->onDelete("CASCADE");
             $table->boolean("is_dp");
-            $table->integer("tarif_dp");
+            $table->integer("tarif_dp")->nullable();
             $table->timestamps();
         });
     }
@@ -24,6 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('kendaraan_payment_methods');
+        Schema::dropIfExists('merk_kendaraan_payment_methods');
     }
 };

@@ -5,12 +5,6 @@
     </style>
     <div class=" bg-plaster py-24 ">
         <div class=" container  ">
-            <!-- <div class="w-10/12  "> -->
-            <!-- <div class=" flex justify-center items-center h-screen">   -->
-            <!-- <div class="flex justify-start items-center"> -->
-            {{-- <div class="justify-start ml-36 bg-white p-4 rounded-md mb-2 mt-2">
-
-            </div> --}}
 
             <x-layout-detail-transaksi class="text-xl font-bold">
                 <a class="text-primary hover:font-bold hover:underline"
@@ -18,7 +12,6 @@
                 </a>
                 / {{ $kendaraan->mk_merk }}</h2>
             </x-layout-detail-transaksi>
-            {{-- Gambar Baru --}}
 
             <div class="flex xl:flex-row md:flex-row lg:flex-row flex-col justify-center space-x-2">
 
@@ -59,13 +52,54 @@
                             </div>
                             <div class=" bg-white p-3 rounded-md">
                                 </p>
-                                {{-- <p class="text-xs text-gray-400"> * belum termasuk voucher</p> --}}<a href="{{ route('transportasi.pesan', $kendaraan->mk_slug) }}"
-                                    class="block text-center text-white p-2 text-sm mt-4 h-10 w-full bg-primary rounded-lg hover:opacity-50">Pesan</a>
+                                <button id="pesan"{{-- href="{{ route('transportasi.pesan', $kendaraan->mk_slug) }}" --}}
+                                    class="block text-center text-white p-2 text-sm mt-4 h-10 w-full bg-primary rounded-lg hover:opacity-50">Pesan</button>
                             </div>
                         </div>
                     </div>
                 </x-layout-detail-transaksi>
             </div>
+
+            <x-layout-detail-transaksi class="mt-5 hidden" :isId="true" id="dropdown">
+                <h4 id="dropdown-title" class="font-bold mb-4 uppercase"></h4>
+                <form action="{{ route('transportasi.pesan.action') }}" method="POST" id="form_asrama"
+                    onsubmit="return validation()">
+                    @csrf
+                    @method('POST')
+                    <div
+                        class=" flex flex-col xl:flex-row md:flex-row lg:flex-row xl:space-x-2 md:space-x-2 sm:space-x-2 mb-2">
+                        <div class=" mb-2 space-y-2  ">
+                            <label for="tk_tanggal_sewa"
+                                class=" block mb-2 text-sm font-medium text-gray-900 dark:text-white">Tanggal Sewa</label>
+                            <input id="tk_tanggal_sewa" name="tk_tanggal_sewa" type="date"
+                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+
+                            <p class="text-red-500 text-sm hidden" id="tk_tanggal_sewa_error"></p>
+                        </div>
+                        <div class=" mb-2 space-y-2">
+                            <label for="tk_tanggal_kembali"
+                                class=" block mb-2 text-sm font-medium text-gray-900 dark:text-white">Tanggal
+                                Kembali</label>
+                            <input id="tk_tanggal_kembali" name="tk_tanggal_kembali" type="date"
+                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                            <p class="text-red-500 text-sm hidden" id="tk_tanggal_kembali_error"></p>
+                        </div>
+                        <div class=" mb-2 space-y-2">
+                            <label for="promo"
+                                class=" block mb-2 text-sm font-medium text-gray-900 dark:text-white">Voucher</label>
+                            <input id="promo" name="promo" type="text"
+                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                            <p class="text-red-500 text-sm hidden" id="promo_error"></p>
+                        </div>
+                    </div>
+                    <ul id="card" class="list-disc">
+                    </ul>
+                    <button type="submit" id="submit-dropdown"
+                        class="mt-5 h-7 w-full bg-primary rounded-lg hover:opacity-50  text-sm   text-white">
+                        Pesan
+                    </button>
+                </form>
+            </x-layout-detail-transaksi>
 
             <x-layout-detail-transaksi class="mt-5">
                 <div class="mt-4 font">
@@ -97,24 +131,247 @@
     </div>
 
     </div>
+@endsection
 
+@section('script')
     <script>
-        // Tampilkan gambar pertama secara default
-        var defaultImg = document.querySelector('.rounded-sm.cursor-pointer');
-        var expandImg = document.getElementById("expandedImg");
-        var imgText = document.getElementById("imgtext");
-        expandImg.src = defaultImg.src;
-        imgText.innerHTML = defaultImg.alt;
-        expandImg.parentElement.style.display = "block";
+        function validation() {
+            var tk_tanggal_sewa = document.getElementById("tk_tanggal_sewa").value
+            var tk_tanggal_sewa_error = document.getElementById("tk_tanggal_sewa_error")
+            var tk_tanggal_kembali = document.getElementById("tk_tanggal_kembali").value
+            var tk_tanggal_kembali_error = document.getElementById("tk_tanggal_kembali_error")
+            var promo = document.getElementById("promo").value
+            var promo_error = document.getElementById("promo_error")
 
-        // Fungsi untuk mengganti gambar besar saat gambar kecil diklik
-        function myFunction(imgs) {
-            expandImg.src = imgs.src;
-            imgText.innerHTML = imgs.alt;
+            var isFail = true
+
+            if (tk_tanggal_sewa == "") {
+                tk_tanggal_sewa_error.classList.remove("hidden")
+                tk_tanggal_sewa_error.innerHTML = "Tanggal Sewa Mohon diisi!"
+                isFail = false;
+            } else {
+                tk_tanggal_sewa_error.classList.add("hidden")
+                tk_tanggal_sewa_error.innerHTML = ""
+            }
+
+            if (tk_tanggal_kembali == "") {
+                tk_tanggal_kembali_error.classList.remove("hidden")
+                tk_tanggal_kembali_error.innerHTML = "Tanggal Kembali Mohon diisi!"
+                isFail = false;
+            } else {
+                tk_tanggal_kembali_error.classList.add("hidden")
+                tk_tanggal_kembali_error.innerHTML = ""
+            }
+
+            if (promo_error.innerHTML != "") {
+                isFail = false
+            } else {
+                isFail = true
+            }
+
+            return isFail
         }
 
-        function closeImage() {
-            expandImg.parentElement.style.display = "none";
-        }
+        $(document).ready(function() {
+            var button = $("#pesan")
+            var dropdown = $("#dropdown")
+
+            var tk_tanggal_kembali = $("#tk_tanggal_kembali")
+            var tk_tanggal_kembali_error = $("#tk_tanggal_kembali_error")
+
+            var tk_tanggal_sewa = $("#tk_tanggal_sewa")
+            var tk_tanggal_sewa_error = $("#tk_tanggal_sewa_error")
+
+            var promo = $("#promo")
+            var promo_error = $("#promo_error")
+
+            var form = $("#form_asrama")
+
+            var submit = $("#submit-dropdown")
+
+            button.click((e) => {
+                e.preventDefault();
+                var currentLocation = $(location).attr('href')
+                var nameSlug = currentLocation.split('/')[currentLocation.split('/').length - 1]
+                var input = $("<input value='" + nameSlug + "' id='slug' name='slug[]' class='hidden'/>")
+
+                if (dropdown.hasClass("hidden")) {
+                    form.append(input);
+                    dropdown.removeClass("hidden")
+                } else {
+                    var slug = $("#slug")
+                    slug.remove()
+                    dropdown.addClass("hidden")
+                }
+            });
+
+            tk_tanggal_kembali.on("input", () => {
+                var val = tk_tanggal_kembali.val()
+
+                console.log(val);
+
+                if (val == "") {
+                    tk_tanggal_kembali_error.removeClass("hidden")
+                    tk_tanggal_kembali_error.text("Tanggal Kembali mohon diisi !")
+
+                    submit.addClass("cursor-not-allowed")
+                    submit.attr("disabled", true);
+                } else {
+                    tk_tanggal_kembali_error.addClass("hidden")
+                    tk_tanggal_kembali_error.text("")
+
+                    submit.hasClass("cursor-not-allowed") ? submit.removeClass("cursor-not-allowed") : ''
+                    submit.attr("disabled", false);
+                }
+            });
+
+            tk_tanggal_sewa.on("input", () => {
+                var val = tk_tanggal_sewa.val()
+
+                console.log(val);
+
+                if (val == "") {
+                    tk_tanggal_sewa_error.removeClass("hidden")
+                    tk_tanggal_sewa_error.text("Tanggal Sewa mohon diisi !")
+
+                    submit.addClass("cursor-not-allowed")
+                    submit.attr("disabled", true);
+                } else {
+                    tk_tanggal_sewa_error.addClass("hidden")
+                    tk_tanggal_sewa_error.text("")
+
+                    submit.hasClass("cursor-not-allowed") ? submit.removeClass("cursor-not-allowed") : ''
+                    submit.attr("disabled", false);
+                }
+            });
+
+            promo.on("input", () => {
+                var val = $("#promo").val()
+
+                if (val == "") {
+                    promo_error.text("")
+
+                    submit.hasClass("cursor-not-allowed") ? submit
+                        .removeClass("cursor-not-allowed") : ''
+                    submit.attr("disabled", false);
+                }
+
+                fetch(`http://localhost:8000/api/voucher/${val}/kendaraans`)
+                    .then((res) => res.json())
+                    .then((data) => {
+                        console.log(data);
+
+                        if (data.error == true) {
+                            promo_error.removeClass("hidden")
+                            promo_error.text(data.message)
+
+                            submit.addClass("cursor-not-allowed")
+                            submit.attr("disabled", true);
+                        } else {
+                            promo_error.text("")
+
+                            submit.hasClass("cursor-not-allowed") ? submit
+                                .removeClass("cursor-not-allowed") : ''
+                            submit.attr("disabled", false);
+                        }
+                    })
+            })
+
+            function submit() {
+                event.preventDefault()
+                var tanggal_sewa = tk_tanggal_sewa.val()
+                var tanggal_kembali = tk_tanggal_kembali.val()
+                console.log(tanggal_kembali);
+                return false
+
+                var kondisi = true
+
+                if (tanggal_sewa == "") {
+                    tk_tanggal_sewa_error.removeClass("hidden")
+                    tk_tanggal_sewa_error.text("Tanggal Sewa mohon diisi !")
+
+                    submit.addClass("cursor-not-allowed")
+                    submit.attr("disabled", true);
+
+                    kondisi = false
+
+                } else {
+                    tk_tanggal_sewa_error.addClass("hidden")
+                    tk_tanggal_sewa_error.text("")
+
+                    submit.hasClass("cursor-not-allowed") ? submit.removeClass("cursor-not-allowed") : ''
+                    submit.attr("disabled", false);
+                    kondisi = true
+                }
+
+                if (tanggal_kembali == "") {
+                    tk_tanggal_kembali_error.removeClass("hidden")
+                    tk_tanggal_kembali_error.text("Tanggal Kembali mohon diisi !")
+
+                    submit.addClass("cursor-not-allowed")
+                    submit.attr("disabled", true);
+                    kondisi = false
+                } else {
+                    tk_tanggal_kembali_error.addClass("hidden")
+                    tk_tanggal_kembali_error.text("")
+
+                    submit.hasClass("cursor-not-allowed") ? submit.removeClass("cursor-not-allowed") : ''
+                    submit.attr("disabled", false);
+
+                    kondisi = true
+                }
+
+                return kondisi
+            }
+
+            // form.on("submit", (e) => {
+            //     e.preventDefault()
+            //     var tanggal_sewa = tk_tanggal_sewa.val()
+            //     var tanggal_kembali = tk_tanggal_kembali.val()
+
+            //     var kondisi = true
+
+            //     console.log(tanggal_sewa == '');
+
+            //     if (tanggal_sewa == "") {
+            //         tk_tanggal_sewa_error.removeClass("hidden")
+            //         tk_tanggal_sewa_error.text("Tanggal Sewa mohon diisi !")
+
+            //         submit.addClass("cursor-not-allowed")
+            //         submit.attr("disabled", true);
+
+            //         kondisi = false
+
+            //     } else {
+            //         tk_tanggal_sewa_error.addClass("hidden")
+            //         tk_tanggal_sewa_error.text("")
+
+            //         submit.hasClass("cursor-not-allowed") ? submit.removeClass("cursor-not-allowed") : ''
+            //         submit.attr("disabled", false);
+            //         kondisi = true
+            //     }
+
+            //     if (tanggal_kembali == "") {
+            //         tk_tanggal_kembali_error.removeClass("hidden")
+            //         tk_tanggal_kembali_error.text("Tanggal Kembali mohon diisi !")
+
+            //         submit.addClass("cursor-not-allowed")
+            //         submit.attr("disabled", true);
+            //         kondisi = false
+            //     } else {
+            //         tk_tanggal_kembali_error.addClass("hidden")
+            //         tk_tanggal_kembali_error.text("")
+
+            //         submit.hasClass("cursor-not-allowed") ? submit.removeClass("cursor-not-allowed") : ''
+            //         submit.attr("disabled", false);
+
+            //         kondisi = true
+            //     }
+            //     console.log(kondisi);
+
+
+            // })
+
+        });
     </script>
 @endsection

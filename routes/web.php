@@ -419,6 +419,7 @@ Route::group(["prefix" => "transportasi", "as" => "transportasi."], function () 
         Route::get('/{slug}', 'detail')->name("detail");
         Route::get('/{slug}/pesan', 'pesanForm')->name("pesan")->middleware("auth");
         Route::post('/beli-langsung', 'pesan')->name('pesan.action')->middleware("auth");
+        Route::get('/pembayaran/{codeUnique}', 'pembayaran')->name('pembayaran')->middleware("auth");
     });
 });
 
@@ -428,6 +429,7 @@ Route::group(["prefix" => "gedung", "as" => "gedung."], function () {
         Route::get('/{slug}', 'detail')->name("detail");
         Route::get('/{slug}/pesan', 'pesanForm')->name("pesan")->middleware("auth");
         Route::post('/beli-langsung', 'pesan')->name('pesan.action')->middleware("auth");
+        Route::get('/pembayaran/{codeUnique}', 'pembayaran')->name('pembayaran')->middleware("auth");
     });
 });
 
@@ -437,6 +439,7 @@ Route::group(["prefix" => "layanan", "as" => "layanan."], function () {
         Route::get('/{slug}', 'detail')->name("detail");
         Route::get('/{slug}/pesan', 'pesanForm')->name("pesan")->middleware("auth");
         Route::post('/beli-langsung', 'pesan')->name('pesan.action')->middleware("auth");
+        Route::get('/pembayaran/{codeUnique}', 'pembayaran')->name('pembayaran')->middleware("auth");
     });
 });
 
@@ -456,6 +459,7 @@ Route::group(["prefix" => "alat-barang", "as" => "alat-barang."], function () {
         Route::get('/{slug}', 'detail')->name("detail");
         Route::get('/{slug}/pesan', 'pesanForm')->name("pesan")->middleware("auth");
         Route::post('/beli-langsung', 'pesan')->name('pesan.action')->middleware("auth");
+        Route::get('/pembayaran/{codeUnique}', 'pembayaran')->name('pembayaran')->middleware("auth");
     });
 });
 

@@ -32,7 +32,6 @@ class RequestGedungLap extends FormRequest
                 "gl_kapasitas_gedung" => "required|numeric",
                 "gl_ukuran_gedung" => "required",
                 "is_dp" => "boolean",
-                "tarif_dp" => "required|numeric",
             ];
         } else {
             return [
@@ -44,7 +43,6 @@ class RequestGedungLap extends FormRequest
                 "gl_kapasitas_gedung" => "required|numeric",
                 "gl_ukuran_gedung" => "required",
                 "is_dp" => "boolean",
-                "tarif_dp" => "required|numeric",
             ];
         }
     }

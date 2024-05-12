@@ -62,9 +62,10 @@ trait HandlerPromo
 
                 $this->promo->addDetailUser();
                 return true;
+            } else {
+                return false;
             }
         }
-        return false;
     }
 
     public function checkInputPromo()

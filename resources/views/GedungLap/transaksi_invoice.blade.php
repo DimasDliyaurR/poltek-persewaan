@@ -31,13 +31,13 @@
                         </thead>
                         <tbody>
                             @foreach ($detailTransaksi as $item)
-                                @foreach ($item->kendaraans as $subItem)
+                                @foreach ($item->gedungLap as $subItem)
                                     <tr class="bg-white border-b">
-                                        <td class="px-1 py-4">{{ $subItem->merkKendaraan->mk_merk }}</td>
-                                        <td class="px-6 py-4">{{ date('d M Y', $item->tk_tanggal_sewa) }}</td>
-                                        <td class="px-6 py-4">{{ date('d M Y', strtotime($item->tk_tanggal_kembali)) }}</td>
+                                        <td class="px-1 py-4">{{ $subItem->gl_nama }}</td>
+                                        <td class="px-6 py-4">{{ date('d M Y', strtotime($item->tg_tanggal_sewa)) }}</td>
+                                        <td class="px-6 py-4">{{ date('d M Y', strtotime($item->tg_tanggal_kembali)) }}</td>
                                         <td class="px-6 py-4">Rp
-                                            {{ number_format(!$subItem->merkKendaraan->paymentMethod->is_dp ? $subItem->merkKendaraan->ta_tarif : $subItem->merkKendaraan->paymentMethod->tarif_dp, 0, ',', '.') }}
+                                            {{ number_format(!$subItem->paymentMethod->is_dp ? $subItem->gl_tarif : $subItem->paymentMethod->tarif_dp, 0, ',', '.') }}
 
                                         </td>
                                     </tr>

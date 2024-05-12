@@ -48,6 +48,8 @@ class LayananController extends Controller
     {
         $validation = $request->validated();
 
+        $validation["tarif_dp"] = $request->tarif_dp ?? 0;
+
         if ($request->hasFile('l_foto')) {
             $file_layanan = $request->file('l_foto');
             $foto_layanan = $file_layanan->hashName();

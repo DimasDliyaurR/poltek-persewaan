@@ -47,6 +47,8 @@ class GedungLapController extends Controller
     ) {
         $validation = $request->validated(); // Inisiasi request yang sudah ter-validasi
 
+        $validation["tarif_dp"] = $request->tarif_dp ?? 0;
+
         if ($request->hasFile('gl_foto')) // Periksa Apakah request gl_foto ada isinya
         {
             $file_gedung_lap = $request->file('gl_foto'); // Inisiasi Request File

@@ -14,9 +14,9 @@ class Promo extends Model
 
     protected $guarded = ["id"];
 
-    public function transaksiAsramas(): BelongsToMany
+    public function transaksiAsramas(): HasMany
     {
-        return $this->belongsToMany(TransaksiAsrama::class);
+        return $this->hasMany(TransaksiAsrama::class);
     }
 
     public function transaksiAlatBarangs(): HasMany

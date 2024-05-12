@@ -111,3 +111,7 @@
         </form>
     </x-inner-layout>
 @endsection
+
+@section('script')
+    <script src="{{ asset('js/feature/dp-field-toggle-edit.js') }}"></script>
+@endsection

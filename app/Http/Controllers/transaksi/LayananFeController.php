@@ -19,6 +19,7 @@ class LayananFeController extends Controller
     private $transaksi;
     private $total_transaksi = 0;
 
+    protected $snapToken;
     protected $inputPromo;
 
     public function index()
@@ -85,8 +86,8 @@ class LayananFeController extends Controller
 
     public function pesan(Request $request)
     {
+        // dd($request->all());
         $validation = $request->validate([
-            "tl_tanggal_sewa" => "required",
             "tl_tanggal_pelaksanaan" => "required",
             "tl_tujuan" => "required",
             "tl_durasi_sewa" => "required",
@@ -120,7 +121,7 @@ class LayananFeController extends Controller
             $transaksi = TransaksiLayanan::create([
                 "user_id" => auth()->user()->id,
                 "promo_id" => !($this->promo->isExist()) ? null : $this->promo->getPromo()->id,
-                "code_unique" => auth()->user()->id . strtotime(now()) . "#200",
+                "code_unique" => auth()->user()->id . strtotime(now()) . "@200",
                 "tl_tanggal_sewa" => now(),
                 "tl_tanggal_pelaksanaan" => $validation["tl_tanggal_pelaksanaan"],
                 "tl_durasi_sewa" => $validation["tl_durasi_sewa"],
@@ -142,34 +143,75 @@ class LayananFeController extends Controller
                     "dtl_harga" => $total_harga,
                 ]);
             }
+            // Apakah Promo sudah terdeteksi
+            if ($this->checkPromo()) {
+                return back()->withErrors([
+                    "promo" => "Promo Sudah Habis"
+                ]);
+            }
+
+            $data = array(
+                'transaction_details' => array(
+                    'order_id' => $this->transaksi->code_unique . "-layanans",
+                    'gross_amount' => $this->total_transaksi,
+                ),
+                'customer_details' => array(
+                    'first_name' => auth()->user()->profile->nama_lengkap,
+                    'email' => auth()->user()->email,
+                    'phone' => auth()->user()->profile->no_telp,
+                ),
+            );
+
+            $midtrans = new CreateSnapTokenService($data);
+
+            $this->snapToken = $midtrans->getSnapToken();
+
+            TransaksiLayanan::whereId($this->transaksi->id)->update([
+                "snap_token" => $this->snapToken,
+                "tl_sub_total" => $this->total_transaksi
+            ]);
         });
 
-        // Apakah Promo sudah terdeteksi
-        if (!$this->checkPromo()) {
-            return back()->withErrors([
-                "promo" => "Promo Sudah Habis"
-            ]);
+
+        return redirect()->route("layanan.pembayaran", $this->transaksi->code_unique);
+    }
+
+    public function pembayaran($codeUnique)
+    {
+        $detailTransaksi = TransaksiLayanan::with(["layanans.paymentMethod", "promo",])->whereCodeUnique($codeUnique)->get();
+        $sub_total = 0;
+        $total = 0;
+
+        // dd($detailTransaksi);
+
+        foreach ($detailTransaksi as $transaksi) {
+            $promo = $transaksi->promo;
+
+            foreach ($transaksi->layanans as $layanan) {
+                $sub_total += $layanan->gl_tarif;
+            }
+
+            $snap_token = $transaksi->snap_token;
+            $total += $transaksi->tg_sub_total;
         }
 
-        $data = array(
-            'transaction_details' => array(
-                'order_id' => $this->transaksi->code_unique . "-layanans",
-                'gross_amount' => $this->total_transaksi,
-            ),
-            'customer_details' => array(
-                'first_name' => auth()->user()->profile->nama_lengkap,
-                'email' => auth()->user()->email,
-                'phone' => auth()->user()->profile->no_telp,
-            ),
-        );
+        $promo = $promo != null ? ($detailTransaksi->promo->tipe == "fixed") ?
+            $sub_total - $this->promo->p_isi : $sub_total - ($sub_total * ($this->promo->p_isi / 100)) : null;
 
-        $midtrans = new CreateSnapTokenService($data);
+        // dd([
+        //     "title" => "pembayaran",
+        //     "snapToken" => $snap_token,
+        //     "detailTransaksi" => $detailTransaksi,
+        //     "totalPromo" => $promo,
+        //     "total" => $total,
+        // ]);
 
-        $snapToken = $midtrans->getSnapToken();
-
-        return view("transaksi.kendaraan.pembayaran", [
+        return view("layanan.transaksi_invoice", [
             "title" => "pembayaran",
-            "snapToken" => $snapToken
+            "snapToken" => $snap_token,
+            "detailTransaksi" => $detailTransaksi,
+            "totalPromo" => $promo,
+            "total" => $total,
         ]);
     }
 }

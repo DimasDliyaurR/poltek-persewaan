@@ -249,8 +249,6 @@
 
         var submit = document.getElementById("submit-dropdown")
 
-        console.log(submit);
-
         function check_in() {
             var check_in = document.getElementById("ta_check_in").value
             var check_in_error = document.getElementById("ta_check_in_error")

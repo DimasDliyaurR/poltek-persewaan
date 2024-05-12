@@ -49,6 +49,7 @@ class AlatBarangController extends Controller
         RequestAlatBarang $request  // Parameter untuk Validation Alat Barang
     ) {
         $validation = $request->validated();
+        $validation["tarif_dp"] = $request->tarif_dp ?? 0;
         if ($request->hasFile('ab_foto')) {
             $file_alat_barang = $request->file('ab_foto'); // Akses Input File
             $foto_alat_barang = $file_alat_barang->hashName(); // Rename File

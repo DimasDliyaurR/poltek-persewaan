@@ -18,6 +18,7 @@ class AlatBarangFeController extends Controller
     private $transaksi;
     private $total_transaksi = 0;
     private $inputPromo;
+    private $snapToken;
 
     public function index()
     {
@@ -113,9 +114,8 @@ class AlatBarangFeController extends Controller
             $transaksi = TransaksiAlatBarang::create([
                 "user_id" => auth()->user()->id,
                 "promo_id" => !($this->promo->isExist()) ? null : $this->promo->getPromo()->id,
-                "code_unique" => auth()->user()->id . strtotime(now()) . "#400",
+                "code_unique" => auth()->user()->id . strtotime(now()) . "@400",
                 "tab_tanggal_pesanan" => $validation["tab_tanggal_pesanan"],
-                "tab_tanggal_sewa" => now(),
                 "tab_tanggal_kembali" => $validation["tab_tanggal_kembali"],
                 "tab_keterangan" => $validation["tab_keterangan"],
             ]);
@@ -135,34 +135,65 @@ class AlatBarangFeController extends Controller
                     "dta_harga" => $total_harga,
                 ]);
             }
+
+            // Apakah Promo sudah terdeteksi
+            if ($this->checkPromo()) {
+                return back()->withErrors([
+                    "promo" => "Promo Sudah Habis"
+                ]);
+            }
+
+            $data = array(
+                'transaction_details' => array(
+                    'order_id' => $this->transaksi->code_unique . "-asramas",
+                    'gross_amount' => $this->total_transaksi,
+                ),
+                'customer_details' => array(
+                    'first_name' => auth()->user()->profile->nama_lengkap,
+                    'email' => auth()->user()->email,
+                    'phone' => auth()->user()->profile->no_telp,
+                ),
+            );
+
+            $midtrans = new CreateSnapTokenService($data);
+
+            $this->snapToken = $midtrans->getSnapToken();
+
+            TransaksiAlatBarang::whereId($this->transaksi->id)->update([
+                "snap_token" => $this->snapToken,
+                "tab_sub_total" => $this->total_transaksi
+            ]);
         });
 
-        // Apakah Promo sudah terdeteksi
-        if (!$this->checkPromo()) {
-            return back()->withErrors([
-                "promo" => "Promo Sudah Habis"
-            ]);
+        return redirect()->route("alat-barang.pembayaran", $this->transaksi->code_unique);
+    }
+
+    public function pembayaran($codeUnique)
+    {
+        $detailTransaksi = TransaksiAlatBarang::with(["alatBarangs" => ["paymentMethod", "satuanAlatBarangs"], "promo",])->whereCodeUnique($codeUnique)->get();
+        $sub_total = 0;
+        $total = 0;
+
+        foreach ($detailTransaksi as $transaksi) {
+            $promo = $transaksi->promo;
+
+            foreach ($transaksi->alatBarangs as $alatBarang) {
+                $sub_total += $alatBarang->ab_tarif;
+            }
+
+            $snap_token = $transaksi->snap_token;
+            $total += $transaksi->tab_sub_total;
         }
 
-        $data = array(
-            'transaction_details' => array(
-                'order_id' => $this->transaksi->code_unique . "-asramas",
-                'gross_amount' => $this->total_transaksi,
-            ),
-            'customer_details' => array(
-                'first_name' => auth()->user()->profile->nama_lengkap,
-                'email' => auth()->user()->email,
-                'phone' => auth()->user()->profile->no_telp,
-            ),
-        );
+        $promo = $promo != null ? ($detailTransaksi->promo->tipe == "fixed") ?
+            $sub_total - $this->promo->p_isi : $sub_total - ($sub_total * ($this->promo->p_isi / 100)) : null;
 
-        $midtrans = new CreateSnapTokenService($data);
-
-        $snapToken = $midtrans->getSnapToken();
-
-        return view("transaksi.kendaraan.pembayaran", [
+        return view("alatBarang.transaksi_invoice", [
             "title" => "pembayaran",
-            "snapToken" => $snapToken
+            "snapToken" => $snap_token,
+            "detailTransaksi" => $detailTransaksi,
+            "totalPromo" => $promo,
+            "total" => $total,
         ]);
     }
 }

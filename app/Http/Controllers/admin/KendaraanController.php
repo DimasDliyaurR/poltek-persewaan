@@ -47,6 +47,8 @@ class KendaraanController extends Controller
     {
         $validation = $request->validated();
 
+        $validation["tarif_dp"] = $request->tarif_dp ?? 0;
+
         if ($request->hasFile('mk_foto')) {
             $file_merk_kendaraan = $request->file('mk_foto');
             $foto_kendaraan = $file_merk_kendaraan->hashName();

@@ -30,7 +30,6 @@ class RequestAlatBarang extends FormRequest
                 "ab_qty" => "required|numeric",
                 "satuan_alat_barang_id" => "required",
                 "is_dp" => "required|boolean",
-                "tarif_dp" => "required|numeric",
             ];
         } else {
             return [
@@ -41,7 +40,6 @@ class RequestAlatBarang extends FormRequest
                 "ab_qty" => "required|numeric",
                 "satuan_alat_barang_id" => "required",
                 "is_dp" => "required|boolean",
-                "tarif_dp" => "required|numeric",
             ];
         }
     }

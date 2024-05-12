@@ -19,8 +19,10 @@ return new class extends Migration
             $table->foreignId('promo_id')->nullable()->constrained("promos");
             $table->string('code_unique');
             $table->string('tk_durasi');
-            $table->timestamp('tk_tanggal_sewa');
+            $table->datetime('tk_tanggal_sewa');
             $table->dateTime('tk_tanggal_kembali');
+            $table->string('tk_snap_token')->nullable();
+            $table->bigInteger('sub_total')->nullable();
             $table->enum('status', ["belum bayar", "terbayar", "kadaluarsa", "batal"])->default("belum bayar");
             $table->timestamps();
         });

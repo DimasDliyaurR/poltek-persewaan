@@ -37,7 +37,6 @@ $(document).ready(function () {
 
                     });
 
-                    console.log(slugItem);
                     $("input[value^=" + slugItem + "]").remove();
                     console.log(parent)
                     parent.remove()

@@ -53,11 +53,60 @@
                         </div>
 
                         <div class=" bg-white p-3 rounded-md">
-                            {{-- <p class="text-xs text-gray-400"> * belum termasuk voucher</p> --}}<a href="{{ route('gedung.pesan', $alatBarangs->ab_slug) }}"
-                                class="block text-center text-white p-2 text-sm mt-4 h-10 w-full bg-primary rounded-lg hover:opacity-50">Pesan</a>
+                            <button id="pesan"
+                                class="block text-center text-white p-2 text-sm mt-4 h-10 w-full bg-primary rounded-lg hover:opacity-50">Pesan</button>
                         </div>
                     </div>
             </div>
+            </x-layout-detail-transaksi>
+
+            <x-layout-detail-transaksi class="mt-5 hidden" :isId="true" id="dropdown">
+                <h4 id="dropdown-title" class="font-bold mb-4 uppercase"></h4>
+                <form action="{{ route('alat-barang.pesan.action') }}" method="POST" id="form_asrama"
+                    onsubmit="return validation()">
+                    @csrf
+                    @method('POST')
+                    <div
+                        class=" flex flex-col xl:flex-row md:flex-row lg:flex-row xl:space-x-2 md:space-x-2 sm:space-x-2 mb-2">
+                        <div class=" mb-2 space-y-2  ">
+                            <label for="tab_tanggal_pesanan"
+                                class=" block mb-2 text-sm font-medium text-gray-900 dark:text-white">Tanggal
+                                Pesanan</label>
+                            <input id="tab_tanggal_pesanan" name="tab_tanggal_pesanan" type="date"
+                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+
+                            <p class="text-red-500 text-sm hidden" id="tab_tanggal_pesanan_error"></p>
+                        </div>
+                        <div class=" mb-2 space-y-2">
+                            <label for="tab_tanggal_kembali"
+                                class=" block mb-2 text-sm font-medium text-gray-900 dark:text-white">Tanggal
+                                Kembali</label>
+                            <input id="tab_tanggal_kembali" name="tab_tanggal_kembali" type="date"
+                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                            <p class="text-red-500 text-sm hidden" id="tab_tanggal_kembali_error"></p>
+                        </div>
+                        <div class=" mb-2 space-y-2">
+                            <label for="promo"
+                                class=" block mb-2 text-sm font-medium text-gray-900 dark:text-white">Voucher</label>
+                            <input id="promo" name="promo" type="text"
+                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                            <p class="text-red-500 text-sm hidden" id="promo_error"></p>
+                        </div>
+                    </div>
+                    <div class=" mb-2 space-y-2">
+                        <label for="tab_keterangan"
+                            class=" block mb-2 text-sm font-medium text-gray-900 dark:text-white">Keterangan</label>
+                        <input id="tab_keterangan" name="tab_keterangan" type="text"
+                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                        <p class="text-red-500 text-sm hidden" id="tab_keterangan_error"></p>
+                    </div>
+                    <ul id="card" class="list-disc">
+                    </ul>
+                    <button type="submit" id="submit-dropdown"
+                        class="mt-5 h-7 w-full bg-primary rounded-lg hover:opacity-50  text-sm   text-white">
+                        Pesan
+                    </button>
+                </form>
             </x-layout-detail-transaksi>
 
             <x-layout-detail-transaksi class="mt-5">
@@ -92,4 +141,193 @@
 
 @section('script')
     <script src="{{ asset('js/feature/multiple-images.js') }}"></script>
+    <script>
+        function isEmpty(elm) {
+            return elm.length === 0 ? true : false
+        }
+
+        function validation() {
+            var tab_tanggal_pesanan = document.getElementById("tab_tanggal_pesanan").value
+            var tab_tanggal_pesanan_error = document.getElementById("tab_tanggal_pesanan_error")
+            var tab_tanggal_kembali = document.getElementById("tab_tanggal_kembali").value
+            var tab_tanggal_kembali_error = document.getElementById("tab_tanggal_kembali_error")
+            var promo = document.getElementById("promo").value
+            var promo_error = document.getElementById("promo_error")
+
+            var isFail = true
+
+            if (tab_tanggal_pesanan == "") {
+                tab_tanggal_pesanan_error.classList.remove("hidden")
+                tab_tanggal_pesanan_error.innerHTML = "Tanggal Pesanan Mohon diisi!"
+                isFail = false;
+            } else {
+                tab_tanggal_pesanan_error.classList.add("hidden")
+                tab_tanggal_pesanan_error.innerHTML = ""
+            }
+
+            if (tab_tanggal_kembali == "") {
+                tab_tanggal_kembali_error.classList.remove("hidden")
+                tab_tanggal_kembali_error.innerHTML = "Tanggal Kembali Mohon diisi!"
+                isFail = false;
+            } else {
+                tab_tanggal_kembali_error.classList.add("hidden")
+                tab_tanggal_kembali_error.innerHTML = ""
+            }
+
+            console.log(promo_error.innerHTML.length, promo_error.innerHTML.length === 0);
+            isFail = isEmpty(promo_error.innerHTML) ? true : false
+
+            return isFail
+        }
+
+        $(document).ready(function() {
+            var button = $("#pesan")
+            var dropdown = $("#dropdown")
+
+            var tab_tanggal_kembali = $("#tab_tanggal_kembali")
+            var tab_tanggal_kembali_error = $("#tab_tanggal_kembali_error")
+
+            var tab_tanggal_pesanan = $("#tab_tanggal_pesanan")
+            var tab_tanggal_pesanan_error = $("#tab_tanggal_pesanan_error")
+
+            var tab_keterangan = $("#tab_keterangan")
+            var tab_keterangan_error = $("#tab_keterangan_error")
+
+            var promo = $("#promo")
+            var promo_error = $("#promo_error")
+
+            var form = $("#form_asrama")
+
+            var submit = $("#submit-dropdown")
+
+            var timeout = null
+
+            button.click((e) => {
+                e.preventDefault();
+                var currentLocation = $(location).attr('href')
+                var nameSlug = currentLocation.split('/')[currentLocation.split('/').length - 1]
+                var input = $("<input value='" + nameSlug + "' id='slug' name='slug[]' class='hidden'/>")
+
+                if (dropdown.hasClass("hidden")) {
+                    form.append(input);
+                    dropdown.removeClass("hidden")
+                } else {
+                    var slug = $("#slug")
+                    slug.remove()
+                    dropdown.addClass("hidden")
+                }
+            });
+
+            tab_tanggal_kembali.on("input", () => {
+                var val = tab_tanggal_kembali.val()
+
+                console.log(val)
+
+                if (val == "") {
+                    tab_tanggal_kembali_error.removeClass("hidden")
+                    tab_tanggal_kembali_error.text("Tanggal Kembali mohon diisi !")
+
+                    submit.addClass("cursor-not-allowed")
+                    submit.attr("disabled", true);
+                } else {
+                    tab_tanggal_kembali_error.addClass("hidden")
+                    tab_tanggal_kembali_error.text("")
+
+                    submit.hasClass("cursor-not-allowed") ? submit.removeClass("cursor-not-allowed") : ''
+                    submit.attr("disabled", false);
+                }
+            });
+            tab_keterangan.on("input", () => {
+                clearTimeout(timeout)
+
+                timeout = setTimeout(() => {
+
+                    var val = tab_keterangan.val()
+
+                    console.log(val);
+
+                    if (val == "") {
+                        tab_keterangan_error.removeClass("hidden")
+                        tab_keterangan_error.text("Keterangan mohon diisi !")
+
+                        submit.addClass("cursor-not-allowed")
+                        submit.attr("disabled", true);
+                    } else {
+                        tab_keterangan_error.addClass("hidden")
+                        tab_keterangan_error.text("")
+
+                        submit.hasClass("cursor-not-allowed") ? submit.removeClass(
+                            "cursor-not-allowed") : ''
+                        submit.attr("disabled", false);
+                    }
+                }, 1000);
+            });
+
+            tab_tanggal_pesanan.on("input", () => {
+                clearTimeout(timeout)
+
+                timeout = setTimeout(() => {
+
+                    var val = tab_tanggal_pesanan.val()
+
+
+
+                    if (val == "") {
+                        tab_tanggal_pesanan_error.removeClass("hidden")
+                        tab_tanggal_pesanan_error.text("Tanggal Sewa mohon diisi !")
+
+                        submit.addClass("cursor-not-allowed")
+                        submit.attr("disabled", true);
+                    } else {
+                        tab_tanggal_pesanan_error.addClass("hidden")
+                        tab_tanggal_pesanan_error.text("")
+
+                        submit.hasClass("cursor-not-allowed") ? submit.removeClass(
+                            "cursor-not-allowed") : ''
+                        submit.attr("disabled", false);
+                    }
+                }, 1000);
+
+            });
+
+            promo.on("input", () => {
+
+                clearTimeout(timeout)
+
+                timeout = setTimeout(() => {
+
+                    var val = $("#promo").val()
+
+                    if (val == "") {
+                        promo_error.text("")
+
+                        submit.hasClass("cursor-not-allowed") ? submit
+                            .removeClass("cursor-not-allowed") : ''
+                        submit.attr("disabled", false);
+                    }
+
+                    fetch(`http://localhost:8000/api/voucher/${val}/kendaraans`)
+                        .then((res) => res.json())
+                        .then((data) => {
+                            console.log(data);
+
+                            if (data.error == true) {
+                                promo_error.removeClass("hidden")
+                                promo_error.text(data.message)
+
+                                submit.addClass("cursor-not-allowed")
+                                submit.attr("disabled", true);
+                            } else {
+                                promo_error.text("")
+
+                                submit.hasClass("cursor-not-allowed") ? submit
+                                    .removeClass("cursor-not-allowed") : ''
+                                submit.attr("disabled", false);
+                            }
+                        })
+                }, 1000)
+            })
+
+        });
+    </script>
 @endsection

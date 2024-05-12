@@ -67,6 +67,12 @@ class TransaksiKendaraan extends Model
     {
         return $this->belongsTo(User::class, "user_id", "id");
     }
+
+    public function promo(): BelongsTo
+    {
+        return $this->belongsTo(Promo::class);
+    }
+
     public function events(): MorphMany
     {
         return $this->morphMany(Event::class, 'eventable');

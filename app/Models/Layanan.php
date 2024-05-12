@@ -68,11 +68,6 @@ class Layanan extends Model
         return $this->hasMany(DetailKategoriPromo::class);
     }
 
-    public function promos(): BelongsToMany
-    {
-        return $this->belongsToMany(Promo::class);
-    }
-
     public function paymentMethod(): HasOne
     {
         return $this->hasOne(LayananPaymentMethod::class);

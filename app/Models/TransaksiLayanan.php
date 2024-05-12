@@ -61,6 +61,12 @@ class TransaksiLayanan extends Model
     {
         return $this->belongsTo(User::class);
     }
+
+    public function promo(): BelongsTo
+    {
+        return $this->belongsTo(Promo::class);
+    }
+
     public function events(): MorphMany
     {
         return $this->morphMany(Event::class, 'eventable');

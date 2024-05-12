@@ -20,6 +20,7 @@ class GedungFeController extends Controller
     private $transaksi;
     private $total_transaksi = 0;
 
+    protected $snapToken;
     protected $inputPromo;
 
     public function index()
@@ -70,6 +71,7 @@ class GedungFeController extends Controller
             "slug" => "required",
         ]);
 
+
         $item = $request->slug;
 
         // Promo
@@ -95,7 +97,7 @@ class GedungFeController extends Controller
             $transaksi = TransaksiGedung::create([
                 "user_id" => auth()->user()->id,
                 "promo_id" => !($this->promo->isExist()) ? null : $this->promo->getPromo()->id,
-                "code_unique" => auth()->user()->id . strtotime(now()) . "#300",
+                "code_unique" => auth()->user()->id . strtotime(now()) . "@300",
                 "tg_tujuan" => $validation["tg_tujuan"],
                 "tg_tanggal_sewa" => now(),
                 "tg_tanggal_kembali" => $validation["tg_tanggal_kembali"],
@@ -116,34 +118,74 @@ class GedungFeController extends Controller
                     "dtg_harga" => $total_harga,
                 ]);
             }
+            // Apakah Promo sudah terdeteksi
+            if ($this->checkPromo()) {
+                return back()->withErrors([
+                    "promo" => "Promo Sudah Habis"
+                ]);
+            }
+
+            $data = array(
+                'transaction_details' => array(
+                    'order_id' => $this->transaksi->code_unique . "-gedungs",
+                    'gross_amount' => $this->total_transaksi,
+                ),
+                'customer_details' => array(
+                    'first_name' => auth()->user()->profile->nama_lengkap,
+                    'email' => auth()->user()->email,
+                    'phone' => auth()->user()->profile->no_telp,
+                ),
+            );
+
+            $midtrans = new CreateSnapTokenService($data);
+
+            $this->snapToken = $midtrans->getSnapToken();
+
+
+            TransaksiGedung::whereId($this->transaksi->id)->update([
+                "snap_token" => $this->snapToken,
+                "tg_sub_total" => $this->total_transaksi
+            ]);
         });
 
-        // Apakah Promo sudah terdeteksi
-        if (!$this->checkPromo()) {
-            return back()->withErrors([
-                "promo" => "Promo Sudah Habis"
-            ]);
+
+        return redirect()->route("gedung.pembayaran", $this->transaksi->code_unique);
+    }
+
+    public function pembayaran($codeUnique)
+    {
+        $detailTransaksi = TransaksiGedung::with(["gedungLap.paymentMethod", "promo",])->whereCodeUnique($codeUnique)->get();
+        $sub_total = 0;
+        $total = 0;
+
+        foreach ($detailTransaksi as $transaksi) {
+            $promo = $transaksi->promo;
+
+            foreach ($transaksi->gedungLap as $gedung) {
+                $sub_total += $gedung->gl_tarif;
+            }
+
+            $snap_token = $transaksi->snap_token;
+            $total += $transaksi->tg_sub_total;
         }
 
-        $data = array(
-            'transaction_details' => array(
-                'order_id' => $this->transaksi->code_unique . "-gedungs",
-                'gross_amount' => $this->total_transaksi,
-            ),
-            'customer_details' => array(
-                'first_name' => auth()->user()->profile->nama_lengkap,
-                'email' => auth()->user()->email,
-                'phone' => auth()->user()->profile->no_telp,
-            ),
-        );
+        $promo = $promo != null ? ($detailTransaksi->promo->tipe == "fixed") ?
+            $sub_total - $this->promo->p_isi : $sub_total - ($sub_total * ($this->promo->p_isi / 100)) : null;
 
-        $midtrans = new CreateSnapTokenService($data);
+        // dd([
+        //     "title" => "pembayaran",
+        //     "snapToken" => $snap_token,
+        //     "detailTransaksi" => $detailTransaksi,
+        //     "totalPromo" => $promo,
+        //     "total" => $total,
+        // ]);
 
-        $snapToken = $midtrans->getSnapToken();
-
-        return view("transaksi.kendaraan.pembayaran", [
+        return view("gedungLap.transaksi_invoice", [
             "title" => "pembayaran",
-            "snapToken" => $snapToken
+            "snapToken" => $snap_token,
+            "detailTransaksi" => $detailTransaksi,
+            "totalPromo" => $promo,
+            "total" => $total,
         ]);
     }
 }

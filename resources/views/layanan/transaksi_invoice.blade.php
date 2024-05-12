@@ -23,21 +23,22 @@
                     <table class="w-full text-sm text-left rtl:text-right text-gray-500 ">
                         <thead class=" text-gray-700 uppercase bg-gray-50 ">
                             <tr>
-                                <th scope="col" class="px-1 py-3">Merk Kendaraan</th>
-                                <th scope="col" class="px-6 py-3">Tanggal Sewa</th>
-                                <th scope="col" class="px-6 py-3">Tanggal Kembali</th>
+                                <th scope="col" class="px-1 py-3">Layanan</th>
+                                <th scope="col" class="px-6 py-3">Tanggal Pelakasanan</th>
+                                <th scope="col" class="px-6 py-3">Durasi Sewa</th>
                                 <th scope="col" class="px-6 py-3">Total</th>
                             </tr>
                         </thead>
                         <tbody>
                             @foreach ($detailTransaksi as $item)
-                                @foreach ($item->kendaraans as $subItem)
+                                @foreach ($item->layanans as $subItem)
                                     <tr class="bg-white border-b">
-                                        <td class="px-1 py-4">{{ $subItem->merkKendaraan->mk_merk }}</td>
-                                        <td class="px-6 py-4">{{ date('d M Y', $item->tk_tanggal_sewa) }}</td>
-                                        <td class="px-6 py-4">{{ date('d M Y', strtotime($item->tk_tanggal_kembali)) }}</td>
+                                        <td class="px-1 py-4">{{ $subItem->l_nama }}</td>
+                                        <td class="px-6 py-4">{{ date('d M Y', strtotime($item->tl_tanggal_pelaksanaan)) }}
+                                        </td>
+                                        <td class="px-6 py-4">{{ $item->tl_durasi_sewa }}</td>
                                         <td class="px-6 py-4">Rp
-                                            {{ number_format(!$subItem->merkKendaraan->paymentMethod->is_dp ? $subItem->merkKendaraan->ta_tarif : $subItem->merkKendaraan->paymentMethod->tarif_dp, 0, ',', '.') }}
+                                            {{ number_format(!$subItem->paymentMethod->is_dp ? $subItem->l_tarif : $subItem->paymentMethod->tarif_dp, 0, ',', '.') }}
 
                                         </td>
                                     </tr>

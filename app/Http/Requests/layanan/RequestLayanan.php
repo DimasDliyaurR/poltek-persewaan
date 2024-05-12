@@ -29,7 +29,6 @@ class RequestLayanan extends FormRequest
                 "l_satuan" => "required",
                 "l_deskripsi" => "required",
                 "is_dp" => "boolean",
-                "tarif_dp" => "numeric",
             ];
         } else {
             return [
@@ -39,7 +38,6 @@ class RequestLayanan extends FormRequest
                 "l_satuan" => "required",
                 "l_deskripsi" => "required",
                 "is_dp" => "boolean",
-                "tarif_dp" => "required|numeric",
             ];
         }
     }

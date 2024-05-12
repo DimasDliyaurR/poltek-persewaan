@@ -44,7 +44,6 @@ class RequestMerkKendaraan extends FormRequest
             "mk_bahan_bakar" => "required",
             "mk_deskripsi" => "required",
             "is_dp" => "boolean",
-            "tarif_dp" => "required|numeric",
         ];
     }
 
