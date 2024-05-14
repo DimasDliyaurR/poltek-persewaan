@@ -17,6 +17,7 @@ use App\Http\Controllers\admin\GedungLapController;
 use App\Http\Controllers\admin\KendaraanController;
 use App\Http\Controllers\admin\TransaksiController;
 use App\Http\Controllers\admin\AlatBarangController;
+use App\Http\Controllers\admin\LaporanController;
 use App\Http\Controllers\transaksi\AsramaFeController;
 use App\Http\Controllers\transaksi\GedungFeController;
 use App\Http\Controllers\transaksi\LayananFeController;
@@ -388,6 +389,12 @@ Route::group(["prefix" => "admin", "middleware" => "auth"], function () {
 
         // Index Transaksi Gedung & Lapangan
         Route::get("transaksi-gedungLaps", "indexTransaksiGedungLap");
+    });
+
+    Route::controller(LaporanController::class)->group(function () {
+        Route::group(["prefix" => "laporan", "as" => "laporan."], function () {
+            Route::get('/', 'index')->name("index");
+        });
     });
 });
 

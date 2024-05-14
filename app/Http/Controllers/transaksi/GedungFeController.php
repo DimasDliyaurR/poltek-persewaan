@@ -143,7 +143,7 @@ class GedungFeController extends Controller
 
 
             TransaksiGedung::whereId($this->transaksi->id)->update([
-                "snap_token" => $this->snapToken,
+                "tg_snap_token" => $this->snapToken,
                 "tg_sub_total" => $this->total_transaksi
             ]);
         });

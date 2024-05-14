@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers\api;
 
-use Midtrans\Notification;
 use Illuminate\Http\Request;
 use App\Models\MerkKendaraan;
 use Illuminate\Support\Facades\DB;
@@ -27,35 +26,41 @@ class ApiController extends Controller
         return response()->json($merkKendaraan->get());
     }
 
-    public function callback()
+    public function callback(Request $request)
     {
-        $callback = new Callback();
+        // $notification = new Notification();
 
-        if ($callback->isSignatureKeyVerified()) {
-            $notification = $callback->getNotification();
-            $order = $callback->getOrder();
-            $category = "transaksi_" . $callback->model;
+        $serverKey = config("midtrans.server_key");
+        $hashed = hash("sha512", $request->order_id . $request->status_code . $request->gross_amount . $serverKey);
 
-            if ($callback->isSuccess()) {
-                $item = DB::table($category)->where('code_unique', $order->id)->update([
+        if ($hashed == $request->signature_key) {
+
+            $statusCode = $request->status_code;
+            $transactionStatus = $request->transaction_status;
+            $fraudStatus = !empty($request->fraud_status) ? ($request->fraud_status == 'accept') : true;
+
+            $orderSplit = explode("-", $request->order_id);
+            $model = $orderSplit[count($orderSplit) - 1];
+            $modalTable = "transaksi_" . $model;
+            $codeUnique = str_replace("-" . $model, "", $request->order_id);
+
+            if (($statusCode == 200 && $fraudStatus && ($transactionStatus == 'capture' || $transactionStatus == 'settlement'))) {
+                // return response()->json($orderSplit[count($orderSplit) - 1]);
+                $item = DB::table($modalTable)->where('code_unique', $codeUnique)->update([
                     'status' => "terbayar",
                 ]);
-                if ($category == "transaksi_alat_barangs") {
-                    $transaksiAlatBarang = TransaksiAlatBarang::with(["alatBarangs"])->whereCodeUnique($order->id)->first();
+                if ($modalTable == "transaksi_alat_barangs") {
+                    $transaksiAlatBarang = TransaksiAlatBarang::with(["alatBarangs"])->whereCodeUnique($codeUnique)->first();
                     AlatBarang::find($transaksiAlatBarang->alatBarangs->id)->update([
                         "a_qty" => $transaksiAlatBarang->alatBarangs->a_qty - 1
                     ]);
                 }
-            }
-
-            if ($callback->isExpire()) {
-                DB::table($category)->where('code_unique', $order->id)->update([
+            } else if ($request->transaction_status == 'expire') {
+                DB::table($modalTable)->where('code_unique', $codeUnique)->update([
                     'status' => "kadaluarsa",
                 ]);
-            }
-
-            if ($callback->isCancelled()) {
-                DB::table($category)->where('code_unique', $order->id)->update([
+            } else if ($request->transaction_status == 'cancel') {
+                DB::table($modalTable)->where('code_unique', $codeUnique)->update([
                     'status' => "batal",
                 ]);
             }

@@ -30,6 +30,7 @@ class TransaksiAsrama extends Model
         'ta_check_in',
         'ta_check_out',
         'ta_sub_total',
+        'ta_snap_token',
     ];
 
     /**

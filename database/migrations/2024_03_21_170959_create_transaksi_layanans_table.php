@@ -24,6 +24,7 @@ return new class extends Migration
             $table->string('snap_token')->nullable();
             $table->integer('tl_durasi_sewa');
             $table->string('tl_tujuan');
+            $table->enum('status', ["belum bayar", "terbayar", "kadaluarsa", "batal"])->default("belum bayar");
             $table->timestamps();
         });
 

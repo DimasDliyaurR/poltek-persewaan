@@ -178,7 +178,7 @@ class AsramaFeController extends Controller
                 }
             }
             // Apakah Promo sudah terdeteksi
-            if (!$this->checkPromo()) {
+            if ($this->checkPromo()) {
                 return back()->withErrors([
                     "promo" => "Promo Sudah Habis"
                 ]);
@@ -201,7 +201,7 @@ class AsramaFeController extends Controller
             $this->snapToken = $midtrans->getSnapToken();
 
             $updateTransaksi = TransaksiAsrama::whereId($this->transaksi->id)->update([
-                "snap_token" => $this->snapToken,
+                "ta_snap_token" => $this->snapToken,
                 "ta_sub_total" => $this->total_transaksi + $this->total_transaksi_fasilitas
             ]);
         });
@@ -216,7 +216,7 @@ class AsramaFeController extends Controller
         $sub_total = 0;
 
         foreach ($detailTransaksi as $transaksi) {
-            $snap_token = $transaksi->snap_token;
+            $snap_token = $transaksi->ta_snap_token;
             $promo = $transaksi->promo;
 
             foreach ($transaksi->asramas as $asrama) {
