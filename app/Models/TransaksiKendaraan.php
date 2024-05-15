@@ -29,6 +29,8 @@ class TransaksiKendaraan extends Model
         'tk_durasi',
         'tk_tanggal_sewa',
         'tk_tanggal_kembali',
+        "tk_snap_token",
+        "tk_sub_total",
     ];
 
     /**

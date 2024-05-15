@@ -85,16 +85,16 @@
                     @forelse($transaksiAsrama as $row)
                         <tr class="bg-white border-b dark:bg-gray-700 dark:border-gray-700 dark:hover:bg-gray-400">
                             <td class="px-6 py-4 dark:text-white">
-                                {{ $row->user->name }}
+                                {{ $row->user->profile->nama_lengkap }}
                             </td>
                             <td class="px-6 py-4 dark:text-white">
                                 {{ $row->asramas[0]->a_nama_ruangan }}
                             </td>
-                            <td class="px-6 py-4 dark:text-white">
-                                {{ number_format($row->asramas[0]->a_tarif, 0, ',', '.') }}
+                            <td class="px-6 py-4 dark:text-white">Rp
+                                {{ number_format($row->ta_sub_total, 0, ',', '.') }}
                             </td>
                             <td class="px-6 py-4 dark:text-white">
-                                {{ $row->ta_tanggal_sewa }}
+                                {{ \Carbon\Carbon::parse($row->ta_tanggal_sewa)->isoFormat('D MMMM Y') }}
                             </td>
                             <td class="px-6 py-4 text-right">
                                 <a href="{{ asset('admin/layanan/store/' . $row->id) }}"

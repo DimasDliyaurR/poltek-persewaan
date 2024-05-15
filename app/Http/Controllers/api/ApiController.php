@@ -45,15 +45,19 @@ class ApiController extends Controller
             $codeUnique = str_replace("-" . $model, "", $request->order_id);
 
             if (($statusCode == 200 && $fraudStatus && ($transactionStatus == 'capture' || $transactionStatus == 'settlement'))) {
-                // return response()->json($orderSplit[count($orderSplit) - 1]);
+
                 $item = DB::table($modalTable)->where('code_unique', $codeUnique)->update([
                     'status' => "terbayar",
                 ]);
+
                 if ($modalTable == "transaksi_alat_barangs") {
                     $transaksiAlatBarang = TransaksiAlatBarang::with(["alatBarangs"])->whereCodeUnique($codeUnique)->first();
-                    AlatBarang::find($transaksiAlatBarang->alatBarangs->id)->update([
-                        "a_qty" => $transaksiAlatBarang->alatBarangs->a_qty - 1
-                    ]);
+
+                    foreach ($transaksiAlatBarang->alatBarangs as $alatBarang) {
+                        AlatBarang::whereId($alatBarang->id)->update([
+                            "ab_qty" => $alatBarang->a_qty - 1,
+                        ]);
+                    }
                 }
             } else if ($request->transaction_status == 'expire') {
                 DB::table($modalTable)->where('code_unique', $codeUnique)->update([

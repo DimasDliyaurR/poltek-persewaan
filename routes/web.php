@@ -18,6 +18,7 @@ use App\Http\Controllers\admin\KendaraanController;
 use App\Http\Controllers\admin\TransaksiController;
 use App\Http\Controllers\admin\AlatBarangController;
 use App\Http\Controllers\admin\LaporanController;
+use App\Http\Controllers\InvoiceController;
 use App\Http\Controllers\transaksi\AsramaFeController;
 use App\Http\Controllers\transaksi\GedungFeController;
 use App\Http\Controllers\transaksi\LayananFeController;
@@ -42,9 +43,6 @@ use App\Http\Controllers\transaksi\AlatBarangFeController;
 // });
 
 
-Route::view("/kaka", "asrama.transaksi_invoice", [
-    "title" => "kaka"
-]);
 
 // BackEnd
 /**
@@ -395,6 +393,16 @@ Route::group(["prefix" => "admin", "middleware" => "auth"], function () {
         Route::group(["prefix" => "laporan", "as" => "laporan."], function () {
             Route::get('/', 'index')->name("index");
         });
+    });
+});
+
+Route::controller(InvoiceController::class)->group(function () {
+    Route::group(["middleware" => "auth", "as" => "invoice.", "prefix" => "invoice"], function () {
+        Route::get("asrama/{codeUnique}", "asrama_invoice")->name("asrama");
+        Route::get("layanan/{codeUnique}", "layanan_invoice")->name("layanan");
+        Route::get("alatBarang/{codeUnique}", "alat_barang_invoice")->name("alatBarang");
+        Route::get("gedungLap/{codeUnique}", "gedung_lap_invoice")->name("gedungLap");
+        Route::get("transportasi/{codeUnique}", "transportasi_invoice")->name("transportasi");
     });
 });
 

@@ -21,7 +21,7 @@ return new class extends Migration
             $table->dateTime('tl_tanggal_sewa');
             $table->dateTime('tl_tanggal_pelaksanaan');
             $table->bigInteger('tl_sub_total')->nullable();
-            $table->string('snap_token')->nullable();
+            $table->string('tl_snap_token')->nullable();
             $table->integer('tl_durasi_sewa');
             $table->string('tl_tujuan');
             $table->enum('status', ["belum bayar", "terbayar", "kadaluarsa", "batal"])->default("belum bayar");

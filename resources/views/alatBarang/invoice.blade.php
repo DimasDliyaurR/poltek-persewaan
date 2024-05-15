@@ -43,7 +43,7 @@
                 </div>
                 <div class="py-5 relative">
                     <p class="absolute right-0 mb-2 ">To : </p><br>
-                    <p class="absolute right-0 font-bold">{{ $detailTransaksi[0]->user->profile->nama_lengkap }}</p>
+                    <p class="absolute right-0 font-bold">{{ auth()->user()->profile->nama_lengkap }}</p>
                 </div>
                 <div class="flex  mb-2 mt-2 py-10">
 
@@ -52,24 +52,23 @@
                     <table class="w-full text-sm text-left rtl:text-right text-gray-500 ">
                         <thead class=" text-gray-700 uppercase bg-gray-50 ">
                             <tr>
-                                <th scope="col" class="px-1 py-3">Layanan</th>
-                                <th scope="col" class="px-6 py-3">Tanggal Pelakasanan</th>
-                                <th scope="col" class="px-6 py-3">Harga</th>
-                                <th scope="col" class="px-6 py-3">Durasi Sewa</th>
+                                <th scope="col" class="px-1 py-3">Nama Alat/Barang</th>
+                                <th scope="col" class="px-6 py-3">Tanggal Pesanan</th>
+                                <th scope="col" class="px-6 py-3">Tanggal Kembali</th>
                                 <th scope="col" class="px-6 py-3">Total</th>
                             </tr>
                         </thead>
                         <tbody>
                             @foreach ($detailTransaksi as $item)
-                                @foreach ($item->layanans as $subItem)
+                                @foreach ($item->alatBarangs as $subItem)
                                     <tr class="bg-white border-b">
-                                        <td class="px-1 py-4">{{ $subItem->l_nama }}</td>
-                                        <td class="px-6 py-4">{{ date('d M Y', strtotime($item->tl_tanggal_pelaksanaan)) }}
-                                        <td class="px-1 py-4">Rp {{ number_format($subItem->l_tarif, 0, ',', '.') }}</td>
+                                        <td class="px-1 py-4">{{ $subItem->ab_nama }}</td>
+                                        <td class="px-6 py-4">{{ date('d M Y', strtotime($item->tab_tanggal_pesanan)) }}
                                         </td>
-                                        <td class="px-6 py-4">{{ $item->tl_durasi_sewa }}</td>
+                                        <td class="px-6 py-4">{{ date('d M Y', strtotime($item->tab_tanggal_kembali)) }}
+                                        </td>
                                         <td class="px-6 py-4">Rp
-                                            {{ number_format(!$subItem->paymentMethod->is_dp ? $subItem->l_tarif : $subItem->paymentMethod->tarif_dp, 0, ',', '.') }}
+                                            {{ number_format(!$subItem->paymentMethod->is_dp ? $subItem->ab_tarif : $subItem->paymentMethod->tarif_dp, 0, ',', '.') }}
 
                                         </td>
                                     </tr>
@@ -83,7 +82,7 @@
                             @endif
                             <tr>
                                 <td colspan="3" class="px-6 py-4">Sub Total </td>
-                                <td class="px-6 py-4">Rp {{ number_format($subTotal, 0, ',', '.') }}</td>
+                                <td class="px-6 py-4">Rp {{ number_format($total, 0, ',', '.') }}</td>
                             </tr>
 
 
@@ -104,7 +103,7 @@
                     </div>
                     <div class="flex justify-between mb-2">
                         <h4 class="font-semibold ">Metode Pembayaran</h4>
-                        <p>{{ $detailTransaksi[0]->layanans[0]->paymentMethod->is_dp ? 'DP' : 'Lunas' }}</p>
+                        <p>{{ $detailTransaksi[0]->alatBarangs[0]->paymentMethod->is_dp ? 'DP' : 'Lunas' }}</p>
                     </div>
                     <div class="flex justify-between mb-2">
                         <h4 class="font-semibold">Status Pembayaran</h4>
@@ -112,7 +111,7 @@
                     </div>
                     <div class="flex justify-between mb-2">
                         <h4 class="font-semibold">Total Harga</h4>
-                        <p>Rp {{ number_format($detailTransaksi[0]->tl_sub_total, 0, ',', '.') }}</p>
+                        <p>Rp {{ number_format($detailTransaksi[0]->tab_sub_total, 0, ',', '.') }}</p>
                     </div>
                 </div>
             </div>

@@ -30,6 +30,8 @@ class TransaksiAlatBarang extends Model
         'tab_tanggal_kembali',
         'tab_keterangan',
         'status',
+        "tab_snap_token",
+        "tab_sub_total",
     ];
 
     /**

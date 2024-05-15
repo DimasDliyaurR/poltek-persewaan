@@ -46,30 +46,60 @@
                     <p class="absolute right-0 font-bold">{{ $detailTransaksi[0]->user->profile->nama_lengkap }}</p>
                 </div>
                 <div class="flex  mb-2 mt-2 py-10">
-
+                    <div class="basis-1/2">
+                        <svg class="w-6 h-6 text-primary dark:text-white" aria-hidden="true"
+                            xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none"
+                            viewBox="0 0 24 24">
+                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M4 10h16m-8-3V4M7 7V4m10 3V4M5 20h14a1 1 0 0 0 1-1V7a1 1 0 0 0-1-1H5a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1Zm3-7h.01v.01H8V13Zm4 0h.01v.01H12V13Zm4 0h.01v.01H16V13Zm-8 4h.01v.01H8V17Zm4 0h.01v.01H12V17Zm4 0h.01v.01H16V17Z" />
+                        </svg>
+                        <div>
+                            <h4>Tanggal Sewa</h4>
+                            {{-- <p class="text-gray-500 ">Selasa, 3 Maret 2024 12:00 WIB</p> --}}
+                            <p class="text-gray-500 xl:text-base text-xs ">
+                                {{ \Carbon\Carbon::parse($detailTransaksi[0]->ta_check_in)->isoFormat('D MMMM Y') }}
+                            </p>
+                        </div>
+                    </div>
+                    <div class="basis-1/2">
+                        <svg class="w-6 h-6 text-primary dark:text-white" aria-hidden="true"
+                            xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none"
+                            viewBox="0 0 24 24">
+                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M4 10h16m-8-3V4M7 7V4m10 3V4M5 20h14a1 1 0 0 0 1-1V7a1 1 0 0 0-1-1H5a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1Zm3-7h.01v.01H8V13Zm4 0h.01v.01H12V13Zm4 0h.01v.01H16V13Zm-8 4h.01v.01H8V17Zm4 0h.01v.01H12V17Zm4 0h.01v.01H16V17Z" />
+                        </svg>
+                        <div>
+                            <h4>Tanggal Selesai</h4>
+                            {{-- <p class="text-gray-500 xl:text-base text-xs ">Rabu, 4 Maret 2024 12:00 WIB</p> --}}
+                            <p class="text-gray-500 xl:text-base text-xs ">
+                                {{ \Carbon\Carbon::parse($detailTransaksi[0]->ta_check_out)->isoFormat('D MMMM Y') }}
+                            </p>
+                        </div>
+                    </div>
                 </div>
                 <div class="relative overflow-x-auto ">
                     <table class="w-full text-sm text-left rtl:text-right text-gray-500 ">
                         <thead class=" text-gray-700 uppercase bg-gray-50 ">
                             <tr>
-                                <th scope="col" class="px-1 py-3">Layanan</th>
-                                <th scope="col" class="px-6 py-3">Tanggal Pelakasanan</th>
-                                <th scope="col" class="px-6 py-3">Harga</th>
-                                <th scope="col" class="px-6 py-3">Durasi Sewa</th>
+                                <th scope="col" class="px-1 py-3">Merk Kendaraan</th>
+                                <th scope="col" class="px-6 py-3">Tanggal Sewa</th>
+                                <th scope="col" class="px-6 py-3">Tanggal Kembali</th>
                                 <th scope="col" class="px-6 py-3">Total</th>
                             </tr>
                         </thead>
                         <tbody>
                             @foreach ($detailTransaksi as $item)
-                                @foreach ($item->layanans as $subItem)
+                                @foreach ($item->gedungLap as $subItem)
                                     <tr class="bg-white border-b">
-                                        <td class="px-1 py-4">{{ $subItem->l_nama }}</td>
-                                        <td class="px-6 py-4">{{ date('d M Y', strtotime($item->tl_tanggal_pelaksanaan)) }}
-                                        <td class="px-1 py-4">Rp {{ number_format($subItem->l_tarif, 0, ',', '.') }}</td>
+                                        <td class="px-1 py-4">{{ $subItem->gl_nama }}</td>
+                                        <td class="px-6 py-4">
+                                            {{ \Carbon\Carbon::parse(date('d M Y', strtotime($item->tg_tanggal_sewa)))->isoFormat('D MMM Y') }}
                                         </td>
-                                        <td class="px-6 py-4">{{ $item->tl_durasi_sewa }}</td>
+                                        <td class="px-6 py-4">
+                                            {{ \Carbon\Carbon::parse(date('d M Y', strtotime($item->tg_tanggal_kembali)))->isoFormat('D MMM Y') }}
+                                        </td>
                                         <td class="px-6 py-4">Rp
-                                            {{ number_format(!$subItem->paymentMethod->is_dp ? $subItem->l_tarif : $subItem->paymentMethod->tarif_dp, 0, ',', '.') }}
+                                            {{ number_format(!$subItem->paymentMethod->is_dp ? $subItem->gl_tarif : $subItem->paymentMethod->tarif_dp, 0, ',', '.') }}
 
                                         </td>
                                     </tr>
@@ -83,7 +113,7 @@
                             @endif
                             <tr>
                                 <td colspan="3" class="px-6 py-4">Sub Total </td>
-                                <td class="px-6 py-4">Rp {{ number_format($subTotal, 0, ',', '.') }}</td>
+                                <td class="px-6 py-4">Rp {{ number_format($total, 0, ',', '.') }}</td>
                             </tr>
 
 
@@ -100,11 +130,11 @@
                     <div class="flex justify-between mb-2">
                         <h4 class="font-semibold xl:text-base text-[14px]">Tanggal Pemesanan</h4>
                         <p class="xl:text-base text-[14px]">
-                            {{ \Carbon\Carbon::parse($detailTransaksi[0]->ta_tanggal_sewa)->isoFormat('D MMMM Y') }}</p>
+                            {{ \Carbon\Carbon::parse($detailTransaksi[0]->tg_tanggal_sewa)->isoFormat('D MMMM Y') }}</p>
                     </div>
                     <div class="flex justify-between mb-2">
                         <h4 class="font-semibold ">Metode Pembayaran</h4>
-                        <p>{{ $detailTransaksi[0]->layanans[0]->paymentMethod->is_dp ? 'DP' : 'Lunas' }}</p>
+                        <p>{{ $detailTransaksi[0]->gedungLap[0]->paymentMethod->is_dp ? 'DP' : 'Lunas' }}</p>
                     </div>
                     <div class="flex justify-between mb-2">
                         <h4 class="font-semibold">Status Pembayaran</h4>
@@ -112,7 +142,7 @@
                     </div>
                     <div class="flex justify-between mb-2">
                         <h4 class="font-semibold">Total Harga</h4>
-                        <p>Rp {{ number_format($detailTransaksi[0]->tl_sub_total, 0, ',', '.') }}</p>
+                        <p>Rp {{ number_format($detailTransaksi[0]->tg_sub_total, 0, ',', '.') }}</p>
                     </div>
                 </div>
             </div>

@@ -160,7 +160,7 @@ class KendaraanFeController extends Controller
             $this->snapToken = $midtrans->getSnapToken();
 
             TransaksiKendaraan::whereId($transaksi->id)->update([
-                "snap_token" => $this->snapToken,
+                "tk_snap_token" => $this->snapToken,
                 "tk_sub_total" => $this->total_transaksi,
             ]);
         });
@@ -171,6 +171,9 @@ class KendaraanFeController extends Controller
     public function pembayaran($codeUnique)
     {
         $detailTransaksi = TransaksiKendaraan::with(["kendaraans.merkKendaraan.paymentMethod", "promo",])->whereCodeUnique($codeUnique)->get();
+        if ($detailTransaksi[0]->status == "terbayar") {
+            return redirect()->route("invoice.transportasi", $detailTransaksi[0]->code_unique);
+        }
         $sub_total = 0;
 
         foreach ($detailTransaksi as $transaksi) {
@@ -183,20 +186,12 @@ class KendaraanFeController extends Controller
             foreach ($transaksi->kendaraans as $asrama) {
                 $sub_total += $asrama->merkKendaraan->mk_tarif;
             }
-            $snap_token = $transaksi->snap_token;
-            $total = $transaksi->sub_total;
+            $snap_token = $transaksi->tk_snap_token;
+            $total = $transaksi->tk_sub_total;
         }
 
         $promo = $promo != null ? ($detailTransaksi->promo->tipe == "fixed") ?
             $sub_total - $this->promo->p_isi : $sub_total - ($sub_total * ($this->promo->p_isi / 100)) : null;
-
-        // dd([
-        //     "title" => "pembayaran",
-        //     "snapToken" => $snap_token,
-        //     "detailTransaksi" => $detailTransaksi,
-        //     "totalPromo" => $promo,
-        //     "total" => $total,
-        // ]);
 
         return view("transportasi.transaksi_invoice", [
             "title" => "pembayaran",

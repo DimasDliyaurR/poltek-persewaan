@@ -212,6 +212,9 @@ class AsramaFeController extends Controller
     public function pembayaran($codeUnique)
     {
         $detailTransaksi = TransaksiAsrama::with(["asramas.tipeAsrama.paymentMethod", "fasilitasAsrama", "promo"])->whereCodeUnique($codeUnique)->get();
+        if ($detailTransaksi[0]->status == "terbayar") {
+            return redirect()->route("invoice.alatBarang", $detailTransaksi[0]->code_unique);
+        }
         $total = 0;
         $sub_total = 0;
 

@@ -145,7 +145,7 @@ class AlatBarangFeController extends Controller
 
             $data = array(
                 'transaction_details' => array(
-                    'order_id' => $this->transaksi->code_unique . "-asramas",
+                    'order_id' => $this->transaksi->code_unique . "-alat_barangs",
                     'gross_amount' => $this->total_transaksi,
                 ),
                 'customer_details' => array(
@@ -160,7 +160,7 @@ class AlatBarangFeController extends Controller
             $this->snapToken = $midtrans->getSnapToken();
 
             TransaksiAlatBarang::whereId($this->transaksi->id)->update([
-                "snap_token" => $this->snapToken,
+                "tab_snap_token" => $this->snapToken,
                 "tab_sub_total" => $this->total_transaksi
             ]);
         });
@@ -171,6 +171,10 @@ class AlatBarangFeController extends Controller
     public function pembayaran($codeUnique)
     {
         $detailTransaksi = TransaksiAlatBarang::with(["alatBarangs" => ["paymentMethod", "satuanAlatBarangs"], "promo",])->whereCodeUnique($codeUnique)->get();
+
+        if ($detailTransaksi[0]->status == "terbayar") {
+            return redirect()->route("invoice.alatBarang", $detailTransaksi[0]->code_unique);
+        }
         $sub_total = 0;
         $total = 0;
 
@@ -181,7 +185,7 @@ class AlatBarangFeController extends Controller
                 $sub_total += $alatBarang->ab_tarif;
             }
 
-            $snap_token = $transaksi->snap_token;
+            $snap_token = $transaksi->tab_snap_token;
             $total += $transaksi->tab_sub_total;
         }
 

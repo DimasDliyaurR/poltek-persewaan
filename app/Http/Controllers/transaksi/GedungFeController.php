@@ -155,6 +155,9 @@ class GedungFeController extends Controller
     public function pembayaran($codeUnique)
     {
         $detailTransaksi = TransaksiGedung::with(["gedungLap.paymentMethod", "promo",])->whereCodeUnique($codeUnique)->get();
+        if ($detailTransaksi[0]->status == "terbayar") {
+            return redirect()->route("invoice.gedungLap", $detailTransaksi[0]->code_unique);
+        }
         $sub_total = 0;
         $total = 0;
 
@@ -165,7 +168,7 @@ class GedungFeController extends Controller
                 $sub_total += $gedung->gl_tarif;
             }
 
-            $snap_token = $transaksi->snap_token;
+            $snap_token = $transaksi->tg_snap_token;
             $total += $transaksi->tg_sub_total;
         }
 

@@ -52,7 +52,7 @@
                             @endif
                             <tr>
                                 <td colspan="3" class="px-6 py-4">Sub Total </td>
-                                <td class="px-6 py-4">Rp {{ number_format($total, 0, ',', '.') }}</td>
+                                <td class="px-6 py-4">Rp {{ number_format($subTotal, 0, ',', '.') }}</td>
                             </tr>
 
 
@@ -84,7 +84,12 @@
         var payButton = document.getElementById('pay-button');
         payButton.addEventListener('click', function() {
             // Trigger snap popup. @TODO: Replace TRANSACTION_TOKEN_HERE with your transaction token
-            window.snap.pay('{{ $snapToken }}');
+            window.snap.pay('{{ $snapToken }}', {
+                onSuccess: result => {
+                    window.location.href =
+                        "{{ route('invoice.layanan', $detailTransaksi[0]->code_unique) }}"
+                }
+            });
             // customer will be redirected after completing payment pop-up
         });
 

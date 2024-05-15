@@ -167,7 +167,7 @@ class LayananFeController extends Controller
             $this->snapToken = $midtrans->getSnapToken();
 
             TransaksiLayanan::whereId($this->transaksi->id)->update([
-                "snap_token" => $this->snapToken,
+                "tl_snap_token" => $this->snapToken,
                 "tl_sub_total" => $this->total_transaksi
             ]);
         });
@@ -179,20 +179,19 @@ class LayananFeController extends Controller
     public function pembayaran($codeUnique)
     {
         $detailTransaksi = TransaksiLayanan::with(["layanans.paymentMethod", "promo",])->whereCodeUnique($codeUnique)->get();
+        if ($detailTransaksi[0]->status == "terbayar") {
+            return redirect()->route("invoice.layanan", $detailTransaksi[0]->code_unique);
+        }
         $sub_total = 0;
-        $total = 0;
 
         // dd($detailTransaksi);
 
         foreach ($detailTransaksi as $transaksi) {
             $promo = $transaksi->promo;
 
-            foreach ($transaksi->layanans as $layanan) {
-                $sub_total += $layanan->gl_tarif;
-            }
+            $sub_total = $transaksi->tl_sub_total;
 
-            $snap_token = $transaksi->snap_token;
-            $total += $transaksi->tg_sub_total;
+            $snap_token = $transaksi->tl_snap_token;
         }
 
         $promo = $promo != null ? ($detailTransaksi->promo->tipe == "fixed") ?
@@ -211,7 +210,7 @@ class LayananFeController extends Controller
             "snapToken" => $snap_token,
             "detailTransaksi" => $detailTransaksi,
             "totalPromo" => $promo,
-            "total" => $total,
+            "subTotal" => $sub_total,
         ]);
     }
 }

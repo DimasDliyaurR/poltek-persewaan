@@ -371,7 +371,6 @@
                         isFail = true
                     })
             }
-
             return promo
         }
     </script>

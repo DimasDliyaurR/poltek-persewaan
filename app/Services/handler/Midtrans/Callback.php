@@ -3,6 +3,7 @@
 namespace App\Services\handler\Midtrans;
 
 use App\Models\Order;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Midtrans\Notification;
 
@@ -13,11 +14,11 @@ class Callback extends Midtrans
     protected $serverKey;
     public $model;
 
-    public function __construct()
+    public function __construct(Request $request)
     {
         parent::__construct();
         $this->serverKey = config('midtrans.server_key');
-        $this->_handleNotification();
+        $this->_handleNotification($request);
     }
 
     public function isSignatureKeyVerified()
@@ -66,9 +67,9 @@ class Callback extends Midtrans
         return $signature;
     }
 
-    protected function _handleNotification()
+    protected function _handleNotification($request)
     {
-        $notification = new Notification();
+        $notification = $request;
 
         $orderNumber = $notification->order_id;
         $this->model = explode("-", $orderNumber)[1];

@@ -8,6 +8,7 @@
     <title>{{ $title }} | PERSEWAAN ASET</title>
     @vite('resources/css/app.css')
     @livewireStyles
+    <script type="text/javascript" src="https://unpkg.com/xlsx@0.15.1/dist/xlsx.full.min.js"></script>
 </head>
 
 <body class="dark:bg-gray-800 font-poppins">

@@ -22,7 +22,7 @@ return new class extends Migration
             $table->datetime('tk_tanggal_sewa');
             $table->dateTime('tk_tanggal_kembali');
             $table->string('tk_snap_token')->nullable();
-            $table->bigInteger('sub_total')->nullable();
+            $table->bigInteger('tk_sub_total')->nullable();
             $table->enum('status', ["belum bayar", "terbayar", "kadaluarsa", "batal"])->default("belum bayar");
             $table->timestamps();
         });

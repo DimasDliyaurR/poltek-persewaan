@@ -6,35 +6,35 @@ interface TransaksiService
 {
     /**
      * Get All Transaksi Kendaraan
-     * @return array
+     * @return object
      * @throws InvalidArgumentException
      */
     public function getAllTransaksiKendaraan();
 
     /**
      * Get All Transaksi Layanan
-     * @return array
+     * @return object
      * @throws InvalidArgumentException
      */
     public function getAllTransaksiLayanan();
 
     /**
      * Get All Transaksi Gedung Lapangan
-     * @return array
+     * @return object
      * @throws InvalidArgumentException
      */
     public function getAllTransaksiGedungLap();
 
     /**
      * Get All Transaksi Asrama
-     * @return array
+     * @return object
      * @throws InvalidArgumentException
      */
     public function getAllTransaksiAsrama();
 
     /**
      * Get All Transaksi Alat Barang
-     * @return array
+     * @return object
      * @throws InvalidArgumentException
      */
     public function getAllTransaksiAlatBarang();
@@ -42,7 +42,7 @@ interface TransaksiService
     /**
      * Get Data By Id Transaksi Kendaraan
      * @param integer $id
-     * @return array
+     * @return object
      * @throws InvalidArgumentException
      */
     public function getDataByIdTransaksiKendaraan($id);
@@ -50,7 +50,7 @@ interface TransaksiService
     /**
      * Get Data By Id Transaksi Layanan
      * @param integer $id
-     * @return array
+     * @return object
      * @throws InvalidArgumentException
      */
     public function getDataByIdTransaksiLayanan($id);
@@ -58,7 +58,7 @@ interface TransaksiService
     /**
      * Get Data By Id Transaksi Gedung Lapangan
      * @param integer $id
-     * @return array
+     * @return object
      * @throws InvalidArgumentException
      */
     public function getDataByIdTransaksiGedungLap($id);
@@ -66,7 +66,7 @@ interface TransaksiService
     /**
      * Get Data By Id Transaksi Alat Barang
      * @param integer $id
-     * @return array
+     * @return object
      * @throws InvalidArgumentException
      */
     public function getDataByIdTransaksiAlatBarang($id);
@@ -74,7 +74,7 @@ interface TransaksiService
     /**
      * Get Data By Id Transaksi Asrama
      * @param integer $id
-     * @return array
+     * @return object
      * @throws InvalidArgumentException
      */
     public function getDataByIdTransaksiAsrama($id);
