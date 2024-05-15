@@ -10,6 +10,20 @@ use Symfony\Component\HttpFoundation\Response;
 
 class RedirectIfAuthenticated
 {
+    protected function redirectTo()
+    {
+        switch (auth()->user()->level) {
+            case 'customer':
+                $redirectTo = "/";
+                break;
+            default:
+                $redirectTo = "/admin";
+                break;
+        }
+
+        return $redirectTo;
+    }
+
     /**
      * Handle an incoming request.
      *
@@ -21,7 +35,8 @@ class RedirectIfAuthenticated
 
         foreach ($guards as $guard) {
             if (Auth::guard($guard)->check()) {
-                return redirect(RouteServiceProvider::HOME);
+                return method_exists($this, "redirectTo") ?
+                    redirect($this->redirectTo()) : redirect(RouteServiceProvider::HOME);
             }
         }
 

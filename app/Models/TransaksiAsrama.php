@@ -24,11 +24,13 @@ class TransaksiAsrama extends Model
      */
     protected $fillable = [
         'user_id',
-        'ta_title',
+        'promo_id',
+        'code_unique',
         'ta_tanggal_sewa',
         'ta_check_in',
         'ta_check_out',
-        'ta_is_sarapan',
+        'ta_sub_total',
+        'ta_snap_token',
     ];
 
     /**
@@ -39,11 +41,11 @@ class TransaksiAsrama extends Model
     protected $casts = [
         'id' => 'integer',
         'user_id' => 'integer',
-        'ta_title'=>'string',
+        'promo_id' => 'integer',
+        'code_unique' => 'string',
         'ta_tanggal_sewa' => 'datetime',
         'ta_check_in' => 'datetime',
         'ta_check_out' => 'datetime',
-        'ta_is_sarapan' => 'boolean',
     ];
 
     public function detailTransaksiAsramas(): HasMany
@@ -51,9 +53,16 @@ class TransaksiAsrama extends Model
         return $this->hasMany(DetailTransaksiAsrama::class);
     }
 
+    public function fasilitasAsrama()
+    {
+        return $this->belongsToMany(FasilitasAsrama::class, "detail_transaksi_fasilitas",  "transaksi_asrama_id", "fasilitas_asrama_id")
+            ->using(DetailTransaksiFasilitas::class)->withPivot("dtf_harga");
+    }
+
     public function asramas(): BelongsToMany
     {
-        return $this->belongsToMany(Asrama::class);
+        return $this->belongsToMany(Asrama::class, "detail_transaksi_asramas", "transaksi_asrama_id", "asrama_id")
+            ->using(DetailTransaksiAsrama::class)->withPivot("dta_harga");
     }
 
     public function user(): BelongsTo
@@ -61,7 +70,12 @@ class TransaksiAsrama extends Model
         return $this->belongsTo(User::class);
     }
 
-    public function events() : MorphMany
+    public function promo(): BelongsTo
+    {
+        return $this->belongsTo(Promo::class);
+    }
+
+    public function events(): MorphMany
     {
         return $this->morphMany(Event::class, 'eventable');
     }

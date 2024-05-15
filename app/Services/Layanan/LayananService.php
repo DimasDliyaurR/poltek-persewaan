@@ -88,6 +88,14 @@ interface LayananService
     public function getAllVideoLayanan();
 
     /**
+     * Store Payment Method
+     * @param data array
+     * @return object
+     * @throws InvalidArgumentException Jika terdapat Exception
+     */
+    public function storePaymentMethod($data);
+
+    /**
      * Store Layanan
      * @param data array
      * @return object
@@ -118,6 +126,15 @@ interface LayananService
      * @throws InvalidArgumentException Jika terdapat Exception
      */
     public function storeVideoLayanan($data);
+
+    /**
+     * Update Alat Barang
+     * @param array $data
+     * @param integer $id
+     * @return object
+     * @throws InvalidArgumentException Jika Terdapat Exception
+     */
+    public function updatePaymentMethod($data, $id);
 
     /**
      * Update Layanan

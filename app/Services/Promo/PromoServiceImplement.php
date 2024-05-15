@@ -2,7 +2,7 @@
 
 namespace App\Services\Promo;
 
-use App\Repositories\Promo\DetailKategoriPromo\DetailKategoriPromoRepository;
+use App\Repositories\Promo\DetailUserPromo\DetailUserPromoRepository;
 use App\Repositories\Promo\PromoRepository;
 use App\Services\Promo\PromoService;
 use InvalidArgumentException;
@@ -10,12 +10,12 @@ use InvalidArgumentException;
 class PromoServiceImplement implements PromoService
 {
     private $promoRepository;
-    private $detailKategoriPromoRepository;
+    private $detailUserPromoRepository;
 
-    public function __construct(PromoRepository $promoRepository, DetailKategoriPromoRepository $detailKategoriPromoRepository)
+    public function __construct(PromoRepository $promoRepository, DetailUserPromoRepository $detailUserPromoRepository)
     {
         $this->promoRepository = $promoRepository;
-        $this->detailKategoriPromoRepository = $detailKategoriPromoRepository;
+        $this->detailUserPromoRepository = $detailUserPromoRepository;
     }
 
     /**
@@ -39,11 +39,8 @@ class PromoServiceImplement implements PromoService
      */
     public function getDataPromoById($id)
     {
-        try {
-            $data = $this->promoRepository->getDataById($id);
-        } catch (\Exception $th) {
-            throw new InvalidArgumentException();
-        }
+        $data = $this->promoRepository->getDataById($id);
+
         return $data;
     }
 
@@ -67,10 +64,10 @@ class PromoServiceImplement implements PromoService
      * @param array $data
      * @throws InvalidArgumentException InvalidArgumentException
      */
-    public function createDetailKategoriPromo($data)
+    public function createDetailUserPromo($data)
     {
         try {
-            $data = $this->detailKategoriPromoRepository->store($data);
+            $data = $this->detailUserPromoRepository->store($data);
         } catch (\Exception $th) {
             throw new InvalidArgumentException();
         }
@@ -115,11 +112,11 @@ class PromoServiceImplement implements PromoService
      */
     public function destroyPromo($id)
     {
-        try {
-            $data = $this->promoRepository->destroy($id);
-        } catch (\Exception $th) {
-            throw new InvalidArgumentException();
-        }
+        // try {
+        $data = $this->promoRepository->destroy($id);
+        // } catch (\Exception $th) {
+        //     throw new InvalidArgumentException();
+        // }
         return $data;
     }
 }

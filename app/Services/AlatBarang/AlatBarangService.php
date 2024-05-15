@@ -66,12 +66,29 @@ interface AlatBarangService
     public function createFotoAlatBarang($data);
 
     /**
+     * Store Payment Method
+     * @param data array
+     * @return object
+     * @throws InvalidArgumentException Jika terdapat Exception
+     */
+    public function createPaymentMethod($data);
+
+    /**
      * Store Satuan Alat Barang
      * @param data array
      * @return object
      * @throws InvalidArgumentException Jika terdapat Exception
      */
     public function createSatuanAlatBarang($data);
+
+    /**
+     * Update Alat Barang
+     * @param array $data
+     * @param integer $id
+     * @return object
+     * @throws InvalidArgumentException Jika Terdapat Exception
+     */
+    public function updatePaymentMethod($data, $id);
 
     /**
      * Update Alat Barang

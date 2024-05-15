@@ -11,7 +11,7 @@ class RequestMerkKendaraan extends FormRequest
      */
     public function authorize(): bool
     {
-        return true;
+        return auth()->user()->level == 'admin';
     }
 
     /**
@@ -21,6 +21,19 @@ class RequestMerkKendaraan extends FormRequest
      */
     public function rules(): array
     {
+        if ($this->getMethod() == "PUT") {
+            return [
+                "mk_foto" => "image|extensions:jpg,png",
+                "mk_merk" => "required",
+                "mk_seri" => "required|",
+                "mk_tarif" => "required|numeric|max_digits:10",
+                "mk_kapasitas" => "required",
+                "mk_bahan_bakar" => "required",
+                "mk_deskripsi" => "required",
+                "is_dp" => "boolean",
+                "tarif_dp" => "numeric",
+            ];
+        }
 
         return [
             "mk_foto" => "required|image|extensions:jpg,png",
@@ -30,6 +43,7 @@ class RequestMerkKendaraan extends FormRequest
             "mk_kapasitas" => "required",
             "mk_bahan_bakar" => "required",
             "mk_deskripsi" => "required",
+            "is_dp" => "boolean",
         ];
     }
 
@@ -50,13 +64,18 @@ class RequestMerkKendaraan extends FormRequest
             "mk_seri.required" => "Nama Series mohon diisi !",
 
             // Tarif Harga
-            "mk_tarif.required" => "Tarif Harga mohon diisi",
-            "mk_tarif.numeric" => "Tarif Harga mohon diisi dengan angka",
+            "mk_tarif.required" => "Tarif Harga mohon diisi !",
+            "mk_tarif.numeric" => "Tarif Harga mohon diisi dengan angka !",
             "mk_tarif.max_digits" => "Tarif Harga terlalu panjang",
 
-            "mk_kapasitas.required" => "Kapasitas belum diisi",
-            "mk_bahanbakar.required" => "Bahan bakar belum diisi",
-            "mk_deskripsi.required" => "Deskripsi belum diisi",
+            "mk_kapasitas.required" => "Kapasitas mohon diisi!",
+            "mk_bahanbakar.required" => "Bahan bakar mohon diisi!",
+            "mk_deskripsi.required" => "Deskripsi mohon diisi !",
+
+            "is_dp.boolean" => "Mohon isi dengan valid !",
+
+            "tarif_dp.required" => "tarif dp mohon diisi !",
+            "tarif_dp.numeric" => "Mohon isi berupa angka !",
         ];
     }
 }

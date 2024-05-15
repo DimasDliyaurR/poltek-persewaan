@@ -11,6 +11,9 @@ class TransaksiAsramaRepositoryImplement implements TransaksiAsramaRepository
 
     public function __construct(TransaksiAsrama $transaksiAsrama)
     {
+        setlocale(LC_TIME, 'id_ID');
+        \Carbon\Carbon::setLocale('id');
+        \Carbon\Carbon::now()->formatLocalized("%A, %d %B %Y");
         $this->transaksiAsrama = $transaksiAsrama;
     }
 
@@ -43,7 +46,7 @@ class TransaksiAsramaRepositoryImplement implements TransaksiAsramaRepository
      */
     public function getAllWithDetailTransaksiAsrama()
     {
-        $transaksiAsramaData = $this->transaksiAsrama::with(["asramas", "user"]);
+        $transaksiAsramaData = $this->transaksiAsrama::with(["asramas", "user.profile"]);
 
         return $transaksiAsramaData;
     }

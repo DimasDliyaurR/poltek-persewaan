@@ -11,7 +11,7 @@ class LayananRepositoryImplement implements LayananRepository
 
     public function __construct(Layanan $layanan)
     {
-        $this->layanan = $layanan;
+        $this->layanan = $layanan::with("paymentMethod");
     }
 
     /**
@@ -21,7 +21,7 @@ class LayananRepositoryImplement implements LayananRepository
      */
     public function getDataById($id)
     {
-        return $this->layanan::whereId($id)->first();
+        return $this->layanan->whereId($id)->first();
     }
 
     /**
@@ -31,7 +31,7 @@ class LayananRepositoryImplement implements LayananRepository
      */
     public function getAll()
     {
-        return $this->layanan::paginate(5);
+        return $this->layanan->paginate(5);
     }
 
     /**
@@ -41,7 +41,7 @@ class LayananRepositoryImplement implements LayananRepository
      */
     public function store($data)
     {
-        $dataLayanan = $this->layanan::create($data);
+        $dataLayanan = $this->layanan->create($data);
         return $dataLayanan;
     }
 
@@ -52,7 +52,7 @@ class LayananRepositoryImplement implements LayananRepository
      */
     public function update($data, $id)
     {
-        $dataLayanan = $this->layanan::findOrFail($id);
+        $dataLayanan = $this->layanan->findOrFail($id);
         $dataLayanan->update($data);
         return $dataLayanan;
     }
@@ -64,7 +64,7 @@ class LayananRepositoryImplement implements LayananRepository
      */
     public function delete($id)
     {
-        $dataLayanan = $this->layanan::findOrFail($id);
+        $dataLayanan = $this->layanan->findOrFail($id);
         $dataLayanan->delete();
 
         return $dataLayanan;

@@ -5,6 +5,29 @@ namespace App\Services\Asrama;
 interface AsramaService
 {
     /**
+     * Get Data Asrama By Id Detail Foto Tipe Asrama
+     * @param int $id
+     * @return object
+     */
+    public function getDataFotoTipeAsrama($id);
+
+    /**
+     * Get Data Detail Foto Tipe Asrama By Id Asrama
+     * @param id string
+     * @return object
+     * @throws InvalidArgumentException Jika terdapat kesalahan Exception
+     */
+    public function getDataDetailFotoTipeAsramaById($id);
+
+    /**
+     * Get Data Detail Foto Tipe Asrama By Id Tipe Asrama Asrama
+     * @param id string
+     * @return object
+     * @throws InvalidArgumentException Jika terdapat kesalahan Exception
+     */
+    public function getDataDetailFotoTipeAsramaByTipeAsramaId($id);
+
+    /**
      * Get Data Asrama By Id Asrama
      * @param id string
      * @return object
@@ -29,6 +52,29 @@ interface AsramaService
     public function getDataFasilitasAsramaById($id);
 
     /**
+     * Get Data Detail Fasilitas By Asrama Id
+     * @param Id
+     * @return object
+     * @throws InvalidArgumentException Jika Terdapat Kesalahan Exception
+     */
+    public function getDataDetailFasilitasByTipeAsramaId($id);
+
+    /**
+     * Get Data Tipe Asrama By Asrama Id
+     * @param Id
+     * @return object
+     * @throws InvalidArgumentException Jika Terdapat Kesalahan Exception
+     */
+    public function getDataTipeAsramaById($id);
+
+    /**
+     * Get All Data Fasilitas Asrama
+     * @return object
+     * @throws InvalidArgumentException Jika terdapat kesalahan Exception
+     */
+    public function getAllDataDetailFotoTipeAsrama();
+
+    /**
      * Get All Data Fasilitas Asrama
      * @return object
      * @throws InvalidArgumentException Jika terdapat kesalahan Exception
@@ -50,20 +96,20 @@ interface AsramaService
     public function getAllDataTipeAsrama();
 
     /**
-     * Get Data Detail Fasilitas By Asrama Id
-     * @param Id
+     * Store Payment Method
+     * @param data array
      * @return object
-     * @throws InvalidArgumentException Jika Terdapat Kesalahan Exception
+     * @throws InvalidArgumentException Jika terdapat Exception
      */
-    public function getDataDetailFasilitasByTipeAsramaId($id);
+    public function storePaymentMethod($data);
 
     /**
-     * Get Data Tipe Asrama By Asrama Id
-     * @param Id
+     * Store Data Foto Tipe Asrama
+     * @param  array $data
      * @return object
-     * @throws InvalidArgumentException Jika Terdapat Kesalahan Exception
+     * @throws InvalidArgumentException Jika terdapat kesalahan Exception
      */
-    public function getDataTipeAsramaById($id);
+    public function storeDetailFotoTipeAsrama($data);
 
     /**
      * Store Data Fasilitas Asrama
@@ -98,6 +144,24 @@ interface AsramaService
     public function storeTipeAsrama($data);
 
     /**
+     * Update Alat Barang
+     * @param array $data
+     * @param integer $id
+     * @return object
+     * @throws InvalidArgumentException Jika Terdapat Exception
+     */
+    public function updatePaymentMethod($data, $id);
+
+    /**
+     * Update Detail Foto Tipe Asrama
+     * @param array $dara
+     * @param int $id
+     * @return object
+     * @throws InvalidArgumentException Jika terdapat kesalahan Exception
+     */
+    public function updateDetailFotoTipeAsrama($data, $id);
+
+    /**
      * Update Asrama
      * @param data
      * @return object
@@ -130,6 +194,14 @@ interface AsramaService
      * @throws InvalidArgumentException Jika terdapat kesalahan Exception
      */
     public function updateTipeAsrama($data, $id);
+
+    /**
+     * Delete Asrama
+     * @param id
+     * @return object
+     * @throws InvalidArgumentException Jika terdapat kesalahan Exception
+     */
+    public function destroyDetailFotoTipeAsrama($id);
 
     /**
      * Delete Asrama

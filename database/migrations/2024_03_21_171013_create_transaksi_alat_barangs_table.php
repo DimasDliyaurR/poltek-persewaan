@@ -16,9 +16,14 @@ return new class extends Migration
         Schema::create('transaksi_alat_barangs', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->constrained("users");
-            $table->string('tab_title');
+            $table->foreignId('promo_id')->nullable()->constrained("promos");
+            $table->string('code_unique');
             $table->dateTime('tab_tanggal_pesanan');
             $table->dateTime('tab_tanggal_kembali');
+            $table->string('tab_keterangan');
+            $table->bigInteger('tab_sub_total')->nullable();
+            $table->string('tab_snap_token')->nullable();
+            $table->enum('status', ["belum bayar", "terbayar", "kadaluarsa", "batal"])->default("belum bayar");
             $table->timestamps();
         });
 

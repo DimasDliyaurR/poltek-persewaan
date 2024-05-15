@@ -11,7 +11,7 @@ class RequestAlatBarang extends FormRequest
      */
     public function authorize(): bool
     {
-        return true;
+        return auth()->user()->level == 'admin';
     }
 
     /**
@@ -21,43 +21,47 @@ class RequestAlatBarang extends FormRequest
      */
     public function rules(): array
     {
-        $rules = [];
-
         if ($this->getMethod() == "PUT") {
-            $rules += [
-                "a_foto" => "image",
-                "a_nama" => "required",
-                "a_keterangan" => "required",
-                "a_tarif" => "required|numeric",
-                "a_qty" => "required|numeric",
+            return [
+                "ab_foto" => "image",
+                "ab_nama" => "required",
+                "ab_keterangan" => "required",
+                "ab_tarif" => "required|numeric",
+                "ab_qty" => "required|numeric",
                 "satuan_alat_barang_id" => "required",
+                "is_dp" => "required|boolean",
             ];
         } else {
-            $rules += [
-                "a_foto" => "required|image",
-                "a_nama" => "required",
-                "a_keterangan" => "required",
-                "a_tarif" => "required|numeric",
-                "a_qty" => "required|numeric",
+            return [
+                "ab_foto" => "required|image",
+                "ab_nama" => "required",
+                "ab_keterangan" => "required",
+                "ab_tarif" => "required|numeric",
+                "ab_qty" => "required|numeric",
                 "satuan_alat_barang_id" => "required",
+                "is_dp" => "required|boolean",
             ];
         }
-
-        return $rules;
     }
 
     public function messages()
     {
         return [
-            "a_foto.required" => "Foto mohon diisi !",
-            "a_foto.image" => "Foto mohon diisi berupa gambar !",
-            "a_nama.required" => "Nama Alat Barang mohon diisi !",
-            "a_keterangan.required" => "Keterangan mohon diisi !",
-            "a_tarif.required" => "Harga Tarif mohon diisi !",
-            "a_tarif.numeric" => "Harga Tarif mohon diisi menggunakan angka !",
-            "a_qty.required" => "Jumlah Unit mohon diisi !",
-            "a_qty.numeric" => "Jumlah Unit mohon diisi menggunakan angka !",
-            "a_satuan.required" => "Satuan mohon diisi !",
+            "ab_foto.required" => "Foto mohon diisi !",
+            "ab_foto.image" => "Foto mohon diisi berupa gambar !",
+            "ab_nama.required" => "Nama Alat Barang mohon diisi !",
+            "ab_keterangan.required" => "Keterangan mohon diisi !",
+            "ab_tarif.required" => "Harga Tarif mohon diisi !",
+            "ab_tarif.numeric" => "Harga Tarif mohon diisi menggunakan angka !",
+            "ab_qty.required" => "Jumlah Unit mohon diisi !",
+            "ab_qty.numeric" => "Jumlah Unit mohon diisi menggunakan angka !",
+            "ab_satuan.required" => "Satuan mohon diisi !",
+
+            "is_dp.boolean" => "Mohon isi dengan valid !",
+            "is_dp.required" => "Mohon diisi pertanyaannya !",
+
+            "tarif_dp.required" => "tarif dp mohon diisi !",
+            "tarif_dp.numeric" => "Mohon isi berupa angka !",
         ];
     }
 }

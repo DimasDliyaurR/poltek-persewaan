@@ -17,6 +17,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('tipe_asrama_id')->constrained("tipe_asramas")->onDelete("cascade");
             $table->foreignId('fasilitas_asrama_id')->constrained('fasilitas_asramas')->onDelete("cascade");
+            $table->enum('dfa_status', ["include", "pilihan"]);
             $table->timestamps();
         });
 

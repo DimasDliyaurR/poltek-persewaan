@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers\admin;
 
+use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use InvalidArgumentException;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\URL;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Storage;
@@ -46,6 +48,8 @@ class LayananController extends Controller
     {
         $validation = $request->validated();
 
+        $validation["tarif_dp"] = $request->tarif_dp ?? 0;
+
         if ($request->hasFile('l_foto')) {
             $file_layanan = $request->file('l_foto');
             $foto_layanan = $file_layanan->hashName();
@@ -59,7 +63,11 @@ class LayananController extends Controller
         $validation['l_slug'] = Str::slug($validation["l_nama"]);
 
         try {
-            $this->layananService->storeLayanan($validation);
+            DB::transaction(function () use ($validation) {
+                $layanan = $this->layananService->storeLayanan($validation);
+                $validation["layanan_id"] = $layanan->id;
+                $this->layananService->storePaymentMethod(Arr::only($validation, ["is_dp", "tarif_dp", "layanan_id"]));
+            });
         } catch (\Exception $th) {
             throw new InvalidArgumentException();
         }
@@ -94,6 +102,7 @@ class LayananController extends Controller
     {
         try {
             $layanan = $this->layananService->getDatalayananById($id);
+            // dd($layanan);
         } catch (\Exception $th) {
             return abort(404);
         }
@@ -131,7 +140,10 @@ class LayananController extends Controller
         $validation['l_slug'] = Str::slug($validation["l_nama"]);
 
         try {
-            $this->layananService->updatelayanan($validation, $id);
+            DB::transaction(function () use ($validation, $id) {
+                $this->layananService->updateLayanan($validation, $id);
+                $this->layananService->updatePaymentMethod($validation, $id);
+            });
         } catch (\Exception $th) {
             throw new InvalidArgumentException();
         }

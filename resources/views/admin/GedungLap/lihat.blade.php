@@ -71,6 +71,12 @@
                         <th scope="col" class="px-6 py-3">
                             <span class="sr-only">Edit</span>
                         </th>
+                        <th scope="col" class="px-6 py-3">
+                            <span class="sr-only">Hapus</span>
+                        </th>
+                        <th scope="col" class="px-6 py-3">
+                            <span class="sr-only">Option</span>
+                        </th>
                     </tr>
                 </thead>
                 <tbody>
@@ -85,7 +91,7 @@
                                 {{ $row->gl_nama }}
                             </td>
                             <td class="px-6 py-4 dark:text-white">
-                                Rp. {{ number_format($row->gl_tarif, 0, '.', ',') }}
+                                Rp. {{ number_format($row->gl_tarif, 0, ',', '.') }}
                             </td>
                             <td class="px-6 py-4 text-right">
                                 <a href="{{ asset('admin/gedungLap/store/' . $row->id) }}"
@@ -99,6 +105,16 @@
                             <td class="px-6 py-4 text-right">
                                 <x-delete-button action="admin/gedungLap/delete/{{ $row->id }}"
                                     id="{{ $row->id }}" nama="{{ $row->gl_nama }}"></x-delete-button>
+                            </td>
+                            <td>
+                                <x-button-dropdown-option-table targe="dropdown-{{ $row->id }}" />
+
+                                <!-- Dropdown menu -->
+                                <x-dropdown-option-table id="dropdown-{{ $row->id }}">
+                                    <x-list-dropdown-option-table
+                                        href="{{ route('detailFotoGedungLap.index', $row->id) }}">Tambah
+                                        Foto</x-list-dropdown-option-table>
+                                </x-dropdown-option-table>
                             </td>
                         </tr>
                     @empty
@@ -205,6 +221,11 @@
                 <p class="text-sm">Bisa dikosongkan</p>
             </div>
 
+            <x-radio-button-form title="Apakah barang ini akan menggunakan metode uang muka ?" name="is_dp" />
+
+            <x-field-form name="tarif_dp" class="hidden"
+                title="Isi Tarif Dp untuk suatu saat jika barang ini memakai metode uang maka !" />
+
             <div class="mb-5">
                 <label for="gl_keterangan"
                     class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Deskripsi</label>
@@ -221,4 +242,8 @@
 
     </x-inner-layout>
     <!-- FORM END -->
+@endsection
+
+@section('script')
+    <script src="{{ asset('js/feature/dp-field-toggle.js') }}"></script>
 @endsection

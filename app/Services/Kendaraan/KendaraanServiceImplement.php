@@ -6,19 +6,24 @@ use InvalidArgumentException;
 use App\Services\Kendaraan\KendaraanService;
 use App\Repositories\Kendaraan\KendaraanRepository;
 use App\Repositories\Kendaraan\MerkKendaraan\MerkKendaraanRepository;
-use App\Repositories\Kendaraan\TransaksiKendaraan\TransaksiKendaraanRepository;
+use App\Repositories\Kendaraan\PaymentMethod\KendaraanPaymentMethodRepository;
+// use App\Repositories\Kendaraan\PaymentMethod\KendaraanPaymentMethodRepository;
 
 class KendaraanServiceImplement implements KendaraanService
 {
     private $kendaraanRepository;
     private $merkKendaraanRepository;
-    private $transaksiKendaraanRepository;
+    private $paymentMethodRepository;
 
-    public function __construct(KendaraanRepository $kendaraanRepository, MerkKendaraanRepository $merkKendaraanRepository, TransaksiKendaraanRepository $transaksiKendaraan)
-    {
+
+    public function __construct(
+        KendaraanRepository $kendaraanRepository,
+        MerkKendaraanRepository $merkKendaraanRepository,
+        KendaraanPaymentMethodRepository $paymentMethodRepository
+    ) {
         $this->kendaraanRepository = $kendaraanRepository;
         $this->merkKendaraanRepository = $merkKendaraanRepository;
-        $this->transaksiKendaraanRepository = $transaksiKendaraan;
+        $this->paymentMethodRepository = $paymentMethodRepository;
     }
 
     /**
@@ -100,6 +105,23 @@ class KendaraanServiceImplement implements KendaraanService
     }
 
     /**
+     * Store Payment Method
+     * @param data array
+     * @return object
+     * @throws InvalidArgumentException Jika terdapat Exception
+     */
+    public function storePaymentMethod($data)
+    {
+        // try {
+        $data = $this->paymentMethodRepository->store($data);
+        // } catch (\Exception $th) {
+        //     throw new InvalidArgumentException();
+        // }
+
+        return $data;
+    }
+
+    /**
      *  Store Data Kendaraan
      * @param data
      * @return array
@@ -126,6 +148,24 @@ class KendaraanServiceImplement implements KendaraanService
     {
         try {
             $data = $this->merkKendaraanRepository->store($data);
+        } catch (\Exception $th) {
+            throw new InvalidArgumentException();
+        }
+
+        return $data;
+    }
+
+    /**
+     * Update Alat Barang
+     * @param array $data
+     * @param integer $id
+     * @return object
+     * @throws InvalidArgumentException Jika Terdapat Exception
+     */
+    public function updatePaymentMethod($data, $id)
+    {
+        try {
+            $data = $this->paymentMethodRepository->update($data, $id);
         } catch (\Exception $th) {
             throw new InvalidArgumentException();
         }

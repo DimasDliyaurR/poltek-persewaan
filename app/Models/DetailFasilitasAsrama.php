@@ -3,10 +3,10 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\Pivot;
 
-class DetailFasilitasAsrama extends Model
+class DetailFasilitasAsrama extends Pivot
 {
     use HasFactory;
 
@@ -18,6 +18,7 @@ class DetailFasilitasAsrama extends Model
     protected $fillable = [
         'tipe_asrama_id',
         'fasilitas_asrama_id',
+        'dfa_status',
     ];
 
     protected $table = "detail_fasilitas_asramas";
@@ -31,6 +32,7 @@ class DetailFasilitasAsrama extends Model
         'id' => 'integer',
         'tipe_asrama_id' => 'integer',
         'fasilitas_asrama_id' => 'integer',
+        'dfa_status' => 'string',
     ];
 
     public function fasilitasAsrama(): BelongsTo

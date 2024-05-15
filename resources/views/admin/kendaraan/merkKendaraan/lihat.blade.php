@@ -94,6 +94,10 @@
                 @enderror
             </div>
 
+            <x-radio-button-form title="Apakah barang ini akan menggunakan metode uang muka ?" name="is_dp" />
+
+            <x-field-form name="tarif_dp" class="hidden" title="Tarif Dp" />
+
             <div class="mb-5">
                 <label for="mk_deskripsi"
                     class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Deskripsi</label>
@@ -110,4 +114,8 @@
 
     </x-inner-layout>
     <!-- FORM END -->
+@endsection
+
+@section('script')
+    <script src="{{ asset('js/feature/dp-field-toggle.js') }}"></script>
 @endsection

@@ -42,6 +42,14 @@ interface KendaraanService
     public function getAllDataMerkKendaraan();
 
     /**
+     * Store Payment Method
+     * @param data array
+     * @return object
+     * @throws InvalidArgumentException Jika terdapat Exception
+     */
+    public function storePaymentMethod($data);
+
+    /**
      *  Store Data Kendaraan
      * @param data
      * @return object
@@ -56,6 +64,15 @@ interface KendaraanService
      * @throws InvalidArgumentException Jika ada error pada argument
      */
     public function storeMerkKendaraan($data);
+
+    /**
+     * Update Alat Barang
+     * @param array $data
+     * @param integer $id
+     * @return object
+     * @throws InvalidArgumentException Jika Terdapat Exception
+     */
+    public function updatePaymentMethod($data, $id);
 
     /**
      * Update Data Kendaraan

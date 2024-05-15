@@ -2,18 +2,19 @@
 
 namespace App\Services\User;
 
+
 interface UserService
 {
     /**
      * Get All Data User
-     * @return boolean
+     * @return object
      * @throws InvalidArgumentException
      */
     public function getAllUser();
 
     /**
      * Get All Data Profile
-     * @return boolean
+     * @return object
      * @throws InvalidArgumentException
      */
     public function getAllProfile();
@@ -21,10 +22,18 @@ interface UserService
     /**
      * Get Data Profile By Id
      * @param integer $id
-     * @return boolean
+     * @return object
      * @throws InvalidArgumentException
      */
     public function getDataProfileById($id);
+
+    /**
+     * Get Data User By Id
+     * @param integer $id
+     * @return object
+     * @throws InvalidArgumentException
+     */
+    public function getDataUserById($id);
 
     /**
      * Create Data User
@@ -36,8 +45,26 @@ interface UserService
 
     /**
      * Create Data Profile
-     * @return boolean
+     * @return object
      * @throws InvalidArgumentException
      */
     public function createProfile($data);
+
+    /**
+     * Update Data User
+     * @param array $data
+     * @param int $id
+     * @return object
+     * @throws InvalidArgumentException
+     */
+    public function updateUser($data, $id);
+
+    /**
+     * Update Data Profile
+     * @param array $data
+     * @param int $id
+     * @return object
+     * @throws InvalidArgumentException
+     */
+    public function updateProfile($data, $id);
 }

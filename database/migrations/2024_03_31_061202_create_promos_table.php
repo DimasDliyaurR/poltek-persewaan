@@ -17,7 +17,7 @@ return new class extends Migration
             $table->id();
             $table->string("p_judul");
             $table->string("p_foto");
-            $table->string("p_kode");
+            $table->string("p_kode")->unique();
             $table->integer("p_isi");
             $table->enum("p_tipe", ["fixed", "percent"]);
             $table->boolean("p_is_umum");
@@ -26,6 +26,7 @@ return new class extends Migration
             $table->dateTime("p_mulai");
             $table->dateTime("p_kadaluarsa");
             $table->integer("p_jumlah")->nullable();
+            $table->enum("p_tipe_stok", ["unlimited", "limit"]);
             $table->string("p_kategori");
             $table->timestamps();
         });

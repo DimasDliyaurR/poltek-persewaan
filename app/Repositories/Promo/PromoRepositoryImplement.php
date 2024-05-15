@@ -39,7 +39,7 @@ class PromoRepositoryImplement implements PromoRepository
      */
     public function getDataById($id)
     {
-        return $this->promoRepository::findOrFail($id)->first();
+        return $this->promoRepository::findOrFail($id);
     }
 
     /**

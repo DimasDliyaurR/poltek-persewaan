@@ -12,7 +12,7 @@ class RequestTipeAsrama extends FormRequest
      */
     public function authorize(): bool
     {
-        return true;
+        return auth()->user()->level == 'admin';
     }
 
     /**
@@ -23,7 +23,6 @@ class RequestTipeAsrama extends FormRequest
     public function rules(): array
     {
         $tipeAsrama = $this->route();
-        // dd($this->all());
         if ($this->getMethod() != "PUT") {
             return [
                 "ta_foto" => "required|image",
@@ -31,6 +30,8 @@ class RequestTipeAsrama extends FormRequest
                 "ta_tarif" => "required|numeric",
                 "ta_kapasitas" => "required|numeric",
                 "ta_deskripsi" => "required",
+                "is_dp" => "required|boolean",
+                "tarif_dp" => "numeric",
             ];
         } else {
             return [
@@ -39,6 +40,8 @@ class RequestTipeAsrama extends FormRequest
                 "ta_tarif" => "required|numeric",
                 "ta_kapasitas" => "required|numeric",
                 "ta_deskripsi" => "required",
+                "is_dp" => "required|boolean",
+                "tarif_dp" => "numeric",
             ];
         }
     }
@@ -59,6 +62,11 @@ class RequestTipeAsrama extends FormRequest
             "ta_kapasitas.numeric" => "Kapasitas mohon diisi menggunakan angka !",
 
             "ta_deskripsi.required" => "Deskripsi mohon diisi !",
+
+            "is_dp.boolean" => "Mohon isi dengan valid !",
+
+            "tarif_dp.required" => "tarif dp mohon diisi !",
+            "tarif_dp.numeric" => "Mohon isi berupa angka !",
         ];
     }
 }

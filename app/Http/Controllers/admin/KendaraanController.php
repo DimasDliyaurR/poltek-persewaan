@@ -2,17 +2,15 @@
 
 namespace App\Http\Controllers\admin;
 
+use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
-use Illuminate\Http\Request;
-use App\Models\MerkKendaraan;
 use InvalidArgumentException;
+use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Storage;
 use App\Http\Requests\RequestMerkKendaraan;
 use App\Services\Kendaraan\KendaraanService;
 use App\Http\Requests\kendaraan\RequestKendaraan;
-use App\Http\Requests\RequestMerkKendaraanUpdate;
-use App\Http\Requests\kendaraan\RequestKendaraanUpdate;
 
 class KendaraanController extends Controller
 {
@@ -49,6 +47,8 @@ class KendaraanController extends Controller
     {
         $validation = $request->validated();
 
+        $validation["tarif_dp"] = $request->tarif_dp ?? 0;
+
         if ($request->hasFile('mk_foto')) {
             $file_merk_kendaraan = $request->file('mk_foto');
             $foto_kendaraan = $file_merk_kendaraan->hashName();
@@ -61,7 +61,12 @@ class KendaraanController extends Controller
         $validation['mk_slug'] = Str::slug($validation["mk_merk"]);
 
         try {
-            $this->kendaraanService->storeMerkKendaraan($validation);
+            DB::transaction(function () use ($validation) {
+                $merkKendaraan = $this->kendaraanService->storeMerkKendaraan(Arr::except($validation, ["is_dp", "tarif_dp"]));
+                $validation['merk_kendaraan_id'] = $merkKendaraan->id;
+
+                $this->kendaraanService->storePaymentMethod(Arr::only($validation, ["is_dp", "tarif_dp", "merk_kendaraan_id"]));
+            });
         } catch (\Exception $th) {
             throw new InvalidArgumentException();
         }
@@ -111,7 +116,7 @@ class KendaraanController extends Controller
      * Merk Kendaraan
      * Update
      */
-    public function updateMerkKendaraan(RequestMerkKendaraanUpdate $request, $id)
+    public function updateMerkKendaraan(RequestMerkKendaraan $request, $id)
     {
         $validation = $request->validated();
 
@@ -132,7 +137,11 @@ class KendaraanController extends Controller
         $validation['mk_slug'] = Str::slug($validation["mk_merk"]);
 
         try {
-            $this->kendaraanService->updateMerkKendaraan($validation, $id);
+            DB::transaction(function () use ($validation, $id) {
+                $merkKendaraan = $this->kendaraanService->updateMerkKendaraan(Arr::except($validation, ["is_dp", "tarif_dp"]), $id);
+
+                $this->kendaraanService->updatePaymentMethod(Arr::only($validation, ["is_dp", "tarif_dp"]), $id);
+            });
         } catch (\Exception $th) {
             throw new InvalidArgumentException();
         }
@@ -220,7 +229,7 @@ class KendaraanController extends Controller
      * Merk Kendaraan
      * Update
      */
-    public function updateKendaraan(RequestKendaraanUpdate $request, $id)
+    public function updateKendaraan(RequestKendaraan $request, $id)
     {
         $validation = $request->validated();
 

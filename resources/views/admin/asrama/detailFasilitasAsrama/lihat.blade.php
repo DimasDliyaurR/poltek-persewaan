@@ -39,6 +39,28 @@
                 @endif
             </div>
 
+            <div class="mb-5">
+                <label for="dfa_status" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Jenis Fasilitas
+                </label>
+                <div class="flex items-center mb-4">
+                    <input id="dfa_status-1" type="radio" value="include" name="dfa_status"
+                        {{ old('dfa_status') == 'include' ? 'checked' : '' }}
+                        class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+                    <label for="dfa_status-1"
+                        class="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">Include</label>
+                </div>
+                <div class="flex items-center">
+                    <input id="dfa_status-2" type="radio" value="pilihan" name="dfa_status"
+                        {{ old('dfa_status') == 'pilihan' ? 'checked' : '' }}
+                        class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+                    <label for="dfa_status-2"
+                        class="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">Pilihan</label>
+                </div>
+                @error('dfa_status')
+                    <span class="text-red-600 text-sm">{{ $message }}</span>
+                @enderror
+            </div>
+
             <button class="p-2 w-80 bg-gray-900 rounded-md text-white text-sm">Submit</button>
         </form>
     </x-inner-layout>

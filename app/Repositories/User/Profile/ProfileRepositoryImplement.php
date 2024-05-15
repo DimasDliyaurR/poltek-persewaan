@@ -41,4 +41,15 @@ class ProfileRepositoryImplement implements ProfileRepository
     {
         return $this->profile::create($data);
     }
+
+    /**
+     * Update Profile
+     * @param array $data
+     * @param int $id
+     * @return object
+     */
+    public function update($data, $id)
+    {
+        return $this->profile::findOrFail($id)->update($data);
+    }
 }

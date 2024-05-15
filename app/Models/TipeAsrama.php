@@ -3,10 +3,11 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
-use Illuminate\Database\Eloquent\SoftDeletes;
 
 class TipeAsrama extends Model
 {
@@ -19,14 +20,24 @@ class TipeAsrama extends Model
         return $this->hasMany(DetailFasilitasAsrama::class);
     }
 
+    public function detailFotoTipeAsrama()
+    {
+        return $this->hasMany(DetailFotoTipeAsrama::class);
+    }
+
     public function fasilitasAsramas(): BelongsToMany
     {
-        return $this->belongsToMany(FasilitasAsrama::class, "detail_fasilitas_asramas", "fasilitas_asrama_id", "tipe_asrama_id")
+        return $this->belongsToMany(FasilitasAsrama::class, "detail_fasilitas_asramas", "tipe_asrama_id", "fasilitas_asrama_id")
             ->using(DetailFasilitasAsrama::class);
     }
 
     public function asramas(): HasMany
     {
         return $this->hasMany(Asrama::class);
+    }
+
+    public function paymentMethod(): HasOne
+    {
+        return $this->hasOne(AsramaPaymentMethod::class);
     }
 }

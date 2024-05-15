@@ -15,13 +15,16 @@ return new class extends Migration
 
         Schema::create('transaksi_layanans', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id')->constrained();
-            $table->string('tl_title');
+            $table->foreignId('user_id')->constrained("users");
+            $table->foreignId('promo_id')->nullable()->constrained("promos");
+            $table->string('code_unique');
             $table->dateTime('tl_tanggal_sewa');
             $table->dateTime('tl_tanggal_pelaksanaan');
-            $table->dateTime('tl_tanggal_selesai');
-            $table->time('tl_durasi_sewa');
-            $table->boolean('tl_is_only_property');
+            $table->bigInteger('tl_sub_total')->nullable();
+            $table->string('tl_snap_token')->nullable();
+            $table->integer('tl_durasi_sewa');
+            $table->string('tl_tujuan');
+            $table->enum('status', ["belum bayar", "terbayar", "kadaluarsa", "batal"])->default("belum bayar");
             $table->timestamps();
         });
 

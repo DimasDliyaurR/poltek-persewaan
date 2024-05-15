@@ -26,10 +26,14 @@ class TransaksiGedung extends Model
      */
     protected $fillable = [
         'user_id',
+        'promo_id',
+        'code_unique',
         'tg_tujuan',
         'tg_tanggal_sewa',
         'tg_tanggal_kembali',
         'tg_tanggal_pelaksanaan',
+        'tg_snap_token',
+        'tg_sub_total',
     ];
 
     /**
@@ -40,6 +44,7 @@ class TransaksiGedung extends Model
     protected $casts = [
         'id' => 'integer',
         'user_id' => 'integer',
+        'promo_id' => 'integer',
         'title' => 'string',
         'tg_tanggal_sewa' => 'datetime',
         'tg_tanggal_kembali' => 'datetime',
@@ -72,6 +77,12 @@ class TransaksiGedung extends Model
     {
         return $this->belongsTo(User::class);
     }
+
+    public function promo(): BelongsTo
+    {
+        return $this->belongsTo(Promo::class);
+    }
+
     public function events(): MorphMany
     {
         return $this->morphMany(Event::class, 'eventable');

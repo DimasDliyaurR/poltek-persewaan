@@ -79,11 +79,26 @@
                                 </a>
                             </div>
                         </th>
+
+                        <th scope="col" class="px-6 py-3">
+                            <div class="flex items-center">
+                                Kode
+                                <a href="#"><svg class="w-3 h-3 ms-1.5" aria-hidden="true"
+                                        xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
+                                        <path
+                                            d="M8.574 11.024h6.852a2.075 2.075 0 0 0 1.847-1.086 1.9 1.9 0 0 0-.11-1.986L13.736 2.9a2.122 2.122 0 0 0-3.472 0L6.837 7.952a1.9 1.9 0 0 0-.11 1.986 2.074 2.074 0 0 0 1.847 1.086Zm6.852 1.952H8.574a2.072 2.072 0 0 0-1.847 1.087 1.9 1.9 0 0 0 .11 1.985l3.426 5.05a2.123 2.123 0 0 0 3.472 0l3.427-5.05a1.9 1.9 0 0 0 .11-1.985 2.074 2.074 0 0 0-1.846-1.087Z" />
+                                    </svg>
+                                </a>
+                            </div>
+                        </th>
                         <th scope="col" class="px-6 py-3">
                             <span class="sr-only">Lihat Detail</span>
                         </th>
                         <th scope="col" class="px-6 py-3">
                             <span class="sr-only">Edit</span>
+                        </th>
+                        <th scope="col" class="px-6 py-3">
+                            <span class="sr-only">Hapus</span>
                         </th>
                     </tr>
                 </thead>
@@ -104,6 +119,9 @@
                             <td class="px-6 py-4 dark:text-white">
                                 {{ $row->p_tipe == 'fixed' ? 'Rp. ' : '' }}{{ $row->p_isi }}
                                 {{ $row->p_tipe == 'percent' ? '%' : '' }}
+                            </td>
+                            <td class="px-6 py-4 dark:text-white">
+                                <strong>{{ $row->p_kode }}</strong>
                             </td>
                             <td class="px-6 py-4 text-right">
                                 <a href="{{ asset('admin/promo/store/' . $row->id) }}"
@@ -193,6 +211,7 @@
                     class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-4 @error('p_isi') border-red-500 @enderror"
                     value="{{ old('p_isi') }}" type="text">
 
+                <span class="text-red-600 text-sm" id="ME-isi"></span>
                 @error('p_isi')
                     <span class="text-red-600 text-sm">{{ $message }}</span>
                 @enderror
@@ -201,7 +220,7 @@
             <div class="mb-5">
                 <label for="p_tipe" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Tipe
                     Promo</label>
-                <select name="p_tipe"
+                <select name="p_tipe" id="p_tipe"
                     class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-4 @error('p_tipe') border-red-500 @enderror">
                     <option disabled selected>-- Pilih Tipe --</option>
                     <option value="fixed" {{ old('p_tipe') == 'fixed' ? 'selected' : '' }}>Harga Nominal</option>
@@ -275,6 +294,8 @@
                 <input name="p_jumlah"
                     class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-4 @error('p_jumlah') border-red-500 @enderror"
                     value="{{ old('p_jumlah') ?? 0 }}" type="text">
+                <div class="text-sm">Jika ingin stok menjadi tidak terbatas isi jumlah promo menjadi <span
+                        class="bg-blue-50 px-1">0</span></div>
 
                 @error('p_jumlah')
                     <span class="text-red-600 text-sm">{{ $message }}</span>
@@ -318,20 +339,26 @@
             </div>
 
             <div class="mb-5">
-                <label for="p_tipe" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Kategori
+                <label for="p_kategori" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Kategori
                     Promo</label>
                 <select name="p_kategori"
                     class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-4 @error('p_kategori') border-red-500 @enderror">
                     <option disabled selected>-- Pilih Kategori --</option>
-                    <option value="asramas" {{ old('p_kategori') == 'asramas' ? 'selected' : '' }}>Asrama</option>
-                    <option value="layanans" {{ old('p_kategori') == 'layanans' ? 'selected' : '' }}>Layanan</option>
-                    <option value="gedung_laps" {{ old('p_kategori') == 'gedung_laps' ? 'selected' : '' }}>Gedung
-                        Lapangan
-                    </option>
-                    <option value="kendaraans" {{ old('p_kategori') == 'kendaraans' ? 'selected' : '' }}>Kendaraan
-                    </option>
-                    <option value="alat_barangs" {{ old('p_kategori') == 'alat_barangs' ? 'selected' : '' }}>Barang
-                    </option>
+                    <optgroup label="Kategori">
+                        <option value="asramas" {{ old('p_kategori') == 'asramas' ? 'selected' : '' }}>Asrama</option>
+                        <option value="layanans" {{ old('p_kategori') == 'layanans' ? 'selected' : '' }}>Layanan</option>
+                        <option value="gedung_laps" {{ old('p_kategori') == 'gedung_laps' ? 'selected' : '' }}>Gedung
+                            Lapangan
+                        </option>
+                        <option value="kendaraans" {{ old('p_kategori') == 'kendaraans' ? 'selected' : '' }}>Kendaraan
+                        </option>
+                        <option value="alat_barangs" {{ old('p_kategori') == 'alat_barangs' ? 'selected' : '' }}>Barang
+                        </option>
+                    </optgroup>
+                    <optgroup label="Opsi lain">
+                        <option value="All" {{ old('p_kategori') == 'All' ? 'selected' : '' }}>Semua Kategori
+                        </option>
+                    </optgroup>
                 </select>
                 @error('p_kategori')
                     <span class="text-red-600 text-sm">{{ $message }}</span>
@@ -346,5 +373,5 @@
 @endsection
 
 @section('script')
-    <script src="{{ asset('js/feature/promoForm.js') }}"></script>
+    <script src="{{ asset('js/validasi/promoForm.js') }}"></script>
 @endsection

@@ -23,4 +23,12 @@ interface ProfileRepository
      * @return object
      */
     public function create($data);
+
+    /**
+     * Update Profile
+     * @param array $data
+     * @param int $id
+     * @return object
+     */
+    public function update($data, $id);
 }

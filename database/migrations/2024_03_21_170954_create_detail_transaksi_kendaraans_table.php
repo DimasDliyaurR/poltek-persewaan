@@ -16,7 +16,8 @@ return new class extends Migration
         Schema::create('detail_transaksi_kendaraans', function (Blueprint $table) {
             $table->id();
             $table->foreignId('transaksi_kendaraan_id')->constrained('transaksi_kendaraans');
-            $table->foreignId('kendaraan_id')->constrained();
+            $table->foreignId('kendaraan_id')->constrained("kendaraans");
+            $table->integer('dtk_harga');
             $table->timestamps();
         });
 

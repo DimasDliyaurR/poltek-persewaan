@@ -5,12 +5,13 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\Pivot;
 
-class DetailTransaksiAsrama extends Model
+class DetailTransaksiAsrama extends Pivot
 {
     use HasFactory;
 
-    protected $table = "asrama_transaksi_asrama";
+    protected $table = "detail_transaksi_asramas";
     /**
      * The attributes that are mass assignable.
      *
@@ -19,6 +20,7 @@ class DetailTransaksiAsrama extends Model
     protected $fillable = [
         'transaksi_asrama_id',
         'asrama_id',
+        'dta_harga',
     ];
 
     /**

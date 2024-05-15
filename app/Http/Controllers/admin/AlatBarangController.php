@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers\admin;
 
+use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use InvalidArgumentException;
+use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Storage;
 use App\Services\AlatBarang\AlatBarangService;
@@ -47,20 +49,28 @@ class AlatBarangController extends Controller
         RequestAlatBarang $request  // Parameter untuk Validation Alat Barang
     ) {
         $validation = $request->validated();
-
-        if ($request->hasFile('a_foto')) {
-            $file_alat_barang = $request->file('a_foto'); // Akses Input File
+        $validation["tarif_dp"] = $request->tarif_dp ?? 0;
+        if ($request->hasFile('ab_foto')) {
+            $file_alat_barang = $request->file('ab_foto'); // Akses Input File
             $foto_alat_barang = $file_alat_barang->hashName(); // Rename File
 
             $foto_kendaraan_path = $file_alat_barang->storeAs("/alatBarang", $foto_alat_barang); // Menentukan path file 
             $foto_kendaraan_path = Storage::disk("public")->put("/alatBarang", $file_alat_barang); // Memindahkan ke lokal
 
-            $validation['a_foto'] = $foto_kendaraan_path; // Memodifikasi a_foto menjadi path file
+            $validation['ab_foto'] = $foto_kendaraan_path; // Memodifikasi ab_foto menjadi path file
         }
 
-        $validation['a_slug'] = Str::slug($validation["a_nama"]); // Menambahkan slug
+        $validation['ab_slug'] = Str::slug($validation["ab_nama"]); // Menambahkan slug
 
-        $this->alatBarangService->createAlatBarang($validation); // Create alat Barang
+        try {
+            DB::transaction(function () use ($validation) {
+                $alat_barang = $this->alatBarangService->createAlatBarang($validation); // Create alat Barang
+                $validation["alat_barang_id"] = $alat_barang->id;
+                $this->alatBarangService->createPaymentMethod(Arr::only($validation, ["is_dp", "tarif_dp", "alat_barang_id"])); // Create alat Barang
+            });
+        } catch (\Exception $th) {
+            throw new InvalidArgumentException();
+        }
 
         return back()->with("successForm", "Berhasil Menambahkan Merek Kendaraan");
     }
@@ -97,6 +107,7 @@ class AlatBarangController extends Controller
         try // Mencoba Statement di bawah 
         {
             $alatBarang = $this->alatBarangService->getDataAlatBarangById($id);
+            $satuanAlatBarangs = $this->alatBarangService->getAllSatuanAlatBarang();
         } catch (\Exception $th) // Jika statement di atas terdapat exception maka akan mengeksekusi statement di bawah 
         {
             abort(404);
@@ -105,14 +116,15 @@ class AlatBarangController extends Controller
         return view("admin.AlatBarang.edit", [
             "title" => "Update Alat Barang",
             "action" => "alat barang",
-            "alatBarang" => $alatBarang,
+            "alatBarang" => $alatBarang->first(),
+            "satuanAlatBarangs" => $satuanAlatBarangs->get(),
         ]);
     }
 
     /**
      * Alat Barang
      * Update
-     * @param App\Http\Requests\alatBarang\RequestAlatBarang;
+     * @param \App\Http\Requests\alatBarang\RequestAlatBarang
      * @throws InvalidArgumentException
      */
     public function updateAlatBarang(
@@ -123,27 +135,28 @@ class AlatBarangController extends Controller
 
         $AlatBarangOld = $this->alatBarangService->getDataAlatBarangById($id);
 
-        if ($request->hasFile('a_foto')) // Periksa Apakah form a_foto ada isinya
+        if ($request->hasFile('ab_foto')) // Periksa Apakah form ab_foto ada isinya
         {
-            if (Storage::disk('public')->exists($AlatBarangOld['a_foto'])) // Periksa apakah sebelumnya ada gambarnya
+            if (Storage::disk('public')->exists($AlatBarangOld['ab_foto'])) // Periksa apakah sebelumnya ada gambarnya
             {
-                Storage::disk('public')->delete($AlatBarangOld['a_foto']); // Menghapus gambar pada data sekarang
+                Storage::disk('public')->delete($AlatBarangOld['ab_foto']); // Menghapus gambar pada data sekarang
             }
 
-            $file_alat_barang = $request->file('a_foto'); // Inisiasi isi input foto dari form
+            $file_alat_barang = $request->file('ab_foto'); // Inisiasi isi input foto dari form
             $foto_alat_barang = $file_alat_barang->hashName(); // Rename foto menggunakan hash
 
             $foto_alat_barang_path = $file_alat_barang->storeAs("/alatBarang", $foto_alat_barang); // Menentukan path file
             $foto_alat_barang_path = Storage::disk("public")->put("/alatBarang", $file_alat_barang); // Menyimpan foto pada path file yang sudah ditentukan
-            $validation['a_foto'] = $foto_alat_barang_path; // Memodifikasi input a_foto pada validation menjadi path file
+            $validation['ab_foto'] = $foto_alat_barang_path; // Memodifikasi input ab_foto pada validation menjadi path file
         }
 
-        $validation['a_slug'] = Str::slug($validation["a_nama"]); // Menambahkan slug
+        $validation['ab_slug'] = Str::slug($validation["ab_nama"]); // Menambahkan slug
 
 
         try // Mencoba Statement di bawah 
         {
             $this->alatBarangService->updateAlatBarang($validation, $id); // Update alat Barang
+            $this->alatBarangService->updatePaymentMethod(Arr::only($validation, ["is_dp", "tarif_dp"]), $id); // Update alat Barang
         } catch (\Exception $th) // Jika statement di atas terdapat exception maka akan mengeksekusi statement di bawah 
         {
             throw new InvalidArgumentException();
@@ -158,17 +171,17 @@ class AlatBarangController extends Controller
      */
     public function destroyAlatBarang($id)
     {
-        $AlatBarang = $this->alatBarangService->getDataAlatBarangById($id);
+        $AlatBarang = $this->alatBarangService->getDataAlatBarangById($id)->first();
 
 
         try {
-            Storage::disk("public")->delete($AlatBarang['a_foto']);
+            Storage::disk("public")->delete($AlatBarang['ab_foto']);
             $this->alatBarangService->destroyAlatBarang($id);
         } catch (\Exception $th) {
             throw new InvalidArgumentException();
         }
 
-        return back()->with("successTable", "Berhasil Menghapus " . $AlatBarang['a_nama']);
+        return back()->with("successTable", "Berhasil Menghapus " . $AlatBarang['ab_nama']);
     }
 
     /**
@@ -209,7 +222,7 @@ class AlatBarangController extends Controller
 
             $foto_alat_barang_path = $file_alat_barang->storeAs("/detailFotoAlatBarang", $foto_alat_barang); // Menentukan path file
             $foto_alat_barang_path = Storage::disk("public")->put("/detailFotoAlatBarang", $file_alat_barang); // Menyimpan foto pada path file yang sudah ditentukan
-            $validation['fab_foto'] = $foto_alat_barang_path; // Memodifikasi input a_foto pada validation menjadi path file
+            $validation['fab_foto'] = $foto_alat_barang_path; // Memodifikasi input ab_foto pada validation menjadi path file
         }
 
         $validation["alat_barang_id"] = $id;

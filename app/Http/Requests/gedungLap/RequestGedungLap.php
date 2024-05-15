@@ -11,7 +11,7 @@ class RequestGedungLap extends FormRequest
      */
     public function authorize(): bool
     {
-        return true;
+        return auth()->user()->level == 'admin';
     }
 
     /**
@@ -21,10 +21,9 @@ class RequestGedungLap extends FormRequest
      */
     public function rules(): array
     {
-        $rules = [];
 
         if ($this->getMethod() == "PUT") {
-            $rules += [
+            return [
                 "gl_foto" => "image",
                 "gl_nama" => "required",
                 "gl_keterangan" => "required",
@@ -32,9 +31,10 @@ class RequestGedungLap extends FormRequest
                 "gl_satuan_gedung" => "required",
                 "gl_kapasitas_gedung" => "required|numeric",
                 "gl_ukuran_gedung" => "required",
+                "is_dp" => "boolean",
             ];
         } else {
-            $rules += [
+            return [
                 "gl_foto" => "required|image",
                 "gl_nama" => "required",
                 "gl_keterangan" => "required",
@@ -42,10 +42,9 @@ class RequestGedungLap extends FormRequest
                 "gl_satuan_gedung" => "required",
                 "gl_kapasitas_gedung" => "required|numeric",
                 "gl_ukuran_gedung" => "required",
+                "is_dp" => "boolean",
             ];
         }
-
-        return $rules;
     }
 
     public function messages()
@@ -65,6 +64,11 @@ class RequestGedungLap extends FormRequest
             "gl_kapasitas_gedung.numeric" => "Kapasitas mohon diisi menggunakan angka !",
 
             "gl_ukuran_gedung.required" => "Ukuran mohon diisi !",
+
+            "is_dp.boolean" => "Mohon isi dengan valid !",
+
+            "tarif_dp.required" => "tarif dp mohon diisi !",
+            "tarif_dp.numeric" => "Mohon isi berupa angka !",
         ];
     }
 }

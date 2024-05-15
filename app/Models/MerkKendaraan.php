@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class MerkKendaraan extends Model
 {
@@ -44,5 +45,10 @@ class MerkKendaraan extends Model
     public function transaksiKendaraans(): BelongsToMany
     {
         return $this->belongsToMany(TransaksiKendaraan::class);
+    }
+
+    public function paymentMethod(): HasOne
+    {
+        return $this->hasOne(KendaraanPaymentMethod::class);
     }
 }

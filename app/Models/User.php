@@ -4,6 +4,7 @@ namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -51,13 +52,33 @@ class User extends Authenticatable
         return $this->hasOne(Profile::class);
     }
 
-    public function detailUserPromos(): HasMany
-    {
-        return $this->hasMany(DetailUserPromo::class);
-    }
-
     public function promos()
     {
         $this->belongsToMany(Promo::class);
+    }
+
+    public function transaksiAlatBarang(): HasMany
+    {
+        return $this->hasMany(TransaksiAlatBarang::class, "user_id", "id");
+    }
+
+    public function transaksiLayanan(): HasMany
+    {
+        return $this->hasMany(TransaksiLayanan::class, "user_id", "id");
+    }
+
+    public function transaksiAsrama(): HasMany
+    {
+        return $this->hasMany(TransaksiAsrama::class, "user_id", "id");
+    }
+
+    public function transaksiKendaraan(): HasMany
+    {
+        return $this->hasMany(TransaksiKendaraan::class, "user_id", "id");
+    }
+
+    public function transaksiGedungLap(): HasMany
+    {
+        return $this->hasMany(TransaksiGedung::class, "user_id", "id");
     }
 }

@@ -7,7 +7,7 @@
             {{ $title }}
         </x-title-component>
 
-        <img src="{{ Storage::url($AlatBarang->a_foto) }}" alt="Foto Kendaraan" class="h-auto max-w-lg mx-auto">
+        <img src="{{ Storage::url($AlatBarang->ab_foto) }}" alt="Foto Kendaraan" class="h-auto max-w-lg mx-auto">
 
     </x-inner-layout>
     <x-title-component>
@@ -18,12 +18,12 @@
         <div class="flex flex-col text-sm">
             <div class="flex flex-col mb-4">
                 <span class="font-semibold mb-3">Nama Alat Barang</span>
-                <span class="p-4 rounded-lg bg-gray-100">{{ $AlatBarang->a_nama }}</span>
+                <span class="p-4 rounded-lg bg-gray-100">{{ $AlatBarang->ab_nama }}</span>
             </div>
 
             <div class="flex flex-col mb-4">
                 <span class="font-semibold mb-3">Jumlah Unit</span>
-                <span class="p-4 rounded-lg bg-gray-100">{{ $AlatBarang->a_qty }}</span>
+                <span class="p-4 rounded-lg bg-gray-100">{{ $AlatBarang->ab_qty }}</span>
             </div>
 
             <div class="flex flex-col mb-4">
@@ -34,7 +34,7 @@
             <div class="flex flex-col mb-4">
                 <span class="font-semibold mb-3">Harga Tarif</span>
                 <span class="p-4 rounded-lg bg-gray-100">Rp.
-                    {{ number_format($AlatBarang->a_tarif, 0, ',', '.') }}</span>
+                    {{ number_format($AlatBarang->ab_tarif, 0, ',', '.') }}</span>
             </div>
         </div>
     </x-inner-layout>
@@ -44,7 +44,7 @@
     </x-title-component>
 
     <x-inner-layout>
-        {!! $AlatBarang->a_keterangan !!}
+        {!! $AlatBarang->ab_keterangan !!}
     </x-inner-layout>
 
     <x-title-component>

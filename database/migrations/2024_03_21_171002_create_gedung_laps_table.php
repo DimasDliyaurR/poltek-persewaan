@@ -17,7 +17,7 @@ return new class extends Migration
             $table->id();
             $table->string('gl_foto');
             $table->string('gl_nama');
-            $table->string('gl_keterangan');
+            $table->text('gl_keterangan');
             $table->string('gl_tarif');
             $table->string('gl_satuan_gedung');
             $table->integer('gl_kapasitas_gedung');

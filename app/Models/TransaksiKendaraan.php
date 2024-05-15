@@ -24,10 +24,13 @@ class TransaksiKendaraan extends Model
      */
     protected $fillable = [
         'user_id',
-        'foto_sim',
+        'promo_id',
+        'code_unique',
         'tk_durasi',
         'tk_tanggal_sewa',
         'tk_tanggal_kembali',
+        "tk_snap_token",
+        "tk_sub_total",
     ];
 
     /**
@@ -38,6 +41,7 @@ class TransaksiKendaraan extends Model
     protected $casts = [
         'id' => 'integer',
         'user_id' => 'integer',
+        'promo_id' => 'integer',
         'tk_tanggal_sewa' => 'timestamp',
         'tk_tanggal_kembali' => 'datetime',
     ];
@@ -58,13 +62,19 @@ class TransaksiKendaraan extends Model
     public function kendaraans(): BelongsToMany
     {
         return $this->belongsToMany(Kendaraan::class, "detail_transaksi_kendaraans", "transaksi_kendaraan_id", "kendaraan_id")
-            ->using(DetailTransaksiKendaraan::class);
+            ->using(DetailTransaksiKendaraan::class)->withPivot("dtk_harga");
     }
 
-    public function user(): BelongsTo
+    public function users(): BelongsTo
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(User::class, "user_id", "id");
     }
+
+    public function promo(): BelongsTo
+    {
+        return $this->belongsTo(Promo::class);
+    }
+
     public function events(): MorphMany
     {
         return $this->morphMany(Event::class, 'eventable');

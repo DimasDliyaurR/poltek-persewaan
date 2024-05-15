@@ -32,7 +32,7 @@ class GedungLapRepositoryImplement implements GedungLapRepository
      */
     public function getAll()
     {
-        $gedungData = $this->gedung::paginate();
+        $gedungData = $this->gedung::with("detailFotoGedungLap");
 
         return $gedungData;
     }

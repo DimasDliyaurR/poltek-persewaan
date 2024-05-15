@@ -8,7 +8,6 @@ CKEDITOR.ClassicEditor.create(document.getElementById("editor"), {
             'heading', '|',
             'bold', 'italic', 'strikethrough', 'underline',
             'removeFormat', '|',
-            'bulletedList', 'numberedList', 'todoList', '|',
             'outdent', 'indent', '|',
             'undo', 'redo',
             '-',

@@ -11,7 +11,7 @@ class AlatBarangRepositoryImplement implements AlatBarangRepository
 
     public function __construct(AlatBarang $alatBarang)
     {
-        $this->alatBarang = $alatBarang;
+        $this->alatBarang = $alatBarang::with("satuanAlatBarangs", "paymentMethod");
     }
 
     /**
@@ -21,7 +21,7 @@ class AlatBarangRepositoryImplement implements AlatBarangRepository
      */
     public function getDataById($id)
     {
-        $alatBarangData = $this->alatBarang::whereId($id);
+        $alatBarangData = $this->alatBarang->whereId($id);
 
         return $alatBarangData;
     }
@@ -32,7 +32,7 @@ class AlatBarangRepositoryImplement implements AlatBarangRepository
      */
     public function getAll()
     {
-        $alatBarangData = $this->alatBarang::latest()->paginate(5);
+        $alatBarangData = $this->alatBarang->latest()->paginate(5);
 
         return $alatBarangData;
     }
@@ -44,7 +44,7 @@ class AlatBarangRepositoryImplement implements AlatBarangRepository
      */
     public function store($data)
     {
-        $alatBarangData = $this->alatBarang::create($data);
+        $alatBarangData = $this->alatBarang->create($data);
 
         return $alatBarangData;
     }
@@ -56,7 +56,7 @@ class AlatBarangRepositoryImplement implements AlatBarangRepository
      */
     public function update($data, $id)
     {
-        $alatBarangData = $this->alatBarang::findOrFail($id);
+        $alatBarangData = $this->alatBarang->findOrFail($id);
         $alatBarangData->update($data);
 
         return $alatBarangData;
@@ -69,7 +69,7 @@ class AlatBarangRepositoryImplement implements AlatBarangRepository
      */
     public function delete($id)
     {
-        $alatBarangData = $this->alatBarang::findOrFail($id);
+        $alatBarangData = $this->alatBarang->findOrFail($id);
         $alatBarangData->delete();
 
         return $alatBarangData;
