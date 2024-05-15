@@ -21,12 +21,14 @@ class LayananFactory extends Factory
     public function definition(): array
     {
         return [
-            'foto_layanan' => $this->faker->word(),
+            'l_foto' => $this->faker->word(),
             'l_nama' => $this->faker->word(),
             'l_tarif' => $this->faker->numberBetween(-10000, 10000),
             'l_personil' => $this->faker->boolean(),
-            'l_satuan' => $this->faker->randomElement(["jam","minggu","bulan"]),
-            'l_status' => $this->faker->randomElement(["tersedia","tidak"]),
+            'l_satuan' => $this->faker->randomElement(["jam", "minggu", "bulan"]),
+            'l_status' => $this->faker->randomElement(["tersedia", "tidak"]),
+            'l_deskripsi' => $this->faker->word(),
+            'l_slug' => $this->faker->word(),
         ];
     }
 }

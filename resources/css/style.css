@@ -1,0 +1,6 @@
+#radio1:checked ~ .navigation-auto .auto-btn1 {
+    background: #40030c;
+}
+.body {
+    background: #00000;
+}

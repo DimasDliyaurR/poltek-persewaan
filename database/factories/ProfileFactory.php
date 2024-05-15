@@ -22,7 +22,8 @@ class ProfileFactory extends Factory
     public function definition(): array
     {
         return [
-            'User_id' => User::factory(),
+            'user_id' => User::factory(),
+            'slug' => $this->faker->slug(),
             'nama_lengkap' => $this->faker->word(),
             'foto_ktp' => $this->faker->word(),
             'alamat' => $this->faker->text(),

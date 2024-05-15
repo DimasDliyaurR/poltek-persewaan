@@ -4,8 +4,8 @@ namespace Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Str;
-use App\Models\AlatBarang;
-use App\Models\Foto_alat_barang;
+use App\Models\Alatbarang;
+use App\Models\FotoAlatBarang;
 
 class FotoAlatBarangFactory extends Factory
 {
@@ -22,7 +22,7 @@ class FotoAlatBarangFactory extends Factory
     public function definition(): array
     {
         return [
-            'Alat_barang_id' => AlatBarang::factory(),
+            'alat_barang_id' => Alatbarang::factory(),
             'fab_foto' => $this->faker->word(),
         ];
     }

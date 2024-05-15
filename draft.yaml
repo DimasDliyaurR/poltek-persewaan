@@ -1,6 +1,7 @@
 models:
   Profile :
-    User_id : id foreign:users
+    user_id : id foreign:users
+    slug : string
     nama_lengkap : string
     foto_ktp : string
     alamat : text
@@ -8,45 +9,45 @@ models:
   
   # KENDARAAN
 
-  Merk_kendaraan :
+  MerkKendaraan :
     mk_foto : string
     mk_merk : string
     mk_seri : string
-    mk_tarif : decimal:8,2
+    mk_tarif : int
     mk_kapasitas : string
     mk_deskripsi : text
     mk_bahan_bakar : string
+    mk_slug : string
     relationships :
       hasMany : Kendaraan
       belongsToMany : Transaksi_kendaraan
 
     
   Kendaraan :
-    Merk_kendaraan_id : id foreign:merk_kendaraans
+    merk_kendaraan_id : id foreign:merkkendaraans
     k_plat : string
     k_status : enum:tersedia,tidak terpakai
+    k_slug : string
     relationships:
-      hasMany: R_detail_transaksi_kendaraan
+      hasMany: DetailTransaksiKendaraan
+      belongsTo : MerkKendaraan
   
-  Transaksi_kendaraan :
+  TransaksiKendaraan :
     user_id : id foreign:users
     foto_sim : string
     tk_durasi : int
     tk_tanggal_sewa : timestamp
     tk_tanggal_kembali : dateTime
     relationships :
-      hasMany : H_detail_transaksi_kendaraan
-      belongsToMany : Merk_kendaraan
+      hasMany : Detail_transaksi_kendaraan
+      belongsToMany : MerkKendaraan
   
-  H_detail_transaksi_kendaraan :
-    Transaksi_kendaraan_id : foreign
-    hdtk_sub_total : integer
+  DetailTransaksiKendaraan :
+    transaksi_kendaraan_id : id foreign:transaksikendaraans
+    kendaraan_id : id foreign:kendaraans
     relationships:
-      hasOne : R_detail_transaksi_kendaraan
-    
-  R_detail_transaksi_kendaraan:
-    detail_transaksi_id : id foreign:H_detail_transaksi_kendaraans
-    Kendaraan_id : id foreign:Kendaraans
+      belongsTo : Kendaraan , TransaksiKendaraan
+  
 
   # KENDARAAN END
 
@@ -59,28 +60,32 @@ models:
     l_personil : boolean
     l_satuan : enum:jam,minggu,bulan
     l_status : enum:tersedia,tidak melayani
+    l_slug : string
     relationships:
-      hasMany : Tim_layanan , Detail_foto_layanan
-      belongsToMany : Video_layanan , Transaksi_layanan
+      hasMany : TimLayanan , DetailFotoLayanan , DetailTransaksiLayanan , VideoLayanan
+      belongsToMany : TransaksiLayanan
 
-  Video_layanan:
-    Layanan_id : id foreign:layanans
+  VideoLayanan:
+    layanan_id : id foreign:layanans
     vl_link : string
     relationships:
       belongsToMany : Layanan
 
 
-  Tim_layanan :
-    Layanan_id : id foreign:layanans
+  TimLayanan :
+    layanan_id : id foreign:layanans
     tl_nama : string
     tl_status : enum:tersedia,tidak tersedia
     tl_deskripsi : string
+    tl_slug : string
+    relationships:
+      belongsTo : Layanan
   
-  Detail_foto_layanan :
-    Layanan_id : id foreign:layanans
+  DetailFotoLayanan :
+    layanan_id : id foreign:layanans
     dfl_foto : string
   
-  Transaksi_layanan:
+  TransaksiLayanan:
     user_id : id foreign:users
     tl_tanggal_sewa : dateTime
     tl_tanggal_pelaksanaan : dateTime
@@ -88,30 +93,26 @@ models:
     tl_tujuan : string
     tl_is_only_property : boolean
     relationships:
-      hasMany : R_detail_transaksi_layanan
+      hasMany : DetailTransaksiLayanan
       belongsToMany : Layanan
   
-  H_detail_transaksi_layanan:
-    Transaksi_layanan_id : id foreign:Transaksi_layanans
-    hdtl_sub_total : integer
+  DetailTransaksiLayanan:
+    transaksi_layanan_id : id foreign:transaksilayanans
+    layanan_id : id foreign:layanans
     relationships:
-      hasOne : R_detail_transaksi_layanan
-  
-  R_detail_transaksi_layanan :
-    detail_transaksi_id : id foreign:H_detail_transaksi_layanans
-    Transaksi_layanan_id : id foreign:Transaksi_layanans
+      belongsTo : Layanan , TransaksiLayanan
 
   # LAYANAN END
 
   # GEDUNG START
 
-  Property_gedung:
+  PropertyGedung:
     pg_nama : string
     pg_status : enum:tersedia,tidak tersedia
     relationships:
-      hasMany : R_detail_transaksi_gedung
+      hasMany : DetailTransaksiPropertyGedung
     
-  Gedung_lap :
+  GedungLap :
     gl_foto : string
     gl_nama : string
     gl_keterangan : string
@@ -119,96 +120,101 @@ models:
     gl_satuan_gedung : string
     gl_kapasitas_gedung : integer
     gl_ukuran_gedung : string
+    gl_slug : string
     relationships:
-      hasMany : R_detail_transaksi_gedung
+      hasMany : DetailTransaksiGedung
     
-  Transaksi_gedung :
-    User_id : id foreign:users
+  TransaksiGedung :
+    user_id : id foreign:users
     tg_tujuan : string
     tg_tanggal_sewa : dateTime
     tg_tanggal_kembali : dateTime
     tg_tanggal_pelaksanaan : timestamp
     relationships:
-      hasMany : H_detail_transaksi_gedung
+      hasMany : DetailTransaksiPropertyGedung , DetailTransaksiGedung
 
-  H_detail_transaksi_gedung :
-    Transaksi_gedung_id : id foreign:transaksi_gedungs
-    Gedung_lap_id : id foreign:gedung_laps
-    hdtg_sub_total : decimal:10,2
+  DetailTransaksiGedung :
+    transaksi_gedung_id : id foreign:transaksigedungs
+    gedung_lap_id : id foreign:gedunglaps
     relationships:
-      hasOne : R_detail_transaksi_gedung
+      belongsTo : Gedung_lap
 
-  R_detail_transaksi_gedung :
-    detail_transaksi_id : id foreign:h_detail_transaksi_gedungs
-    Property_gedung_id : id foreign:property_gedungs 
+  DetailTransaksiPropertyGedung :
+    transaksi_gedung_id : id foreign:transaksigedungs
+    property_gedung_id : id foreign:propertygedungs 
     qty : integer
+    relationships:
+      belongsTo : TransaksiGedung , PropertyGedung 
 
   # GEDUNG END
 
   # ASRAMA START
 
-  Fasilitas_asrama :
+  FasilitasAsrama :
     fa_icon : string
     fa_nama : string
     fa_status : enum:tersedia,tidak tersedia
     relationships :
-      hasMany : Detail_fasilitas_asrama
+      hasMany : DetailFasilitasAsrama
       belongsToMany : Asrama
 
-  Detail_fasilitas_asrama :
-    Asrama_id : id foreign:asramas
-    Fasilitas_asrama_id : id foreign:fasilitas_asramas
+  DetailFasilitasAsrama :
+    asrama_id : id foreign:asramas
+    fasilitas_asrama_id : id foreign:fasilitasasramas
+    relationships:
+      belongsTo : FasilitasAsrama
 
   Asrama :
     a_nama_ruangan : string
+    a_foto : string
+    a_slug : string
     a_status : enum:tersedia,tidak tersedia
     a_tarif : decimal:10,2
     relationships:
-      hasMany : Detail_fasilitas_asrama , R_detail_transaksi_asrama
-      belongsToMany : Fasilitas_asrama , Transaksi_asrama
+      hasMany : DetailFasilitasAsrama , DetailTransaksiAsrama
+      belongsToMany : FasilitasAsrama , TransaksiAsrama
   
-  Transaksi_asrama :
-    User_id : id foreign:users
+  TransaksiAsrama :
+    user_id : id foreign:users
     ta_tanggal_sewa : dateTime
     ta_check_in : dateTime
     ta_check_out : dateTime
     ta_is_sarapan : boolean
     relationships:
-      hasMany : H_detail_transaksi_asrama
+      hasMany : DetailTransaksiAsrama
       belongsToMany : Asrama
 
   # Detail Transaksi
-  H_detail_transaksi_asrama :
-    Transaksi_asrama_id : id foreign:transaksi_asramas
-    hdta_sub_total : decimal:10,2
-    relationships:
-      hasOne : R_detail_transaksi_asrama
-  
-  R_detail_transaksi_asrama :
-    detail_transaksi_id : id foreign:H_detail_transaksi_asramas
-    Asrama_id : id foreign:asramas
+  DetailTransaksiAsrama :
+    transaksi_asrama_id : id foreign:transaksiasramas
+    asrama_id : id foreign:asramas
+    relationships :
+      belongsTo : Asrama
 
   # ASRAMA END
 
   # ALAT BARANG START
 
-  Foto_alat_barang :
-    Alat_barang_id : id foreign:alat_barangs
+  FotoAlatBarang :
+    alat_barang_id : id foreign:alatbarangs
     fab_foto : string
+    relationships :
+      belongsTo : AlatBarang
 
-  Alat_barang :
+  AlatBarang :
     a_nama : string
     a_foto : string
     a_keterangan : string
     a_tarif : string
     a_status : enum:tersedia,tidak tersedia
     a_satuan : string
+    a_slug : string
     relationships:
-      hasMany : Foto_alat_barang
-      belongsToMany : Transaksi_alat_barang
+      hasMany : FotoAlatBarang , DetailTransaksiAlatBarang
+      belongsToMany : TransaksiAlatBarang
 
-  Transaksi_alat_barang:
-    User_id : id foreign:users
+  TransaksiAlatBarang:
+    user_id : id foreign:users
     a_nama : string
     a_foto : string
     a_keterangan : string
@@ -216,27 +222,15 @@ models:
     a_status : enum:tersedia,tidak tersedia
     a_satuan : string
     relationships:
-      hasMany : H_detail_transaksi_alat_barang
-      belongsToMany : Alat_barang
+      hasMany : DetailTransaksiAlat_barang
+      belongsToMany : AlatBarang
 
-  H_detail_transaksi_alat_barang :
-    Transaksi_alat_barang_id : id foreign:transaksi_alat_barangs
-    hdtab_sub_total : decimal:10,2
-
-  R_detail_transaksi_alat_barang :
-    detail_transaksi_id : id foreign:H_detail_transaksi_alat_barangs
-    Alat_barang_id : id foreign:alat_barangs
+  DetailTransaksiAlatBarang :
+    transaksi_alat_barang_id : id foreign:transaksialatbarangs
+    alat_barang_id : id foreign:alatbarangs
+    relationships :
+      belongsTo : AlatBarang , TransaksiAlatBarang
 
   # ALAT BARANG END
 
 controllers:
-    kendaraan :
-      index:
-        query: all
-        render: post.index with:posts
-      create:
-        render: post.create
-      store:
-        validate: title, content
-        save: post
-        redirect: post.index

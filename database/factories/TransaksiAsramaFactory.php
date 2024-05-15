@@ -4,7 +4,7 @@ namespace Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Str;
-use App\Models\Transaksi_asrama;
+use App\Models\TransaksiAsrama;
 use App\Models\User;
 
 class TransaksiAsramaFactory extends Factory
@@ -22,7 +22,7 @@ class TransaksiAsramaFactory extends Factory
     public function definition(): array
     {
         return [
-            'User_id' => User::factory(),
+            'user_id' => User::factory(),
             'ta_tanggal_sewa' => $this->faker->dateTime(),
             'ta_check_in' => $this->faker->dateTime(),
             'ta_check_out' => $this->faker->dateTime(),

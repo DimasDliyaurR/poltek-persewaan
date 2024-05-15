@@ -4,7 +4,7 @@ namespace Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Str;
-use App\Models\Alat_barang;
+use App\Models\AlatBarang;
 
 class AlatBarangFactory extends Factory
 {
@@ -27,6 +27,7 @@ class AlatBarangFactory extends Factory
             'a_tarif' => $this->faker->word(),
             'a_status' => $this->faker->randomElement(["tersedia","tidak"]),
             'a_satuan' => $this->faker->word(),
+            'a_slug' => $this->faker->word(),
         ];
     }
 }

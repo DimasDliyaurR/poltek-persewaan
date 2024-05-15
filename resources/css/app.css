@@ -1,3 +1,61 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+body {
+    font-family: "Century Gothic", sans-serif;
+}
+/* custom.css */
+.btnbtt.btn-active {
+    @apply block;
+}
+
+.container {
+    width: 100%;
+    margin-right: auto;
+    margin-left: auto;
+    padding-right: 16px;
+    padding-left: 16px;
+}
+.px-4 {
+    padding-left: 1rem;
+    padding-right: 1rem;
+}
+.xs {
+    max-width: 540px;
+}
+.w-full {
+    width: 100%;
+}
+.hover\:fill-white:hover {
+    fill: #ffffff;
+}
+/* Border */
+.roundedrl {
+    border-top-left-radius: 60px;
+    border-bottom-right-radius: 60px;
+}
+.roundedlr {
+    border-top-right-radius: 60px;
+    border-bottom-left-radius: 60px;
+}
+.space-kanan {
+    margin-right: 3px;
+}
+.navbar-fixed {
+    @apply fixed z-[9999] bg-white bg-opacity-80;
+    backdrop-filter: blur(10px);
+    box-shadow: inset 0 -1px 0 0 rgba(0, 0, 0, 0.1);
+}
+.hamburger-line {
+    @apply w-[30px] h-[2px] my-2 block bg-black;
+}
+.hamburger-active > span:nth-child(1) {
+    @apply rotate-45;
+}
+.hamburger-active > span:nth-child(2) {
+    @apply scale-0;
+}
+.hamburger-active > span:nth-child(3) {
+    @apply -rotate-45;
+}

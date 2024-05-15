@@ -5,7 +5,7 @@ namespace Database\Factories;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Str;
 use App\Models\Kendaraan;
-use App\Models\MerkKendaraan;
+use App\Models\Merkkendaraan;
 
 class KendaraanFactory extends Factory
 {
@@ -22,9 +22,10 @@ class KendaraanFactory extends Factory
     public function definition(): array
     {
         return [
-            'Merk_kendaraan_id' => MerkKendaraan::factory(),
+            'merk_kendaraan_id' => Merkkendaraan::factory(),
             'k_plat' => $this->faker->word(),
             'k_status' => $this->faker->randomElement(["tersedia","tidak"]),
+            'k_slug' => $this->faker->word(),
         ];
     }
 }

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Models\Gedung;
+namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -16,7 +16,8 @@ class Profile extends Model
      * @var array
      */
     protected $fillable = [
-        'User_id',
+        'user_id',
+        'slug',
         'nama_lengkap',
         'foto_ktp',
         'alamat',
@@ -30,7 +31,7 @@ class Profile extends Model
      */
     protected $casts = [
         'id' => 'integer',
-        'User_id' => 'integer',
+        'user_id' => 'integer',
     ];
 
     public function user(): BelongsTo
