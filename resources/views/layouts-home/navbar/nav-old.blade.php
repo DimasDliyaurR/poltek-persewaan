@@ -51,19 +51,34 @@
                 <li class="group">
                   <a href="#syarat" class="text-base text-black py-2 mx-6 flex group-hover:text-primary">Syarat</a>
                 </li>
-                <li class="group">
+                <!-- <li class="group">
                   <a href="/login" class="text-base text-black py-2 mx-6 flex group-hover:text-primary">Daftar</a>
-                </li>
+                </li> -->
                 <div class="dropdownProfile">
                   <li class="group">
                   <button id="dropdownHoverButton" data-dropdown-toggle="dropdownHover" data-dropdown-trigger="hover" >
                     <img src="{{asset('img/lab.jpg')}}" alt="" class="w-8 h-8 rounded-full mx-6 flex p-1">
                   </button>
                   </li>
-                  <div id="dropdownHover" class="z-10 hidden bg-white shadow-xl divide-y divide-gray-100 rounded-lg  w-32">
-                    <ul class="py-2 text-sm text-gray-700 " aria-labelledby="dropdownHoverButton">
-                      <li><a href="/dashboard" class="px-4 py-2 hover:bg-gray-100 hover:w-full">Dashboard</a></li>
-                      <li><a href="" class="px-4 py-2 hover:bg-gray-100">Logout</a></li>
+                  <div id="dropdownHover" class="z-10 hidden bg-white shadow-xl divide-y divide-gray-100 rounded-lg  w-auto">
+                    <ul class="p-2 text-sm text-gray-700 " aria-labelledby="dropdownHoverButton">
+                      <li class=" hover:bg-gray-100 hover:w-auto relative">
+                        <a href="/dashboard" class="  flex items-center  rounded-md py-2 px-4 " >
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                          <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6A2.25 2.25 0 0 1 6 3.75h2.25A2.25 2.25 0 0 1 10.5 6v2.25a2.25 2.25 0 0 1-2.25 2.25H6a2.25 2.25 0 0 1-2.25-2.25V6ZM3.75 15.75A2.25 2.25 0 0 1 6 13.5h2.25a2.25 2.25 0 0 1 2.25 2.25V18a2.25 2.25 0 0 1-2.25 2.25H6A2.25 2.25 0 0 1 3.75 18v-2.25ZM13.5 6a2.25 2.25 0 0 1 2.25-2.25H18A2.25 2.25 0 0 1 20.25 6v2.25A2.25 2.25 0 0 1 18 10.5h-2.25a2.25 2.25 0 0 1-2.25-2.25V6ZM13.5 15.75a2.25 2.25 0 0 1 2.25-2.25H18a2.25 2.25 0 0 1 2.25 2.25V18A2.25 2.25 0 0 1 18 20.25h-2.25A2.25 2.25 0 0 1 13.5 18v-2.25Z" />
+                        </svg>
+                        <span>Dashboard</span>
+                      </a>
+                      </li>
+                      <li class="relative w-auto hover:bg-gray-100">
+                        <a href="/logout" class="  flex items-center  rounded-md py-2 px-4 ">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 9V5.25A2.25 2.25 0 0 1 10.5 3h6a2.25 2.25 0 0 1 2.25 2.25v13.5A2.25 2.25 0 0 1 16.5 21h-6a2.25 2.25 0 0 1-2.25-2.25V15m-3 0-3-3m0 0 3-3m-3 3H15" />
+                        </svg>
+                        <span>Logout</span>
+                        </a>
+                      
+                      </li>
                     </ul>
                   </div>
                 </div>
