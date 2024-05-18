@@ -133,7 +133,7 @@ class AlatBarangController extends Controller
     ) {
         $validation = $request->validated(); // Semua input yang telah ter-validation
 
-        $AlatBarangOld = $this->alatBarangService->getDataAlatBarangById($id);
+        $AlatBarangOld = $this->alatBarangService->getDataAlatBarangById($id)->first();
 
         if ($request->hasFile('ab_foto')) // Periksa Apakah form ab_foto ada isinya
         {

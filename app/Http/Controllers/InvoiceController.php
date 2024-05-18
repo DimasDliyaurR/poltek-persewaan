@@ -22,7 +22,7 @@ class InvoiceController extends Controller
     {
         $detailTransaksi = TransaksiAsrama::with(["asramas.tipeAsrama.paymentMethod", "fasilitasAsrama", "promo", "user.profile"])->whereCodeUnique($codeUnique)->get();
 
-        if ($detailTransaksi[0]->status != "terbayar" || auth()->user()->id != $detailTransaksi[0]->user_id) {
+        if (count($detailTransaksi) == 0 || $detailTransaksi[0]->status != "terbayar" || auth()->user()->id != $detailTransaksi[0]->user_id) {
             abort(404);
         }
 
@@ -56,7 +56,7 @@ class InvoiceController extends Controller
     {
         $detailTransaksi = TransaksiAlatBarang::with(["alatBarangs" => ["paymentMethod", "satuanAlatBarangs"], "promo",])->whereCodeUnique($codeUnique)->get();
 
-        if ($detailTransaksi[0]->status != "terbayar" || auth()->user()->id != $detailTransaksi[0]->user_id) {
+        if (count($detailTransaksi) == 0 || $detailTransaksi[0]->status != "terbayar" || auth()->user()->id != $detailTransaksi[0]->user_id) {
             abort(404);
         }
 
@@ -90,7 +90,11 @@ class InvoiceController extends Controller
     {
         $detailTransaksi = TransaksiLayanan::with(["layanans.paymentMethod", "promo", "user.profile"])->whereCodeUnique($codeUnique)->get();
 
+        if (count($detailTransaksi) == 0 || $detailTransaksi[0]->status != "terbayar" || auth()->user()->id != $detailTransaksi[0]->user_id) {
+            abort(404);
+        }
         $sub_total = 0;
+
 
         // dd($detailTransaksi);
 
@@ -117,7 +121,9 @@ class InvoiceController extends Controller
     public function gedung_lap_invoice($codeUnique)
     {
         $detailTransaksi = TransaksiGedung::with(["gedungLap.paymentMethod", "promo", "user.profile"])->whereCodeUnique($codeUnique)->get();
-
+        if (count($detailTransaksi) == 0 || $detailTransaksi[0]->status != "terbayar" || auth()->user()->id != $detailTransaksi[0]->user_id) {
+            abort(404);
+        }
         $sub_total = 0;
         $total = 0;
 
@@ -147,7 +153,9 @@ class InvoiceController extends Controller
     public function transportasi_invoice($codeUnique)
     {
         $detailTransaksi = TransaksiKendaraan::with(["kendaraans.merkKendaraan.paymentMethod", "promo", "users"])->whereCodeUnique($codeUnique)->get();
-
+        if (count($detailTransaksi) == 0 || $detailTransaksi[0]->status != "terbayar" || auth()->user()->id != $detailTransaksi[0]->user_id) {
+            abort(404);
+        }
         $sub_total = 0;
 
         foreach ($detailTransaksi as $transaksi) {

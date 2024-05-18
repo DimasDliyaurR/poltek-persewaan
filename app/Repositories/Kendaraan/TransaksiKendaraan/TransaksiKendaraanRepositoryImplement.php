@@ -39,7 +39,7 @@ class TransaksiKendaraanRepositoryImplement implements TransaksiKendaraanReposit
      */
     public function getAllWithDetailTransaksiKendaraan()
     {
-        return $this->transaksiKendaraan::with(["user", "kendaraans" => [
+        return $this->transaksiKendaraan::with(["users", "kendaraans" => [
             "merkKendaraan"
         ]]);
     }

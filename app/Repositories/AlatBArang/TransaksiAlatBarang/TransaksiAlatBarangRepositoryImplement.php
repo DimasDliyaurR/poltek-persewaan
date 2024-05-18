@@ -43,7 +43,7 @@ class TransaksiAlatBarangRepositoryImplement implements TransaksiAlatBarangRepos
      */
     public function getAllWithDetailTransaksiAlatBarang()
     {
-        $alatBarangData = $this->alatBarang::with("detailTransaksiAlatBarangs");
+        $alatBarangData = $this->alatBarang::with("detailTransaksiAlatBarangs", "alatBarangs.satuanAlatBarangs", "user");
 
         return $alatBarangData;
     }

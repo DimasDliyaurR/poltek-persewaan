@@ -1,6 +1,7 @@
 @extends('layouts-home.navbar.comp')
 @section('content')
     <div class="pt-40 pb-16 bg-slate-100 px-20 ">
+
         <div class="container">
             <div class="w-full">
                 <div class="max-w-xl mx-auto text-center mb-16">
@@ -31,7 +32,7 @@
                     </form>
                 </div>
             </div>
-            <div class="flex flex-wrap">
+            <div class="flex flex-row flex-wrap">
                 @forelse ($tipeAsrama as $item)
                     <div class="w-full px-4 lg:w-1/2 xl:w-1/3 mb-5">
                         <div class="bg-white  rounded-xl shadow-lg overflow-hidden ">
@@ -47,51 +48,10 @@
                                                 alt="gambar 1">
                                         </div>
                                     </div>
-                                    <!-- Slider indicators -->
-                                    <div
-                                        class="absolute z-30 flex -translate-x-1/2  left-1/2 space-x-3 rtl:space-x-reverse -mt-7">
-                                        <button type="button" class="w-2 h-2 rounded-full " aria-current="true"
-                                            aria-label="Slide 1" data-carousel-slide-to="0"></button>
-                                        <button type="button" class="w-2 h-2 rounded-full" aria-current="false"
-                                            aria-label="Slide 2" data-carousel-slide-to="1"></button>
-                                        <button type="button" class="w-2 h-2 rounded-full" aria-current="false"
-                                            aria-label="Slide 3" data-carousel-slide-to="2"></button>
-                                        <button type="button" class="w-2 h-2 rounded-full" aria-current="false"
-                                            aria-label="Slide 4" data-carousel-slide-to="3"></button>
-                                    </div>
-                                    <!-- Slider controls -->
-                                    <button type="button"
-                                        class="absolute top-0 start-0 z-30 flex items-center justify-center h-full px-4 cursor-pointer group focus:outline-none"
-                                        data-carousel-prev>
-                                        <span
-                                            class="inline-flex items-center justify-center w-6 h-6 rounded-full bg-white/30 dark:bg-gray-800/30 group-hover:bg-white/50 dark:group-hover:bg-gray-800/60 group-focus:ring-4 group-focus:ring-white dark:group-focus:ring-gray-800/70 group-focus:outline-none">
-                                            <svg class="w-4 h-4 text-white dark:text-gray-800 rtl:rotate-180"
-                                                aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
-                                                viewBox="0 0 6 10">
-                                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
-                                                    stroke-width="2" d="M5 1 1 5l4 4" />
-                                            </svg>
-                                            <span class="sr-only">Previous</span>
-                                        </span>
-                                    </button>
-                                    <button type="button"
-                                        class="absolute top-0 end-0 z-30 flex items-center justify-center h-full px-4 cursor-pointer group focus:outline-none"
-                                        data-carousel-next>
-                                        <span
-                                            class="inline-flex items-center justify-center w-6 h-6 rounded-full bg-white/30 dark:bg-gray-800/30 group-hover:bg-white/50 dark:group-hover:bg-gray-800/60 group-focus:ring-4 group-focus:ring-white dark:group-focus:ring-gray-800/70 group-focus:outline-none">
-                                            <svg class="w-4 h-4 text-white dark:text-gray-800 rtl:rotate-180"
-                                                aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
-                                                viewBox="0 0 6 10">
-                                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
-                                                    stroke-width="2" d="m1 9 4-4-4-4" />
-                                            </svg>
-                                            <span class="sr-only">Next</span>
-                                        </span>
-                                    </button>
                                 </div>
                                 <h3>
                                     <a href=""
-                                        class="block mb-3 mt-3 font-semibold text-xl text-black hover:text-primary truncate">{{ $item->a_nama_ruangan }}</a>
+                                        class="block mb-3 mt-3 font-semibold text-xl text-black hover:text-primary truncate">{{ $item->ta_nama }}</a>
                                 </h3>
                                 <div class="flex mb-2">
                                     <svg class="w-6 h-6 text-primary" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
@@ -105,10 +65,10 @@
                                     <sup class="text-xs text-gray-500"> Orang / kamar </sup>
                                 </div>
                                 <!-- <div class="flex mb-2">
-                                                                                                                                <img src="{{ 'img/penginapan/bensin.png' }}" alt="bbm" class="w-5 h-5">
-                                                                                                                                <p class="text-sm font-semibold ml-2">Bensin</p>
-                                                                                                                                <sup class="text-xs text-gray-500"> Fuel </sup>
-                                                                                                                            </div> -->
+                                                                                                                                                                                <img src="{{ 'img/penginapan/bensin.png' }}" alt="bbm" class="w-5 h-5">
+                                                                                                                                                                                <p class="text-sm font-semibold ml-2">Bensin</p>
+                                                                                                                                                                                <sup class="text-xs text-gray-500"> Fuel </sup>
+                                                                                                                                                                            </div> -->
                                 <p class="text-xs text-gray-500 mb-1  flex justify-between">*check out 12.00 a.m <span
                                         class=" text-black font-bold text-base">Rp
                                         {{ number_format($item->ta_tarif, 0, ',', '.') }}</span></p>
@@ -119,12 +79,10 @@
                             </div>
                         </div>
                     </div>
-
+                @empty
             </div>
+            <p class="font-bold uppercase pb-20">cari dengan kata kunci lain </p>
+            @endforelse
+            {{ $tipeAsrama->links() }}
         </div>
-    @empty
-        <p class="font-bold uppercase pb-20">cari dengan kata kunci lain </p>
-        @endforelse
-        {{ $tipeAsrama->links() }}
-    </div>
-@endsection
+    @endsection

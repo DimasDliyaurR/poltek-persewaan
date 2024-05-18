@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\MerkKendaraan;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\Traits\FormValidationHelper;
 use App\Http\Controllers\Traits\HandlerPromo;
 use App\Models\AlatBarang;
 use App\Models\TransaksiAlatBarang;
@@ -14,6 +15,8 @@ use App\Services\handler\Promo\PromoHandler;
 
 class ApiController extends Controller
 {
+    use FormValidationHelper;
+
     public function getMerkKendaraanBySlug($slug)
     {
         $slugs = explode(",", $slug);
@@ -126,6 +129,38 @@ class ApiController extends Controller
             ->json([
                 'success' => true,
                 'message' => 'Promo Berhasil',
+            ]);
+    }
+
+    public function validasi_form_transaksi_transportasi(Request $request)
+    {
+        if (!$request->isMethod("POST")) {
+            return response()->json([
+                "error" => true,
+                "message" => "Wrong method",
+            ], 403);
+        }
+
+        try {
+            $table = $request->table;
+            $target = strtotime($request->tk_pelaksanaan) + ($request->durasi * (60 * 60 * 24));
+
+            if ($this->checkSchedule($table, "tk_tanggal_pelaksanaan", "tk_tanggal_kembali", $target)) {
+                return response()->json([
+                    "error" => true,
+                    "message" => "Jadwal sudah ada",
+                ], 403);
+            }
+        } catch (\Exception $th) {
+            return response()->json([
+                "error" => true,
+                "message" => "Internal Error",
+            ], 505);
+        }
+
+        return response()
+            ->json([
+                'success' => true,
             ]);
     }
 }

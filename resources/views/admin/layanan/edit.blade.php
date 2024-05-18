@@ -61,6 +61,7 @@
                     <option value="jam" {{ $layanan->l_satuan == 'jam' ? 'selected' : '' }}>jam</option>
                     <option value="minggu" {{ $layanan->l_satuan == 'minggu' ? 'selected' : '' }}>minggu</option>
                     <option value="bulan" {{ $layanan->l_satuan == 'bulan' ? 'selected' : '' }}>bulan</option>
+                    <option value="bulan" {{ $layanan->l_satuan == 'kegiatan' ? 'selected' : '' }}>kegiatan</option>
                 </select>
                 @error('l_satuan')
                     <span class="text-red-600 text-sm">{{ $message }}</span>

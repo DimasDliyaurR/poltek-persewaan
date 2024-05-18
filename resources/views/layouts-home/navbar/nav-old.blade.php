@@ -10,8 +10,7 @@
     <link href="https://icons8.com/icon/E4FAF4hA9ugF/help">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.css" rel="stylesheet" />
     <!-- Link Swiper's CSS -->
-    <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4="
-        crossorigin="anonymous"></script>
+    <script src="{{ asset('js/jquery-3.7.1.min.js') }}"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
     <link rel="stylesheet" href="{{ asset('css/style.css') }}">
     @vite('resources/css/app.css')
@@ -62,33 +61,36 @@
                             </li>
                             <li class="group">
                                 <a href="/login"
-                                    class="text-base text-black py-2 mx-6 flex group-hover:text-primary">Daftar</a>
+                                    class="text-base text-black py-2 mx-6 flex group-hover:text-primary">Login</a>
                             </li>
-                            <div class="dropdownProfile">
-                                <li class="group">
-                                    <button id="dropdownHoverButton" data-dropdown-toggle="dropdownHover"
-                                        data-dropdown-trigger="hover">
-                                        <img src="{{ asset('img/lab.jpg') }}" alt=""
-                                            class="w-8 h-8 rounded-full mx-6 flex p-1">
-                                    </button>
-                                </li>
-                                <div id="dropdownHover"
-                                    class="z-10 hidden bg-white shadow-xl divide-y divide-gray-100 rounded-lg  w-32">
-                                    <ul class="py-2 text-sm text-gray-700 " aria-labelledby="dropdownHoverButton">
-                                        <li><a href="/dashboard"
-                                                class="px-4 py-2 hover:bg-gray-100 hover:w-full">Dashboard</a></li>
-                                        <li> <a class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
-                                                href="{{ route('logout') }}"
-                                                onclick="event.preventDefault();
-                                                      document.getElementById('logout-form').submit();">
-                                                {{ __('Logout') }}
-                                            </a>
+                            @auth
+                                <div class="dropdownProfile">
+                                    <li class="group">
+                                        <button id="dropdownHoverButton" data-dropdown-toggle="dropdownHover"
+                                            data-dropdown-trigger="hover">
+                                            <img src="{{ asset('img/lab.jpg') }}" alt=""
+                                                class="w-8 h-8 rounded-full mx-6 flex p-1">
+                                        </button>
+                                    </li>
+                                    <div id="dropdownHover"
+                                        class="z-10 hidden bg-white shadow-xl divide-y divide-gray-100 rounded-lg  w-32">
+                                        <ul class="py-2 text-sm text-gray-700 " aria-labelledby="dropdownHoverButton">
+                                            <li><a href="/dashboard"
+                                                    class="px-4 py-2 hover:bg-gray-100 hover:w-full">Dashboard</a></li>
 
-                                            <form id="logout-form" action="{{ route('logout') }}" method="POST"
-                                                class="hidden">
-                                                @csrf
-                                            </form>
-                                        </li>
+                                            <li> <a class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
+                                                    href="{{ route('logout') }}"
+                                                    onclick="event.preventDefault();
+                                                      document.getElementById('logout-form').submit();">
+                                                    {{ __('Logout') }}
+                                                </a>
+
+                                                <form id="logout-form" action="{{ route('logout') }}" method="POST"
+                                                    class="hidden">
+                                                    @csrf
+                                                </form>
+                                            </li>
+                                        @endauth
                                     </ul>
                                 </div>
                             </div>

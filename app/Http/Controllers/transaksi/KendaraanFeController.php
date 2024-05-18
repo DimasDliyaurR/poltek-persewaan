@@ -8,16 +8,17 @@ use App\Models\MerkKendaraan;
 use App\Models\TransaksiKendaraan;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
-use App\Http\Controllers\Traits\HandlerPromo;
 use App\Models\DetailTransaksiKendaraan;
-use App\Services\Kendaraan\KendaraanService;
-use App\Http\Requests\kendaraan\RequestTransaksiKendaraan;
-use App\Services\handler\Midtrans\CreateSnapTokenService;
 use App\Services\handler\Promo\PromoHandler;
+use App\Services\Kendaraan\KendaraanService;
+use App\Http\Controllers\Traits\HandlerPromo;
+use App\Http\Controllers\Traits\FormValidationHelper;
+use App\Services\handler\Midtrans\CreateSnapTokenService;
+use App\Http\Requests\kendaraan\RequestTransaksiKendaraan;
 
 class KendaraanFeController extends Controller
 {
-    use HandlerPromo;
+    use HandlerPromo, FormValidationHelper;
 
     protected $kendaraanService;
 
@@ -82,10 +83,12 @@ class KendaraanFeController extends Controller
     public function pesan(Request $request)
     {
         $validation = $request->validate([
-            "tk_tanggal_sewa" => "required",
+            "tk_pelaksanaan" => "required",
             "tk_tanggal_kembali" => "required",
             "slug" => "required",
         ]);
+
+
 
         $item = $request->slug;
         $this->inputPromo = $request->promo;
@@ -108,9 +111,9 @@ class KendaraanFeController extends Controller
 
         DB::transaction(function () use ($validation) {
             // Store Transaksi
-            $tanggal_sewa_unix = strtotime($validation["tk_tanggal_sewa"]);
+            $pelaksanaan_unix = strtotime($validation["tk_pelaksanaan"]);
             $tanggal_kembali_unix = strtotime($validation["tk_tanggal_kembali"]);
-            $validation["tk_durasi"] = intdiv(($tanggal_kembali_unix - $tanggal_sewa_unix), (24 * 60 * 60));
+            $validation["tk_durasi"] = intdiv(($tanggal_kembali_unix - $pelaksanaan_unix), (24 * 60 * 60));
 
             $transaksi = TransaksiKendaraan::create([
                 "user_id" => auth()->user()->id,
@@ -118,6 +121,7 @@ class KendaraanFeController extends Controller
                 "code_unique" => auth()->user()->id . strtotime(now()) . "@100",
                 "tk_durasi" => $validation["tk_durasi"],
                 "tk_tanggal_sewa" => now(),
+                "tk_pelaksanaan" => $validation["tk_pelaksanaan"],
                 "tk_tanggal_kembali" => $validation["tk_tanggal_kembali"],
             ]);
 

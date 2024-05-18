@@ -85,13 +85,15 @@ class DatabaseSeeder extends Seeder
             ]
         ]);
 
-        DB::table("tipe_asramas")->insert([
-            "id" => 1,
-            "ta_foto" => "asrama/furR0LYXqmRVRD7q5qXO3WkU6Tw37RtkBLnmVwed.png",
-            "ta_nama" => "Tipe Deluxxe with swift room",
-            "ta_tarif" => 700000,
-            "ta_kapasitas" => 2,
-            "ta_deskripsi" => "<p><strong>Tipe Deluxe Room</strong> adalah salah satu jenis ruangan yang biasanya ditawarkan oleh pengi
+        DB::table("tipe_asramas")->insert(
+            [
+                [
+                    "id" => 1,
+                    "ta_foto" => "asrama/5.png",
+                    "ta_nama" => "Tipe Deluxe with swift room",
+                    "ta_tarif" => 700000,
+                    "ta_kapasitas" => 2,
+                    "ta_deskripsi" => "<p><strong>Tipe Deluxe Room</strong> adalah salah satu jenis ruangan yang biasanya ditawarkan oleh pengi
     napan, terutama hotel, saat Anda sedang berlibur. Istilah ini lebih sering ditemui di hotel sebagai pembeda dengan tipe kamar l
     ainnya. Berikut beberapa informasi mengenai Deluxe Room:</p><p>&nbsp;</p><p><strong>1. Pengertian Deluxe Room</strong>:<br>&nbs
     p;</p><p>- Deluxe Room adalah tipe kamar hotel yang bisa dipilih saat menginap.<br>- Kamar ini memiliki fasilitas yang lebih un
@@ -102,18 +104,107 @@ class DatabaseSeeder extends Seeder
     s dan pelayanan yang lebih mendasar daripada Deluxe Room.<br>- Ukuran kamar Standard Room lebih kecil dan fasilitasnya lebih se
     derhana.<br>- Tarif Standard Room juga lebih terjangkau dibanding Deluxe Room, cocok bagi yang ingin berlibur dengan budget ter
     batas.</p>",
-            "ta_slug" => "tipe-deluxxe-with-swift-room",
-            "created_at" => now(),
-            "updated_at" => now(),
-            "deleted_at" => null,
-        ]);
+                    "ta_slug" => "tipe-deluxxe-with-swift-room",
+                    "created_at" => now(),
+                    "updated_at" => now(),
+                    "deleted_at" => null,
+                ],
+                [
+                    "id" => 2,
+                    "ta_foto" => "asrama/barack_1.png",
+                    "ta_nama" => "Tipe Barak",
+                    "ta_tarif" => 500000,
+                    "ta_kapasitas" => 12,
+                    "ta_deskripsi" => "<p><strong>Tipe Barak</strong> adalah salah satu jenis ruangan yang . Istilah ini lebih sering ditemui di hotel sebagai pembeda dengan tipe kamar l
+    ainnya. Berikut beberapa informasi mengenai Deluxe Room:</p><p>&nbsp;</p><p><strong>1. Pengertian Deluxe Room</strong>:<br>&nbs
+    p;</p><p>- Deluxe Room adalah tipe kamar hotel yang bisa dipilih saat menginap.<br>- Kamar ini memiliki fasilitas yang lebih un
+    ggul dibandingkan ruangan standard.<br>- <strong>Ukuran ruangan Deluxe Room lebih besar </strong>daripada ruangan standar, sehi
+    ngga cocok untuk yang sudah berkeluarga atau ingin lebih memanjakan diri saat liburan.<br>- <strong>Fasilitas </strong>di kamar
+     Deluxe Room juga lebih lengkap, seperti <strong>akses khusus ke fasilitas olahraga, kolam renang, dan sebagainya</strong>.<br>
+    &nbsp;</p><p><strong>2. Perbedaan dengan Standard Room:</strong></p><p><br>- <strong>Standard Room </strong>menawarkan fasilita
+    s dan pelayanan yang lebih mendasar daripada Deluxe Room.<br>- Ukuran kamar Standard Room lebih kecil dan fasilitasnya lebih se
+    derhana.<br>- Tarif Standard Room juga lebih terjangkau dibanding Deluxe Room, cocok bagi yang ingin berlibur dengan budget ter
+    batas.</p>",
+                    "ta_slug" => "tipe-barak",
+                    "created_at" => now(),
+                    "updated_at" => now(),
+                    "deleted_at" => null,
+                ],
+                [
+                    "id" => 3,
+                    "ta_foto" => "asrama/trio_1.png",
+                    "ta_nama" => "Tipe Barak",
+                    "ta_tarif" => 500000,
+                    "ta_kapasitas" => 12,
+                    "ta_deskripsi" => "<p><strong>Tipe Barak</strong> adalah salah satu jenis ruangan yang . Istilah ini lebih sering ditemui di hotel sebagai pembeda dengan tipe kamar l
+    ainnya. Berikut beberapa informasi mengenai Deluxe Room:</p><p>&nbsp;</p><p><strong>1. Pengertian Deluxe Room</strong>:<br>&nbs
+    p;</p><p>- Deluxe Room adalah tipe kamar hotel yang bisa dipilih saat menginap.<br>- Kamar ini memiliki fasilitas yang lebih un
+    ggul dibandingkan ruangan standard.<br>- <strong>Ukuran ruangan Deluxe Room lebih besar </strong>daripada ruangan standar, sehi
+    ngga cocok untuk yang sudah berkeluarga atau ingin lebih memanjakan diri saat liburan.<br>- <strong>Fasilitas </strong>di kamar
+     Deluxe Room juga lebih lengkap, seperti <strong>akses khusus ke fasilitas olahraga, kolam renang, dan sebagainya</strong>.<br>
+    &nbsp;</p><p><strong>2. Perbedaan dengan Standard Room:</strong></p><p><br>- <strong>Standard Room </strong>menawarkan fasilita
+    s dan pelayanan yang lebih mendasar daripada Deluxe Room.<br>- Ukuran kamar Standard Room lebih kecil dan fasilitasnya lebih se
+    derhana.<br>- Tarif Standard Room juga lebih terjangkau dibanding Deluxe Room, cocok bagi yang ingin berlibur dengan budget ter
+    batas.</p>",
+                    "ta_slug" => "tipe-barak",
+                    "created_at" => now(),
+                    "updated_at" => now(),
+                    "deleted_at" => null,
+                ],
+            ]
+        );
+
+        DB::table("detail_foto_tipe_asramas")->insert(
+            [
+                [
+                    "id" => 1,
+                    "tipe_asrama_id" => 1,
+                    "dfta_foto" => "asrama/6.png",
+                ],
+                [
+                    "id" => 2,
+                    "tipe_asrama_id" => 1,
+                    "dfta_foto" => "asrama/3.png",
+                ],
+                [
+                    "id" => 3,
+                    "tipe_asrama_id" => 1,
+                    "dfta_foto" => "asrama/2.png",
+                ],
+                [
+                    "id" => 4,
+                    "tipe_asrama_id" => 2,
+                    "dfta_foto" => "asrama/barack_2.JPG",
+                ],
+                [
+                    "id" => 5,
+                    "tipe_asrama_id" => 2,
+                    "dfta_foto" => "asrama/barack_3.JPG",
+                ],
+                [
+                    "id" => 6,
+                    "tipe_asrama_id" => 2,
+                    "dfta_foto" => "asrama/barack_4.JPG",
+                ],
+                [
+                    "id" => 7,
+                    "tipe_asrama_id" => 3,
+                    "dfta_foto" => "asrama/trio_2.JPG",
+                ],
+                [
+                    "id" => 8,
+                    "tipe_asrama_id" => 3,
+                    "dfta_foto" => "asrama/trio_3.JPG",
+                ],
+            ]
+        );
 
         DB::table("asramas")->insert([
             [
                 "id" => 1,
                 "tipe_asrama_id" => 1,
-                "a_nama_ruangan" => "Ruangan 403 Esxtra doeble Avenged Bad",
-                "a_slug" => "ruangan-403-esxtra-doeble-avenged-bad",
+                "a_nama_ruangan" => "Ruangan 403 Esxtra Single Avenged Bad",
+                "a_slug" => "ruangan-403-esxtra-single-avenged-bad",
                 "a_status" => "tersedia",
                 "created_at" => now(),
                 "updated_at" => now(),
@@ -121,8 +212,8 @@ class DatabaseSeeder extends Seeder
             ], [
                 "id" => 2,
                 "tipe_asrama_id" => 1,
-                "a_nama_ruangan" => "Ruangan 403 Esxtra doeble bath",
-                "a_slug" => "ruangan-403-esxtra-doeble-bath",
+                "a_nama_ruangan" => "Ruangan 403 Esxtra doeble bad",
+                "a_slug" => "ruangan-403-esxtra-doeble-bad",
                 "a_status" => "tersedia",
                 "created_at" => now(),
                 "updated_at" => now(),

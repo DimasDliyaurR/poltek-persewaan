@@ -251,6 +251,7 @@ class AsramaController extends Controller
     {
         $validation = $request->validated();
 
+        $validation["tarif_dp"] = $request->tarif_dp ?? 0;
 
         if ($request->hasFile('ta_foto')) {
             $file_asrama = $request->file('ta_foto');
