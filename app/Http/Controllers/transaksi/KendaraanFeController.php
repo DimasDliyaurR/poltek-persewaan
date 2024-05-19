@@ -15,6 +15,7 @@ use App\Http\Controllers\Traits\HandlerPromo;
 use App\Http\Controllers\Traits\FormValidationHelper;
 use App\Services\handler\Midtrans\CreateSnapTokenService;
 use App\Http\Requests\kendaraan\RequestTransaksiKendaraan;
+use stdClass;
 
 class KendaraanFeController extends Controller
 {
@@ -32,6 +33,9 @@ class KendaraanFeController extends Controller
 
     public function __construct(KendaraanService $kendaraanService)
     {
+        setlocale(LC_TIME, 'id_ID');
+        \Carbon\Carbon::setLocale('id');
+        \Carbon\Carbon::now()->formatLocalized("%A, %d %B %Y");
         $this->kendaraanService = $kendaraanService;
     }
 
@@ -61,30 +65,11 @@ class KendaraanFeController extends Controller
         ]);
     }
 
-    public function pesanForm($slug)
-    {
-        try {
-            $item = $slug;
-            $item = MerkKendaraan::whereMkSlug($item)->withCount([
-                "kendaraans" => fn ($q) => $q->where("k_status", "!=", "tersedia")
-            ]);
-            $MerkKendaraan = MerkKendaraan::with("kendaraans")->withCount(["kendaraans" => fn ($q) => $q->where("k_status", "=", "tersedia")])->get();
-        } catch (\Throwable $th) {
-            throw new Exception($th->getMessage());
-        }
-
-        return view("transportasi.transaksi_pesan", [
-            "title" => "Pesan Kendaraan",
-            "merkKendaraan" => $MerkKendaraan->first(),
-            "item" => $item,
-        ]);
-    }
-
     public function pesan(Request $request)
     {
         $validation = $request->validate([
             "tk_pelaksanaan" => "required",
-            "tk_tanggal_kembali" => "required",
+            "tk_durasi" => "required",
             "slug" => "required",
         ]);
 
@@ -109,11 +94,11 @@ class KendaraanFeController extends Controller
         }
 
 
-        DB::transaction(function () use ($validation) {
+        $inner = DB::transaction(function () use ($validation) {
             // Store Transaksi
             $pelaksanaan_unix = strtotime($validation["tk_pelaksanaan"]);
-            $tanggal_kembali_unix = strtotime($validation["tk_tanggal_kembali"]);
-            $validation["tk_durasi"] = intdiv(($tanggal_kembali_unix - $pelaksanaan_unix), (24 * 60 * 60));
+            $durasi = $validation["tk_durasi"];
+            $validation["tk_tanggal_kembali"] = date("Y-m-d h:i:s", $pelaksanaan_unix + ($durasi * (60 * 60 * 24)));
 
             $transaksi = TransaksiKendaraan::create([
                 "user_id" => auth()->user()->id,
@@ -127,21 +112,34 @@ class KendaraanFeController extends Controller
 
             $this->transaksi = $transaksi;
 
-            // Store Detail Transaksi
+            $MerkKendaraan = MerkKendaraan::with(["kendaraans" => fn ($q) => $q->where("k_status", "tersedia"), "paymentMethod"]);
             foreach ($validation["slug"] as $row => $value) {
-                $MerkKendaraan = MerkKendaraan::with("paymentMethod")->where("mk_slug", "=", $value)->first();
-                $total_harga = ($MerkKendaraan->paymentMethod->is_dp ? $MerkKendaraan->paymentMethod->tarif_dp : $MerkKendaraan->mk_tarif) * $validation["tk_durasi"];
+                $MerkKendaraan->where("mk_slug", "=", $value);
+            }
+
+            $MerkKendaraan = $MerkKendaraan->get();
+
+            foreach ($MerkKendaraan as $item) {
+                $total_harga = ($item->paymentMethod->is_dp ? $item->paymentMethod->tarif_dp : $item->mk_tarif) * $validation["tk_durasi"];
 
                 $this->total_transaksi += $total_harga;
 
+                $this->kendaraanService->updateKendaraan([
+                    "k_status" => "tidak",
+                ], $item->kendaraans->first()->id);
+
+                if ($item->kendaraans->first()->id == null) {
+                    return back()->with("error", "Kendaraan tidak tersedia");
+                }
+
                 DetailTransaksiKendaraan::create([
                     "transaksi_kendaraan_id" => $transaksi->id,
-                    "kendaraan_id" => $MerkKendaraan->id,
+                    "kendaraan_id" => $item->kendaraans->first()->id,
                     "dtk_harga" => $total_harga,
                 ]);
             }
-            // Apakah Promo sudah terdeteksi
-            if ($this->checkPromo()) {
+
+            if (!$this->checkPromo()) {
                 return back()->withErrors([
                     "promo" => "Promo Sudah Habis"
                 ]);
@@ -169,6 +167,10 @@ class KendaraanFeController extends Controller
             ]);
         });
 
+        if ($inner != null) {
+            return $inner;
+        }
+
         return redirect()->route("transportasi.pembayaran", $this->transaksi->code_unique);
     }
 
@@ -181,21 +183,20 @@ class KendaraanFeController extends Controller
         $sub_total = 0;
 
         foreach ($detailTransaksi as $transaksi) {
-            $promo = $transaksi->promo;
-
             $tanggal_sewa_unix = strtotime($transaksi->tk_tanggal_sewa);
             $tanggal_kembali_unix = strtotime($transaksi->tk_tanggal_kembali);
             $durasi = intdiv(($tanggal_kembali_unix - $tanggal_sewa_unix), (24 * 60 * 60));
 
             foreach ($transaksi->kendaraans as $asrama) {
-                $sub_total += $asrama->merkKendaraan->mk_tarif;
+                $sub_total += $asrama->merkKendaraan->mk_tarif * $transaksi->tk_durasi;
             }
+
+            $promo = $transaksi->promo != null ? ($transaksi->promo->p_tipe == "fixed") ?
+                $sub_total - $transaksi->promo->p_isi : $sub_total - ($sub_total * ($transaksi->promo->p_isi / 100)) : null;
+
             $snap_token = $transaksi->tk_snap_token;
             $total = $transaksi->tk_sub_total;
         }
-
-        $promo = $promo != null ? ($detailTransaksi->promo->tipe == "fixed") ?
-            $sub_total - $this->promo->p_isi : $sub_total - ($sub_total * ($this->promo->p_isi / 100)) : null;
 
         return view("transportasi.transaksi_invoice", [
             "title" => "pembayaran",

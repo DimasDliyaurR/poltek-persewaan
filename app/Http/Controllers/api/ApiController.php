@@ -2,20 +2,29 @@
 
 namespace App\Http\Controllers\api;
 
+use App\Models\Kendaraan;
+use App\Models\AlatBarang;
+use Illuminate\Support\Arr;
 use Illuminate\Http\Request;
 use App\Models\MerkKendaraan;
+use App\Models\TransaksiKendaraan;
 use Illuminate\Support\Facades\DB;
-use App\Http\Controllers\Controller;
-use App\Http\Controllers\Traits\FormValidationHelper;
-use App\Http\Controllers\Traits\HandlerPromo;
-use App\Models\AlatBarang;
 use App\Models\TransaksiAlatBarang;
+use App\Http\Controllers\Controller;
 use App\Services\handler\Midtrans\Callback;
 use App\Services\handler\Promo\PromoHandler;
+use App\Services\Kendaraan\KendaraanService;
+use App\Http\Controllers\Traits\HandlerPromo;
+use App\Http\Controllers\Traits\FormValidationHelper;
 
 class ApiController extends Controller
 {
-    use FormValidationHelper;
+    private $kendaraanService;
+
+    public function __construct(KendaraanService $kendaraanService)
+    {
+        $this->kendaraanService = $kendaraanService;
+    }
 
     public function getMerkKendaraanBySlug($slug)
     {
@@ -60,6 +69,15 @@ class ApiController extends Controller
                         AlatBarang::whereId($alatBarang->id)->update([
                             "ab_qty" => $alatBarang->a_qty - 1,
                         ]);
+                    }
+                } else if ($modalTable == "transaksi_kendaraans") {
+                    $transaksiKendaraan = TransaksiKendaraan::with("kendaraans")->whereCodeUnique($codeUnique)->get();
+                    foreach ($transaksiKendaraan as $item) {
+                        foreach ($item->kendaraans as $kendaraan) {
+                            $this->kendaraanService->updateKendaraan([
+                                "status" => "tersedia"
+                            ], $kendaraan->id);
+                        }
                     }
                 }
             } else if ($request->transaction_status == 'expire') {
@@ -129,38 +147,6 @@ class ApiController extends Controller
             ->json([
                 'success' => true,
                 'message' => 'Promo Berhasil',
-            ]);
-    }
-
-    public function validasi_form_transaksi_transportasi(Request $request)
-    {
-        if (!$request->isMethod("POST")) {
-            return response()->json([
-                "error" => true,
-                "message" => "Wrong method",
-            ], 403);
-        }
-
-        try {
-            $table = $request->table;
-            $target = strtotime($request->tk_pelaksanaan) + ($request->durasi * (60 * 60 * 24));
-
-            if ($this->checkSchedule($table, "tk_tanggal_pelaksanaan", "tk_tanggal_kembali", $target)) {
-                return response()->json([
-                    "error" => true,
-                    "message" => "Jadwal sudah ada",
-                ], 403);
-            }
-        } catch (\Exception $th) {
-            return response()->json([
-                "error" => true,
-                "message" => "Internal Error",
-            ], 505);
-        }
-
-        return response()
-            ->json([
-                'success' => true,
             ]);
     }
 }

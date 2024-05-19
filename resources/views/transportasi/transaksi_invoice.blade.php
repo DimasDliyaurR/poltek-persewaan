@@ -20,12 +20,14 @@
                     <h4 class="uppercase">Detail Pesanan</h4>
                 </div>
                 <div class="relative overflow-x-auto ">
-                    <table class="w-full text-sm text-left rtl:text-right text-gray-500 ">
-                        <thead class=" text-gray-700 uppercase bg-gray-50 ">
+                    <table class="w-full text-sm text-center rtl:text-right text-gray-500 ">
+                        <thead class=" text-gray-700 uppercase text-left bg-gray-50 ">
                             <tr>
                                 <th scope="col" class="px-1 py-3">Merk Kendaraan</th>
+                                <th scope="col" class="px-6 py-3">Tarif</th>
                                 <th scope="col" class="px-6 py-3">Tanggal Sewa</th>
                                 <th scope="col" class="px-6 py-3">Tanggal Kembali</th>
+                                <th scope="col" class="px-6 py-3">Durasi</th>
                                 <th scope="col" class="px-6 py-3">Total</th>
                             </tr>
                         </thead>
@@ -34,10 +36,18 @@
                                 @foreach ($item->kendaraans as $subItem)
                                     <tr class="bg-white border-b">
                                         <td class="px-1 py-4">{{ $subItem->merkKendaraan->mk_merk }}</td>
-                                        <td class="px-6 py-4">{{ date('d M Y', $item->tk_tanggal_sewa) }}</td>
-                                        <td class="px-6 py-4">{{ date('d M Y', strtotime($item->tk_tanggal_kembali)) }}</td>
+                                        <td class="px-1 py-4">Rp
+                                            {{ number_format($subItem->merkKendaraan->paymentMethod->is_dp ? $subItem->merkKendaraan->mk_tarif : $subItem->merkKendaraan->paymentMethod->tarif_dp, 0, ',', '.') }}
+                                        </td>
+                                        <td class="px-6 py-4">
+                                            {{ \Carbon\Carbon::parse(date('d M Y', $item->tk_tanggal_sewa))->isoFormat('D MMMM Y') }}
+                                        </td>
+                                        <td class="px-6 py-4">
+                                            {{ \Carbon\Carbon::parse(date('d M Y', strtotime($item->tk_tanggal_kembali)))->isoFormat('D MMMM Y') }}
+                                        <td class="px-6 py-4">{{ $item->tk_durasi }}</td>
+                                        </td>
                                         <td class="px-6 py-4">Rp
-                                            {{ number_format(!$subItem->merkKendaraan->paymentMethod->is_dp ? $subItem->merkKendaraan->ta_tarif : $subItem->merkKendaraan->paymentMethod->tarif_dp, 0, ',', '.') }}
+                                            {{ number_format(!$subItem->merkKendaraan->paymentMethod->is_dp ? $subItem->merkKendaraan->mk_tarif * $item->tk_durasi : $subItem->merkKendaraan->paymentMethod->tarif_dp * $item->tk_durasi, 0, ',', '.') }}
 
                                         </td>
                                     </tr>
@@ -50,7 +60,7 @@
                                 </tr>
                             @endif
                             <tr>
-                                <td colspan="3" class="px-6 py-4">Sub Total </td>
+                                <td colspan="5" class="px-6 py-4">Sub Total</td>
                                 <td class="px-6 py-4">Rp {{ number_format($total, 0, ',', '.') }}</td>
                             </tr>
 

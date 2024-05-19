@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\admin\PromoController;
 use App\Http\Controllers\api\ApiController;
+use App\Http\Controllers\api\KendaraanApiController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -29,7 +30,8 @@ Route::controller(ApiController::class)->group(function () {
     Route::post("callback/payment", "callback")->name("callback.midtrans");
 
     Route::get("voucher/{promoCode}/{kategori}",  "cekPromo");
-
+});
+Route::controller(KendaraanApiController::class)->group(function () {
     Route::group(["prefix" => "transportasi"], function () {
         Route::post("pelaksanaan", "validasi_form_transaksi_transportasi");
     });

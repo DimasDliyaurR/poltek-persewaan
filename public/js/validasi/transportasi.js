@@ -1,6 +1,8 @@
 $(document).ready(function () {
     let pelaksanaan = $("#tk_pelaksanaan")
     let pelaksanaan_error = $("#tk_pelaksanaan_error")
+    let promo = $("#promo")
+    let promo_error = $("#promo_error")
     let Durasi = $("#tk_durasi")
     let Durasi_error = $("#tk_durasi_error")
     let pesan = $("#pesan")
@@ -9,12 +11,46 @@ $(document).ready(function () {
     let form = $("#form_asrama")
     let isPelaksanaanValidated = true
     let isDurasiValidated = true
+    let isPromoValidated = true
+    let timeout = null
+    let currentLocation = $(location).attr('href')
+    let slug = currentLocation.split('/')[currentLocation.split('/').length - 1]
+
+    function ValidationPromo() {
+        clearTimeout(timeout)
+        timeout = setTimeout(() => {
+
+            var val = promo.val()
+
+            if (val == "") {
+                promo_error.text("")
+            }
+
+            fetch(`http://localhost:8000/api/voucher/${val}/kendaraans`)
+                .then((res) => res.json())
+                .then((data) => {
+                    if (data.error == true) {
+                        promo_error.removeClass("hidden")
+                        promo_error.text(data.message)
+                        isPromoValidated = false
+                    } else {
+                        promo_error.addClass("hidden")
+                        promo_error.text("")
+                        isPromoValidated = true
+                    }
+                })
+        }, 1000)
+    }
 
     function toggleForm() {
         event.preventDefault();
+        let input = $(`<input type="text" name="slug[]" class=""hidden value="${slug}" />`)
+        console.log(dropdown.hasClass("hidden"));
         if (dropdown.hasClass("hidden")) {
+            form.append(input);
             dropdown.removeClass("hidden")
         } else {
+            slug.remove()
             dropdown.addClass("hidden")
         }
     }
@@ -54,9 +90,9 @@ $(document).ready(function () {
                 type: "POST",
                 url: "http://localhost:8000/api/transportasi/pelaksanaan",
                 data: {
-                    table: "transaksi_kendaraans",
-                    durasi: 2,
-                    target: "2024-05-15"
+                    durasi: Durasi.val(),
+                    pelaksanaan: pelaksanaan.val(),
+                    slug: slug,
                 },
                 header: {
                     "Content-Type": "application/json"
@@ -72,6 +108,7 @@ $(document).ready(function () {
                 error: (res) => {
                     $(res).each((index, val) => {
                         var data = val.responseJSON
+                        console.log(data);
                         if (data.error) {
                             let alertFloding = $(`<div id="alert-2" class="flex items-center p-4 mb-4 text-orange-600 rounded-lg bg-orange-50 dark:bg-gray-800 dark:text-red-400" role="alert">
                             <svg class="flex-shrink-0 w-4 h-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
@@ -96,11 +133,12 @@ $(document).ready(function () {
 
     pelaksanaan.on("input", validationPelaksanaan)
     Durasi.on("input", validationDurasi)
+    promo.on("input", ValidationPromo)
     pesan.on("click", toggleForm)
     submit.click(validate)
 
     setInterval(() => {
-        if (isPelaksanaanValidated && isDurasiValidated) {
+        if (isPelaksanaanValidated && isDurasiValidated && isPromoValidated) {
             submit.attr("disabled", false)
         } else {
             submit.attr("disabled", true)

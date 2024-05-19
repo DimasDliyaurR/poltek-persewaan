@@ -1,8 +1,5 @@
 @extends('layouts-home.navbar.nav-old')
 @section('content')
-    <style>
-        ul {}
-    </style>
     <div class=" bg-plaster py-24 ">
         <div class=" container  ">
 
@@ -18,7 +15,7 @@
                 <x-layout-detail-transaksi
                     class="flex xl:flex-row w-full md:items-end md:flex-row lg:flex-row flex-col-reverse justify-between space-x-2">
                     <img src="{{ Storage::url($kendaraan->mk_foto) }}"
-                        class="rounded-md shadow-lg w-[40rem] h-80 object-cover" alt="">
+                        class="rounded-md shadow-lg w-[55rem] h-80 object-cover" alt="">
 
 
                     <div class="basis-3/5 h-auto flex flex-row gap-4 rounded-md p-4 mb-2 ml-2 ">
@@ -47,7 +44,6 @@
                                         <p class="text-sm font-semibold ml-1">{{ $kendaraan->kendaraans_count }}</p>
                                         <p class="text-xs text-gray-500 ml-1">Kapasitas</sup>
                                     </div>
-
                                 </ul>
                             </div>
                             <div class=" bg-white p-3 rounded-md">

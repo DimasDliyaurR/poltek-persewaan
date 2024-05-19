@@ -30,29 +30,49 @@ trait FormValidationHelper
     }
 
     /**
-     * Validation Apakah 
+     * Helper Perbandingan
+     * @param int $a a
+     * @param int $b b
+     * @return int
+     */
+    public function isALargeAndEqualThenB($a, $b)
+    {
+        return ($a <= $b);
+    }
+
+    /**
+     * Validation Cek Jadwal
      * @param string $table Nama tabel
      * @param string $column_a Kolom a
      * @param string $column_b Kolom b
      * @param integer $target Hari data yang ingin di cek
      */
-    public function checkSchedule($table, $column_a, $column_b, $target)
+    public function checkSchedule($column_a, $column_b, $tanggal_awal, $tanggal_akhir)
     {
-        $table = DB::table($table)->where("status", "terbayar")->get();
+        $table = $this->modal::where("status", "belum bayar")->get();
         $table = array_map(function ($q) {
             return (array)$q;
         }, $table->toArray());
-        try {
-            foreach ($table as $value) {
-                if ($this->isBLargeThenAButCLess(strtotime($value[$column_a]), $target, strtotime($value[$column_b]))) {
-                    return true;
-                }
+
+        foreach ($table as $value) {
+            if ($this->isBLargeThenAButCLess(strtotime($value[$column_a]), $tanggal_awal, strtotime($value[$column_b])) || $this->isBLargeThenAButCLess(strtotime($value[$column_a]), $tanggal_akhir, strtotime($value[$column_b]))) {
+                return true;
             }
-        } catch (\Exception $th) {
-            return response()->json([
-                "error" => true,
-                "message" => "Input tidak sesuai",
-            ], 403);
+        }
+
+        return false;
+    }
+
+    public function checkCapacity(object $object)
+    {
+        $table = array_map(function ($q) {
+            return (array)$q;
+        }, $object->toArray());
+
+        foreach ($table as $value) {
+            if ($this->isALargeThenB(($value["count"] - 1), 0)) {
+                return true;
+            }
         }
 
         return false;
