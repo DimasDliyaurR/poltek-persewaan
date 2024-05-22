@@ -28,6 +28,7 @@ class TransaksiKendaraan extends Model
         'code_unique',
         'tk_durasi',
         'tk_tanggal_sewa',
+        'tk_pelaksanaan',
         'tk_tanggal_kembali',
         "tk_snap_token",
         "tk_sub_total",

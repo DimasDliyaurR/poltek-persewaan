@@ -31,7 +31,6 @@ class RequestTipeAsrama extends FormRequest
                 "ta_kapasitas" => "required|numeric",
                 "ta_deskripsi" => "required",
                 "is_dp" => "required|boolean",
-                "tarif_dp" => "numeric",
             ];
         } else {
             return [
@@ -41,7 +40,6 @@ class RequestTipeAsrama extends FormRequest
                 "ta_kapasitas" => "required|numeric",
                 "ta_deskripsi" => "required",
                 "is_dp" => "required|boolean",
-                "tarif_dp" => "numeric",
             ];
         }
     }

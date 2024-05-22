@@ -45,7 +45,7 @@ class LaporanTransaksiTerbayarTable extends Component
 
         $TransaksiAlatBarang = TransaksiAlatBarang::with(["alatBarangs" => ["paymentMethod"], "user" => ["profile"]])->whereMonth('created_at', $this->reqBulan);
 
-        $TransaksiKendaraan = TransaksiKendaraan::with(["kendaraans" => ["merkKendaraan" => ["paymentMethod"], "users" => ["profile"]]])->whereMonth('created_at', $this->reqBulan);
+        $TransaksiKendaraan = TransaksiKendaraan::with(["kendaraans" => ["merkKendaraan" => ["paymentMethod"]], "users" => ["profile"]])->whereMonth('created_at', $this->reqBulan);
 
         $semuaTransaksi = array_merge(
             $TransaksiAsrama->get()->map(
@@ -87,7 +87,7 @@ class LaporanTransaksiTerbayarTable extends Component
                     $arr += [
                         "kategori" => "Alat Barang",
                         "customer" => $q->user->profile->nama_lengkap,
-                        "metode" => $q->alatBarangs->paymentMethod->is_dp ? "DP" : "Lunas",
+                        "metode" => $q->alatBarangs[0]->paymentMethod->is_dp ? "DP" : "Lunas",
                         "tanggal_sewa" => $q->created_at,
                         "nominal" => $q->ta_sub_total,
                         "status" => $q->status,
@@ -100,7 +100,7 @@ class LaporanTransaksiTerbayarTable extends Component
                     $arr = [];
                     $arr += [
                         "kategori" => "Kendaraan",
-                        "customer" => $q->user->profile->nama_lengkap,
+                        "customer" => $q->users->profile->nama_lengkap,
                         "tanggal_sewa" => $q->created_at,
                         "nominal" => $q->tk_sub_total,
                         "status" => $q->status,
@@ -187,9 +187,9 @@ class LaporanTransaksiTerbayarTable extends Component
                 $arr += [
                     "kategori" => "Alat Barang",
                     "customer" => $q->user->profile->nama_lengkap,
-                    "metode" => $q->alatBarangs->paymentMethod->is_dp ? "DP" : "Lunas",
+                    "metode" => $q->alatBarangs[0]->paymentMethod->is_dp ? "DP" : "Lunas",
                     "tanggal_sewa" => $q->created_at,
-                    "nominal" => $q->ta_sub_total,
+                    "nominal" => $q->tab_sub_total,
                 ];
                 return $arr;
             }
@@ -200,7 +200,7 @@ class LaporanTransaksiTerbayarTable extends Component
                 $arr = [];
                 $arr += [
                     "kategori" => "Kendaraan",
-                    "customer" => $q->user->profile->nama_lengkap,
+                    "customer" => $q->users->profile->nama_lengkap,
                     "tanggal_sewa" => $q->created_at,
                     "nominal" => $q->tk_sub_total,
                 ];

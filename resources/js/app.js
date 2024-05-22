@@ -1,8 +1,9 @@
 import "./bootstrap";
 import "preline";
+import axios from "axios";
 
 import "flowbite";
-// navbar fixed
+
 window.onscroll = function () {
     const header = document.querySelector("header");
     const fixedNav = header.offsetTop;

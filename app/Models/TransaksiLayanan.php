@@ -29,7 +29,7 @@ class TransaksiLayanan extends Model
         'tl_tanggal_pelaksanaan',
         'tl_durasi_sewa',
         'tl_tujuan',
-        'tl_is_only_property',
+        'tl_tanggal_kembali',
         'tl_snap_token',
         'tl_sub_total',
     ];

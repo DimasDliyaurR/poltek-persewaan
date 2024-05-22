@@ -54,7 +54,7 @@ trait HandlerPromo
             // Apakah Promo masih tersisa
             if ($this->promo->getStok() > 0 or $this->promo->isStokUnlimited()) {
                 // Perhitungan Promo dengan Subtotal
-                $this->total_transaksi = $this->promo->total($this->total_transaksi);
+                $this->total_transaksi = $this->total_transaksi - $this->promo->total($this->total_transaksi);
                 // Pengurangan Kapasitas Promo
                 if (!$this->promo->isStokUnlimited()) {
                     $this->promo->decreaseStok();
@@ -65,6 +65,8 @@ trait HandlerPromo
             } else {
                 return false;
             }
+        } else {
+            return false;
         }
     }
 

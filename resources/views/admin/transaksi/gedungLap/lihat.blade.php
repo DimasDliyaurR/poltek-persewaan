@@ -56,17 +56,6 @@
                         </th>
                         <th scope="col" class="px-6 py-3">
                             <div class="flex items-center">
-                                Satuan
-                                <a href="#"><svg class="w-3 h-3 ms-1.5" aria-hidden="true"
-                                        xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
-                                        <path
-                                            d="M8.574 11.024h6.852a2.075 2.075 0 0 0 1.847-1.086 1.9 1.9 0 0 0-.11-1.986L13.736 2.9a2.122 2.122 0 0 0-3.472 0L6.837 7.952a1.9 1.9 0 0 0-.11 1.986 2.074 2.074 0 0 0 1.847 1.086Zm6.852 1.952H8.574a2.072 2.072 0 0 0-1.847 1.087 1.9 1.9 0 0 0 .11 1.985l3.426 5.05a2.123 2.123 0 0 0 3.472 0l3.427-5.05a1.9 1.9 0 0 0 .11-1.985 2.074 2.074 0 0 0-1.846-1.087Z" />
-                                    </svg>
-                                </a>
-                            </div>
-                        </th>
-                        <th scope="col" class="px-6 py-3">
-                            <div class="flex items-center">
                                 Tarif Harga
                                 <a href="#"><svg class="w-3 h-3 ms-1.5" aria-hidden="true"
                                         xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
@@ -109,39 +98,28 @@
                                 </a>
                             </div>
                         </th>
-                        <th scope="col" class="px-6 py-3">
-                            <span class="sr-only">Lihat Detail</span>
-                        </th>
                     </tr>
                 </thead>
                 <tbody>
                     @forelse($transaksiGedungLap as $row)
                         <tr class="bg-white border-b dark:bg-gray-700 dark:border-gray-700 dark:hover:bg-gray-400">
                             <td class="px-6 py-4 dark:text-white">
-                                {{ $row->user->name }}
+                                {{ $row->user->profile->nama_lengkap }}
                             </td>
                             <td class="px-6 py-4 dark:text-white">
-                                {{ $row->alatBarangs[0]->a_nama }}
+                                {{ $row->gedungLap[0]->gl_nama }}
                             </td>
                             <td class="px-6 py-4 dark:text-white">
-                                {{ $row->alatBarangs[0]->a_satuan }}
+                                Rp. {{ number_format($row->gedungLap[0]->gl_tarif, 0, ',', '.') }}
                             </td>
                             <td class="px-6 py-4 dark:text-white">
-                                Rp. {{ number_format($row->alatBarangs[0]->a_tarif, 0, ',', '.') }}
+                                {{ $row->tg_tanggal_sewa }}
                             </td>
                             <td class="px-6 py-4 dark:text-white">
-                                {{ $row->tal_tanggal_sewa }}
+                                {{ date('d-m-Y', strtotime($row->tg_tanggal_pesanan)) }}
                             </td>
                             <td class="px-6 py-4 dark:text-white">
-                                {{ date('d-m-Y', strtotime($row->tal_tanggal_pesanan)) }}
-                            </td>
-                            <td class="px-6 py-4 dark:text-white">
-                                {{ date('d-m-Y', strtotime($row->tal_tanggal_kembali)) }}
-                            </td>
-                            <td class="px-6 py-4 text-right">
-                                <a href="{{ asset('admin/layanan/store/' . $row->id) }}"
-                                    class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Lihat
-                                    Detail</a>
+                                {{ date('d-m-Y', strtotime($row->tg_tanggal_kembali)) }}
                             </td>
                         </tr>
                     @empty

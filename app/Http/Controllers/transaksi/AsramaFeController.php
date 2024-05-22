@@ -105,6 +105,8 @@ class AsramaFeController extends Controller
             "slug" => "required",
         ]);
 
+
+
         $item = $request->slug;
         $this->inputPromo = $request->promo;
         $validation["fasilitas"] = $request->fasilitas;
@@ -176,8 +178,8 @@ class AsramaFeController extends Controller
                         "dtf_harga" => $total_harga,
                     ]);
                 }
+                // Apakah Promo sudah terdeteksi
             }
-            // Apakah Promo sudah terdeteksi
             if ($this->checkPromo()) {
                 return back()->withErrors([
                     "promo" => "Promo Sudah Habis"
@@ -229,8 +231,10 @@ class AsramaFeController extends Controller
             $total += $transaksi->ta_sub_total;
         }
 
-        $promo = $promo != null ? ($detailTransaksi->promo->tipe == "fixed") ?
-            $sub_total - $this->promo->p_isi : $sub_total - ($sub_total * ($this->promo->p_isi / 100)) : null;
+        $promo = $promo != null ? ($detailTransaksi[0]->promo->tipe == "fixed") ?
+            $sub_total - $$detailTransaksi[0]->promo->p_isi : $sub_total - ($sub_total * ($detailTransaksi[0]->promo->p_isi / 100)) : null;
+
+        // dd($total);
 
         return view("asrama.transaksi_invoice", [
             "title" => "pembayaran",

@@ -107,7 +107,7 @@
                     @forelse($transaksiKendaraan as $row)
                         <tr class="bg-white border-b dark:bg-gray-700 dark:border-gray-700 dark:hover:bg-gray-400">
                             <td class="px-6 py-4 dark:text-white">
-                                {{ $row->user->name }}
+                                {{ $row->users->profile->nama_lengkap }}
                             </td>
                             <td class="px-6 py-4 dark:text-white">
                                 {{ $row->kendaraans[0]->merkKendaraan->mk_merk }}

@@ -341,9 +341,8 @@
                     </form>
                 </div>
             </div>
-            @forelse ($layanan as $item)
-                <div class="flex flex-wrap">
-
+            <div class="flex flex-wrap mb-10">
+                @forelse ($layanan as $item)
                     <div class="w-full px-4 lg:w-1/2 xl:w-1/3">
                         <div class="bg-white  rounded-xl shadow-lg overflow-hidden ">
                             <div class="py-8 px-6">
@@ -431,9 +430,9 @@
                         </div>
                     </div>
 
-                </div>
-            @empty
-                <div class="text-center text-black">Item tidak ada</div>
+                @empty
+            </div>
+            <div class="text-center text-black">Item tidak ada</div>
             @endforelse
         </div>
 

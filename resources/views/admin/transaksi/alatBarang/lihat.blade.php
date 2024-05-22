@@ -109,44 +109,32 @@
                                 </a>
                             </div>
                         </th>
-                        <th scope="col" class="px-6 py-3">
-                            <span class="sr-only">Lihat Detail</span>
-                        </th>
                     </tr>
                 </thead>
                 <tbody>
                     @forelse($transaksiAlatBarang as $row)
                         <tr class="bg-white border-b dark:bg-gray-700 dark:border-gray-700 dark:hover:bg-gray-400">
                             <td class="px-6 py-4 dark:text-white">
-                                {{ $row->user->name }}
+                                {{ $row->user->profile->nama_lengkap }}
                             </td>
                             <td class="px-6 py-4 dark:text-white">
-                                {{ $row->alatBarangs[0]->a_nama }}
+                                {{ $row->alatBarangs[0]->ab_nama }}
                             </td>
                             <td class="px-6 py-4 dark:text-white">
-                                {{ $row->alatBarangs[0]->a_satuan }}
+                                {{ $row->alatBarangs[0]->satuanAlatBarangs->sab_nama }}
                             </td>
                             <td class="px-6 py-4 dark:text-white">
-                                Rp. {{ number_format($row->alatBarangs[0]->a_tarif, 0, ',', '.') }}
+                                Rp. {{ number_format($row->alatBarangs[0]->ab_tarif, 0, ',', '.') }}
                             </td>
                             <td class="px-6 py-4 dark:text-white">
-                                {{ $row->tal_tanggal_sewa }}
+                                {{ date('d-m-Y', strtotime($row->created_at)) }}
                             </td>
                             <td class="px-6 py-4 dark:text-white">
-                                {{ date('d-m-Y', strtotime($row->tal_tanggal_pesanan)) }}
+                                {{ date('d-m-Y', strtotime($row->tab_tanggal_pesanan)) }}
                             </td>
                             <td class="px-6 py-4 dark:text-white">
-                                {{ date('d-m-Y', strtotime($row->tal_tanggal_kembali)) }}
+                                {{ date('d-m-Y', strtotime($row->tab_tanggal_kembali)) }}
                             </td>
-                            <td class="px-6 py-4 text-right">
-                                <a href="{{ asset('admin/layanan/store/' . $row->id) }}"
-                                    class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Lihat
-                                    Detail</a>
-                            </td>
-                            {{-- <td class="px-6 py-4 text-right">
-                                <x-delete-button action="admin/layanan/delete/{{ $row->id }}" id="{{ $row->id }}"
-                                    nama="{{ $row->l_nama }}"></x-delete-button>
-                            </td> --}}
                         </tr>
                     @empty
                         <tr>

@@ -1,4 +1,4 @@
-<div class="relative rounded-lg border border-1 border-gray-200 p-4 w-[30rem]">
+<div class="relative rounded-lg border border-1 border-gray-200 p-4 w-1/2">
     <div id="container" class="relative hidden">
         <!-- Close the image -->
         {{-- <span onclick="this.parentElement.style.display='none'"

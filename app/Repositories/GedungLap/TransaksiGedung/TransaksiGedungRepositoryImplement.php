@@ -21,7 +21,7 @@ class TransaksiGedungRepositoryImplement implements TransaksiGedungRepository
      */
     public function getDataById($id)
     {
-        $gedungData = $this->gedung::whereId($id)->first();
+        $gedungData = $this->gedung::with("gedungLap", "user.profile")->whereId($id)->first();
 
         return $gedungData;
     }

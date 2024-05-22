@@ -18,8 +18,9 @@ return new class extends Migration
             $table->foreignId('user_id')->constrained("users");
             $table->foreignId('promo_id')->nullable()->constrained("promos");
             $table->string('code_unique');
-            $table->string('tk_durasi');
             $table->datetime('tk_tanggal_sewa');
+            $table->string('tk_durasi');
+            $table->datetime('tk_pelaksanaan');
             $table->dateTime('tk_tanggal_kembali');
             $table->string('tk_snap_token')->nullable();
             $table->bigInteger('tk_sub_total')->nullable();

@@ -2,12 +2,6 @@
 @section('content')
     <div class=" bg-plaster py-24 ">
         <div class=" container  ">
-            <!-- <div class="w-10/12  "> -->
-            <!-- <div class=" flex justify-center items-center h-screen">   -->
-            <!-- <div class="flex justify-start items-center"> -->
-            {{-- <div class="justify-start ml-36 bg-white p-4 rounded-md mb-2 mt-2">
-
-            </div> --}}
 
             <x-layout-detail-transaksi class="mb-4 text-xl font-bold">
                 <a class="text-primary hover:font-bold hover:underline" href="{{ route('gedung.index') }}">{{ $title }}
@@ -31,12 +25,27 @@
                     </x-multiple-image>
 
 
-                    <div class="basis-3/5 h-full flex flex-col gap-4 rounded-md p-4 mb-2 ml-2 ">
+                    <div class="basis-3/5 h-full flex flex-col justify-between gap-4 rounded-md p-4 mb-2 ml-2 ">
                         <div class="flex-col space-y-2 w-full">
                             <p class="font-bold text-4xl"> {{ $alatBarangs->ab_nama }}</p>
                             <p class="text-primary font-bold text-2xl">Rp
-                                {{ number_format($alatBarangs->ab_tarif, 0, ',', '.') }}
-
+                                {{ number_format($alatBarangs->ab_tarif, 0, ',', '.') }}</p>
+                            <div class=" bg-white p-3 rounded-md">
+                                <h4 class="font-semibold mb-2">Detail Mobil</h4>
+                                <ul class="text-gray-500 text-sm ">
+                                    <div class="flex mb-2">
+                                        <svg class="w-6 h-6 text-primary" aria-hidden="true"
+                                            xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                            fill="currentColor" viewBox="0 0 24 24">
+                                            <path fill-rule="evenodd"
+                                                d="M9 4a4 4 0 1 0 0 8 4 4 0 0 0 0-8Zm-2 9a4 4 0 0 0-4 4v1a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2v-1a4 4 0 0 0-4-4H7Zm8-1a1 1 0 0 1 1-1h1v-1a1 1 0 1 1 2 0v1h1a1 1 0 1 1 0 2h-1v1a1 1 0 1 1-2 0v-1h-1a1 1 0 0 1-1-1Z"
+                                                clip-rule="evenodd" />
+                                        </svg>
+                                        <p class="text-sm font-semibold ml-1">{{ $alatBarangs->ab_qty }}</p>
+                                        <p class="text-xs text-gray-500 ml-1">Kapasitas</sup>
+                                    </div>
+                                </ul>
+                            </div>
                             <div class=" bg-white p-3 rounded-md">
                                 <ul class="text-gray-500 text-sm ">
                                     <div class="flex mb-2">
@@ -52,9 +61,20 @@
                             </div>
                         </div>
 
-                        <div class=" bg-white p-3 rounded-md">
+                        <div class=" bg-white w-80 p-3 rounded-md">
                             <button id="pesan"
-                                class="block text-center text-white p-2 text-sm mt-4 h-10 w-full bg-primary rounded-lg hover:opacity-50">Pesan</button>
+                                class="text-center text-white p-2 flex items-center text-sm mt-4 h-10 w-full bg-primary rounded-lg hover:opacity-50">
+                                <span class="w-1/5">
+                                    <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                                        fill="none" viewBox="0 0 10 6">
+                                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                            stroke-width="2" d="m1 1 4 4 4-4" />
+                                    </svg>
+                                </span>
+                                <span class="w-3/5">
+                                    Pesan
+                                </span>
+                            </button>
                         </div>
                     </div>
             </div>
@@ -62,8 +82,7 @@
 
             <x-layout-detail-transaksi class="mt-5 hidden" :isId="true" id="dropdown">
                 <h4 id="dropdown-title" class="font-bold mb-4 uppercase"></h4>
-                <form action="{{ route('alat-barang.pesan.action') }}" method="POST" id="form_asrama"
-                    onsubmit="return validation()">
+                <form action="{{ route('alat-barang.pesan.action') }}" method="POST" id="form_asrama">
                     @csrf
                     @method('POST')
                     <div
@@ -119,7 +138,8 @@
                     <p class="text-sm text-gray-400 p-2 overflow-hidden">Info lebih lanjut hubungi kontak
                         WhatsApp di bawah ini : </p>
                     <div class="flex  p-2 w-30">
-                        <a aria-label="Chat on WhatsApp" href="https://wa.me/6289529811097/?text=Hello Saya Ingin bertanya">
+                        <a aria-label="Chat on WhatsApp"
+                            href="https://wa.me/6289529811097/?text=Hello Saya Ingin bertanya">
                             <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="20" height="20"
                                 viewBox="0 0 50 50">
                                 <path
@@ -141,193 +161,5 @@
 
 @section('script')
     <script src="{{ asset('js/feature/multiple-images.js') }}"></script>
-    <script>
-        function isEmpty(elm) {
-            return elm.length === 0 ? true : false
-        }
-
-        function validation() {
-            var tab_tanggal_pesanan = document.getElementById("tab_tanggal_pesanan").value
-            var tab_tanggal_pesanan_error = document.getElementById("tab_tanggal_pesanan_error")
-            var tab_tanggal_kembali = document.getElementById("tab_tanggal_kembali").value
-            var tab_tanggal_kembali_error = document.getElementById("tab_tanggal_kembali_error")
-            var promo = document.getElementById("promo").value
-            var promo_error = document.getElementById("promo_error")
-
-            var isFail = true
-
-            if (tab_tanggal_pesanan == "") {
-                tab_tanggal_pesanan_error.classList.remove("hidden")
-                tab_tanggal_pesanan_error.innerHTML = "Tanggal Pesanan Mohon diisi!"
-                isFail = false;
-            } else {
-                tab_tanggal_pesanan_error.classList.add("hidden")
-                tab_tanggal_pesanan_error.innerHTML = ""
-            }
-
-            if (tab_tanggal_kembali == "") {
-                tab_tanggal_kembali_error.classList.remove("hidden")
-                tab_tanggal_kembali_error.innerHTML = "Tanggal Kembali Mohon diisi!"
-                isFail = false;
-            } else {
-                tab_tanggal_kembali_error.classList.add("hidden")
-                tab_tanggal_kembali_error.innerHTML = ""
-            }
-
-            console.log(promo_error.innerHTML.length, promo_error.innerHTML.length === 0);
-            isFail = isEmpty(promo_error.innerHTML) ? true : false
-
-            return isFail
-        }
-
-        $(document).ready(function() {
-            var button = $("#pesan")
-            var dropdown = $("#dropdown")
-
-            var tab_tanggal_kembali = $("#tab_tanggal_kembali")
-            var tab_tanggal_kembali_error = $("#tab_tanggal_kembali_error")
-
-            var tab_tanggal_pesanan = $("#tab_tanggal_pesanan")
-            var tab_tanggal_pesanan_error = $("#tab_tanggal_pesanan_error")
-
-            var tab_keterangan = $("#tab_keterangan")
-            var tab_keterangan_error = $("#tab_keterangan_error")
-
-            var promo = $("#promo")
-            var promo_error = $("#promo_error")
-
-            var form = $("#form_asrama")
-
-            var submit = $("#submit-dropdown")
-
-            var timeout = null
-
-            button.click((e) => {
-                e.preventDefault();
-                var currentLocation = $(location).attr('href')
-                var nameSlug = currentLocation.split('/')[currentLocation.split('/').length - 1]
-                var input = $("<input value='" + nameSlug + "' id='slug' name='slug[]' class='hidden'/>")
-
-                if (dropdown.hasClass("hidden")) {
-                    form.append(input);
-                    dropdown.removeClass("hidden")
-                } else {
-                    var slug = $("#slug")
-                    slug.remove()
-                    dropdown.addClass("hidden")
-                }
-            });
-
-            tab_tanggal_kembali.on("input", () => {
-                var val = tab_tanggal_kembali.val()
-
-                console.log(val)
-
-                if (val == "") {
-                    tab_tanggal_kembali_error.removeClass("hidden")
-                    tab_tanggal_kembali_error.text("Tanggal Kembali mohon diisi !")
-
-                    submit.addClass("cursor-not-allowed")
-                    submit.attr("disabled", true);
-                } else {
-                    tab_tanggal_kembali_error.addClass("hidden")
-                    tab_tanggal_kembali_error.text("")
-
-                    submit.hasClass("cursor-not-allowed") ? submit.removeClass("cursor-not-allowed") : ''
-                    submit.attr("disabled", false);
-                }
-            });
-            tab_keterangan.on("input", () => {
-                clearTimeout(timeout)
-
-                timeout = setTimeout(() => {
-
-                    var val = tab_keterangan.val()
-
-                    console.log(val);
-
-                    if (val == "") {
-                        tab_keterangan_error.removeClass("hidden")
-                        tab_keterangan_error.text("Keterangan mohon diisi !")
-
-                        submit.addClass("cursor-not-allowed")
-                        submit.attr("disabled", true);
-                    } else {
-                        tab_keterangan_error.addClass("hidden")
-                        tab_keterangan_error.text("")
-
-                        submit.hasClass("cursor-not-allowed") ? submit.removeClass(
-                            "cursor-not-allowed") : ''
-                        submit.attr("disabled", false);
-                    }
-                }, 1000);
-            });
-
-            tab_tanggal_pesanan.on("input", () => {
-                clearTimeout(timeout)
-
-                timeout = setTimeout(() => {
-
-                    var val = tab_tanggal_pesanan.val()
-
-
-
-                    if (val == "") {
-                        tab_tanggal_pesanan_error.removeClass("hidden")
-                        tab_tanggal_pesanan_error.text("Tanggal Sewa mohon diisi !")
-
-                        submit.addClass("cursor-not-allowed")
-                        submit.attr("disabled", true);
-                    } else {
-                        tab_tanggal_pesanan_error.addClass("hidden")
-                        tab_tanggal_pesanan_error.text("")
-
-                        submit.hasClass("cursor-not-allowed") ? submit.removeClass(
-                            "cursor-not-allowed") : ''
-                        submit.attr("disabled", false);
-                    }
-                }, 1000);
-
-            });
-
-            promo.on("input", () => {
-
-                clearTimeout(timeout)
-
-                timeout = setTimeout(() => {
-
-                    var val = $("#promo").val()
-
-                    if (val == "") {
-                        promo_error.text("")
-
-                        submit.hasClass("cursor-not-allowed") ? submit
-                            .removeClass("cursor-not-allowed") : ''
-                        submit.attr("disabled", false);
-                    }
-
-                    fetch(`http://localhost:8000/api/voucher/${val}/kendaraans`)
-                        .then((res) => res.json())
-                        .then((data) => {
-                            console.log(data);
-
-                            if (data.error == true) {
-                                promo_error.removeClass("hidden")
-                                promo_error.text(data.message)
-
-                                submit.addClass("cursor-not-allowed")
-                                submit.attr("disabled", true);
-                            } else {
-                                promo_error.text("")
-
-                                submit.hasClass("cursor-not-allowed") ? submit
-                                    .removeClass("cursor-not-allowed") : ''
-                                submit.attr("disabled", false);
-                            }
-                        })
-                }, 1000)
-            })
-
-        });
-    </script>
+    <script src="{{ asset('js/validasi/alatBarang.js') }}"></script>
 @endsection

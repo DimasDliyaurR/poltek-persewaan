@@ -107,7 +107,6 @@ class PromoHandler
     public function total($subTotal)
     {
         $tipe = $this->promo->p_tipe;
-
         return ($tipe == "fixed") ?
             $subTotal - $this->promo->p_isi : $subTotal - ($subTotal * ($this->promo->p_isi / 100));
     }

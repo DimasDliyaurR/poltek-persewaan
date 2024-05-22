@@ -98,16 +98,13 @@
                                 </a>
                             </div>
                         </th>
-                        <th scope="col" class="px-6 py-3">
-                            <span class="sr-only">Lihat Detail</span>
-                        </th>
                     </tr>
                 </thead>
                 <tbody>
                     @forelse($transaksiLayanan as $row)
                         <tr class="bg-white border-b dark:bg-gray-700 dark:border-gray-700 dark:hover:bg-gray-400">
                             <td class="px-6 py-4 dark:text-white">
-                                {{ $row->user->name }}
+                                {{ $row->user->profile->nama_lengkap }}
                             </td>
                             <td class="px-6 py-4 dark:text-white">
                                 {{ $row->layanans[0]->l_nama }}
@@ -124,15 +121,6 @@
                             <td class="px-6 py-4 dark:text-white">
                                 {{ date('d-m-Y', strtotime($row->tl_tanggal_pelaksanaan)) }}
                             </td>
-                            <td class="px-6 py-4 text-right">
-                                <a href="{{ asset('admin/layanan/store/' . $row->id) }}"
-                                    class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Lihat
-                                    Detail</a>
-                            </td>
-                            {{-- <td class="px-6 py-4 text-right">
-                                <x-delete-button action="admin/layanan/delete/{{ $row->id }}" id="{{ $row->id }}"
-                                    nama="{{ $row->l_nama }}"></x-delete-button>
-                            </td> --}}
                         </tr>
                     @empty
                         <tr>

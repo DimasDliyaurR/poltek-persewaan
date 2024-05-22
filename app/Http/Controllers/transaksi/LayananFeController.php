@@ -89,8 +89,8 @@ class LayananFeController extends Controller
         // dd($request->all());
         $validation = $request->validate([
             "tl_tanggal_pelaksanaan" => "required",
-            "tl_tujuan" => "required",
             "tl_durasi_sewa" => "required",
+            "tl_tujuan" => "required",
             "slug" => "required",
         ]);
 
@@ -114,17 +114,20 @@ class LayananFeController extends Controller
             ]);
         }
 
+        $transaction = DB::transaction(function () use ($validation) {
 
+            $pelaksanaan_unix = strtotime($validation["tl_tanggal_pelaksanaan"]);
+            $durasi = $validation["tl_durasi_sewa"];
+            $validation["tl_tanggal_kembali"] = date("Y-m-d h:i:s", $pelaksanaan_unix + ($durasi * (60 * 60 * 24)));
 
-        DB::transaction(function () use ($validation) {
-            // Create Transaksi
             $transaksi = TransaksiLayanan::create([
                 "user_id" => auth()->user()->id,
                 "promo_id" => !($this->promo->isExist()) ? null : $this->promo->getPromo()->id,
                 "code_unique" => auth()->user()->id . strtotime(now()) . "@200",
                 "tl_tanggal_sewa" => now(),
-                "tl_tanggal_pelaksanaan" => $validation["tl_tanggal_pelaksanaan"],
                 "tl_durasi_sewa" => $validation["tl_durasi_sewa"],
+                "tl_tanggal_kembali" => $validation["tl_tanggal_kembali"],
+                "tl_tanggal_pelaksanaan" => $validation["tl_tanggal_pelaksanaan"],
                 "tl_tujuan" => $validation["tl_tujuan"],
             ]);
 
@@ -144,11 +147,10 @@ class LayananFeController extends Controller
                 ]);
             }
             // Apakah Promo sudah terdeteksi
-            if ($this->checkPromo()) {
-                return back()->withErrors([
+            if ($this->checkPromo())
+                back()->withErrors([
                     "promo" => "Promo Sudah Habis"
                 ]);
-            }
 
             $data = array(
                 'transaction_details' => array(
@@ -171,6 +173,9 @@ class LayananFeController extends Controller
                 "tl_sub_total" => $this->total_transaksi
             ]);
         });
+
+        if ($transaction)
+            $transaction;
 
 
         return redirect()->route("layanan.pembayaran", $this->transaksi->code_unique);
