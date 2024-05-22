@@ -89,7 +89,7 @@
 
             <x-layout-detail-transaksi class="mt-5 hidden" :isId="true" id="dropdown">
                 <h4 id="dropdown-title" class="font-bold mb-4 uppercase"></h4>
-                <form action="{{ route('asrama.pesan.action') }}" method="POST" onsubmit="return validation()">
+                <form action="{{ route('asrama.pesan.action') }}" method="POST" id="form_asrama">
                     @csrf
                     @method('POST')
                     <div
@@ -98,7 +98,7 @@
                             <label for="ta_check_in"
                                 class=" block mb-2 text-sm font-medium text-gray-900 dark:text-white">Check
                                 In</label>
-                            <input id="ta_check_in" name="ta_check_in" type="date" oninput="check_in()"
+                            <input id="ta_check_in" name="ta_check_in" type="date"
                                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
 
                             <p class="text-red-500 text-sm hidden" id="ta_check_in_error"></p>
@@ -107,14 +107,14 @@
                             <label for="ta_check_out"
                                 class=" block mb-2 text-sm font-medium text-gray-900 dark:text-white">Check
                                 Out</label>
-                            <input id="ta_check_out" name="ta_check_out" oninput="check_out()" type="date"
+                            <input id="ta_check_out" name="ta_check_out" type="date"
                                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                             <p class="text-red-500 text-sm hidden" id="ta_check_out_error"></p>
                         </div>
                         <div class=" mb-2 space-y-2">
                             <label for="promo"
                                 class=" block mb-2 text-sm font-medium text-gray-900 dark:text-white">Voucher</label>
-                            <input id="promo" name="promo" type="text" oninput="promoValidation()"
+                            <input id="promo" name="promo" type="text"
                                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                             <p class="text-red-500 text-sm hidden" id="promo_error"></p>
                         </div>
@@ -138,7 +138,7 @@
                         @endforeach
                     </div>
                     <button type="submit" id="submit-dropdown"
-                        class="mt-5 h-7 w-full bg-primary rounded-lg hover:opacity-50  text-sm   text-white">
+                        class="mt-5 h-7 w-full bg-primary rounded-lg hover:opacity-50 text-sm text-white">
                         Pesan
                     </button>
                 </form>
@@ -172,206 +172,10 @@
 
         </div>
     </div>
-
-    </div>
 @endsection
 
 @section('script')
     <script src="{{ asset('js\/feature\/checkbox-fasilitas.js') }}"></script>
     <script src="{{ asset('js\/feature\/multiple-images.js') }}"></script>
-    <script>
-        function isStyleHidden(elm) {
-            return document.querySelector(elm).classList[dropdown.classList.length - 1] == "hidden"
-        }
-
-        function isSlugSame(oldSlug, newSlug) {
-            return oldSlug == newSlug
-        }
-
-        function resetUpper() {
-            var pilihKamarChildren = document.querySelector("#pilihKamar").children[1].children
-
-            for (let i = 0; i < pilihKamarChildren.length; i++) {
-                var childrenClassList = pilihKamarChildren[i].classList
-                for (let j = 0; j < childrenClassList.length; j++) {
-                    if (childrenClassList[j] == "shadow-md") {
-                        childrenClassList.remove("shadow-md")
-                        childrenClassList.add("shadow-sm")
-                        return true
-                    }
-                }
-            }
-            return false
-        }
-
-        function dropdown_form(elm) {
-            var childrenClassList = elm.classList // Akses Class list parent
-            var nameRoom = elm.children[0] // Akses nama ruangan
-            var nameRoomCore = nameRoom.children[0] // Children name room
-
-            var nameRoomSlug = nameRoomCore.innerHTML.toLowerCase().replace(/\s/g, "-");
-
-            var dropdown = document.getElementById("dropdown") // Akses parent Dropdown
-            var form = dropdown.children[1] // input slug
-            var oldSlug = form.children[0].value // Akses input slug value
-
-            var input = document.createElement("input")
-            input.className = "hidden"
-            input.name = "slug[]"
-            input.type = "text"
-            input.value = nameRoomSlug
-
-            var title = document.querySelector("#dropdown-title")
-            title.innerHTML = "FORM " + nameRoomCore.innerHTML
-
-            if (isStyleHidden('#dropdown')) {
-                form.insertAdjacentElement("afterbegin", input)
-                dropdown.classList.remove("hidden")
-            } else if (!isSlugSame(oldSlug, nameRoomSlug) && !isStyleHidden('#dropdown')) {
-                form.children[0].remove()
-                form.insertAdjacentElement("afterbegin", input)
-            } else {
-                form.children[0].remove()
-                dropdown.classList.add("hidden")
-            }
-
-            resetUpper()
-
-            if (!isSlugSame(oldSlug, nameRoomSlug)) {
-                childrenClassList.remove("shadow-sm")
-                childrenClassList.add("shadow-md")
-            } else {
-                childrenClassList.remove("shadow-md")
-                childrenClassList.add("shadow-sm")
-            }
-
-        }
-
-        var submit = document.getElementById("submit-dropdown")
-
-        function check_in() {
-            var check_in = document.getElementById("ta_check_in").value
-            var check_in_error = document.getElementById("ta_check_in_error")
-
-            if (check_in == "") {
-                check_in_error.classList.remove("hidden")
-                check_in_error.innerHTML = "Check In Mohon diisi!"
-                submit.disabled = true
-                submit.classList.add("cursor-not-allowed")
-            } else {
-                check_in_error.classList.add("hidden")
-                check_in_error.innerHTML = ""
-                submit.disabled = false
-                submit.classList.remove("cursor-not-allowed")
-            }
-        }
-
-        function check_out() {
-            var check_out = document.getElementById("ta_check_out").value
-            var check_out_error = document.getElementById("ta_check_out_error")
-
-            if (check_out == "") {
-                check_out_error.classList.remove("hidden")
-                check_out_error.innerHTML = "Check Out Mohon diisi!"
-                submit.disabled = true
-                submit.classList.add("cursor-not-allowed")
-            } else {
-                check_out_error.classList.add("hidden")
-                check_out_error.innerHTML = ""
-                submit.disabled = false
-                submit.classList.remove("cursor-not-allowed")
-            }
-        }
-
-        function promoValidation() {
-            var promo = document.getElementById("promo").value
-            var promo_error = document.getElementById("promo_error")
-
-            if (promo == "") {
-                promo_error.classList.add("hidden")
-                promo_error.innerHTML = ""
-                submit.disabled = false
-                submit.classList.remove("cursor-not-allowed")
-            }
-
-            fetch(`http://localhost:8000/api/voucher/${promo}/asramas`).then((res) => {
-                // console.log(res.json());
-                return res.json()
-            }).then((data) => {
-
-                console.log(promo);
-
-                if (data.error) {
-                    promo_error.classList.remove("hidden")
-                    promo_error.innerHTML = data.message
-                    submit.disabled = true
-                    submit.classList.add("cursor-not-allowed")
-                } else {
-                    promo_error.classList.add("hidden")
-                    promo_error.innerHTML = ""
-                    submit.disabled = false
-                    submit.classList.remove("cursor-not-allowed")
-                }
-            })
-
-        }
-
-
-
-        function validation() {
-            var check_in = document.getElementById("ta_check_in").value
-            var check_in_error = document.getElementById("ta_check_in_error")
-            var check_out = document.getElementById("ta_check_out").value
-            var check_out_error = document.getElementById("ta_check_out_error")
-            var promo = document.getElementById("promo").value
-            var promo_error = document.getElementById("promo_error")
-
-            var isFail = true
-
-            if (check_in == "") {
-                check_in_error.classList.remove("hidden")
-                check_in_error.innerHTML = "Check In Mohon diisi!"
-                isFail = false;
-            } else {
-                check_in_error.classList.add("hidden")
-                check_in_error.innerHTML = ""
-            }
-
-            if (check_out == "") {
-                check_out_error.classList.remove("hidden")
-                check_out_error.innerHTML = "Check Out Mohon diisi!"
-                isFail = false;
-            } else {
-                check_out_error.classList.add("hidden")
-                check_out_error.innerHTML = ""
-            }
-
-            // if (promo == "") {
-            //     promo_error.classList.remove("hidden")
-            //     promo_error.innerHTML = "Promo Mohon diisi!"
-            //     isFail = false;
-            // } else {
-            //     promo_error.classList.add("hidden")
-            //     promo_error.innerHTML = ""
-            // }
-            return isFail
-        }
-
-        function validationPromo() {
-            var promo = document.getElementById("promo").value
-            var promo_error = document.getElementById("promo_error")
-            var submit = document.getElementById("submit-dropdown")
-            const metaElements = document.querySelectorAll('meta[name="csrf-token"]');
-            const csrf = metaElements.length > 0 ? metaElements[0].content : "";
-
-            if (promo == "") {
-                fetch(`http://localhost:8000/api/voucher/${promo}/asramas`)
-                    .then(res => res.json())
-                    .then(data => {
-                        isFail = true
-                    })
-            }
-            return promo
-        }
-    </script>
+    <script src="{{ asset('js/validasi/asrama.js') }}"></script>
 @endsection

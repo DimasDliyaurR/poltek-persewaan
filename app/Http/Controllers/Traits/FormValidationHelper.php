@@ -15,7 +15,7 @@ trait FormValidationHelper
      */
     public function isBLargeThenAButCLess(int $a, int $b, int $c)
     {
-        return ($this->isALargeThenB($a, $b) && $this->isALargeThenB($b, $c)) ? true : false;
+        return ($this->isALargeAndEqualThenB($a, $b) && $this->isALargeAndEqualThenB($b, $c)) ? true : false;
     }
 
     /**
@@ -50,6 +50,7 @@ trait FormValidationHelper
     public function checkSchedule($column_a, $column_b, $tanggal_awal, $tanggal_akhir)
     {
         $table = $this->modal::where("status", "belum bayar")->get();
+        // dd($table);
         $table = array_map(function ($q) {
             return (array)$q;
         }, $table->toArray());

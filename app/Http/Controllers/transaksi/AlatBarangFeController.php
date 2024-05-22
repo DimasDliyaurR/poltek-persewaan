@@ -35,6 +35,12 @@ class AlatBarangFeController extends Controller
 
     public function detail($slug)
     {
+        $user = auth()->user() != null ? auth()->user()->id : null;
+        if ($user) {
+            $check_transaksi = TransaksiAlatBarang::whereUserId($user)->get();
+            if (count($check_transaksi) < 0) {
+            }
+        }
         $alatbarang = AlatBarang::with("fotoAlatBarangs")->whereAbSlug($slug);
 
         return view('alatBarang.detail', [
@@ -109,7 +115,7 @@ class AlatBarangFeController extends Controller
             ]);
         }
 
-        DB::transaction(function () use ($validation) {
+        $transaction = DB::transaction(function () use ($validation) {
             // Create Transaksi
             $transaksi = TransaksiAlatBarang::create([
                 "user_id" => auth()->user()->id,
@@ -164,6 +170,8 @@ class AlatBarangFeController extends Controller
                 "tab_sub_total" => $this->total_transaksi
             ]);
         });
+
+        if ($transaction) $transaction;
 
         return redirect()->route("alat-barang.pembayaran", $this->transaksi->code_unique);
     }

@@ -1,14 +1,17 @@
 $(document).ready(function () {
-    let pelaksanaan = $("#tk_pelaksanaan")
-    let pelaksanaan_error = $("#tk_pelaksanaan_error")
+    let pelaksanaan = $("#tg_tanggal_pelaksanaan")
+    let pelaksanaan_error = $("#tg_tanggal_pelaksanaan_error")
     let promo = $("#promo")
     let promo_error = $("#promo_error")
-    let Durasi = $("#tk_durasi")
-    let Durasi_error = $("#tk_durasi_error")
+    let kembali = $("#tg_tanggal_kembali")
+    let kembali_error = $("#tg_tanggal_kembali_error")
+    let tujuan = $("#tg_tujuan")
+    let tujuan_error = $("#tg_tujuan_error")
 
     let isPelaksanaanValidated = true
-    let isDurasiValidated = true
+    let isKembaliValidated = true
     let isPromoValidated = true
+    let isTujuanValidated = true
     let timeout = null
     let currentLocation = $(location).attr('href')
     let slug = currentLocation.split('/')[currentLocation.split('/').length - 1]
@@ -17,7 +20,6 @@ $(document).ready(function () {
     let submit = $("#submit-dropdown")
     let form = $("#form_asrama")
     let pesan = $("#pesan")
-
 
     function ValidationPromo() {
         clearTimeout(timeout)
@@ -45,10 +47,10 @@ $(document).ready(function () {
         }, 1000)
     }
 
+
     function toggleForm() {
         event.preventDefault();
         let input = $(`<input type="text" name="slug[]" class=""hidden value="${slug}" />`)
-        console.log(dropdown.hasClass("hidden"));
         if (dropdown.hasClass("hidden")) {
             form.append(input);
             dropdown.removeClass("hidden")
@@ -72,31 +74,45 @@ $(document).ready(function () {
         return isPelaksanaanValidated
     }
 
-    function validationDurasi() {
-        if (Durasi.val() == "") {
-            Durasi_error.removeClass("hidden")
-            Durasi_error.text("Tanggal Durasi mohon diisi!")
-            isDurasiValidated = false
+    function validationKembali() {
+        if (kembali.val() == "") {
+            kembali_error.removeClass("hidden")
+            kembali_error.text("Tanggal kembali mohon diisi!")
+            isKembaliValidated = false
         } else {
-            Durasi_error.addClass("hidden")
-            Durasi_error.text("")
-            isDurasiValidated = true
+            kembali_error.addClass("hidden")
+            kembali_error.text("")
+            isKembaliValidated = true
         }
 
-        return isDurasiValidated
+        return isKembaliValidated
+    }
+
+    function validationTujuan() {
+        if (tujuan.val() == "") {
+            tujuan_error.removeClass("hidden")
+            tujuan_error.text("Tanggal kembali mohon diisi!")
+            isTujuanValidated = false
+        } else {
+            tujuan_error.addClass("hidden")
+            tujuan_error.text("")
+            isTujuanValidated = true
+        }
+
+        return isTujuanValidated
     }
 
     function validate() {
         event.preventDefault()
-        if (validationPelaksanaan() && validationDurasi()) {
+        if (validationPelaksanaan() && validationKembali() && validationTujuan()) {
             let kondisi = true
             $.ajax({
                 type: "POST",
-                url: "http://localhost:8000/api/transportasi/pelaksanaan",
+                url: "http://localhost:8000/api/gedung-lap/pelaksanaan",
                 data: {
-                    durasi: Durasi.val(),
-                    pelaksanaan: pelaksanaan.val(),
-                    slug: slug,
+                    tg_tanggal_pelaksanaan: pelaksanaan.val(),
+                    tg_tanggal_kembali: kembali.val(),
+                    slug: slug
                 },
                 header: {
                     "Content-Type": "application/json",
@@ -136,16 +152,17 @@ $(document).ready(function () {
     }
 
     pelaksanaan.on("input", validationPelaksanaan)
-    Durasi.on("input", validationDurasi)
+    kembali.on("input", validationKembali)
     promo.on("input", ValidationPromo)
     pesan.on("click", toggleForm)
     submit.click(validate)
 
     setInterval(() => {
-        if (isPelaksanaanValidated && isDurasiValidated && isPromoValidated) {
+        if (isPelaksanaanValidated && isKembaliValidated && isTujuanValidated && isPromoValidated) {
             submit.attr("disabled", false)
         } else {
             submit.attr("disabled", true)
         }
     }, 100);
+
 });

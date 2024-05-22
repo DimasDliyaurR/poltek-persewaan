@@ -66,7 +66,7 @@ trait HandlerPromo
                 return false;
             }
         } else {
-            return true;
+            return false;
         }
     }
 

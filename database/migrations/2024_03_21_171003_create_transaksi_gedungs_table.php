@@ -21,10 +21,10 @@ return new class extends Migration
             $table->string('tg_tujuan');
             $table->dateTime('tg_tanggal_sewa');
             $table->dateTime('tg_tanggal_kembali');
+            $table->dateTime('tg_tanggal_pelaksanaan');
             $table->bigInteger('tg_sub_total')->nullable();
             $table->string('tg_snap_token')->nullable();
             $table->enum('status', ["belum bayar", "terbayar", "kadaluarsa", "batal"])->default("belum bayar");
-            $table->timestamp('tg_tanggal_pelaksanaan');
             $table->timestamps();
         });
 

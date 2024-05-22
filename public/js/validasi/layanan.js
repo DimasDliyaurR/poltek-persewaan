@@ -1,14 +1,17 @@
 $(document).ready(function () {
-    let pelaksanaan = $("#tk_pelaksanaan")
-    let pelaksanaan_error = $("#tk_pelaksanaan_error")
-    let promo = $("#promo")
-    let promo_error = $("#promo_error")
-    let Durasi = $("#tk_durasi")
-    let Durasi_error = $("#tk_durasi_error")
+    var tl_tanggal_pelaksanaan = $("input#tl_tanggal_pelaksanaan")
+    var tl_tanggal_pelaksanaan_error = $("#tl_tanggal_pelaksanaan_error")
+    var tl_tujuan = $("input#tl_tujuan")
+    var tl_tujuan_error = $("#tl_tujuan_error")
+    var tl_durasi_sewa = $("input#tl_durasi_sewa")
+    var tl_durasi_sewa_error = $("#tl_tujuan_error")
+    var promo = $("#promo")
+    var promo_error = $("#promo_error")
 
     let isPelaksanaanValidated = true
     let isDurasiValidated = true
     let isPromoValidated = true
+    let isTujuanValidated = true
     let timeout = null
     let currentLocation = $(location).attr('href')
     let slug = currentLocation.split('/')[currentLocation.split('/').length - 1]
@@ -17,7 +20,6 @@ $(document).ready(function () {
     let submit = $("#submit-dropdown")
     let form = $("#form_asrama")
     let pesan = $("#pesan")
-
 
     function ValidationPromo() {
         clearTimeout(timeout)
@@ -48,7 +50,6 @@ $(document).ready(function () {
     function toggleForm() {
         event.preventDefault();
         let input = $(`<input type="text" name="slug[]" class=""hidden value="${slug}" />`)
-        console.log(dropdown.hasClass("hidden"));
         if (dropdown.hasClass("hidden")) {
             form.append(input);
             dropdown.removeClass("hidden")
@@ -59,27 +60,42 @@ $(document).ready(function () {
         }
     }
 
+    function validationTujuan() {
+        if (tl_tujuan.val() == "") {
+            tl_tujuan_error.removeClass("hidden")
+            tl_tujuan_error.text("Tanggal kembali mohon diisi!")
+            isTujuanValidated = false
+        } else {
+            tl_tujuan_error.addClass("hidden")
+            tl_tujuan_error.text("")
+            isTujuanValidated = true
+        }
+
+        return isTujuanValidated
+    }
+
     function validationPelaksanaan() {
-        if (pelaksanaan.val() == "") {
-            pelaksanaan_error.removeClass("hidden")
-            pelaksanaan_error.text("Tanggal Pelaksanaan mohon diisi!")
+        if (tl_tanggal_pelaksanaan.val() == "") {
+            tl_tanggal_pelaksanaan_error.removeClass("hidden")
+            tl_tanggal_pelaksanaan_error.text("Tanggal kembali mohon diisi!")
             isPelaksanaanValidated = false
         } else {
-            pelaksanaan_error.addClass("hidden")
-            pelaksanaan_error.text("")
+            tl_tanggal_pelaksanaan_error.addClass("hidden")
+            tl_tanggal_pelaksanaan_error.text("")
             isPelaksanaanValidated = true
         }
+
         return isPelaksanaanValidated
     }
 
     function validationDurasi() {
-        if (Durasi.val() == "") {
-            Durasi_error.removeClass("hidden")
-            Durasi_error.text("Tanggal Durasi mohon diisi!")
+        if (tl_durasi_sewa.val() == "") {
+            tl_durasi_sewa_error.removeClass("hidden")
+            tl_durasi_sewa_error.text("Tanggal kembali mohon diisi!")
             isDurasiValidated = false
         } else {
-            Durasi_error.addClass("hidden")
-            Durasi_error.text("")
+            tl_durasi_sewa_error.addClass("hidden")
+            tl_durasi_sewa_error.text("")
             isDurasiValidated = true
         }
 
@@ -88,15 +104,15 @@ $(document).ready(function () {
 
     function validate() {
         event.preventDefault()
-        if (validationPelaksanaan() && validationDurasi()) {
+        if (validationPelaksanaan() && validationDurasi() && validationTujuan()) {
             let kondisi = true
             $.ajax({
                 type: "POST",
-                url: "http://localhost:8000/api/transportasi/pelaksanaan",
+                url: "http://localhost:8000/api/layanan/pelaksanaan",
                 data: {
-                    durasi: Durasi.val(),
-                    pelaksanaan: pelaksanaan.val(),
-                    slug: slug,
+                    pelaksanaan: tl_tanggal_pelaksanaan.val(),
+                    durasi: tl_durasi_sewa.val(),
+                    slug: slug
                 },
                 header: {
                     "Content-Type": "application/json",
@@ -135,17 +151,20 @@ $(document).ready(function () {
         }
     }
 
-    pelaksanaan.on("input", validationPelaksanaan)
-    Durasi.on("input", validationDurasi)
+    tl_tanggal_pelaksanaan.on("input", validationPelaksanaan)
+    tl_tujuan.on("input", validationTujuan)
+    tl_durasi_sewa.on("input", validationDurasi)
     promo.on("input", ValidationPromo)
     pesan.on("click", toggleForm)
     submit.click(validate)
 
     setInterval(() => {
-        if (isPelaksanaanValidated && isDurasiValidated && isPromoValidated) {
+        if (isPelaksanaanValidated && isDurasiValidated && isTujuanValidated && isPromoValidated) {
             submit.attr("disabled", false)
         } else {
             submit.attr("disabled", true)
         }
     }, 100);
+
+
 });

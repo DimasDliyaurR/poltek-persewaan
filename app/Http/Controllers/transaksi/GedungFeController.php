@@ -65,7 +65,7 @@ class GedungFeController extends Controller
     public function pesan(Request $request)
     {
         $validation = $request->validate([
-            "tg_tanggal_sewa" => "required",
+            "tg_tanggal_pelaksanaan" => "required",
             "tg_tanggal_kembali" => "required",
             "tg_tujuan" => "required",
             "slug" => "required",
@@ -92,7 +92,7 @@ class GedungFeController extends Controller
             ]);
         }
 
-        DB::transaction(function () use ($validation) {
+        $transaction = DB::transaction(function () use ($validation) {
             // Create Transaksi
             $transaksi = TransaksiGedung::create([
                 "user_id" => auth()->user()->id,
@@ -100,6 +100,7 @@ class GedungFeController extends Controller
                 "code_unique" => auth()->user()->id . strtotime(now()) . "@300",
                 "tg_tujuan" => $validation["tg_tujuan"],
                 "tg_tanggal_sewa" => now(),
+                "tg_tanggal_pelaksanaan" => $validation["tg_tanggal_pelaksanaan"],
                 "tg_tanggal_kembali" => $validation["tg_tanggal_kembali"],
             ]);
 
@@ -147,6 +148,11 @@ class GedungFeController extends Controller
                 "tg_sub_total" => $this->total_transaksi
             ]);
         });
+
+        if ($transaction)
+            $transaction;
+
+
 
 
         return redirect()->route("gedung.pembayaran", $this->transaksi->code_unique);

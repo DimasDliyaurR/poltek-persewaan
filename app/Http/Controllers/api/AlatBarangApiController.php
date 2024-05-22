@@ -4,45 +4,39 @@ namespace App\Http\Controllers\api;
 
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\Traits\FormValidationHelper;
-use App\Models\MerkKendaraan;
-use App\Models\TransaksiKendaraan;
+use App\Models\AlatBarang;
+use App\Models\TransaksiAlatBarang;
 use Illuminate\Http\Request;
 
-class KendaraanApiController extends Controller
+class AlatBarangApiController extends Controller
 {
     use FormValidationHelper;
     private $modal;
 
-    public function __construct(TransaksiKendaraan $transaksiKendaraan)
+    public function __construct(TransaksiAlatBarang $transaksiAlatBarang)
     {
-        $this->modal = $transaksiKendaraan;
+        $this->modal = $transaksiAlatBarang;
     }
 
-    /**
-     * 
-     * @param \Illuminate\Http\Request $request
-     * Request = [slug,pelaksanaan,durasi]
-     */
-    public function validasi_form_transaksi_transportasi(Request $request)
+    public function validasi_form_transaksi_alat_barang(Request $request)
     {
         $slug = $request->slug;
-        $pelaksanaan = $request->pelaksanaan;
-        $durasi = $request->durasi;
-        $model_with_relation =  MerkKendaraan::withCount(["kendaraans as count" => fn ($q) => $q->whereKStatus("tersedia")])->whereMkSlug($slug)->get();
+        $pesanan = $request->tab_tanggal_pesanan;
+        $kembali = $request->tab_tanggal_kembali;
+        $model_with_relation =  AlatBarang::select("ab_qty as count")->get();
 
         if (!$request->isMethod("POST")) {
             return response()->json([
                 "error" => true,
-                "message" => "Wrong method",
-            ], 403);
+                "message" => "Internal Error",
+            ], 505);
         }
 
         try {
-            $pelaksanaan = strtotime($pelaksanaan);
-            $target = strtotime($pelaksanaan) + ($durasi * (60 * 60 * 24));
-            // dd($target, $pelaksanaan);
+            $target = strtotime($pesanan);
+            $pesanan = strtotime($kembali);
 
-            if ($this->checkSchedule("tk_pelaksanaan", "tk_tanggal_kembali", $target, $pelaksanaan)) {
+            if ($this->checkSchedule("tab_tanggal_pesanan", "tab_tanggal_kembali", $target, $pesanan)) {
                 return response()->json([
                     "error" => true,
                     "message" => "Jadwal sudah ada",
@@ -51,7 +45,7 @@ class KendaraanApiController extends Controller
                 if ($this->checkCapacity($model_with_relation)) {
                     return response()->json([
                         "error" => true,
-                        "message" => "Kendaraan tidak tersedia",
+                        "message" => "Alat barang tidak tersedia",
                     ], 403);
                 }
             }

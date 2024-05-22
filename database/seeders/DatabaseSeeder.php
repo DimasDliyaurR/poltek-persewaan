@@ -65,5 +65,10 @@ class DatabaseSeeder extends Seeder
         $this->call(AlatBarangsTableSeeder::class);
         $this->call(FotoAlatBarangsTableSeeder::class);
         $this->call(AlatBarangPaymentMethodsTableSeeder::class);
+        /**
+         * User
+         */
+        $this->call(UsersTableSeeder::class);
+        $this->call(ProfilesTableSeeder::class);
     }
 }

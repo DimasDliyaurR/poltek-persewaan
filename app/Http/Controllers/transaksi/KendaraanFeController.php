@@ -139,7 +139,7 @@ class KendaraanFeController extends Controller
                 ]);
             }
 
-            if (!$this->checkPromo()) {
+            if ($this->checkPromo()) {
                 return back()->withErrors([
                     "promo" => "Promo Sudah Habis"
                 ]);
