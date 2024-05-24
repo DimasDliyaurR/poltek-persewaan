@@ -81,4 +81,9 @@ class User extends Authenticatable
     {
         return $this->hasMany(TransaksiGedung::class, "user_id", "id");
     }
+
+    public function rating_merk_kendaraan(): HasMany
+    {
+        return $this->hasMany(RatingMerkKendaraan::class, "user_id", "id");
+    }
 }

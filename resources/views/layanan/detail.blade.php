@@ -130,6 +130,9 @@
                 </div>
             </x-layout-detail-transaksi>
 
+            <livewire:ulasan master="layanans" rating="rating_layanans"
+                slug="{{ explode('/', url()->current())[count(explode('/', url()->current())) - 1] }}"
+                slugColumn="l_slug" />
 
         </div>
     </div>

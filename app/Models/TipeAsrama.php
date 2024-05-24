@@ -40,4 +40,9 @@ class TipeAsrama extends Model
     {
         return $this->hasOne(AsramaPaymentMethod::class);
     }
+
+    public function rating(): HasMany
+    {
+        return $this->hasMany(RatingTipeAsrama::class);
+    }
 }

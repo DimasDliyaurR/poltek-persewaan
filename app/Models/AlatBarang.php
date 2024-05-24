@@ -67,4 +67,9 @@ class AlatBarang extends Model
     {
         return $this->hasOne(AlatBarangPaymentMethod::class);
     }
+
+    public function rating(): HasMany
+    {
+        return $this->hasMany(RatingMerkKendaraan::class);
+    }
 }

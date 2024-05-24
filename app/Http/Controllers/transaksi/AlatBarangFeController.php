@@ -35,17 +35,13 @@ class AlatBarangFeController extends Controller
 
     public function detail($slug)
     {
-        $user = auth()->user() != null ? auth()->user()->id : null;
-        if ($user) {
-            $check_transaksi = TransaksiAlatBarang::whereUserId($user)->get();
-            if (count($check_transaksi) < 0) {
-            }
-        }
-        $alatbarang = AlatBarang::with("fotoAlatBarangs")->whereAbSlug($slug);
+        $alatbarang = AlatBarang::with("fotoAlatBarangs")->whereAbSlug($slug)->first();
+        if (!$alatbarang)
+            abort(404);
 
         return view('alatBarang.detail', [
             "title" => "Alat Barang",
-            "alatBarangs" => $alatbarang->first(),
+            "alatBarangs" => $alatbarang,
         ]);
     }
 

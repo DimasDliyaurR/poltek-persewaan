@@ -168,7 +168,9 @@
                     </div>
                 </div>
             </x-layout-detail-transaksi>
-
+            <livewire:ulasan master="tipe_asramas" rating="rating_tipe_asramas"
+                slug="{{ explode('/', url()->current())[count(explode('/', url()->current())) - 1] }}"
+                slugColumn="ta_slug" />
 
         </div>
     </div>

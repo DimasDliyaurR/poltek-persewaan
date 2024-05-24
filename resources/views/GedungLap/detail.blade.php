@@ -131,7 +131,9 @@
                 </div>
             </x-layout-detail-transaksi>
 
-
+            <livewire:ulasan master="gedung_laps" rating="rating_gedung_laps"
+                slug="{{ explode('/', url()->current())[count(explode('/', url()->current())) - 1] }}"
+                slugColumn="gl_slug" />
         </div>
     </div>
 

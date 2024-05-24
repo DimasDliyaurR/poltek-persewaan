@@ -51,4 +51,9 @@ class MerkKendaraan extends Model
     {
         return $this->hasOne(KendaraanPaymentMethod::class);
     }
+
+    public function rating(): HasMany
+    {
+        return $this->hasMany(RatingMerkKendaraan::class);
+    }
 }

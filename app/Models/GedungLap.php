@@ -63,4 +63,9 @@ class GedungLap extends Model
     {
         return $this->hasOne(GedungLapPaymentMethod::class);
     }
+
+    public function rating(): HasMany
+    {
+        return $this->hasMany(RatingMerkKendaraan::class);
+    }
 }

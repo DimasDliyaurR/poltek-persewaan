@@ -1,7 +1,7 @@
 @extends('layouts-home.navbar.nav-old')
 @section('content')
-    <div class=" bg-plaster py-24 ">
-        <div class=" container  ">
+    <div class=" bg-plaster py-24 font-poppins">
+        <div class="container">
 
             <x-layout-detail-transaksi class="text-xl font-bold">
                 <a class="text-primary hover:font-bold hover:underline"
@@ -122,6 +122,9 @@
                 </div>
             </x-layout-detail-transaksi>
 
+            <livewire:ulasan master="merk_kendaraans" rating="rating_merk_kendaraans"
+                slug="{{ explode('/', url()->current())[count(explode('/', url()->current())) - 1] }}"
+                slugColumn="mk_slug" />
 
         </div>
     </div>

@@ -128,7 +128,6 @@ $(document).ready(function () {
                 error: (res) => {
                     $(res).each((index, val) => {
                         var data = val.responseJSON
-                        console.log(data);
                         if (data.error) {
                             let alertFloding = $(`<div id="alert-2" class="flex items-center p-4 mb-4 text-orange-600 rounded-lg bg-orange-50 dark:bg-gray-800 dark:text-red-400" role="alert">
                             <svg class="flex-shrink-0 w-4 h-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">

@@ -2,20 +2,17 @@
 
 namespace App\Http\Controllers\transaksi;
 
-use Exception;
 use Illuminate\Http\Request;
 use App\Models\MerkKendaraan;
 use App\Models\TransaksiKendaraan;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use App\Models\DetailTransaksiKendaraan;
-use App\Services\handler\Promo\PromoHandler;
 use App\Services\Kendaraan\KendaraanService;
 use App\Http\Controllers\Traits\HandlerPromo;
 use App\Http\Controllers\Traits\FormValidationHelper;
+use App\Models\RatingMerkKendaraan;
 use App\Services\handler\Midtrans\CreateSnapTokenService;
-use App\Http\Requests\kendaraan\RequestTransaksiKendaraan;
-use stdClass;
 
 class KendaraanFeController extends Controller
 {
@@ -55,13 +52,18 @@ class KendaraanFeController extends Controller
 
     public function detail($slug)
     {
-        $kendaraans = MerkKendaraan::with("kendaraans")->withCount([
-            "kendaraans" => fn ($q) => $q->where("k_status", "=", "tersedia")->latest()
-        ])->where("mk_slug", "=", $slug);
+        $kendaraans = MerkKendaraan::with(["kendaraans"])->withCount([
+            "kendaraans" => fn ($q) => $q->where("k_status", "=", "tersedia")->latest(), "rating"
+        ])->where("mk_slug", "=", $slug)->first();
 
+        if (!$kendaraans)
+            abort(404);
+
+        $ulasan = RatingMerkKendaraan::with("user")->withCount(["like as liked" => fn ($q) => $q->whereIsLike(1), "like as unlike" => fn ($q) => $q->whereIsLike(2)])->whereMerkKendaraanId($kendaraans->id)->get();
         return view('transportasi.detail', [
             "title" => "Transportasi",
-            "kendaraan" => $kendaraans->first()
+            "kendaraan" => $kendaraans,
+            "ulasan" => $ulasan,
         ]);
     }
 

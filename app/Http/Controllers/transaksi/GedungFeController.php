@@ -38,22 +38,22 @@ class GedungFeController extends Controller
 
     public function detail($slug)
     {
-        $gedung_lap = GedungLap::with("detailFotoGedungLap")->whereGlSlug($slug);
+        $gedung_lap = GedungLap::with("detailFotoGedungLap")->whereGlSlug($slug)->first();
+        if (!$gedung_lap)
+            abort(404);
+
         return view('gedungLap.detail', [
             "title" => "Gedung",
-            "gedung_lap" => $gedung_lap->first()
+            "gedung_lap" => $gedung_lap
         ]);
     }
 
     public function pesanForm($slug)
     {
-        try {
-            $item = $slug;
-            $item = GedungLap::whereGlSlug($item)->first();
-            $MerkKendaraan = GedungLap::all();
-        } catch (\Exception $th) {
-            throw new Exception($th->getMessage());
-        }
+        $item = $slug;
+        $item = GedungLap::whereGlSlug($item)->first();
+        $MerkKendaraan = GedungLap::all();
+
 
         return view("gedung.transaksi_pesan", [
             "title" => "Pesan Kendaraan",

@@ -72,4 +72,9 @@ class Layanan extends Model
     {
         return $this->hasOne(LayananPaymentMethod::class);
     }
+
+    public function rating(): HasMany
+    {
+        return $this->hasMany(RatingMerkKendaraan::class);
+    }
 }
