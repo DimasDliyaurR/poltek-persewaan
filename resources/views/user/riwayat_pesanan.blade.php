@@ -2,12 +2,12 @@
 @section('content')
 <div class=" flex xl:flex-row flex-col xl:space-x-2">
   <div class="xl:w-2/3 mx-auto">
-    <div class="flex flex-wrap items-center justify-center p-4 shadow-md mb-3 bg-white">
-      <p class="w-1/5 cursor-pointer text-center hover:bg-primary">Semua</p>
-      <p class="w-1/5 cursor-pointer text-center hover:bg-primary">Belum Bayar</p>
-      <p class="w-1/5 cursor-pointer text-center hover:bg-primary">Diproses</p>
-      <p class="w-1/5 cursor-pointer text-center hover:bg-primary">Selesai</p>
-      <p class="w-1/5 cursor-pointer text-center hover:bg-primary">Dibatalkan</p>
+    <div class="flex flex-wrap items-center justify-center p-4 shadow-md mb-3 bg-white border-gray-50 border-2">
+      <p class="w-1/5 cursor-pointer text-center hover:text-primary">Semua</p>
+      <p class="w-1/5 cursor-pointer text-center hover:text-primary">Belum Bayar</p>
+      <p class="w-1/5 cursor-pointer text-center hover:text-primary">Diproses</p>
+      <p class="w-1/5 cursor-pointer text-center hover:text-primary">Selesai</p>
+      <p class="w-1/5 cursor-pointer text-center hover:text-primary">Dibatalkan</p>
     </div>
     <div class="w-full h-64 rounded-lg p-4 border-2 shadow-lg">
       <div class="flex justify-between mb-2"> 
@@ -53,22 +53,22 @@
     </div>
     <div class="flex flex-col items-center pb-10">
       <h5 class="mb-1 text-xl font-bold text-gray-900 dark:text-white">My Profile</h5>
-        <img class="w-24 h-24 mb-3 rounded-full shadow-lg" src="{{ asset('img/centang.png')}}" alt="Bonnie image"/>
+        <img class="w-24 h-24 mb-3 rounded-full bg-primary shadow-lg" src="{{ asset('img/user.png')}}" alt="Bonnie image"/>
         <h5 class="mb-1 text-xl font-medium text-gray-900 dark:text-white">Bonnie Green</h5>
         <span class="text-sm text-gray-500 dark:text-gray-400">Visual Designer</span>
         <div class="flex mt-4 md:mt-6">
-            <a href="#" class="inline-flex items-center px-4 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 ">Lihat Profile</a>
+            <a href="/profile" class="inline-flex items-center px-4 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 ">Lihat Profile</a>
             <a href="#" class="py-2 px-4 ms-2 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 ">Edit Profile</a>
         </div>
     </div>
     <hr class="w-3/4 mx-auto pt-4">
-    <div class="xl:px-14 py-4">
-      <h5 class="font-bold text-gray-500">Riwayat Transaksi Terbaru</h5>
-      <p class="text-base text-gray-300">31 Juni 2023</p>
-      <h5 class="font-bold text-gray-500">Riwayat Transaksi Berhasil</h5>
-      <p class="text-base text-gray-300">0</p>
-      <h5 class="font-bold text-gray-500">Riwayat Transaksi Dibatalkan</h5>
-      <p class="text-base text-gray-300">0</p>
+    <div class="xl:px-14 py-4 ">
+      <h5 class="font-bold text-gray-500 py-2">Riwayat Transaksi Terbaru</h5>
+      <p class="text-base text-gray-300 py-2">31 Juni 2023</p>
+      <h5 class="font-bold text-gray-500 py-2">Riwayat Transaksi Berhasil</h5>
+      <p class="text-base text-gray-300 py-2">0</p>
+      <h5 class="font-bold text-gray-500 py-2">Riwayat Transaksi Dibatalkan</h5>
+      <p class="text-base text-gray-300 py-2">0</p>
     </div>
   </div>
 </div>

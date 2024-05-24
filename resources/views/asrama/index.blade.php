@@ -1,4 +1,47 @@
 @extends('layouts-home.navbar.comp')
+@section('scriptlink')
+    <style>
+        .bgImage {
+
+            animation: bgChange 20s linear infinite;
+            background-image: url("{{ asset('img/gerbang.jpg') }}");
+        }
+
+        @keyframes bgChange {
+            0% {
+                background-image: url("{{ asset('../../img/landingpage/gerbang.jpg') }}");
+            }
+
+            20% {
+                background-image: url("{{ asset('../../img/landingpage/bad_2.jpg') }}");
+            }
+
+            25% {
+                background-image: url("{{ asset('../../img/landingpage/bus_kiri.jpg') }}");
+            }
+
+            45% {
+                background-image: url("{{ asset('../../img/landingpage/lab.jpg') }}");
+            }
+
+            50% {
+                background-image: url("{{ asset('../../img/landingpage/marchingband.jpg') }}");
+            }
+
+            70% {
+                background-image: url("{{ asset('../../img/landingpage/marchingband.jpg') }}");
+            }
+
+            75% {
+                background-image: url("{{ asset('../../img/landingpage/lab.jpg') }}");
+            }
+
+            95% {
+                background-image: url("{{ asset('../../img/landingpage/marchingband.jpg') }}");
+            }
+        }
+    </style>
+@endsection
 @section('content')
     <div class="pt-40 pb-16 bg-slate-100 px-20 ">
 
@@ -54,8 +97,9 @@
                                         class="block mb-3 mt-3 font-semibold text-xl text-black hover:text-primary truncate">{{ $item->ta_nama }}</a>
                                 </h3>
                                 <div class="flex mb-2">
-                                    <svg class="w-6 h-6 text-primary" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
-                                        width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
+                                    <svg class="w-6 h-6 text-primary" aria-hidden="true"
+                                        xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                        fill="currentColor" viewBox="0 0 24 24">
                                         <path fill-rule="evenodd"
                                             d="M9 4a4 4 0 1 0 0 8 4 4 0 0 0 0-8Zm-2 9a4 4 0 0 0-4 4v1a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2v-1a4 4 0 0 0-4-4H7Zm8-1a1 1 0 0 1 1-1h1v-1a1 1 0 1 1 2 0v1h1a1 1 0 1 1 0 2h-1v1a1 1 0 1 1-2 0v-1h-1a1 1 0 0 1-1-1Z"
                                             clip-rule="evenodd" />

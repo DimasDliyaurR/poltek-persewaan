@@ -19,7 +19,7 @@ class FEAsramaController extends Controller
             "asrama" => $asramas->paginate(6)
         ]);
     }
-    public function listEventAsrama (Request $request)
+    public function listEventAsrama(Request $request)
     {
         $start = date('Y-m-d', strtotime($request->start));
         $end = date('Y-m-d', strtotime($request->end));
