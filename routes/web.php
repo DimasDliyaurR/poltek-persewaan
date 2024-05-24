@@ -498,9 +498,9 @@ Route::get('/promo', [LandingPageController::class, 'promo']);
 //     Route::get('/gedung/detail', 'detail');
 //     Route::get('/gedung/kalender', 'kalenderGedungLap');
 // });
-Route::get('/detailgedung/{id}', [FEgedungLapController::class, 'detail'])->name('detailgedung');
-// Route::get('/k_pesan/{id}', [FEgedungLapController::class, 'store'])->name('k_pesan');
-Route::get('/k_pesan/{id}', [FEKendaraanController::class, 'store'])->name('k_pesan');
+// Route::get('/detailgedung/{id}', [FEgedungLapController::class, 'detail'])->name('detailgedung');
+// // Route::get('/k_pesan/{id}', [FEgedungLapController::class, 'store'])->name('k_pesan');
+// Route::get('/k_pesan/{id}', [FEKendaraanController::class, 'store'])->name('k_pesan');
 
 // Route::controller(FELayananController::class)->group(function () {
 //     Route::get('/layanan', 'index');
@@ -508,24 +508,24 @@ Route::get('/k_pesan/{id}', [FEKendaraanController::class, 'store'])->name('k_pe
 //     Route::get('layanan/list', 'listEventLayanan')->name('layanan.list');
 // });
 
-Route::controller(FEAsramaController::class)->group(function () {
-    Route::get('/asrama', 'index');
-    Route::get('/asrama/kalender', 'kalenderAsrama');
-    Route::get('/asrama/list', 'listEventAsrama')->name('asrama.list');
-});
-Route::controller(FEAlatBarangController::class)->group(function () {
-    Route::get('/alatbarang', 'index');
-    Route::get('/alatbarang/kalender', 'kalenderAlatBarang');
-    Route::get('/alatbarang/list', 'listEventAb')->name('ab.list');
-});
+// Route::controller(FEAsramaController::class)->group(function () {
+//     Route::get('/asrama', 'index');
+//     Route::get('/asrama/kalender', 'kalenderAsrama');
+//     Route::get('/asrama/list', 'listEventAsrama')->name('asrama.list');
+// });
+// Route::controller(FEAlatBarangController::class)->group(function () {
+//     Route::get('/alatbarang', 'index');
+//     Route::get('/alatbarang/kalender', 'kalenderAlatBarang');
+//     Route::get('/alatbarang/list', 'listEventAb')->name('ab.list');
+// });
 
 
-Route::controller(FEKendaraanController::class)->group(function () {
-    Route::get('/transportasi', 'index');
-    Route::get('/transportasi/detail', 'detail');
-    Route::get('/transportasi/kalender', 'kalender');
-    Route::get('/transportasi/list', 'listEventTransportasi')->name('transportasi.list');
-});
+// Route::controller(FEKendaraanController::class)->group(function () {
+//     Route::get('/transportasi', 'index');
+//     Route::get('/transportasi/detail', 'detail');
+//     Route::get('/transportasi/kalender', 'kalender');
+//     Route::get('/transportasi/list', 'listEventTransportasi')->name('transportasi.list');
+// });
 //FE
 //Route::get('/transportasi/detail', 'detail');
 //end FE
@@ -538,13 +538,13 @@ Route::controller(FEKendaraanController::class)->group(function () {
 //});
 
 //KENDARAAN FE
-Route::controller(FEKendaraanController::class)->group(function () {
-    Route::get('/transportasi', 'index');
-    Route::get('/transportasi/detail', 'detail');
-    Route::get('/transportasi/pesan', 'pesan');
-    Route::get('/transportasi/invoice', 'invoice');
-    Route::get('/print', 'print_invoice');
-});
+// Route::controller(FEKendaraanController::class)->group(function () {
+//     Route::get('/transportasi', 'index');
+//     Route::get('/transportasi/detail', 'detail');
+//     Route::get('/transportasi/pesan', 'pesan');
+//     Route::get('/transportasi/invoice', 'invoice');
+//     Route::get('/print', 'print_invoice');
+// });
 // ASRAMA FE
 Route::view('/asrama/detail', 'asrama.detail', [
     "title" => "Detail Asrama",
@@ -565,9 +565,9 @@ Route::view('/asrama/print', 'asrama.invoice_print', [
 
 Route::get('/asrama/printpdf', [FEAsramaController::class, 'cetak'])->name('asrama.printpdf');
 //TRANSPORTASI FE
-Route::view('/transportasi', 'transportasi.index', [
-    "title" => "Transportasi",
-]);
+// Route::view('/transportasi', 'transportasi.index', [
+//     "title" => "Transportasi",
+// ]);
 // LAYANAN FE
 Route::view('/layanan/detail', 'layanan.detail', [
     "title" => "Detail Layanan",
