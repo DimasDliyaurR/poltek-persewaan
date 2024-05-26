@@ -17,6 +17,7 @@ use App\Http\Controllers\admin\GedungLapController;
 use App\Http\Controllers\admin\KendaraanController;
 use App\Http\Controllers\admin\TransaksiController;
 use App\Http\Controllers\admin\AlatBarangController;
+use App\Http\Controllers\admin\DashboardController;
 use App\Http\Controllers\admin\LaporanController;
 use App\Http\Controllers\InvoiceController;
 use App\Http\Controllers\transaksi\AsramaFeController;
@@ -59,6 +60,9 @@ use App\Http\Controllers\transaksi\AlatBarangFeController;
 Route::group(["prefix" => "admin", "middleware" => "auth"], function () {
 
     Route::group(["middleware" => "admin"], function () {
+        Route::controller(DashboardController::class)->group(function () {
+            Route::get("/", "index")->name("admin.index");
+        });
 
         Route::controller(KendaraanController::class)->group(function () {
 
@@ -491,126 +495,6 @@ Route::group(["prefix" => "alat-barang", "as" => "alat-barang."], function () {
 Auth::routes();
 
 Route::get('/promo', [LandingPageController::class, 'promo']);
-
-
-// Route::controller(FEGedungLapController::class)->group(function () {
-//     Route::get('/gedung', 'index');
-//     Route::get('/gedung/detail', 'detail');
-//     Route::get('/gedung/kalender', 'kalenderGedungLap');
-// });
-// Route::get('/detailgedung/{id}', [FEgedungLapController::class, 'detail'])->name('detailgedung');
-// // Route::get('/k_pesan/{id}', [FEgedungLapController::class, 'store'])->name('k_pesan');
-// Route::get('/k_pesan/{id}', [FEKendaraanController::class, 'store'])->name('k_pesan');
-
-// Route::controller(FELayananController::class)->group(function () {
-//     Route::get('/layanan', 'index');
-//     Route::get('/layanan/kalender', 'kalenderLayanan');
-//     Route::get('layanan/list', 'listEventLayanan')->name('layanan.list');
-// });
-
-// Route::controller(FEAsramaController::class)->group(function () {
-//     Route::get('/asrama', 'index');
-//     Route::get('/asrama/kalender', 'kalenderAsrama');
-//     Route::get('/asrama/list', 'listEventAsrama')->name('asrama.list');
-// });
-// Route::controller(FEAlatBarangController::class)->group(function () {
-//     Route::get('/alatbarang', 'index');
-//     Route::get('/alatbarang/kalender', 'kalenderAlatBarang');
-//     Route::get('/alatbarang/list', 'listEventAb')->name('ab.list');
-// });
-
-
-// Route::controller(FEKendaraanController::class)->group(function () {
-//     Route::get('/transportasi', 'index');
-//     Route::get('/transportasi/detail', 'detail');
-//     Route::get('/transportasi/kalender', 'kalender');
-//     Route::get('/transportasi/list', 'listEventTransportasi')->name('transportasi.list');
-// });
-//FE
-//Route::get('/transportasi/detail', 'detail');
-//end FE
-//    Route::get('/transportasi/pesan','pesan');
-//Route::get('/transportasi/{slug}', 'detail');
-//    Route::get('/transportasi/{slug}/pesan', 'pesanForm');
-//  Route::get('/transportasi/{slug}/pesan', 'pesanForm')->middleware("auth");
-// Route::post('/transportasi/beli-langsung', 'pesan')->name('transportasi.pesan');
-//    Route::post('/transportasi/beli-langsung', 'pesan')->name('transportasi.pesan')->middleware("auth");
-//});
-
-//KENDARAAN FE
-// Route::controller(FEKendaraanController::class)->group(function () {
-//     Route::get('/transportasi', 'index');
-//     Route::get('/transportasi/detail', 'detail');
-//     Route::get('/transportasi/pesan', 'pesan');
-//     Route::get('/transportasi/invoice', 'invoice');
-//     Route::get('/print', 'print_invoice');
-// });
-// ASRAMA FE
-Route::view('/asrama/detail', 'asrama.detail', [
-    "title" => "Detail Asrama",
-]);
-Route::view('/asrama/pesan', 'asrama.transaksi_pemesanan', [
-    "title" => "Pesan Asrama",
-]);
-Route::view('/asrama/bayar', 'asrama.transaksi_pembayaran', [
-    "title" => "Bayar Asrama",
-]);
-
-Route::view('/asrama/invoice', 'asrama.transaksi_invoice', [
-    "title" => "Invoice Asrama",
-]);
-Route::view('/asrama/print', 'asrama.invoice_print', [
-    "title" => " Print Invoice Asrama",
-]);
-
-Route::get('/asrama/printpdf', [FEAsramaController::class, 'cetak'])->name('asrama.printpdf');
-//TRANSPORTASI FE
-// Route::view('/transportasi', 'transportasi.index', [
-//     "title" => "Transportasi",
-// ]);
-// LAYANAN FE
-Route::view('/layanan/detail', 'layanan.detail', [
-    "title" => "Detail Layanan",
-]);
-Route::view('/bayar', 'user_transaksi.bayar', [
-    "title" => "Pembayaran",
-]);
-Route::view('/layanan', 'layanan.index', [
-    "title" => "Layanan",
-]);
-Route::view('/layanan/invoice', 'layanan.invoice', [
-    "title" => "Invoice Layanan",
-]);
-Route::view('/layanan/print', 'layanan.invoice_print', [
-    "title" => "Invoice Layanan",
-]);
-Route::view('/layanan/pesan', 'layanan.transaksi_pemesanan', [
-    "title" => "Pemesanan Layanan",
-]);
-
-// ALAT BARANG FE
-
-Route::view('/alatbarang', 'alatBarang.index', [
-    "title" => "Alat Barang",
-]);
-Route::view('/alat-barang/detail', 'alatBarang.detail', [
-    "title" => "Detail Alat Barang",
-]);
-Route::view('/alat-barang/pesan', 'alatBarang.transaksi_pemesanan', [
-    "title" => "Pemesanan Alat Barang",
-]);
-Route::view('/alat-barang/invoice', 'alatBarang.invoice', [
-    "title" => "Invoice Alat Barang",
-]);
-Route::view('/alat-barang/print', 'alatBarang.invoice_print', [
-    "title" => "Invoice Alat Barang",
-]);
-
-
-// GEDUNG LAP FE
-// Route::view('/gedung','GedungLap.index', [
-//     "title" => "Kategori Gedung",
-// ]);
 
 
 Route::view('/gedung/detail', 'GedungLap.detail', [

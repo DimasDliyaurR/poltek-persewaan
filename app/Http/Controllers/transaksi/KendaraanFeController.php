@@ -179,6 +179,7 @@ class KendaraanFeController extends Controller
     public function pembayaran($codeUnique)
     {
         $detailTransaksi = TransaksiKendaraan::with(["kendaraans.merkKendaraan.paymentMethod", "promo",])->whereCodeUnique($codeUnique)->get();
+
         if ($detailTransaksi[0]->status == "terbayar") {
             return redirect()->route("invoice.transportasi", $detailTransaksi[0]->code_unique);
         }

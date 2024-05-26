@@ -34,6 +34,8 @@ Route::controller(ApiController::class)->group(function () {
     Route::post("callback/payment", "callback")->name("callback.midtrans");
 
     Route::get("voucher/{promoCode}/{kategori}",  "cekPromo");
+
+    Route::get("transaksi",  "getAllTransaksi");
 });
 Route::controller(KendaraanApiController::class)->group(function () {
     Route::group(["prefix" => "transportasi"], function () {

@@ -32,114 +32,53 @@
                 </div>
             </div>
             <div class="flex flex-wrap">
-                <div class="w-full px-4 lg:w-1/2 md:w-1/3 sm:w-1/2 xl:w-1/3 mb-3">
-                    <div class="bg-white  rounded-xl shadow-lg overflow-hidden ">
-                        <div class="py-8 px-6">
-                            <div id="default-carousel" class="relative w-full" data-carousel="slide">
-                                <!-- Carousel wrapper -->
-                                <!-- <div class="relative h-56 overflow-hidden rounded-lg md:h-96"> -->
-                                <div class="relative h-56 overflow-hidden rounded-md ">
-                                    <!-- Item 1 -->
-                                    <div class="hidden duration-700 ease-in-out" data-carousel-item>
-                                        <img src="{{ 'img/transportasi/bus.JPG' }}"
-                                            class="absolute block  w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2 shadow-lg rounded-md"
-                                            alt="...">
+                @foreach ($transportasi as $item)
+                    <div class="w-full px-4 lg:w-1/2 md:w-1/3 sm:w-1/2 xl:w-1/3 mb-3">
+                        <div class="bg-white  rounded-xl shadow-lg overflow-hidden ">
+                            <div class="py-8 px-6">
+                                <div id="default-carousel" class="relative w-full" data-carousel="slide">
+                                    <!-- Carousel wrapper -->
+                                    <!-- <div class="relative h-56 overflow-hidden rounded-lg md:h-96"> -->
+                                    <div class="relative h-56 overflow-hidden rounded-md ">
+                                        <!-- Item 1 -->
+                                        <div class="hidden duration-700 ease-in-out" data-carousel-item>
+                                            <img src="{{ Storage::url($item->mk_foto) }}"
+                                                class="absolute block  w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2 shadow-lg rounded-md"
+                                                alt="...">
+                                        </div>
+                                    </div>
+                                    <h3>
+                                        <a href="{{ route('transportasi.detail', $item->mk_slug) }}"
+                                            class="block mb-3 mt-3 font-semibold text-xl text-black hover:text-primary truncate">{{ $item->mk_merk }}
+                                        </a>
+                                    </h3>
+                                    <div class="flex mb-2">
+                                        <svg class="w-6 h-6 text-primary" aria-hidden="true"
+                                            xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                            fill="currentColor" viewBox="0 0 24 24">
+                                            <path fill-rule="evenodd"
+                                                d="M9 4a4 4 0 1 0 0 8 4 4 0 0 0 0-8Zm-2 9a4 4 0 0 0-4 4v1a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2v-1a4 4 0 0 0-4-4H7Zm8-1a1 1 0 0 1 1-1h1v-1a1 1 0 1 1 2 0v1h1a1 1 0 1 1 0 2h-1v1a1 1 0 1 1-2 0v-1h-1a1 1 0 0 1-1-1Z"
+                                                clip-rule="evenodd" />
+                                        </svg>
+                                        <p class="text-sm font-semibold ml-1">{{ $item->kendaraans_count }}</p>
+                                        <p class="text-xs text-gray-500 ml-1">Kapasitas</sup>
                                     </div>
                                 </div>
-                                <h3>
-                                    <a href="{{ route('transportasi.detail', $item->mk_slug) }}"
-                                        class="block mb-3 mt-3 font-semibold text-xl text-black hover:text-primary truncate">{{ $item->mk_merk }}
-                                    </a>
-                                </h3>
-                                <div class="flex mb-2">
-                                    <svg class="w-6 h-6 text-primary" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
-                                        width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
-                                        <path fill-rule="evenodd"
-                                            d="M9 4a4 4 0 1 0 0 8 4 4 0 0 0 0-8Zm-2 9a4 4 0 0 0-4 4v1a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2v-1a4 4 0 0 0-4-4H7Zm8-1a1 1 0 0 1 1-1h1v-1a1 1 0 1 1 2 0v1h1a1 1 0 1 1 0 2h-1v1a1 1 0 1 1-2 0v-1h-1a1 1 0 0 1-1-1Z"
-                                            clip-rule="evenodd" />
-                                    </svg>
-                                    <p class="text-sm font-semibold ml-1">{{ $item->kendaraans_count }}</p>
-                                    <p class="text-xs text-gray-500 ml-1">Kapasitas</sup>
-                                </div>
-                                <!-- Slider indicators -->
-                                <div
-                                    class="absolute z-30 flex -translate-x-1/2  left-1/2 space-x-3 rtl:space-x-reverse -mt-7">
-                                    <button type="button" class="w-2 h-2 rounded-full " aria-current="true"
-                                        aria-label="Slide 1" data-carousel-slide-to="0"></button>
-                                    <button type="button" class="w-2 h-2 rounded-full" aria-current="false"
-                                        aria-label="Slide 2" data-carousel-slide-to="1"></button>
-                                    <button type="button" class="w-2 h-2 rounded-full" aria-current="false"
-                                        aria-label="Slide 3" data-carousel-slide-to="2"></button>
-                                </div>
+                                <p class=" text-sm text-gray-500 mb-1 float-right"> unit / Hari</p>
+                                <a href="{{ route('transportasi.detail', $item->mk_slug) }}"
+                                    class="flex items-center justify-center h-8 w-full bg-primary rounded-lg hover:opacity-50 text-sm text-white">Sewa</a>
 
-                                <!-- Slider controls -->
-                                <button type="button"
-                                    class="absolute top-0 start-0 z-30 flex items-center justify-center h-full px-4 cursor-pointer group focus:outline-none"
-                                    data-carousel-prev>
-                                    <span
-                                        class="inline-flex items-center justify-center w-6 h-6 rounded-full bg-white/30 dark:bg-gray-800/30 group-hover:bg-white/50 dark:group-hover:bg-gray-800/60 group-focus:ring-4 group-focus:ring-white dark:group-focus:ring-gray-800/70 group-focus:outline-none">
-                                        <svg class="w-4 h-4 text-white dark:text-gray-800 rtl:rotate-180"
-                                            aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
-                                            viewBox="0 0 6 10">
-                                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
-                                                stroke-width="2" d="M5 1 1 5l4 4" />
-                                        </svg>
-                                        <span class="sr-only">Previous</span>
-                                    </span>
-                                </button>
-                                <button type="button"
-                                    class="absolute top-0 end-0 z-30 flex items-center justify-center h-full px-4 cursor-pointer group focus:outline-none"
-                                    data-carousel-next>
-                                    <span
-                                        class="inline-flex items-center justify-center w-6 h-6 rounded-full bg-white/30 dark:bg-gray-800/30 group-hover:bg-white/50 dark:group-hover:bg-gray-800/60 group-focus:ring-4 group-focus:ring-white dark:group-focus:ring-gray-800/70 group-focus:outline-none">
-                                        <svg class="w-4 h-4 text-white dark:text-gray-800 rtl:rotate-180"
-                                            aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
-                                            viewBox="0 0 6 10">
-                                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
-                                                stroke-width="2" d="m1 9 4-4-4-4" />
-                                        </svg>
-                                        <span class="sr-only">Next</span>
-                                    </span>
-                                </button>
                             </div>
-                            <h3>
-                                <a href=" /transportasi/detail"
-                                    class="block mb-3 mt-3 font-semibold text-xl text-black hover:text-primary truncate">
-                                    Executive Bus
-                                </a>
-                            </h3>
-                            <div class="flex mb-2">
-                                <svg class="w-6 h-6 text-primary" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
-                                    width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
-                                    <path fill-rule="evenodd"
-                                        d="M9 4a4 4 0 1 0 0 8 4 4 0 0 0 0-8Zm-2 9a4 4 0 0 0-4 4v1a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2v-1a4 4 0 0 0-4-4H7Zm8-1a1 1 0 0 1 1-1h1v-1a1 1 0 1 1 2 0v1h1a1 1 0 1 1 0 2h-1v1a1 1 0 1 1-2 0v-1h-1a1 1 0 0 1-1-1Z"
-                                        clip-rule="evenodd" />
-                                </svg>
-                                <p class="text-sm font-semibold ml-1"></p>
-                                <sup class="text-xs text-gray-500"> Kapasitas </sup>
-                            </div>
-                            <div class="flex mb-2">
-                                <img src="{{ 'img/transportasi/bensin.png' }}" alt="bbm" class="w-5 h-5">
-                                <p class="text-sm font-semibold ml-2">Bensin</p>
-                                <sup class="text-xs text-gray-500"> Fuel </sup>
-                            </div>
-                            <p class="text-sm text-gray-500 mb-1  flex justify-between">Status <span
-                                    class=" text-black font-bold text-base">Rp
-                                </span>
-                            </p>
-                            <p class=" text-sm text-gray-500 mb-1 float-right "> unit / Hari</p>
-                            <button class=" h-8 w-full bg-primary rounded-lg hover:opacity-50"><a href="#"
-                                    class=" text-sm   text-white    ">Sewa</a>
-                            </button>
                         </div>
-                    </div>
 
-                </div>
+                    </div>
+                @endforeach
+
             </div>
         </div>
         <!-- <p class="font-bold uppercase pb-20">cari dengan kata kunci lain </p> -->
 
-        </div>
+    </div>
 
     </section>
     <!-- back to top -->
@@ -163,8 +102,7 @@
             <a aria-label="Chat on WhatsApp"
                 href="https://wa.me/6282332829821/?text=Halo, Admin Saya Ingin bertanya terkait sewa aset poltekbang surabaya"
                 class="mx-auto  ">
-                <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="60" height="60"
-                    viewBox="0 0 48 48">
+                <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="60" height="60" viewBox="0 0 48 48">
                     <path fill="#fff"
                         d="M4.868,43.303l2.694-9.835C5.9,30.59,5.026,27.324,5.027,23.979C5.032,13.514,13.548,5,24.014,5c5.079,0.002,9.845,1.979,13.43,5.566c3.584,3.588,5.558,8.356,5.556,13.428c-0.004,10.465-8.522,18.98-18.986,18.98c-0.001,0,0,0,0,0h-0.008c-3.177-0.001-6.3-0.798-9.073-2.311L4.868,43.303z">
                     </path>
