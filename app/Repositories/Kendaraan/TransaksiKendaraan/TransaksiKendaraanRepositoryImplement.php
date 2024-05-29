@@ -21,7 +21,7 @@ class TransaksiKendaraanRepositoryImplement implements TransaksiKendaraanReposit
      */
     public function getDataById($id)
     {
-        return $this->transaksiKendaraan::whereId($id)->first();
+        return $this->transaksiKendaraan::with(["kendaraans.merkKendaraan", "users.profile"])->whereId($id);
     }
 
     /**
@@ -39,9 +39,9 @@ class TransaksiKendaraanRepositoryImplement implements TransaksiKendaraanReposit
      */
     public function getAllWithDetailTransaksiKendaraan()
     {
-        return $this->transaksiKendaraan::with(["users", "kendaraans" => [
-            "merkKendaraan"
-        ]]);
+        return $this->transaksiKendaraan::select("transaksi_kendaraans.*", "profiles.nama_lengkap")->with(["kendaraans.merkKendaraan.paymentMethod"])
+            ->join("users", "transaksi_kendaraans.user_id", "=", "users.id")
+            ->join("profiles", "users.id", "=", "profiles.user_id");
     }
 
     /**
@@ -79,5 +79,26 @@ class TransaksiKendaraanRepositoryImplement implements TransaksiKendaraanReposit
         $dataKendaraan->delete();
 
         return $dataKendaraan;
+    }
+
+    /**
+     * Search data kendaraan
+     * @param string $search
+     * @return object
+     */
+    public function search($search)
+    {
+        return $this->transaksiKendaraan::with(["kendaraans.merkKendaraan.paymentMethod"])
+            ->join("users", "transaksi_kendaraans.user_id", "=", "users.id")
+            ->join("profiles", "users.id", "=", "profiles.user_id")
+            ->orWhere(function ($q) use ($search) {
+                $q->where('code_unique', "LIKE", "%$search%")
+                    ->orWhere('profiles.nama_lengkap', "LIKE", "%$search%")
+                    ->orWhere('tk_tanggal_sewa', "LIKE", "%$search%")
+                    ->orWhere('tk_durasi', "LIKE", "%$search%")
+                    ->orWhere('tk_pelaksanaan', "LIKE", "%$search%")
+                    ->orWhere('status', "LIKE", "%$search%")
+                    ->orWhere('tk_tanggal_kembali', "LIKE", "%$search%");
+            });
     }
 }

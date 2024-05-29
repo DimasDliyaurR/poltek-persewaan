@@ -14,8 +14,11 @@
                 </a>
             </li>
             <li>
-                <a href="{{ route('laporan.index') }}"
-                    class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
+                {{-- Laporan --}}
+                <button type="button"
+                    class="flex items-center w-full p-2 text-base text-gray-900 transition duration-75 rounded-lg group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
+                    aria-controls="dropdown-example-laporan" data-collapse-toggle="dropdown-example-laporan">
+
                     <svg class="w-5 h-5 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white"
                         aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 22 21">
                         <path
@@ -23,8 +26,44 @@
                         <path
                             d="M12.5 0c-.157 0-.311.01-.565.027A1 1 0 0 0 11 1.02V10h8.975a1 1 0 0 0 1-.935c.013-.188.028-.374.028-.565A8.51 8.51 0 0 0 12.5 0Z" />
                     </svg>
-                    <span class="ms-3">Laporan</span>
-                </a>
+                    <span class="flex-1 ms-3 text-left rtl:text-right whitespace-nowrap">Laporan</span>
+                    <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
+                        viewBox="0 0 10 6">
+                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="m1 1 4 4 4-4" />
+                    </svg>
+                </button>
+                <ul id="dropdown-example-laporan" class="{{ $action == 'laporan' ? '' : 'hidden' }} py-2 space-y-2">
+                    <li>
+                        <a href="{{ route('laporan.index') }}"
+                            class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">Pemasukkan</a>
+                    </li>
+                    <li>
+                        <a href="{{ route('laporan.kendaraan') }}"
+                            class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">Transaksi
+                            Kendaraan</a>
+                    </li>
+                    <li>
+                        <a href="{{ route('laporan.asrama') }}"
+                            class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">Transaksi
+                            Asrama</a>
+                    </li>
+                    <li>
+                        <a href="{{ route('laporan.alat-barang') }}"
+                            class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">Transaksi
+                            Alat Barang</a>
+                    </li>
+                    <li>
+                        <a href="{{ route('laporan.gedung-lap') }}"
+                            class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">Transaksi
+                            Gedung & Lapangan</a>
+                    </li>
+                    <li>
+                        <a href="{{ route('laporan.layanan') }}"
+                            class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">Transaksi
+                            Layanan</a>
+                    </li>
+                </ul>
             </li>
             {{-- Promo --}}
             @if (auth()->user()->level == 'admin')
@@ -42,6 +81,7 @@
                         <span class="ms-3">Promo</span>
                     </a>
                 </li>
+
                 <li>
                     {{-- Kendaraan --}}
                     <button type="button"
@@ -91,11 +131,12 @@
                         <span class="flex-1 ms-3 text-left rtl:text-right whitespace-nowrap">Asrama</span>
                         <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
                             viewBox="0 0 10 6">
-                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="m1 1 4 4 4-4" />
+                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                stroke-width="2" d="m1 1 4 4 4-4" />
                         </svg>
                     </button>
-                    <ul id="dropdown-example-asrama" class="{{ $action == 'asrama' ? '' : 'hidden' }} py-2 space-y-2">
+                    <ul id="dropdown-example-asrama"
+                        class="{{ $action == 'asrama' ? '' : 'hidden' }} py-2 space-y-2">
                         <li>
                             <a href="{{ asset('admin/asramas') }}"
                                 class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">Ruang

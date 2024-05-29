@@ -3,19 +3,13 @@
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\api\ApiController;
-use App\Http\Controllers\FEAsramaController;
-use App\Http\Controllers\FELayananController;
 use App\Http\Controllers\admin\UserController;
 use App\Http\Controllers\admin\PromoController;
-use App\Http\Controllers\FEGedungLapController;
-use App\Http\Controllers\FEKendaraanController;
 use App\Http\Controllers\LandingPageController;
 use App\Http\Controllers\admin\AsramaController;
-use App\Http\Controllers\FEAlatBarangController;
 use App\Http\Controllers\admin\LayananController;
 use App\Http\Controllers\admin\GedungLapController;
 use App\Http\Controllers\admin\KendaraanController;
-use App\Http\Controllers\admin\TransaksiController;
 use App\Http\Controllers\admin\AlatBarangController;
 use App\Http\Controllers\admin\DashboardController;
 use App\Http\Controllers\admin\LaporanController;
@@ -123,23 +117,28 @@ Route::group(["prefix" => "admin", "middleware" => "auth"], function () {
             // Destroy Fasilitas Asrama
             Route::delete("fasilitasAsrama/delete/{id}", "destroyFasilitasAsrama");
 
-            // Index Asrama
-            Route::get("asramas", "indexAsrama");
+            Route::group(["as" => "asrama."], function () {
 
-            // Create Asrama
-            Route::post("asramas/create", "createAsrama");
+                // Index Asrama
+                Route::get("asramas", "indexAsrama")->name("index");
 
-            // store Asrama
-            Route::get("asrama/store/{id}", "storeAsrama");
+                // Create Asrama
+                Route::post("asramas/create", "createAsrama")->name("create");
+
+                // store Asrama
+                Route::get("asrama/store/{id}", "storeAsrama")->name("store");
+
+                // Show Asrama
+                Route::get("asrama/show/{id}", "showAsrama")->name("show");
+
+                // Update Fasilitas Asrama
+                Route::put("asrama/update/{id}", "updateAsrama")->name("update");
+
+                // Destroy Fasilitas Asrama
+                Route::delete("asrama/delete/{id}", "destroyAsrama")->name("delete");
+            });
 
             // Show Fasilitas Asrama
-            Route::get("asrama/show/{id}", "showAsrama");
-
-            // Update Fasilitas Asrama
-            Route::put("asrama/update/{id}", "updateAsrama");
-
-            // Destroy Fasilitas Asrama
-            Route::delete("asrama/delete/{id}", "destroyAsrama");
 
             // Index Detail Fasilitas Asrama
             Route::get("detailFasilitasAsrama/{id}", "indexDetailFasilitasAsrama");
@@ -170,26 +169,27 @@ Route::group(["prefix" => "admin", "middleware" => "auth"], function () {
                 Route::delete("/delete/{id}", "destroyDetailFotoTipeAsrama")->name("destroy");
             });
 
+            Route::group(["as" => "tipeAsrama."], function () {
+                Route::get("tipeAsramas", "indexTipeAsrama")->name("index");
 
-            Route::get("tipeAsramas", "indexTipeAsrama");
+                // Create Tipe Asrama
+                Route::post("tipeAsramas/create", "createTipeAsrama");
 
-            // Create Tipe Asrama
-            Route::post("tipeAsramas/create", "createTipeAsrama");
+                // store Tipe Asrama
+                Route::get("tipeAsrama/store/{id}", "storeTipeAsrama");
 
-            // store Tipe Asrama
-            Route::get("tipeAsrama/store/{id}", "storeTipeAsrama");
+                // Show Tipe Asrama
+                Route::get("tipeAsrama/show/{id}", "showTipeAsrama");
 
-            // Show Tipe Asrama
-            Route::get("tipeAsrama/show/{id}", "showTipeAsrama");
+                // Update Tipe Asrama
+                Route::put("tipeAsrama/update/{id}", "updateTipeAsrama");
 
-            // Update Tipe Asrama
-            Route::put("tipeAsrama/update/{id}", "updateTipeAsrama");
+                // Destroy Tipe Asrama
+                Route::delete("tipeAsrama/delete/{id}", "destroyTipeAsrama");
 
-            // Destroy Tipe Asrama
-            Route::delete("tipeAsrama/delete/{id}", "destroyTipeAsrama");
-
-            // Restore Tipe Asrama
-            Route::get("tipeAsrama/restore/{id}", "restoreTipeAsrama");
+                // Restore Tipe Asrama
+                Route::get("tipeAsrama/restore/{id}", "restoreTipeAsrama");
+            });
         });
 
         Route::controller(AlatBarangController::class)->group(function () {
@@ -376,26 +376,28 @@ Route::group(["prefix" => "admin", "middleware" => "auth"], function () {
         });
     });
 
-    Route::controller(TransaksiController::class)->group(function () {
-        // Index Transaksi Kendaraan
-        Route::get("transaksi-kendaraans", "indexTransaksiKendaraan");
-
-        // Index Transaksi Layanan
-        Route::get("transaksi-layanans", "indexTransaksiLayanan");
-
-        // Index Transaksi Asrama
-        Route::get("transaksi-asramas", "indexTransaksiAsrama");
-
-        // Index Transaksi Alat Barang
-        Route::get("transaksi-alatBarangs", "indexTransaksiAlatBarang");
-
-        // Index Transaksi Gedung & Lapangan
-        Route::get("transaksi-gedungLaps", "indexTransaksiGedungLap");
-    });
-
     Route::controller(LaporanController::class)->group(function () {
         Route::group(["prefix" => "laporan", "as" => "laporan."], function () {
-            Route::get('/', 'index')->name("index");
+            Route::get('/', 'pemasukan')->name("index");
+            // Index Transaksi Kendaraan
+            Route::get("transaksi-kendaraans", "indexTransaksiKendaraan")->name("kendaraan");
+            Route::get("transaksi-kendaraans/{id}", "showTransaksiKendaraan")->name("kendaraan.show");
+
+            // Index Transaksi Layanan
+            Route::get("transaksi-layanans", "indexTransaksiLayanan")->name("layanan");
+            Route::get("transaksi-layanans/{id}", "showTransaksiLayanan")->name("layanan.show");
+
+            // Index Transaksi Asrama
+            Route::get("transaksi-asramas", "indexTransaksiAsrama")->name("asrama");
+            Route::get("transaksi-asramas/{id}", "showTransaksiAsrama")->name("asrama.show");
+
+            // Index Transaksi Alat Barang
+            Route::get("transaksi-alatBarangs", "indexTransaksiAlatBarang")->name("alat-barang");
+            Route::get("transaksi-alatBarangs/{id}", "showTransaksiAlatBarang")->name("alat-barang.show");
+
+            // Index Transaksi Gedung & Lapangan
+            Route::get("transaksi-gedungLaps", "indexTransaksiGedungLap")->name("gedung-lap");
+            Route::get("transaksi-gedungLaps/{id}", "showTransaksiGedungLap")->name("gedung-lap.show");
         });
     });
 });
@@ -419,7 +421,6 @@ Route::view('/kalender', [LandingPageController::class, 'kalender']);
 Route::get('/kalender/list', [LandingPageController::class, 'listEvent'])->name('kalender.list');
 
 Route::get('/promo', [LandingPageController::class, 'promo']);
-Route::get('/detailgedung/{id}', [FEgedungLapController::class, 'detail'])->name('detailgedung');
 
 /**
  * _____________________________________________________________________________

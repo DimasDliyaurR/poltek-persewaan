@@ -52,13 +52,59 @@
                                 {{ $item['role'] }}
                             </td>
                             <td class="px-6 py-4 dark:text-white">
-                                {{ $item['id'] }}
+
+                                @switch($item["kategori"])
+                                    @case('Asrama')
+                                        <a class="text-blue-500 hover:underline"
+                                            href="{{ route('laporan.asrama.show', $item['id']) }}">{{ $item['code_unique'] }}</a>
+                                    @break
+
+                                    @case('Kendaraan')
+                                        <a class="text-blue-500 hover:underline"
+                                            href="{{ route('laporan.kendaraan.show', $item['id']) }}">{{ $item['code_unique'] }}</a>
+                                    @break
+
+                                    @case('GedungLap')
+                                        <a class="text-blue-500 hover:underline"
+                                            href="{{ route('laporan.gedung-lap.show', $item['id']) }}">{{ $item['code_unique'] }}</a>
+                                    @break
+
+                                    @case('Layanan')
+                                        <a class="text-blue-500 hover:underline"
+                                            href="{{ route('laporan.layanan.show', $item['id']) }}">{{ $item['code_unique'] }}</a>
+                                    @break
+
+                                    @case('Alat Barang')
+                                        <a class="text-blue-500 hover:underline"
+                                            href="{{ route('laporan.alat-barang.show', $item['id']) }}">{{ $item['code_unique'] }}</a>
+                                    @break
+                                @endswitch
                             </td>
                             <td class="px-6 py-4 dark:text-white">
                                 {{ $item['kategori'] }}
                             </td>
                             <td class="px-6 py-4 dark:text-white">
-                                {{ $item['status'] }}
+                                {{-- {{ $item['status'] }} --}}
+                                <div class="flex gap-3">
+                                    @if ($item['status'] == 'belum bayar')
+                                        <button class="block p-2 border border-sea w-10 rounded-md"></button>
+                                    @else
+                                        <button
+                                            class="block p-2 bg-green-400 border border-sea w-10 rounded-md"></button>
+                                    @endif
+                                    @switch($item["status"])
+                                        @case('kadaluarsa')
+                                            <button class="block p-2 bg-red-400 border border-sea w-10 rounded-md"></button>
+                                        @break
+
+                                        @case('terbayar')
+                                            <button class="block p-2 bg-green-400 border border-sea w-10 rounded-md"></button>
+                                        @break
+
+                                        @default
+                                            <button class="block p-2 border border-sea w-10 rounded-md"></button>
+                                    @endswitch
+                                </div>
                             </td>
                         </tr>
                     @endforeach
@@ -67,8 +113,8 @@
             <nav aria-label="Page navigation example" class="mt-2">
                 <ul class="flex items-center justify-center -space-x-px h-8 text-sm">
                     <li class="order-1">
-                        <button wire:click="previousStep"
-                            class="flex items-center justify-center px-3 h-8 ms-0 leading-tight text-gray-500 bg-white border border-e-0 border-gray-300 rounded-s-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
+                        <button @if ($next != 1) wire:click="previousStep" @endif
+                            class=" @if ($next == 1) cursor-not-allowed text-gray-200 @endif flex items-center justify-center px-3 h-8 ms-0 leading-tight text-gray-500 bg-white border border-e-0 border-gray-300 rounded-s-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
                             <span class="sr-only">Previous</span>
                             <svg class="w-2.5 h-2.5 rtl:rotate-180" aria-hidden="true"
                                 xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
@@ -79,22 +125,18 @@
                     </li>
                     <li
                         class="
-                        @if ($next == 1) order-1
-                        @else 
-                        
-                        @if (count($transaksi) < $batas)
-                        order-5 @endif
-                    @endif">
+                        @if ($next == 1) order-1 @else @if (count($transaksi) < $batas)order-5 @else order-2 @endif @endif">
                         <button aria-current="page"
                             class="z-10 flex items-center justify-center px-3 h-8 leading-tight text-blue-600 border border-blue-300 bg-blue-50 hover:bg-blue-100 hover:text-blue-700 dark:border-gray-700 dark:bg-gray-700 dark:text-white">{{ $next }}</button>
                     </li>
                     <li class="order-4">
                         <button
+                            @if (count($transaksi) < $batas) wire:click="previousStep" @else wire:click="nextStep" @endif
                             class="flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">{{ count($transaksi) < $batas ? $next - 1 : $next + 1 }}</button>
                     </li>
                     <li class="order-5">
                         <button wire:click="nextStep"
-                            class="flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 rounded-e-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
+                            class="@if (count($transaksi) < $batas) cursor-not-allowed text-gray-200 @endif flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 rounded-e-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
                             <span class="sr-only">Next</span>
                             <svg class="w-2.5 h-2.5 rtl:rotate-180" aria-hidden="true"
                                 xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
@@ -108,8 +150,9 @@
         </div>
     </x-layout-detail-transaksi>
 
-    <div class="flex">
-        <x-layout-detail-transaksi class="w-2/3 m-5">
+
+    <div class="flex sm:flex-row flex-col w-full gap-5">
+        <x-layout-detail-transaksi class="sm:w-2/3 w-full">
 
             <div class="w-full bg-white rounded-lg shadow dark:bg-gray-800 p-4 md:p-6">
                 <div class="flex justify-between mb-5">
@@ -117,10 +160,6 @@
                         <h5 class="leading-none text-3xl font-bold text-gray-900 dark:text-white pb-2">Rp.
                             {{ number_format($sum, 0, ',', '.') }}</h5>
                         <p class="text-base font-normal text-gray-500 dark:text-gray-400">Total Transaksi</p>
-                    </div>
-                    <div
-                        class="flex items-center px-2.5 py-0.5 text-base font-semibold text-green-500 dark:text-green-500 text-center">
-                        23%
                     </div>
                 </div>
                 <div id="grid-chart"></div>
@@ -132,14 +171,18 @@
             </div>
 
         </x-layout-detail-transaksi>
-        <x-layout-detail-transaksi class="w-1/3 h-[15rem] m-5">
+        <x-layout-detail-transaksi class="sm:w-1/3 w-full h-[16rem]">
             <div class="flex flex-col gap-2">
                 <div class="flex flex-col items-center p-2 border-b-2 border-gray-200">
                     <span class="text-2xl font-bold">Rp. {{ number_format($sum, 0, ',', '.') }}</span>
                     <span class="text-sm">Total Transaksi</span>
                 </div>
+                <div class="flex flex-col items-center p-2 border-b-2 border-gray-200">
+                    <span class="text-2xl font-bold">{{ count($transaksiSudahBayar) }}</span>
+                    <span class="text-sm">Transaksi Sudah Transaksi</span>
+                </div>
                 <div class="flex flex-col items-center p-2">
-                    <span class="text-4xl font-bold">{{ count($transaksi_semua) }}</span>
+                    <span class="text-4xl font-bold">{{ count($transaksiBelumBayar) }}</span>
                     <span class="text-sm">Transaksi Belum Lunas</span>
                 </div>
             </div>

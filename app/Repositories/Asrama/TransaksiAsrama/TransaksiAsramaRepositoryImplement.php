@@ -24,7 +24,7 @@ class TransaksiAsramaRepositoryImplement implements TransaksiAsramaRepository
      */
     public function getDataById($id)
     {
-        $transaksiAsramaData = $this->transaksiAsrama::whereId($id)->get();
+        $transaksiAsramaData = $this->transaksiAsrama::with(["asramas.tipeAsrama", "user.profile"])->whereId($id);
 
         return $transaksiAsramaData;
     }
@@ -46,7 +46,8 @@ class TransaksiAsramaRepositoryImplement implements TransaksiAsramaRepository
      */
     public function getAllWithDetailTransaksiAsrama()
     {
-        $transaksiAsramaData = $this->transaksiAsrama::with(["asramas", "user.profile"]);
+        $transaksiAsramaData = $this->transaksiAsrama::with(["asramas.tipeAsrama", "fasilitasAsrama"])->join("users", "transaksi_asramas.user_id", "=", "users.id")
+            ->join("profiles", "users.id", "=", "profiles.user_id");
 
         return $transaksiAsramaData;
     }
@@ -87,5 +88,26 @@ class TransaksiAsramaRepositoryImplement implements TransaksiAsramaRepository
         $transaksiAsramaData->delete();
 
         return $transaksiAsramaData;
+    }
+
+    /**
+     * Search data Asrama
+     * @param string $search
+     * @return object
+     */
+    public function search($search)
+    {
+        return $this->transaksiAsrama::with(["asramas"])
+            ->join("users", "transaksi_asramas.user_id", "=", "users.id")
+            ->join("profiles", "users.id", "=", "profiles.user_id")
+            ->orWhere(function ($q) use ($search) {
+                $q->where('code_unique', "LIKE", "%$search%")
+                    ->orWhere('profiles.nama_lengkap', "LIKE", "%$search%")
+                    ->orWhere('ta_tanggal_sewa', "LIKE", "%$search%")
+                    ->orWhere('ta_check_in', "LIKE", "%$search%")
+                    ->orWhere('ta_check_out', "LIKE", "%$search%")
+                    ->orWhere('status', "LIKE", "%$search%")
+                    ->orWhere('ta_sub_total', "LIKE", "%$search%");
+            });
     }
 }

@@ -21,7 +21,7 @@ class TransaksiAlatBarangRepositoryImplement implements TransaksiAlatBarangRepos
      */
     public function getDataById($id)
     {
-        $alatBarangData = $this->alatBarang::whereId($id)->get();
+        $alatBarangData = $this->alatBarang::with(["alatBarangs", "user.profile"])->whereId($id);
 
         return $alatBarangData;
     }
@@ -43,7 +43,9 @@ class TransaksiAlatBarangRepositoryImplement implements TransaksiAlatBarangRepos
      */
     public function getAllWithDetailTransaksiAlatBarang()
     {
-        $alatBarangData = $this->alatBarang::with("detailTransaksiAlatBarangs", "alatBarangs.satuanAlatBarangs", "user");
+        $alatBarangData = $this->alatBarang::with("alatBarangs.satuanAlatBarangs")
+            ->join("users", "transaksi_alat_barangs.user_id", "=", "users.id")
+            ->join("profiles", "users.id", "=", "profiles.user_id");
 
         return $alatBarangData;
     }
@@ -84,5 +86,26 @@ class TransaksiAlatBarangRepositoryImplement implements TransaksiAlatBarangRepos
         $alatBarangData->delete();
 
         return $alatBarangData;
+    }
+
+    /**
+     * Search data kendaraan
+     * @param string $search
+     * @return object
+     */
+    public function search($search)
+    {
+        return $this->alatBarang::with(["alat_barangs.paymentMethod"])
+            ->join("users", "transaksi_alat_barangs.user_id", "=", "users.id")
+            ->join("profiles", "users.id", "=", "profiles.user_id")
+            ->orWhere(function ($q) use ($search) {
+                $q->where('code_unique', "LIKE", "%$search%")
+                    ->orWhere('profiles.nama_lengkap', "LIKE", "%$search%")
+                    ->orWhere('created_at', "LIKE", "%$search%")
+                    ->orWhere('tab_tanggal_pesanan', "LIKE", "%$search%")
+                    ->orWhere('tab_tanggal_kembali', "LIKE", "%$search%")
+                    ->orWhere('status', "LIKE", "%$search%")
+                    ->orWhere('tab_sub_total', "LIKE", "%$search%");
+            });
     }
 }

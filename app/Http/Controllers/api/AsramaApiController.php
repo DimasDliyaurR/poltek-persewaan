@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\api;
 
+use App\Models\Asrama;
 use Illuminate\Http\Request;
 use App\Models\TransaksiAsrama;
 use App\Http\Controllers\Controller;
@@ -19,8 +20,10 @@ class AsramaApiController extends Controller
     public function validasi_form_transaksi_asrama(Request $request)
     {
         $slug = $request->slug;
-        $pesanan = $request->check_in;
-        $kembali = $request->check_out;
+        $check_in = $request->check_in;
+        $check_out = $request->check_out;
+
+        $id = Asrama::whereASlug($slug)->first();
 
         if (!$request->isMethod("POST")) {
             return response()->json([
@@ -30,10 +33,7 @@ class AsramaApiController extends Controller
         }
 
         try {
-            $target = strtotime($pesanan);
-            $pesanan = strtotime($kembali);
-
-            if ($this->checkSchedule("ta_check_in", "ta_check_out", $target, $pesanan)) {
+            if ($this->checkScheduleAsrama($slug, $check_in, $check_out)) {
                 return response()->json([
                     "error" => true,
                     "message" => "Jadwal sudah ada",

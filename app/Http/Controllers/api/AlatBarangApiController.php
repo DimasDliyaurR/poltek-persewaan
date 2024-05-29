@@ -33,10 +33,7 @@ class AlatBarangApiController extends Controller
         }
 
         try {
-            $target = strtotime($pesanan);
-            $pesanan = strtotime($kembali);
-
-            if ($this->checkSchedule("tab_tanggal_pesanan", "tab_tanggal_kembali", $target, $pesanan)) {
+            if ($this->checkScheduleAlatBarang($slug, $pesanan, $kembali)) {
                 return response()->json([
                     "error" => true,
                     "message" => "Jadwal sudah ada",

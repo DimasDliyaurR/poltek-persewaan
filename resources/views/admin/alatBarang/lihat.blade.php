@@ -31,14 +31,14 @@
             <!-- SEARCH END-->
         </div>
 
-
         <div class="relative overflow-x-auto sm:rounded-lg">
             @session('successTable')
                 <x-alert-success>
                     {{ $value }}
                 </x-alert-success>
             @endsession
-            <table class="w-full text-sm text-left rtl:text-right text-gray-800 dark:text-gray-400 border-solid">
+            <table id="tabel-laporan"
+                class="w-full text-sm text-left rtl:text-right text-gray-800 dark:text-gray-400 border-solid">
                 <thead class="text-md text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-white">
                     <tr>
                         <th scope="col" class="px-6 py-3">

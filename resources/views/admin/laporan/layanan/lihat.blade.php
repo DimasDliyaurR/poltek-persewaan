@@ -32,13 +32,23 @@
         </div>
 
 
+        <div class="flex gap-3">
+            <button id="export" onclick="ExportToExcel('tabel-laporan','xlsx')"
+                class="p-2 mb-2 bg-black text-white rounded-md text-sm">Export
+                Excel</button>
+            <form>
+                <input type="text" class="hidden" name="pdf" value="1">
+                <button class="p-2 mb-2 bg-black text-white rounded-md text-sm">PDF</button>
+            </form>
+        </div>
         <div class="relative overflow-x-auto sm:rounded-lg">
             @session('successTable')
                 <x-alert-success>
                     {{ $value }}
                 </x-alert-success>
             @endsession
-            <table class="w-full text-sm text-left rtl:text-right text-gray-800 dark:text-gray-400 border-solid">
+            <table id="tabel-laporan"
+                class="w-full text-sm text-left rtl:text-right text-gray-800 dark:text-gray-400 border-solid">
                 <thead class="text-md text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-white">
                     <tr>
                         <th scope="col" class="px-6 py-3">
@@ -46,7 +56,17 @@
                         </th>
                         <th scope="col" class="px-6 py-3">
                             <div class="flex items-center">
-                                Nama Ruangan
+                                Nama Layanan
+                                <a href="#"><svg class="w-3 h-3 ms-1.5" aria-hidden="true"
+                                        xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
+                                        <path
+                                            d="M8.574 11.024h6.852a2.075 2.075 0 0 0 1.847-1.086 1.9 1.9 0 0 0-.11-1.986L13.736 2.9a2.122 2.122 0 0 0-3.472 0L6.837 7.952a1.9 1.9 0 0 0-.11 1.986 2.074 2.074 0 0 0 1.847 1.086Zm6.852 1.952H8.574a2.072 2.072 0 0 0-1.847 1.087 1.9 1.9 0 0 0 .11 1.985l3.426 5.05a2.123 2.123 0 0 0 3.472 0l3.427-5.05a1.9 1.9 0 0 0 .11-1.985 2.074 2.074 0 0 0-1.846-1.087Z" />
+                                    </svg></a>
+                            </div>
+                        </th>
+                        <th scope="col" class="px-6 py-3">
+                            <div class="flex items-center">
+                                Satuan
                                 <a href="#"><svg class="w-3 h-3 ms-1.5" aria-hidden="true"
                                         xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
                                         <path
@@ -62,7 +82,8 @@
                                         xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
                                         <path
                                             d="M8.574 11.024h6.852a2.075 2.075 0 0 0 1.847-1.086 1.9 1.9 0 0 0-.11-1.986L13.736 2.9a2.122 2.122 0 0 0-3.472 0L6.837 7.952a1.9 1.9 0 0 0-.11 1.986 2.074 2.074 0 0 0 1.847 1.086Zm6.852 1.952H8.574a2.072 2.072 0 0 0-1.847 1.087 1.9 1.9 0 0 0 .11 1.985l3.426 5.05a2.123 2.123 0 0 0 3.472 0l3.427-5.05a1.9 1.9 0 0 0 .11-1.985 2.074 2.074 0 0 0-1.846-1.087Z" />
-                                    </svg></a>
+                                    </svg>
+                                </a>
                             </div>
                         </th>
                         <th scope="col" class="px-6 py-3">
@@ -76,22 +97,39 @@
                                 </a>
                             </div>
                         </th>
+                        <th scope="col" class="px-6 py-3">
+                            <div class="flex items-center">
+                                Tanggal Pelaksanaan
+                                <a href="#"><svg class="w-3 h-3 ms-1.5" aria-hidden="true"
+                                        xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
+                                        <path
+                                            d="M8.574 11.024h6.852a2.075 2.075 0 0 0 1.847-1.086 1.9 1.9 0 0 0-.11-1.986L13.736 2.9a2.122 2.122 0 0 0-3.472 0L6.837 7.952a1.9 1.9 0 0 0-.11 1.986 2.074 2.074 0 0 0 1.847 1.086Zm6.852 1.952H8.574a2.072 2.072 0 0 0-1.847 1.087 1.9 1.9 0 0 0 .11 1.985l3.426 5.05a2.123 2.123 0 0 0 3.472 0l3.427-5.05a1.9 1.9 0 0 0 .11-1.985 2.074 2.074 0 0 0-1.846-1.087Z" />
+                                    </svg>
+                                </a>
+                            </div>
+                        </th>
                     </tr>
                 </thead>
                 <tbody>
-                    @forelse($transaksiAsrama as $row)
+                    @forelse($transaksiLayanan as $row)
                         <tr class="bg-white border-b dark:bg-gray-700 dark:border-gray-700 dark:hover:bg-gray-400">
                             <td class="px-6 py-4 dark:text-white">
                                 {{ $row->user->profile->nama_lengkap }}
                             </td>
                             <td class="px-6 py-4 dark:text-white">
-                                {{ $row->asramas[0]->a_nama_ruangan }}
-                            </td>
-                            <td class="px-6 py-4 dark:text-white">Rp
-                                {{ number_format($row->ta_sub_total, 0, ',', '.') }}
+                                {{ $row->layanans[0]->l_nama }}
                             </td>
                             <td class="px-6 py-4 dark:text-white">
-                                {{ \Carbon\Carbon::parse($row->ta_tanggal_sewa)->isoFormat('D MMMM Y') }}
+                                {{ $row->layanans[0]->l_satuan }}
+                            </td>
+                            <td class="px-6 py-4 dark:text-white">
+                                Rp. {{ number_format($row->layanans[0]->l_tarif, 0, ',', '.') }}
+                            </td>
+                            <td class="px-6 py-4 dark:text-white">
+                                {{ $row->tl_tanggal_sewa }}
+                            </td>
+                            <td class="px-6 py-4 dark:text-white">
+                                {{ date('d-m-Y', strtotime($row->tl_tanggal_pelaksanaan)) }}
                             </td>
                         </tr>
                     @empty
@@ -104,8 +142,35 @@
                 </tbody>
             </table>
 
-            {{ $transaksiAsrama->links() }}
+            {{ $transaksiLayanan->links() }}
         </div>
 
     </x-inner-layout>
+@endsection
+
+
+@section('head')
+    <link rel="stylesheet" href="https://cdn.datatables.net/2.0.7/css/dataTables.dataTables.css" />
+@endsection
+
+@section('script')
+    <script src="{{ asset('js/feature/dp-field-toggle.js') }}"></script>
+    <script>
+        function ExportToExcel(id, type, fn, dl) {
+            var elt = document.getElementById(id);
+            var wb = XLSX.utils.table_to_book(elt, {
+                sheet: "sheet1"
+            });
+            return dl ?
+                XLSX.write(wb, {
+                    bookType: type,
+                    bookSST: true,
+                    type: 'base64'
+                }) :
+
+
+                XLSX.writeFile(wb, fn || ('LAPORAN_TRANSKASI_LAYANAN_' + Date.now() + '.' + (type ||
+                    'xlsx')));
+        }
+    </script>
 @endsection

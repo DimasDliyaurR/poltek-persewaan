@@ -14,15 +14,16 @@ class DashboardAdmin extends Component
 {
     public $next = 1;
     public $batas = 0;
+    public $transaksi_count = 0;
 
     public function nextStep()
     {
-        $this->next++;
+        $this->next =   $this->next >= $this->transaksi_count ? $this->next : $this->next + 1;
     }
 
     public function previousStep()
     {
-        $this->next = $this->next <= 0 ? 1 : $this->next - 1;
+        $this->next = $this->next <= 1 ? 1 : $this->next - 1;
     }
 
     public function render()
@@ -50,7 +51,8 @@ class DashboardAdmin extends Component
                 function ($q) {
                     $arr = [];
                     $arr += [
-                        "id" => $q->code_unique,
+                        "id" => $q->id,
+                        "code_unique" => $q->code_unique,
                         "kategori" => "Asrama",
                         "username" => $q->user->profile->nama_lengkap,
                         "role" => $q->user->level,
@@ -65,7 +67,8 @@ class DashboardAdmin extends Component
                     $arr = [];
                     foreach ($q->layanans as $item) {
                         $arr += [
-                            "id" => $q->code_unique,
+                            "id" => $q->id,
+                            "code_unique" => $q->code_unique,
                             "kategori" => "Layanan",
                             "username" => $q->user->profile->nama_lengkap,
                             "role" => $q->user->level,
@@ -80,7 +83,8 @@ class DashboardAdmin extends Component
                 function ($q) {
                     $arr = [];
                     $arr += [
-                        "id" => $q->code_unique,
+                        "id" => $q->id,
+                        "code_unique" => $q->code_unique,
                         "kategori" => "Alat Barang",
                         "username" => $q->user->profile->nama_lengkap,
                         "metode" => $q->alatBarangs[0]->paymentMethod->is_dp ? "DP" : "Lunas",
@@ -95,7 +99,8 @@ class DashboardAdmin extends Component
                 function ($q) {
                     $arr = [];
                     $arr += [
-                        "id" => $q->code_unique,
+                        "id" => $q->id,
+                        "code_unique" => $q->code_unique,
                         "kategori" => "Kendaraan",
                         "username" => $q->users->profile->nama_lengkap,
                         "role" => $q->users->level,
@@ -110,7 +115,8 @@ class DashboardAdmin extends Component
 
                 foreach ($q->gedungLap as $item) {
                     $arr += [
-                        "id" => $q->code_unique,
+                        "id" => $q->id,
+                        "code_unique" => $q->code_unique,
                         "kategori" => "GedungLap",
                         "username" => $q->user->profile->nama_lengkap,
                         "role" => $q->user->level,
@@ -133,21 +139,28 @@ class DashboardAdmin extends Component
             ? $jumlah_data
             : ($this->batas * (($this->next > 1) ? $this->next : 1));
 
-        $total_halaman = ceil($jumlah_data / $this->batas);
-
         $transaksiWithLimit = [];
         while ($halaman_awal < $halaman_akhir) {
             $transaksiWithLimit[] = $semuaTransaksi[$halaman_awal];
             $halaman_awal++;
         }
+        $this->transaksi_count = count($transaksiWithLimit);
+
+        // Transaksi belum bayar
+        $transaksiBelumBayar = array_filter($semuaTransaksi, fn ($q) => $q["status"] == "belum bayar");
+
+        // Transaksi sudah bayar
+        $transaksiSudahBayar = array_filter($semuaTransaksi, fn ($q) => $q["status"] == "terbayar");
 
         $sumSemua = 0;
-        foreach ($semuaTransaksi as $item) {
+        foreach ($transaksiSudahBayar as $item) {
             $sumSemua += $item["nominal"];
         }
         return view('livewire.dashboard-admin', [
             "sum" => $sumSemua,
             "transaksi_semua" => $semuaTransaksi,
+            "transaksiSudahBayar" => $transaksiSudahBayar,
+            "transaksiBelumBayar" => $transaksiBelumBayar,
             "transaksi" => $transaksiWithLimit,
 
         ]);

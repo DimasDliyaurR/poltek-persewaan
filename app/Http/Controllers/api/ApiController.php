@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers\api;
 
+use DatePeriod;
+use DateInterval;
+use Carbon\Carbon;
 use App\Models\Kendaraan;
 use App\Models\AlatBarang;
 use Illuminate\Support\Arr;
@@ -19,7 +22,6 @@ use App\Services\handler\Promo\PromoHandler;
 use App\Services\Kendaraan\KendaraanService;
 use App\Http\Controllers\Traits\HandlerPromo;
 use App\Http\Controllers\Traits\FormValidationHelper;
-use Carbon\Carbon;
 
 class ApiController extends Controller
 {
@@ -156,46 +158,91 @@ class ApiController extends Controller
 
     public function getAllTransaksi()
     {
+
         $year = \Carbon\Carbon::now()->year;
+
+        // Month
+        $currentMonth = Carbon::now();
+        $endMonth = $currentMonth->copy()->addYear();
+
+        $months = [];
+        $period = new DatePeriod($currentMonth, new DateInterval('P1M'), $endMonth->addMonth());
+        foreach ($period as $date) {
+            $months[$date->format('Y-m')] = 0;
+        }
+        $months = array_slice($months, 0, count($months) - 1);
+
+
         $TransaksiGedung = TransaksiGedung::select(
             DB::raw("DATE_FORMAT(tg_tanggal_pelaksanaan, '%Y-%m') as month"),
             DB::raw("SUM(tg_sub_total) as total")
         )
-            ->whereYear('tg_tanggal_pelaksanaan', $year)
+            ->whereYear('created_at', $year)->where("status", "terbayar")
             ->groupBy("month")
-            ->orderBy('month')->pluck("total")->toArray();
+            ->orderBy('month')->get()->toArray();
 
         $TransaksiAsrama = TransaksiAsrama::select(
             DB::raw("DATE_FORMAT(ta_check_out, '%Y-%m') as month"),
             DB::raw("SUM(ta_sub_total) as total")
         )
-            ->whereYear('created_at', $year)
+            ->whereYear('created_at', $year)->where("status", "terbayar")
             ->groupBy("month")
-            ->orderBy('month')->pluck("total")->toArray();
+            ->orderBy('month')->get()->toArray();
 
         $TransaksiLayanan = TransaksiLayanan::select(
             DB::raw("DATE_FORMAT(tl_tanggal_pelaksanaan, '%Y-%m') as month"),
             DB::raw("SUM(tl_sub_total) as total")
         )
-            ->whereYear('created_at', $year)
+            ->whereYear('created_at', $year)->where("status", "terbayar")
             ->groupBy("month")
-            ->orderBy('month')->pluck("total")->toArray();
+            ->orderBy('month')->get()->toArray();
 
         $TransaksiAlatBarang = TransaksiAlatBarang::select(
             DB::raw("DATE_FORMAT(tab_tanggal_kembali, '%Y-%m') as month"),
             DB::raw("SUM(tab_sub_total) as total")
         )
-            ->whereYear('created_at', $year)
+            ->whereYear('created_at', $year)->where("status", "terbayar")
             ->groupBy("month")
-            ->orderBy('month')->pluck("total")->toArray();
+            ->orderBy('month')->get()->toArray();
 
         $TransaksiKendaraan = TransaksiKendaraan::select(
             DB::raw("DATE_FORMAT(tk_pelaksanaan, '%Y-%m') as month"),
             DB::raw("SUM(tk_sub_total) as total")
         )
-            ->whereYear('created_at', $year)
+            ->whereYear('created_at', $year)->where("status", "terbayar")
             ->groupBy("month")
-            ->orderBy('month')->pluck("total")->toArray();
+            ->orderBy('month')->get()->toArray();
+
+        $monthGedung = $months;
+        foreach ($TransaksiGedung as $transaction) {
+            $monthGedung[$transaction["month"]] = $transaction["total"];
+        }
+
+        $monthLayanan = $months;
+        foreach ($TransaksiLayanan as $transaction) {
+            $monthLayanan[$transaction["month"]] = $transaction["total"];
+        }
+
+        $monthAsrama = $months;
+        foreach ($TransaksiAsrama as $transaction) {
+            $monthAsrama[$transaction["month"]] = $transaction["total"];
+        }
+
+        $monthKendaraan = $months;
+        foreach ($TransaksiKendaraan as $transaction) {
+            $monthKendaraan[$transaction["month"]] = $transaction["total"];
+        }
+
+        $monthAlatBarang = $months;
+        foreach ($TransaksiAlatBarang as $transaction) {
+            $monthAlatBarang[$transaction["month"]] = $transaction["total"];
+        }
+
+        $TransaksiGedung = array_values($monthGedung);
+        $TransaksiLayanan = array_values($monthLayanan);
+        $TransaksiAsrama = array_values($monthAsrama);
+        $TransaksiKendaraan = array_values($monthKendaraan);
+        $TransaksiAlatBarang = array_values($monthAlatBarang);
 
         $TransaksiGedungArray = [
             "name" => "Gedung & Lapangan",
@@ -232,10 +279,8 @@ class ApiController extends Controller
 
         for ($i = 0; $i < 12; $i++) {
             $categories[] = $currentMonth->copy()->isoFormat('MMMM');
-            $currentMonth->subMonth();
+            $currentMonth->addRealMonth();
         }
-
-        $categories = array_reverse($categories);
 
         $transaksi = [
             "date" => [

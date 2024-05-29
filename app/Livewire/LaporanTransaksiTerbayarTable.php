@@ -9,11 +9,14 @@ use App\Models\TransaksiGedung;
 use App\Models\TransaksiLayanan;
 use App\Models\TransaksiKendaraan;
 use App\Models\TransaksiAlatBarang;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 class LaporanTransaksiTerbayarTable extends Component
 {
     public $reqBulan = 0;
     public $nextBulan = 0;
+    public $nextYear = 0;
+    public $pdf = 0;
 
     public function removeBulan()
     {
@@ -23,6 +26,11 @@ class LaporanTransaksiTerbayarTable extends Component
     public function addBulan()
     {
         $this->nextBulan++;
+    }
+
+    public function addYear()
+    {
+        $this->nextYear++;
     }
 
     public function render()
@@ -37,97 +45,15 @@ class LaporanTransaksiTerbayarTable extends Component
         $this->reqBulan = ($bulan + $this->nextBulan) < 0 ? 12 : Carbon::now()->month + ($this->nextBulan);
 
         $search = request("search") ?? null;
-        $TransaksiGedung = TransaksiGedung::with(["gedungLap" => ["paymentMethod"], "user" => ["profile"]])->whereMonth('created_at', $this->reqBulan);
+        $TransaksiGedung = TransaksiGedung::with(["gedungLap" => ["paymentMethod"], "user" => ["profile"]])->whereMonth('created_at', $this->reqBulan)->whereYear('created_at', $tahun);
 
-        $TransaksiAsrama = TransaksiAsrama::with(["asramas" => ["tipeAsrama" => ["paymentMethod"]], "user" => ["profile"]])->whereMonth('created_at', $this->reqBulan);
+        $TransaksiAsrama = TransaksiAsrama::with(["asramas" => ["tipeAsrama" => ["paymentMethod"]], "user" => ["profile"]])->whereMonth('created_at', $this->reqBulan)->whereYear('created_at', $tahun);
 
-        $TransaksiLayanan = TransaksiLayanan::with(["layanans" => ["paymentMethod"], "user" => ["profile"]])->whereMonth('created_at', $this->reqBulan);
+        $TransaksiLayanan = TransaksiLayanan::with(["layanans" => ["paymentMethod"], "user" => ["profile"]])->whereMonth('created_at', $this->reqBulan)->whereYear('created_at', $tahun);
 
-        $TransaksiAlatBarang = TransaksiAlatBarang::with(["alatBarangs" => ["paymentMethod"], "user" => ["profile"]])->whereMonth('created_at', $this->reqBulan);
+        $TransaksiAlatBarang = TransaksiAlatBarang::with(["alatBarangs" => ["paymentMethod"], "user" => ["profile"]])->whereMonth('created_at', $this->reqBulan)->whereYear('created_at', $tahun);
 
-        $TransaksiKendaraan = TransaksiKendaraan::with(["kendaraans" => ["merkKendaraan" => ["paymentMethod"]], "users" => ["profile"]])->whereMonth('created_at', $this->reqBulan);
-
-        $semuaTransaksi = array_merge(
-            $TransaksiAsrama->get()->map(
-                function ($q) {
-                    $arr = [];
-                    $arr += [
-                        "kategori" => "Asrama",
-                        "customer" => $q->user->profile->nama_lengkap,
-                        "tanggal_sewa" => $q->created_at,
-                        "nominal" => $q->ta_sub_total,
-                        "status" => $q->status,
-                    ];
-
-                    foreach ($q->asramas as $asrama) {
-                        $arr["metode"] = $asrama->tipeAsrama->paymentMethod->is_dp ? "DP" : "Lunas";
-                    }
-                    return $arr;
-                }
-            )->toArray(),
-            $TransaksiLayanan->get()->map(
-                function ($q) {
-                    $arr = [];
-                    foreach ($q->layanans as $item) {
-                        $arr += [
-                            "kategori" => "Layanan",
-                            "customer" => $q->user->profile->nama_lengkap,
-                            "metode" => $item->paymentMethod->is_dp ? "DP" : "Lunas",
-                            "tanggal_sewa" => $q->created_at,
-                            "nominal" => $q->tl_sub_total,
-                            "status" => $q->status,
-                        ];
-                    }
-                    return $arr;
-                }
-            )->toArray(),
-            $TransaksiAlatBarang->get()->map(
-                function ($q) {
-                    $arr = [];
-                    $arr += [
-                        "kategori" => "Alat Barang",
-                        "customer" => $q->user->profile->nama_lengkap,
-                        "metode" => $q->alatBarangs[0]->paymentMethod->is_dp ? "DP" : "Lunas",
-                        "tanggal_sewa" => $q->created_at,
-                        "nominal" => $q->ta_sub_total,
-                        "status" => $q->status,
-                    ];
-                    return $arr;
-                }
-            )->toArray(),
-            $TransaksiKendaraan->get()->map(
-                function ($q) {
-                    $arr = [];
-                    $arr += [
-                        "kategori" => "Kendaraan",
-                        "customer" => $q->users->profile->nama_lengkap,
-                        "tanggal_sewa" => $q->created_at,
-                        "nominal" => $q->tk_sub_total,
-                        "status" => $q->status,
-                    ];
-                    foreach ($q->kendaraans as $kendaraan) {
-                        $arr["metode"] = $kendaraan->merkKendaraan->paymentMethod->is_dp ? "DP" : "Lunas";
-                    }
-                    return $arr;
-                }
-            )->toArray(),
-            $TransaksiGedung->get()->map(function ($q) {
-                $arr = [];
-
-                foreach ($q->gedungLap as $item) {
-                    $arr += [
-                        "kategori" => "GedungLap",
-                        "customer" => $q->user->profile->nama_lengkap,
-                        "metode" => $item->paymentMethod->is_dp ? "DP" : "Lunas",
-                        "tanggal_sewa" => $q->created_at,
-                        "nominal" => $q->tg_sub_total,
-                        "status" => $q->status,
-                    ];
-                }
-
-                return $arr;
-            })->toArray()
-        );
+        $TransaksiKendaraan = TransaksiKendaraan::with(["kendaraans" => ["merkKendaraan" => ["paymentMethod"]], "users" => ["profile"]])->whereMonth('created_at', $this->reqBulan)->whereYear('created_at', $tahun);
 
         /**
          * ================================ MAPPING ================================
@@ -239,18 +165,12 @@ class LaporanTransaksiTerbayarTable extends Component
             $sum += $item["nominal"];
         }
 
-        $sumSemua = 0;
-        foreach ($semuaTransaksi as $item) {
-            $sumSemua += $item["nominal"];
-        }
 
         return view('livewire.laporan-transaksi-terbayar-table', [
             "title" => "Laporan Transaksi",
             "action" => "laporan",
             "laporanKeuangan" => $laporanKeuangan,
-            "semuaTransaksi" => $semuaTransaksi,
             "sum" => $sum,
-            "sumSemua" => $sumSemua,
             "bulan" => Carbon::createFromDate($tahun, $this->reqBulan, 1)->isoFormat("MMMM Y"),
         ]);
     }
