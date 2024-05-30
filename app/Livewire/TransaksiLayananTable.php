@@ -9,36 +9,41 @@ use Barryvdh\DomPDF\Facade\Pdf;
 use Livewire\WithoutUrlPagination;
 use App\Services\Transaksi\TransaksiService;
 
-class TransaksiAlatBarangTable extends Component
+class TransaksiLayananTable extends Component
 {
-
     use WithPagination, WithoutUrlPagination;
     public $searchInput = "";
     public $searchAction = [];
 
     public $order = ""; // This Column
     public $orderAction = 0; // Action untuk menentukan ASC atau Descending
+    public function searchTrigger()
+    {
+        if ($this->searchInput != "") {
+            $this->searchAction["search"] = $this->searchInput;
+        }
+    }
 
     public function render(TransaksiService $transaksiService)
     {
         if (!isset($this->searchAction["search"]))
-            $transaksiAlatBarang = $transaksiService->getAllTransaksiAlatBarang();
+            $transaksiLayanan = $transaksiService->getAllTransaksiLayanan();
 
         if (isset($this->searchAction["search"]) and $this->searchAction["search"] != "")
-            $transaksiAlatBarang = $transaksiService->searchTransaksiAlatBarang($this->searchAction["search"]);
+            $transaksiLayanan = $transaksiService->searchTransaksiLayanan($this->searchAction["search"]);
+
 
         if (request("pdf") == 1) {
-            $pdf =  Pdf::loadView("admin.laporan.alatBarang.pdf", [
-                "transaksiAlatBarang" => $transaksiAlatBarang->get()
+            $pdf =  Pdf::loadView("admin.laporan.gedungLap.pdf", [
+                "transaksiGedungLap" => $transaksiLayanan->get()
             ]);
-            return $pdf->download("transaksi_alat_barang_" . Carbon::now()->isoFormat("d-MMMM-Y") . ".pdf");
+            return $pdf->download("transaksi_gedung_lap_" . Carbon::now()->isoFormat("D-MMMM-Y") . ".pdf");
         }
-
 
         $this->orderAction = $this->orderAction == 2 ? -1 : $this->orderAction; // Reset Order Action Max 2
 
         switch ($this->order) {
-            case 'transaksi_alat_barangs.created_at':
+            case 'tl_tanggal_sewa':
                 $this->orderAction += 1;
                 switch ($this->orderAction) {
                     case 1:
@@ -49,7 +54,7 @@ class TransaksiAlatBarangTable extends Component
                         break;
                 }
                 break;
-            case 'tab_tanggal_pesanan':
+            case 'tl_tanggal_pelaksanaan':
                 $this->orderAction += 1;
                 switch ($this->orderAction) {
                     case 1:
@@ -60,7 +65,7 @@ class TransaksiAlatBarangTable extends Component
                         break;
                 }
                 break;
-            case 'tab_tanggal_kembali':
+            case 'tl_tanggal_kembali':
                 $this->orderAction += 1;
                 switch ($this->orderAction) {
                     case 1:
@@ -71,7 +76,7 @@ class TransaksiAlatBarangTable extends Component
                         break;
                 }
                 break;
-            case 'tab_sub_total':
+            case 'tl_sub_total':
                 $this->orderAction += 1;
                 switch ($this->orderAction) {
                     case 1:
@@ -108,24 +113,28 @@ class TransaksiAlatBarangTable extends Component
         $this->order = $this->orderAction != 0 ? $this->order : ""; // Reset Jika Order Action 0
 
         if ($this->orderAction != 0) {
-            $transaksiAlatBarang = $transaksiAlatBarang->orderBy($this->order, $sorted);
+            $transaksiLayanan = $transaksiLayanan->orderBy($this->order, $sorted);
         }
 
         $totalTransaksiBelumBayar = 0;
         $totalTransaksiSudahBayar = 0;
 
-        foreach ($transaksiAlatBarang->paginate(5) as $row) {
+        foreach ($transaksiLayanan->paginate(5) as $row) {
             if ($row->status == "terbayar") {
-                $totalTransaksiSudahBayar += $row->tab_sub_total;
+                $totalTransaksiSudahBayar += $row->tl_sub_total;
             } else if ($row->status == "belum bayar") {
-                $totalTransaksiBelumBayar += $row->tab_sub_total;
+                $totalTransaksiBelumBayar += $row->tl_sub_total;
             }
         }
 
-        return view('livewire.transaksi-alat-barang-table', [
-            "transaksiAlatBarang" => $transaksiAlatBarang->paginate(5),
-            "totalTransaksiBelumBayar" => $totalTransaksiBelumBayar,
-            "totalTransaksiSudahBayar" => $totalTransaksiSudahBayar,
+        if (request("pdf") == 1) {
+            $pdf =  Pdf::loadView("admin.laporan.layanan.pdf", [
+                "transaksiLayanan" => $transaksiLayanan->get()
+            ]);
+            return $pdf->download("transaksi_layanan_" . Carbon::now()->isoFormat("D-MMMM-Y") . ".pdf");
+        }
+        return view('livewire.transaksi-layanan-table', [
+            "transaksiLayanan" => $transaksiLayanan->paginate(5),
         ]);
     }
 }

@@ -234,4 +234,36 @@ class TransaksiServiceImplement implements TransaksiService
         }
         return $data;
     }
+
+    /**
+     * Search Transaksi Alat Barang
+     * @param string $search
+     * @return array
+     * @throws InvalidArgumentException
+     */
+    public function searchTransaksiGedungLap($search)
+    {
+        try {
+            $data = $this->transaksiGedungLapRepository->search($search);
+        } catch (\Exception $th) {
+            throw new InvalidArgumentException();
+        }
+        return $data;
+    }
+
+    /**
+     * Search Transaksi Alat Barang
+     * @param string $search
+     * @return array
+     * @throws InvalidArgumentException
+     */
+    public function searchTransaksiLayanan($search)
+    {
+        try {
+            $data = $this->transaksiLayananRepository->search($search);
+        } catch (\Exception $th) {
+            throw new InvalidArgumentException();
+        }
+        return $data;
+    }
 }

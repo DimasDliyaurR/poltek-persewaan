@@ -9,6 +9,7 @@ use App\Models\TransaksiLayanan;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use App\Models\DetailTransaksiLayanan;
+use App\Services\Layanan\LayananService;
 use App\Http\Controllers\Traits\HandlerPromo;
 use App\Services\handler\Midtrans\CreateSnapTokenService;
 
@@ -21,6 +22,13 @@ class LayananFeController extends Controller
 
     protected $snapToken;
     protected $inputPromo;
+
+    private $layananService;
+
+    public function __construct(LayananService $layananService)
+    {
+        $this->layananService = $layananService;
+    }
 
     public function index()
     {
@@ -135,16 +143,24 @@ class LayananFeController extends Controller
 
             $this->transaksi = $transaksi;
 
+            $Layanan = Layanan::with("paymentMethod");
+            foreach ($validation["slug"] as $value) {
+                $Layanan->where("l_slug", "=", $value);
+            }
+
             // Store Detail Transaksi
-            foreach ($validation["slug"] as $row => $value) {
-                $Layanan = Layanan::with("paymentMethod")->where("l_slug", "=", $value)->first();
-                $total_harga = $Layanan->paymentMethod->is_dp ? $Layanan->paymentMethod->tarif_dp : $Layanan->l_tarif;
+            foreach ($Layanan->get() as $row) {
+                $total_harga = $row->paymentMethod->is_dp ? $row->paymentMethod->tarif_dp : $row->l_tarif;
 
                 $this->total_transaksi += $total_harga;
 
+                $this->layananService->updateLayanan([
+                    "l_status" => "tidak"
+                ], $row->id);
+
                 DetailTransaksiLayanan::create([
                     "transaksi_layanan_id" => $transaksi->id,
-                    "layanan_id" => $Layanan->id,
+                    "layanan_id" => $row->id,
                     "dtl_harga" => $total_harga,
                 ]);
             }

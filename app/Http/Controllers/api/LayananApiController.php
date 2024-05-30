@@ -41,7 +41,7 @@ class LayananApiController extends Controller
             $target = strtotime($pelaksanaan) + ($durasi * (60 * 60 * 24));
             // dd($target, $pelaksanaan);
 
-            if ($this->checkSchedule("tl_tanggal_pelaksanaan", "tl_tanggal_kembali", $target, $pelaksanaan)) {
+            if ($this->checkScheduleLayanan($slug, $pelaksanaan, $target)) {
                 return response()->json([
                     "error" => true,
                     "message" => "Jadwal sudah ada",

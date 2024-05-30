@@ -105,8 +105,8 @@
                     <th scope="col" class="px-6 py-3">
                         <div class="flex items-center">
                             Tanggal Sewa
-                            <button x-on:click="$wire.set('order', 'transaksi_alat_barangs.created_at')">
-                                @if ($orderAction == 0 or $order != '' and $order != 'transaksi_alat_barangs.created_at')
+                            <button x-on:click="$wire.set('order', 'tl_tanggal_sewa')">
+                                @if ($orderAction == 0 or $order != '' and $order != 'tl_tanggal_sewa')
                                     <svg class="w-3 h-3 ms-1.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
                                         fill="currentColor" viewBox="0 0 24 24">
                                         <path
@@ -114,7 +114,7 @@
                                     </svg>
                                 @endif
 
-                                @if ($order == 'transaksi_alat_barangs.created_at')
+                                @if ($order == 'tl_tanggal_sewa')
                                     {{-- DESCENDING ICON --}}
                                     @if ($orderAction == 2)
                                         <svg class="ml-1" xmlns="http://www.w3.org/2000/svg" width="1em"
@@ -139,9 +139,9 @@
                     </th>
                     <th scope="col" class="px-6 py-3">
                         <div class="flex items-center">
-                            Tanggal Pesanan
-                            <button x-on:click="$wire.set('order', 'tab_tanggal_pesanan')">
-                                @if ($orderAction == 0 or $order != '' and $order != 'tab_tanggal_pesanan')
+                            Tanggal Pelaksanaan
+                            <button x-on:click="$wire.set('order', 'tl_tanggal_pelaksanaan')">
+                                @if ($orderAction == 0 or $order != '' and $order != 'tl_tanggal_pelaksanaan')
                                     <svg class="w-3 h-3 ms-1.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
                                         fill="currentColor" viewBox="0 0 24 24">
                                         <path
@@ -149,7 +149,7 @@
                                     </svg>
                                 @endif
 
-                                @if ($order == 'tab_tanggal_pesanan')
+                                @if ($order == 'tl_tanggal_pelaksanaan')
                                     {{-- DESCENDING ICON --}}
                                     @if ($orderAction == 2)
                                         <svg class="ml-1" xmlns="http://www.w3.org/2000/svg" width="1em"
@@ -175,8 +175,8 @@
                     <th scope="col" class="px-6 py-3">
                         <div class="flex items-center">
                             Tanggal Kembali
-                            <button x-on:click="$wire.set('order', 'tab_tanggal_kembali')">
-                                @if ($orderAction == 0 or $order != '' and $order != 'tab_tanggal_kembali')
+                            <button x-on:click="$wire.set('order', 'tl_tanggal_kembali')">
+                                @if ($orderAction == 0 or $order != '' and $order != 'tl_tanggal_kembali')
                                     <svg class="w-3 h-3 ms-1.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
                                         fill="currentColor" viewBox="0 0 24 24">
                                         <path
@@ -184,7 +184,7 @@
                                     </svg>
                                 @endif
 
-                                @if ($order == 'tab_tanggal_kembali')
+                                @if ($order == 'tl_tanggal_kembali')
                                     {{-- DESCENDING ICON --}}
                                     @if ($orderAction == 2)
                                         <svg class="ml-1" xmlns="http://www.w3.org/2000/svg" width="1em"
@@ -210,8 +210,8 @@
                     <th scope="col" class="px-6 py-3">
                         <div class="flex items-center">
                             Sub Total
-                            <button x-on:click="$wire.set('order', 'tab_sub_total')">
-                                @if ($orderAction == 0 or $order != '' and $order != 'tab_sub_total')
+                            <button x-on:click="$wire.set('order', 'tl_sub_total')">
+                                @if ($orderAction == 0 or $order != '' and $order != 'tl_sub_total')
                                     <svg class="w-3 h-3 ms-1.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
                                         fill="currentColor" viewBox="0 0 24 24">
                                         <path
@@ -219,7 +219,42 @@
                                     </svg>
                                 @endif
 
-                                @if ($order == 'tab_sub_total')
+                                @if ($order == 'tl_sub_total')
+                                    {{-- DESCENDING ICON --}}
+                                    @if ($orderAction == 2)
+                                        <svg class="ml-1" xmlns="http://www.w3.org/2000/svg" width="1em"
+                                            height="1em" viewBox="0 0 16 16">
+                                            <path fill="currentColor" fill-rule="evenodd"
+                                                d="M2.22 13.28a.75.75 0 0 0 1.06 0l2-2a.75.75 0 1 0-1.06-1.06l-.72.72V3.25a.75.75 0 0 0-1.5 0v7.69l-.72-.72a.75.75 0 1 0-1.06 1.06zM7.75 12a.75.75 0 0 0 0 1.5h7.5a.75.75 0 0 0 0-1.5zm0-3.25a.75.75 0 0 1 0-1.5h5.5a.75.75 0 0 1 0 1.5zm0-4.75a.75.75 0 0 1 0-1.5h2.5a.75.75 0 0 1 0 1.5z"
+                                                clip-rule="evenodd" />
+                                        </svg>
+                                        {{-- ASCENDING ICON --}}
+                                    @elseif($orderAction == 1)
+                                        <svg class="ml-1" xmlns="http://www.w3.org/2000/svg" width="1em"
+                                            height="1em" viewBox="0 0 16 16">
+                                            <path fill="currentColor" fill-rule="evenodd"
+                                                d="M2.22 2.72a.75.75 0 0 1 1.06 0l2 2a.75.75 0 0 1-1.06 1.06l-.72-.72v7.69a.75.75 0 0 1-1.5 0V5.06l-.72.72A.75.75 0 0 1 .22 4.72zM7 12.75c0 .414.336.75.75.75h7.5a.75.75 0 0 0 0-1.5h-7.5a.75.75 0 0 0-.75.75m.75-4a.75.75 0 0 1 0-1.5h5.5a.75.75 0 0 1 0 1.5zm0-4.75a.75.75 0 0 1 0-1.5h2.5a.75.75 0 0 1 0 1.5z"
+                                                clip-rule="evenodd" />
+                                        </svg>
+                                    @endif
+                                @endif
+
+                            </button>
+                        </div>
+                    </th>
+                    <th scope="col" class="px-6 py-3">
+                        <div class="flex items-center">
+                            Status
+                            <button x-on:click="$wire.set('order', 'status')">
+                                @if ($orderAction == 0 or $order != '' and $order != 'status')
+                                    <svg class="w-3 h-3 ms-1.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                                        fill="currentColor" viewBox="0 0 24 24">
+                                        <path
+                                            d="M8.574 11.024h6.852a2.075 2.075 0 0 0 1.847-1.086 1.9 1.9 0 0 0-.11-1.986L13.736 2.9a2.122 2.122 0 0 0-3.472 0L6.837 7.952a1.9 1.9 0 0 0-.11 1.986 2.074 2.074 0 0 0 1.847 1.086Zm6.852 1.952H8.574a2.072 2.072 0 0 0-1.847 1.087 1.9 1.9 0 0 0 .11 1.985l3.426 5.05a2.123 2.123 0 0 0 3.472 0l3.427-5.05a1.9 1.9 0 0 0 .11-1.985 2.074 2.074 0 0 0-1.846-1.087Z" />
+                                    </svg>
+                                @endif
+
+                                @if ($order == 'status')
                                     {{-- DESCENDING ICON --}}
                                     @if ($orderAction == 2)
                                         <svg class="ml-1" xmlns="http://www.w3.org/2000/svg" width="1em"
@@ -248,7 +283,7 @@
                 </tr>
             </thead>
             <tbody>
-                @forelse($transaksiAlatBarang as $row)
+                @forelse($transaksiLayanan as $row)
                     <tr id="parent" onclick="toggleTable(this)" class="cursor-pointer"
                         class="bg-white border-b dark:bg-gray-700 dark:border-gray-700 dark:hover:bg-gray-400">
                         <td>
@@ -268,19 +303,22 @@
                             {{ $row->nama_lengkap }}
                         </td>
                         <td class="px-6 py-4 dark:text-white">
-                            {{ \Carbon\Carbon::parse(date('Y-m-d', strtotime($row->created_at)))->isoFormat('D MMMM Y') }}
+                            {{ \Carbon\Carbon::parse($row->tl_tanggal_sewa)->isoFormat('D MMMM Y') }}
                         </td>
                         <td class="px-6 py-4 dark:text-white">
-                            {{ \Carbon\Carbon::parse(date('Y-m-d', strtotime($row->tab_tanggal_pesanan)))->isoFormat('D MMMM Y') }}
+                            {{ \Carbon\Carbon::parse($row->tl_tanggal_pelaksanaan)->isoFormat('D MMMM Y') }}
                         </td>
                         <td class="px-6 py-4 dark:text-white">
-                            {{ \Carbon\Carbon::parse(date('Y-m-d', strtotime($row->tab_tanggal_kembali)))->isoFormat('D MMMM Y') }}
+                            {{ \Carbon\Carbon::parse($row->tl_tanggal_kembali)->isoFormat('D MMMM Y') }}
                         </td>
                         <td class="px-6 py-4 dark:text-white">
-                            Rp. {{ number_format($row->tab_sub_total, 0, ',', '.') }}
+                            Rp. {{ number_format($row->tl_sub_total, 0, ',', '.') }}
+                        </td>
+                        <td class="px-6 py-4 dark:text-white">
+                            {{ $row->status }}
                         </td>
                         <td class="px-6 py-4 text-right">
-                            <a href="{{ route('laporan.alat-barang.show', $row->id) }}"
+                            <a href="{{ route('laporan.layanan.show', $row->id) }}"
                                 class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Lihat
                                 Detail</a>
                         </td>
@@ -289,13 +327,13 @@
                         <td colspan="8" class="px-[4.5rem] py-3 border-b-2 border-gray-200 bg-gray-50">
                             <div>
                                 <ul class="flex gap-x-32">
-                                    @foreach ($row->alatBarangs as $alatBarang)
-                                        <li>{{ $alatBarang->ab_nama }}</li>
+                                    @foreach ($row->layanans as $layanan)
+                                        <li>{{ $layanan->l_nama }}</li>
                                         <li>Rp.
-                                            {{ number_format($alatBarang->ab_tarif, 0, ',', '.') }}
+                                            {{ number_format($layanan->l_tarif, 0, ',', '.') }}
                                         </li>
                                         <li>Metode Pembayaran
-                                            ({{ $alatBarang->paymentMethod->is_dp ? 'DP' : 'LUNAS' }})
+                                            ({{ $layanan->paymentMethod->is_dp ? 'DP' : 'LUNAS' }})
                                         </li>
                                     @endforeach
                                 </ul>
@@ -309,26 +347,10 @@
                         </td>
                     </tr>
                 @endforelse
-                <tr class="border-t-2">
-                    <td colspan="4" class="px-6 py-4 text-left">
-                        Sub Total (Belum Bayar)
-                    </td>
-                    <td colspan="4" class="px-6 py-4 text-left">
-                        Rp. {{ number_format($totalTransaksiBelumBayar, 0, ',', '.') }}
-                    </td>
-                </tr>
-                <tr class="border-t-2">
-                    <td colspan="4" class="px-6 py-4 text-left">
-                        Sub Total (Sudah Bayar)
-                    </td>
-                    <td colspan="4" class="px-6 py-4 text-left">
-                        Rp. {{ number_format($totalTransaksiSudahBayar, 0, ',', '.') }}
-                    </td>
-                </tr>
             </tbody>
         </table>
 
-        {{ $transaksiAlatBarang->links() }}
+        {{ $transaksiLayanan->links() }}
     </div>
 
 </x-inner-layout>

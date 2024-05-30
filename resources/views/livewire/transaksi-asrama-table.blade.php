@@ -271,7 +271,7 @@
                             {{ $row->nama_lengkap }}
                         </td>
                         <td class="px-6 py-4 dark:text-white">
-                            {{ $row->ta_tanggal_sewa }}
+                            {{ \Carbon\Carbon::parse($row->ta_tanggal_sewa)->isoFormat('D MMMM Y') }}
                         </td>
                         <td class="px-6 py-4 dark:text-white">
                             {{ \Carbon\Carbon::parse($row->ta_check_in)->isoFormat('D MMMM Y') }}

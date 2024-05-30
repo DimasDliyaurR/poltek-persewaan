@@ -21,7 +21,7 @@ class TransaksiLayananRepositoryImplement implements TransaksiLayananRepository
      */
     public function getDataById($id)
     {
-        return $this->layanan::whereId($id)->first();
+        return $this->layanan::with("layanans", "user.profile")->whereId($id);
     }
 
     /**
@@ -41,7 +41,9 @@ class TransaksiLayananRepositoryImplement implements TransaksiLayananRepository
      */
     public function getAllWithDetailTransaksi()
     {
-        return $this->layanan::with("detailTransaksiLayanans");
+        return $this->layanan::with("detailTransaksiLayanans")
+            ->join("users", "transaksi_layanans.user_id", "=", "users.id")
+            ->join("profiles", "users.id", "=", "profiles.user_id");
     }
 
     /**
@@ -78,5 +80,26 @@ class TransaksiLayananRepositoryImplement implements TransaksiLayananRepository
         $dataLayanan->delete();
 
         return $dataLayanan;
+    }
+
+    /**
+     * Search data Transaksi Layanan
+     * @param string $search
+     * @return object
+     */
+    public function search($search)
+    {
+        return $this->layanan::with(["layanans.paymentMethod"])
+            ->join("users", "transaksi_layanans.user_id", "=", "users.id")
+            ->join("profiles", "users.id", "=", "profiles.user_id")
+            ->orWhere(function ($q) use ($search) {
+                $q->where('code_unique', "LIKE", "%$search%")
+                    ->orWhere('profiles.nama_lengkap', "LIKE", "%$search%")
+                    ->orWhere('tl_tanggal_sewa', "LIKE", "%$search%")
+                    ->orWhere('tl_tanggal_pelaksanaan', "LIKE", "%$search%")
+                    ->orWhere('tl_tanggal_kembali', "LIKE", "%$search%")
+                    ->orWhere('tl_sub_total', "LIKE", "%$search%")
+                    ->orWhere('status', "LIKE", "%$search%");
+            });
     }
 }

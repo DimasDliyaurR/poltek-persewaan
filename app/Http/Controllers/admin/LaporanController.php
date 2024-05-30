@@ -169,22 +169,10 @@ class LaporanController extends Controller
 
     public function indexTransaksiLayanan()
     {
-        try {
-            $transaksiLayanan = $this->transaksiService->getAllTransaksiLayanan();
-            if (request("pdf") == 1) {
-                $pdf =  Pdf::loadView("admin.laporan.layanan.pdf", [
-                    "transaksiLayanan" => $transaksiLayanan->get()
-                ]);
-                return $pdf->download("transaksi_layanan_" . Carbon::now()->isoFormat("D-MMMM-Y") . ".pdf");
-            }
-        } catch (\Exception $th) {
-            throw new InvalidArgumentException();
-        }
 
         return view("admin.laporan.layanan.lihat", [
             "title" => "Transaksi Layanan",
             "action" => "laporan",
-            "transaksiLayanan" => $transaksiLayanan->paginate(5),
         ]);
     }
 
@@ -241,14 +229,14 @@ class LaporanController extends Controller
         return view("admin.laporan.layanan.detail", [
             "title" => "Transaksi Layanan",
             "action" => "laporan",
-            "transaksiLayanan" => $transaksiLayanan,
+            "transaksiLayanan" => $transaksiLayanan->first(),
         ]);
     }
 
     public function showTransaksiGedungLap($id)
     {
         try {
-            $transaksiLayanan = $this->transaksiService->getDataByIdTransaksiGedungLap($id);
+            $transaksiGedung = $this->transaksiService->getDataByIdTransaksiGedungLap($id);
         } catch (\Exception $th) {
             throw new InvalidArgumentException();
         }
@@ -256,7 +244,7 @@ class LaporanController extends Controller
         return view("admin.laporan.gedungLap.detail", [
             "title" => "Transaksi Gedung dan Lapangan",
             "action" => "laporan",
-            "transaksiLayanan" => $transaksiLayanan,
+            "transaksiGedung" => $transaksiGedung,
         ]);
     }
 

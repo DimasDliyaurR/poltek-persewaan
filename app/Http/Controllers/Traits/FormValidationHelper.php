@@ -167,15 +167,44 @@ trait FormValidationHelper
             ->join("gedung_laps", "dtg.gedung_lap_id", "=", "gedung_laps.id")
             ->where('gedung_laps.gl_slug', $slug)
             ->where(function ($query) use ($startDate, $endDate) {
-                $query->whereBetween('tg_tanggal_kembali', [$startDate, $endDate])
-                    ->orWhereBetween('tg_tanggal_pelaksanaan', [$startDate, $endDate])
+                $query->whereBetween('tg_tanggal_pelaksanaan', [$startDate, $endDate])
+                    ->orWhereBetween('tg_tanggal_kembali', [$startDate, $endDate])
                     ->orWhere(function ($query) use ($startDate, $endDate) {
-                        $query->where('tg_tanggal_kembali', '<', $startDate)
-                            ->where('tg_tanggal_pelaksanaan', '>', $endDate);
+                        $query->where('tg_tanggal_pelaksanaan', '<', $startDate)
+                            ->where('tg_tanggal_kembali', '>', $endDate);
                     });
             })
 
             ->exists();
+        return $conflictingTransactions;
+    }
+    /**
+     * Validation Cek Jadwal Asrama
+     * @param string $slug Slug
+     * @param string $start_date
+     * @param string $start_end
+     * @return bool
+     */
+    public function checkScheduleLayanan($slug, $start_date, $start_end)
+    {
+        $startDate = $start_date;
+        $endDate = $start_end;
+
+        $conflictingTransactions = $this->modal::join("detail_transaksi_layanans as dtl", "dtl.transaksi_layanan_id", "=", "transaksi_layanans.id")
+            ->join("layanans", "dtl.layanan_id", "=", "layanans.id")
+            ->where('layanans.l_slug', $slug)
+            ->where('layanans.l_status', "tidak")
+            ->where(function ($query) use ($startDate, $endDate) {
+                $query->whereBetween('tl_tanggal_pelaksanaan', [$startDate, $endDate])
+                    ->orWhereBetween('tl_tanggal_kembali', [$startDate, $endDate])
+                    ->orWhere(function ($query) use ($startDate, $endDate) {
+                        $query->where('tl_tanggal_pelaksanaan', '<', $startDate)
+                            ->where('tl_tanggal_kembali', '>', $endDate);
+                    });
+            })
+
+            ->exists();
+
         return $conflictingTransactions;
     }
 

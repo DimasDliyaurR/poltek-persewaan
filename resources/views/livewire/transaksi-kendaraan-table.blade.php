@@ -310,7 +310,7 @@
                                 {{ $row->nama_lengkap }}
                             </td>
                             <td class="px-6 py-4 dark:text-white">
-                                {{ \Carbon\Carbon::parse(date('d-m-Y', $row->tk_tanggal_sewa))->isoFormat('d MMMM Y') }}
+                                {{ \Carbon\Carbon::parse(date('d-m-Y', $row->tk_tanggal_sewa))->isoFormat('D MMMM Y') }}
                             </td>
                             <td class="px-6 py-4 dark:text-white">
                                 {{ \Carbon\Carbon::parse($row->tk_tanggal_pelaksanaan)->isoFormat('D MMMM Y') }}

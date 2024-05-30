@@ -43,4 +43,11 @@ interface TransaksiGedungRepository
      * @return boolean
      */
     public function delete($id);
+
+    /**
+     * Search data gedungLap
+     * @param string $search
+     * @return object
+     */
+    public function search($search);
 }
