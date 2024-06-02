@@ -204,46 +204,6 @@ class GedungLapController extends Controller
         return back()->with("successForm", "Berhasil Menambahkan Property Gedung Lapangan");
     }
 
-    // /**
-    //  * Kendaraan
-    //  * Show
-    //  */
-    // public function showKendaraan($id)
-    // {
-    //     try {
-    //         $kendaraan = $this->kendaraanService->getDataKendaraanById($id);
-    //         $merkKendaraan = $this->kendaraanService->getAllDataMerkKendaraan();
-    //     } catch (\Exception $th) {
-    //         return abort(404);
-    //     }
-
-    //     return view("admin.kendaraan.edit", [
-    //         "title" => "Kendaraan",
-    //         "action" => "kendaraan",
-    //         "kendaraan" => $kendaraan,
-    //         "merkKendaraans" => $merkKendaraan,
-    //     ]);
-    // }
-
-    // /**
-    //  * Merk Kendaraan
-    //  * Update
-    //  */
-    // public function updateKendaraan(RequestKendaraanUpdate $request, $id)
-    // {
-    //     $validation = $request->validated();
-
-    //     $validation['k_slug'] = Str::slug($validation["k_plat"]);
-
-    //     try {
-    //         $this->kendaraanService->updateKendaraan($validation, $id);
-    //     } catch (\Exception $th) {
-    //         throw new InvalidArgumentException();
-    //     }
-
-    //     return back()->with("successForm", "Berhasil Menambahkan Kendaraan");
-    // }
-
     /**
      * Property Gedung Lapangan
      * Destroy
@@ -304,82 +264,6 @@ class GedungLapController extends Controller
 
         return back()->with("successForm", "Berhasil Menambahkan Gedung & Lapangan");
     }
-
-    // /**
-    //  * Detail Foto Gedung & Lapangan
-    //  * Store
-    //  */
-    // public function storeDetailFotoGedungLap($id)
-    // {
-    //     try {
-    //         $gedungLap = $this->gedungLapService->getDataDetailFotoGedungLapById($id); // Mendapatkan data gedung lapangan by id
-    //     } catch (\Exception $th) {
-    //         abort(404);
-    //     }
-
-    //     return view("admin.gedungLap.detail", [
-    //         "title" => "Gedung Lapangan",
-    //         "action" => "gedunglap",
-    //         "gedungLap" => $gedungLap,
-    //     ]);
-    // }
-
-    // /**
-    //  * Gedung & Lapangan
-    //  * Show
-    //  */
-    // public function showGedungLap($id)
-    // {
-    //     try {
-    //         $gedungLap = $this->gedungLapService->getDataGedungLapById($id); // Mendapatkan data gedung lapangan by id
-    //     } catch (\Exception $th) {
-    //         return abort(404);
-    //     }
-
-    //     return view("admin.gedungLap.edit", [
-    //         "title" => "Gedung Lapangan",
-    //         "action" => "gedunglap",
-    //         "gedungLap" => $gedungLap,
-    //     ]);
-    // }
-
-    // /**
-    //  * Gedung Lapangan
-    //  * Update
-    //  */
-    // public function updateGedungLap(
-    //     RequestGedungLap $request, // Request yang sudah ter-validasi
-    //     $id // Id Gedung Lapangan
-    // ) {
-    //     $validation = $request->validated(); // Inisiasi Request yang sudah ter-validasi
-
-    //     $gedungLapOld = $this->gedungLapService->getDataGedungLapById($id);
-
-    //     if ($request->hasFile('gl_foto')) // Memeriksa keberadaan request file
-    //     {
-    //         if (Storage::disk('public')->exists($gedungLapOld['gl_foto'])) // Memeriksa keberadaan file lama
-    //         {
-    //             Storage::disk('public')->delete($gedungLapOld['gl_foto']); // Menghapus file lama
-    //         }
-
-    //         $file_gedung_lap = $request->file('gl_foto'); // Inisiasi request file
-    //         $foto_gedung_lap = $file_gedung_lap->hashName(); // Rename File
-
-    //         $foto_gedung_lap_path = $file_gedung_lap->storeAs("/gedungLap", $foto_gedung_lap); // Menentukan path file
-    //         $foto_gedung_lap_path = Storage::disk("public")->put("/gedungLap", $file_gedung_lap); // Menyimpan file
-    //         $validation['gl_foto'] = $foto_gedung_lap_path; // memodifikasi file menjadi path file
-    //     }
-
-    //     $validation['gl_slug'] = Str::slug($validation["gl_nama"]); // Menambahkan slug
-
-    //     // try {
-    //     $this->gedungLapService->updateGedungLap($validation, $id); // Update Gedung Lapangan
-    //     // } catch (\Exception $th) {
-    //     //     throw new InvalidArgumentException();
-    //     // }
-
-    //     return back()->with("successForm", "Berhasil Mengubah Gedung Lapangan");
-    // }
 
     /**
      * Gedung Lapangan

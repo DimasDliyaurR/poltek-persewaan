@@ -13,6 +13,9 @@ class UserController extends Controller
 
     public function __construct(UserService $userService)
     {
+        setlocale(LC_TIME, 'id_ID');
+        \Carbon\Carbon::setLocale('id');
+        \Carbon\Carbon::now()->formatLocalized("%A, %d %B %Y");
         $this->userService = $userService;
     }
 
@@ -57,5 +60,19 @@ class UserController extends Controller
         $user = $this->userService->getDataUserById($id);
 
         return redirect()->route("user.index")->with("successForm", "Berhasil mengubah " . $user->email);
+    }
+
+    public function indexLogActiviy()
+    {
+
+        $activityLog = $this->userService->getAllActivityLogWithUser();
+
+        // dd($activityLog);
+
+        return view("admin.userControl.logActivity.lihat", [
+            "title" => "User",
+            "action" => "user",
+            "activityLog" => $activityLog,
+        ]);
     }
 }

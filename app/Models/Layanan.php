@@ -2,11 +2,20 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Models\TimLayanan;
+use App\Models\VideoLayanan;
+use App\Models\TransaksiLayanan;
+use App\Models\DetailFotoLayanan;
+use Spatie\Activitylog\LogOptions;
+use App\Models\DetailKategoriPromo;
+use App\Models\RatingMerkKendaraan;
+use App\Models\LayananPaymentMethod;
+use App\Models\DetailTransaksiLayanan;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\BelongsToMany;
-use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class Layanan extends Model
 {
@@ -37,6 +46,16 @@ class Layanan extends Model
         'id' => 'integer',
         'l_personil' => 'boolean',
     ];
+
+    public function getActivitylogOptions(): LogOptions
+    {
+        return LogOptions::defaults()
+            ->setDescriptionForEvent(fn ($e) => "This model has been {$e}")
+            ->logExcept([
+                "created_at",
+                "updated_at"
+            ]);
+    }
 
     public function timLayanans(): HasMany
     {

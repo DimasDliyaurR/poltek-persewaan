@@ -20,6 +20,20 @@ interface UserService
     public function getAllProfile();
 
     /**
+     * Get All Data Activity log
+     * @return boolean
+     * @throws InvalidArgumentException
+     */
+    public function getAllActivityLog();
+
+    /**
+     * Get All With User Data Activity log
+     * @return boolean
+     * @throws InvalidArgumentException
+     */
+    public function getAllActivityLogWithUser();
+
+    /**
      * Get Data Profile By Id
      * @param integer $id
      * @return object

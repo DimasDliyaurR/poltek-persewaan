@@ -12,7 +12,7 @@ class RequestSatuanAlatBarang extends FormRequest
      */
     public function authorize(): bool
     {
-        return auth()->user()->level == 'admin';
+        return auth()->user()->level == 'admin_alat_barang' || auth()->user()->level == 'admin';
     }
 
     /**

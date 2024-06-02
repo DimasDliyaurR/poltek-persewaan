@@ -99,7 +99,7 @@ Route::group(["prefix" => "admin", "middleware" => "auth"], function () {
                 // Destroy Kendaraan
                 Route::delete("kendaraan/delete/{id}", "destroyKendaraan")->name("destroy");
             });
-        });
+        })->middleware("admin-kendaraan");
 
         Route::controller(AsramaController::class)->group(function () {
             // Index Fasilitas Asrama
@@ -123,7 +123,7 @@ Route::group(["prefix" => "admin", "middleware" => "auth"], function () {
             Route::group(["as" => "asrama."], function () {
 
                 // Index Asrama
-                Route::get("asramas", "indexAsrama")->name("index");
+                Route::get("asramas", "indexAsrama");
 
                 // Create Asrama
                 Route::post("asramas/create", "createAsrama")->name("create");
@@ -196,7 +196,7 @@ Route::group(["prefix" => "admin", "middleware" => "auth"], function () {
                 // Restore Tipe Asrama
                 Route::get("tipeAsrama/restore/{id}", "restoreTipeAsrama");
             });
-        });
+        })->middleware("admin-asrama");
 
         Route::controller(AlatBarangController::class)->group(function () {
             // Index Alat Barang
@@ -240,7 +240,7 @@ Route::group(["prefix" => "admin", "middleware" => "auth"], function () {
 
             // Destroy Satuan Alat Barang
             Route::delete("satuanAlatBarang/delete/{id}", "destroySatuanAlatBarang");
-        });
+        })->middleware("admin-alat-barang");
 
         Route::controller(GedungLapController::class)->group(function () {
             // Index Gedung Lapangan
@@ -291,13 +291,13 @@ Route::group(["prefix" => "admin", "middleware" => "auth"], function () {
                 // Destroy Detail Foto Tipe Asrama
                 Route::delete("/delete/{id}", "destroyDetailFotoGedungLap")->name("destroy");
             });
-        });
+        })->middleware("admin-gedung-lap");
 
         Route::controller(LayananController::class)->group(function () {
 
             Route::group(["as" => "layanan."], function () {
                 // Index Layanan
-                Route::get("layanans", "indexLayanan")->name("index");
+                Route::get("layanans", "indexLayanan");
 
                 // Create Layanan
                 Route::post("layanans/create", "createLayanan")->name("create");
@@ -350,7 +350,7 @@ Route::group(["prefix" => "admin", "middleware" => "auth"], function () {
                 // Destroy Detail Foto Layanan
                 Route::delete("detailFotoLayanan/delete/{id}", "destroyDetailFotoLayanan");
             });
-        });
+        })->middleware("admin-layanan");
 
         Route::controller(UserController::class)->group(function () {
             // Index User
@@ -364,6 +364,9 @@ Route::group(["prefix" => "admin", "middleware" => "auth"], function () {
 
             // Index Update
             Route::put("user/update/{id}", "updateUser")->name("user.update");
+
+            // Index Activity Log
+            Route::get("activity-log", "indexLogActiviy")->name("activity-log.index");
         });
 
         Route::controller(PromoController::class)->group(function () {

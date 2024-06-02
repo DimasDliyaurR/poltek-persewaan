@@ -25,10 +25,19 @@
                 <select name="level"
                     class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-blue file:text-violet-700 hover:file:bg-blue-400 @error('level') border-red-500 @enderror"
                     id="multiple_files" type="text">
+                    <option value="admin" {{ $user->level == 'admin' ? 'selected' : '' }}>SUPER ADMIN</option>
                     <option value="customer" {{ $user->level == 'customer' ? 'selected' : '' }}>Customer</option>
                     <option value="admin_dpupk" {{ $user->level == 'admin_dpupk' ? 'selected' : '' }}>DPUK</option>
                     <option value="admin_keuangan" {{ $user->level == 'admin_keuangan' ? 'selected' : '' }}>KEUANGAN
-                    <option value="admin" {{ $user->level == 'admin' ? 'selected' : '' }}>SUPER ADMIN
+                    <option value="admin_kendaraan" {{ $user->level == 'admin_kendaraan' ? 'selected' : '' }}>ADMIN
+                        KENDARAAN</option>
+                    <option value="admin_asrama" {{ $user->level == 'admin_asrama' ? 'selected' : '' }}>ADMIN ASRAMA
+                    </option>
+                    <option value="admin_alat_barang" {{ $user->level == 'admin_alat_barang' ? 'selected' : '' }}>ADMIN ALAT
+                        BARANG</option>
+                    <option value="admin_gedung_lap" {{ $user->level == 'admin_gedung_lap' ? 'selected' : '' }}>ADMIN
+                        GEDUNG LAPANGAN</option>
+                    <option value="admin_layanan" {{ $user->level == 'admin_layanan' ? 'selected' : '' }}>ADMIN LAYANAN
                     </option>
                 </select>
                 @error('level')

@@ -2,17 +2,34 @@
 
 namespace App\Models;
 
+use App\Models\TransaksiAsrama;
+use App\Models\TransaksiGedung;
+use App\Models\TransaksiLayanan;
+use App\Models\TransaksiKendaraan;
+use Spatie\Activitylog\LogOptions;
+use App\Models\DetailKategoriPromo;
+use App\Models\TransaksiAlatBarang;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
-use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Promo extends Model
 {
     use HasFactory, SoftDeletes;
 
     protected $guarded = ["id"];
+
+    public function getActivitylogOptions(): LogOptions
+    {
+        return LogOptions::defaults()
+            ->setDescriptionForEvent(fn ($e) => "This model has been {$e}")
+            ->logExcept([
+                "created_at",
+                "updated_at"
+            ]);
+    }
 
     public function transaksiAsramas(): HasMany
     {

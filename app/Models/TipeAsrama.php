@@ -2,6 +2,13 @@
 
 namespace App\Models;
 
+use App\Models\Asrama;
+use App\Models\FasilitasAsrama;
+use App\Models\RatingTipeAsrama;
+use Spatie\Activitylog\LogOptions;
+use App\Models\AsramaPaymentMethod;
+use App\Models\DetailFotoTipeAsrama;
+use App\Models\DetailFasilitasAsrama;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Relations\HasOne;
@@ -14,6 +21,16 @@ class TipeAsrama extends Model
     use HasFactory, SoftDeletes;
 
     protected $guarded = ["id"];
+
+    public function getActivitylogOptions(): LogOptions
+    {
+        return LogOptions::defaults()
+            ->setDescriptionForEvent(fn ($e) => "This model has been {$e}")
+            ->logExcept([
+                "created_at",
+                "updated_at"
+            ]);
+    }
 
     public function detailFasilitasAsrama(): HasMany
     {

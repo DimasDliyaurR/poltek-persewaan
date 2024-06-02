@@ -2,10 +2,15 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Models\TipeAsrama;
+use App\Models\TransaksiAsrama;
+use Spatie\Activitylog\LogOptions;
+use App\Models\DetailFasilitasAsrama;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use App\Models\DetailTransaksiFasilitas;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class FasilitasAsrama extends Model
 {
@@ -32,6 +37,16 @@ class FasilitasAsrama extends Model
         'id' => 'integer',
         'fa_tarif' => 'integer',
     ];
+
+    public function getActivitylogOptions(): LogOptions
+    {
+        return LogOptions::defaults()
+            ->setDescriptionForEvent(fn ($e) => "This model has been {$e}")
+            ->logExcept([
+                "created_at",
+                "updated_at"
+            ]);
+    }
 
     public function detailFasilitasAsramas(): HasMany
     {
