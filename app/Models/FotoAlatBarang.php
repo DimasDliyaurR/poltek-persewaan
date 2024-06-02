@@ -2,9 +2,11 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Models\AlatBarang;
+use Spatie\Activitylog\LogOptions;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class FotoAlatBarang extends Model
 {
@@ -29,6 +31,16 @@ class FotoAlatBarang extends Model
         'id' => 'integer',
         'alat_barang_id' => 'integer',
     ];
+
+    public function getActivitylogOptions(): LogOptions
+    {
+        return LogOptions::defaults()
+            ->setDescriptionForEvent(fn ($e) => "This model has been {$e}")
+            ->logExcept([
+                "created_at",
+                "updated_at"
+            ]);
+    }
 
     public function alatBarang(): BelongsTo
     {

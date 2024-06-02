@@ -2,9 +2,12 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use App\Models\TipeAsrama;
+use App\Models\FasilitasAsrama;
+use Spatie\Activitylog\LogOptions;
 use Illuminate\Database\Eloquent\Relations\Pivot;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class DetailFasilitasAsrama extends Pivot
 {
@@ -20,6 +23,16 @@ class DetailFasilitasAsrama extends Pivot
         'fasilitas_asrama_id',
         'dfa_status',
     ];
+
+    public function getActivitylogOptions(): LogOptions
+    {
+        return LogOptions::defaults()
+            ->setDescriptionForEvent(fn ($e) => "This model has been {$e}")
+            ->logExcept([
+                "created_at",
+                "updated_at"
+            ]);
+    }
 
     protected $table = "detail_fasilitas_asramas";
 

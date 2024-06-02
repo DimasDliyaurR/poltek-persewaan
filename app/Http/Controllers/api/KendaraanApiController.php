@@ -37,30 +37,28 @@ class KendaraanApiController extends Controller
             ], 403);
         }
 
-        try {
-            $pelaksanaan = strtotime($pelaksanaan);
-            $target = strtotime($pelaksanaan) + ($durasi * (60 * 60 * 24));
-            // dd($target, $pelaksanaan);
-
-            if ($this->checkSchedule("tk_pelaksanaan", "tk_tanggal_kembali", $target, $pelaksanaan)) {
-                return response()->json([
-                    "error" => true,
-                    "message" => "Jadwal sudah ada",
-                ], 403);
-            } else {
-                if ($this->checkCapacity($model_with_relation)) {
-                    return response()->json([
-                        "error" => true,
-                        "message" => "Kendaraan tidak tersedia",
-                    ], 403);
-                }
-            }
-        } catch (\Exception $th) {
+        // try {
+        $target = date("Y-m-d", strtotime($pelaksanaan) + ($durasi * (60 * 60 * 24)));
+        // dd($target);
+        if ($this->checkScheduleKendaraan($slug, $pelaksanaan, $target, $pelaksanaan)) {
             return response()->json([
                 "error" => true,
-                "message" => "Internal Error",
-            ], 505);
+                "message" => "Jadwal sudah ada",
+            ], 403);
+        } else {
+            if ($this->checkCapacity($model_with_relation)) {
+                return response()->json([
+                    "error" => true,
+                    "message" => "Kendaraan tidak tersedia",
+                ], 403);
+            }
         }
+        // } catch (\Exception $th) {
+        //     return response()->json([
+        //         "error" => true,
+        //         "message" => "Internal Error",
+        //     ], 505);
+        // }
 
         return response()
             ->json([

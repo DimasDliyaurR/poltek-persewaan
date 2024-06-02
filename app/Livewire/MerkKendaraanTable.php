@@ -26,7 +26,8 @@ class MerkKendaraanTable extends Component
 
     public function render(KendaraanService $kendaraanService)
     {
-        if (!isset($this->searchAction["search"])) $merkKendaraansModel = $kendaraanService->getAllDataMerkKendaraan()->with("kendaraans")->withCount(["kendaraans" => fn ($q) => $q->where("k_status", "tersedia")]); // Inisialisasi Semua Data Merk Kendaraan
+        if (!isset($this->searchAction["search"]))
+            $merkKendaraansModel = $kendaraanService->getAllDataMerkKendaraan()->with("kendaraans")->withCount(["kendaraans" => fn ($q) => $q->where("k_status", "tersedia")]); // Inisialisasi Semua Data Merk Kendaraan
 
         if (isset($this->searchAction["search"]) and $this->searchAction["search"] != "") $merkKendaraansModel = $kendaraanService->searchMerkKendaraan($this->searchAction["search"]); // Search 
 

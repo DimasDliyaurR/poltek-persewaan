@@ -214,6 +214,23 @@ class AsramaController extends Controller
 
     /**
      * Asrama
+     * Update
+     */
+    public function updateStatusAsrama($id)
+    {
+        try {
+            $this->asramaService->updateAsrama([
+                "a_status" => "tersedia"
+            ], $id);
+        } catch (\Exception $th) {
+            throw new InvalidArgumentException();
+        }
+
+        return back()->with("successForm", "Berhasil Mengubah status asrama pada ruangan");
+    }
+
+    /**
+     * Asrama
      * Destroy
      */
     public function destroyAsrama($id)

@@ -16,20 +16,20 @@ class TransaksiServiceImplement implements TransaksiService
     private $transaksiLayananRepository;
     private $transaksiGedungLapRepository;
     private $transaksiAsramaRepository;
-    private $transaksiAatBarangRepository;
+    private $transaksiAlatBarangRepository;
 
     public function __construct(
         TransaksiKendaraanRepository $transaksiKendaraanRepository,
         TransaksiLayananRepository $transaksiLayananRepository,
         TransaksiGedungRepository $transaksiGedungLapRepository,
         TransaksiAsramaRepository $transaksiAsramaRepository,
-        TransaksiAlatBarangRepository $transaksiAatBarangRepository
+        TransaksiAlatBarangRepository $transaksiAlatBarangRepository
     ) {
         $this->transaksiKendaraanRepository = $transaksiKendaraanRepository;
         $this->transaksiLayananRepository = $transaksiLayananRepository;
         $this->transaksiGedungLapRepository = $transaksiGedungLapRepository;
         $this->transaksiAsramaRepository = $transaksiAsramaRepository;
-        $this->transaksiAatBarangRepository = $transaksiAatBarangRepository;
+        $this->transaksiAlatBarangRepository = $transaksiAlatBarangRepository;
     }
 
     /**
@@ -100,7 +100,7 @@ class TransaksiServiceImplement implements TransaksiService
     public function getAllTransaksiAlatBarang()
     {
         try {
-            $data = $this->transaksiAatBarangRepository->getAllWithDetailTransaksiAlatBarang();
+            $data = $this->transaksiAlatBarangRepository->getAllWithDetailTransaksiAlatBarang();
         } catch (\Exception $th) {
             throw new InvalidArgumentException();
         }
@@ -116,7 +116,7 @@ class TransaksiServiceImplement implements TransaksiService
     public function getDataByIdTransaksiKendaraan($id)
     {
         try {
-            $data = $this->transaksiAatBarangRepository->getDataById($id);
+            $data = $this->transaksiKendaraanRepository->getDataById($id);
         } catch (\Exception $th) {
             throw new InvalidArgumentException();
         }
@@ -164,7 +164,7 @@ class TransaksiServiceImplement implements TransaksiService
     public function getDataByIdTransaksiAlatBarang($id)
     {
         try {
-            $data = $this->transaksiAatBarangRepository->getDataById($id);
+            $data = $this->transaksiAlatBarangRepository->getDataById($id);
         } catch (\Exception $th) {
             throw new InvalidArgumentException();
         }
@@ -181,6 +181,86 @@ class TransaksiServiceImplement implements TransaksiService
     {
         try {
             $data = $this->transaksiAsramaRepository->getDataById($id);
+        } catch (\Exception $th) {
+            throw new InvalidArgumentException();
+        }
+        return $data;
+    }
+
+    /**
+     * Search Transaksi Kendaraan
+     * @param string $search
+     * @return array
+     * @throws InvalidArgumentException
+     */
+    public function searchTransaksiKendaraan($search)
+    {
+        try {
+            $data = $this->transaksiKendaraanRepository->search($search);
+        } catch (\Exception $th) {
+            throw new InvalidArgumentException();
+        }
+        return $data;
+    }
+
+    /**
+     * Search Transaksi Asrama
+     * @param string $search
+     * @return array
+     * @throws InvalidArgumentException
+     */
+    public function searchTransaksiAsrama($search)
+    {
+        try {
+            $data = $this->transaksiAsramaRepository->search($search);
+        } catch (\Exception $th) {
+            throw new InvalidArgumentException();
+        }
+        return $data;
+    }
+
+    /**
+     * Search Transaksi Alat Barang
+     * @param string $search
+     * @return array
+     * @throws InvalidArgumentException
+     */
+    public function searchTransaksiAlatBarang($search)
+    {
+        try {
+            $data = $this->transaksiAlatBarangRepository->search($search);
+        } catch (\Exception $th) {
+            throw new InvalidArgumentException();
+        }
+        return $data;
+    }
+
+    /**
+     * Search Transaksi Alat Barang
+     * @param string $search
+     * @return array
+     * @throws InvalidArgumentException
+     */
+    public function searchTransaksiGedungLap($search)
+    {
+        try {
+            $data = $this->transaksiGedungLapRepository->search($search);
+        } catch (\Exception $th) {
+            throw new InvalidArgumentException();
+        }
+        return $data;
+    }
+
+    /**
+     * Search Transaksi Alat Barang
+     * @param string $search
+     * @return array
+     * @throws InvalidArgumentException
+     */
+    public function searchTransaksiLayanan($search)
+    {
+        try {
+            $data = $this->transaksiLayananRepository->search($search);
         } catch (\Exception $th) {
             throw new InvalidArgumentException();
         }

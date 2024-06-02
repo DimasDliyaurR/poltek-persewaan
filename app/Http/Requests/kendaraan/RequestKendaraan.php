@@ -12,7 +12,7 @@ class RequestKendaraan extends FormRequest
      */
     public function authorize(): bool
     {
-        return auth()->user()->level == 'admin';
+        return auth()->user()->level == 'admin_kendaraan' || auth()->user()->level == 'admin';
     }
 
     /**

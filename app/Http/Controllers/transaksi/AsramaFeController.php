@@ -13,6 +13,7 @@ use App\Http\Controllers\Traits\HandlerPromo;
 use App\Models\Asrama;
 use App\Models\DetailTransaksiFasilitas;
 use App\Models\FasilitasAsrama;
+use App\Services\Asrama\AsramaService;
 use App\Services\handler\Midtrans\CreateSnapTokenService;
 use App\Services\handler\Promo\PromoHandler;
 
@@ -26,6 +27,12 @@ class AsramaFeController extends Controller
     private $total_transaksi_fasilitas = 0;
 
     private $snapToken;
+    private $asramaService;
+
+    public function __construct(AsramaService $asramaService)
+    {
+        $this->asramaService = $asramaService;
+    }
 
 
     public function index()
@@ -142,17 +149,26 @@ class AsramaFeController extends Controller
 
             $this->transaksi = $transaksi;
 
-            // Store Detail Transaksi
+            $asrama = Asrama::with(["tipeAsrama.paymentMethod"]);
+
             foreach ($validation["slug"] as $row => $value) {
-                $asrama = Asrama::with(["tipeAsrama.paymentMethod"])->where("a_slug", "=", $value)->first();
+                $asrama->where("a_slug", "=", $value);
+            }
+
+            // Store Detail Transaksi
+            foreach ($asrama->get() as $row => $value) {
                 $durasi_check_in_to_check_out = intdiv(strtotime($validation["ta_check_out"]) - strtotime($validation["ta_check_in"]), (24 * 60 * 60));
-                $total_harga = ($asrama->tipeAsrama->paymentMethod->is_dp ? $asrama->tipeAsrama->paymentMethod->tarif_dp : $asrama->tipeAsrama->ta_tarif) * $durasi_check_in_to_check_out;
+                $total_harga = ($value->tipeAsrama->paymentMethod->is_dp ? $value->tipeAsrama->paymentMethod->tarif_dp : $value->tipeAsrama->ta_tarif) * $durasi_check_in_to_check_out;
 
                 $this->total_transaksi += $total_harga;
 
+                $this->asramaService->updateAsrama([
+                    "a_status" => "tidak tersedia",
+                ], $value->id);
+
                 DetailTransaksiAsrama::create([
                     "transaksi_asrama_id" => $transaksi->id,
-                    "asrama_id" => $asrama->id,
+                    "asrama_id" => $value->id,
                     "dta_harga" => $total_harga,
                 ]);
             }
@@ -167,7 +183,7 @@ class AsramaFeController extends Controller
                     $count++;
                 }
 
-                foreach ($fasilitas->get() as $row => $value) {
+                foreach ($fasilitas->get() as $value) {
                     $total_harga = $value->fa_tarif;
 
                     $this->total_transaksi_fasilitas += $total_harga;

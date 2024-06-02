@@ -2,20 +2,17 @@
 
 namespace App\Http\Controllers\transaksi;
 
-use Exception;
 use Illuminate\Http\Request;
 use App\Models\MerkKendaraan;
 use App\Models\TransaksiKendaraan;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use App\Models\DetailTransaksiKendaraan;
-use App\Services\handler\Promo\PromoHandler;
 use App\Services\Kendaraan\KendaraanService;
 use App\Http\Controllers\Traits\HandlerPromo;
 use App\Http\Controllers\Traits\FormValidationHelper;
+use App\Models\RatingMerkKendaraan;
 use App\Services\handler\Midtrans\CreateSnapTokenService;
-use App\Http\Requests\kendaraan\RequestTransaksiKendaraan;
-use stdClass;
 
 class KendaraanFeController extends Controller
 {
@@ -55,13 +52,18 @@ class KendaraanFeController extends Controller
 
     public function detail($slug)
     {
-        $kendaraans = MerkKendaraan::with("kendaraans")->withCount([
-            "kendaraans" => fn ($q) => $q->where("k_status", "=", "tersedia")->latest()
-        ])->where("mk_slug", "=", $slug);
+        $kendaraans = MerkKendaraan::with(["kendaraans"])->withCount([
+            "kendaraans" => fn ($q) => $q->where("k_status", "=", "tersedia")->latest(), "rating"
+        ])->where("mk_slug", "=", $slug)->first();
 
+        if (!$kendaraans)
+            abort(404);
+
+        $ulasan = RatingMerkKendaraan::with("user")->withCount(["like as liked" => fn ($q) => $q->whereIsLike(1), "like as unlike" => fn ($q) => $q->whereIsLike(2)])->whereMerkKendaraanId($kendaraans->id)->get();
         return view('transportasi.detail', [
             "title" => "Transportasi",
-            "kendaraan" => $kendaraans->first()
+            "kendaraan" => $kendaraans,
+            "ulasan" => $ulasan,
         ]);
     }
 
@@ -112,7 +114,7 @@ class KendaraanFeController extends Controller
 
             $this->transaksi = $transaksi;
 
-            $MerkKendaraan = MerkKendaraan::with(["kendaraans" => fn ($q) => $q->where("k_status", "tersedia"), "paymentMethod"]);
+            $MerkKendaraan = MerkKendaraan::with(["kendaraans" => fn ($q) => $q->where("k_status", "tersedia")->orderBy("k_urutan", "asc"), "paymentMethod"]);
             foreach ($validation["slug"] as $row => $value) {
                 $MerkKendaraan->where("mk_slug", "=", $value);
             }
@@ -124,13 +126,14 @@ class KendaraanFeController extends Controller
 
                 $this->total_transaksi += $total_harga;
 
+                if ($item->kendaraans->first()->id == null) {
+                    return back()->with("error", "Kendaraan tidak tersedia");
+                }
+
                 $this->kendaraanService->updateKendaraan([
                     "k_status" => "tidak",
                 ], $item->kendaraans->first()->id);
 
-                if ($item->kendaraans->first()->id == null) {
-                    return back()->with("error", "Kendaraan tidak tersedia");
-                }
 
                 DetailTransaksiKendaraan::create([
                     "transaksi_kendaraan_id" => $transaksi->id,
@@ -177,6 +180,7 @@ class KendaraanFeController extends Controller
     public function pembayaran($codeUnique)
     {
         $detailTransaksi = TransaksiKendaraan::with(["kendaraans.merkKendaraan.paymentMethod", "promo",])->whereCodeUnique($codeUnique)->get();
+
         if ($detailTransaksi[0]->status == "terbayar") {
             return redirect()->route("invoice.transportasi", $detailTransaksi[0]->code_unique);
         }

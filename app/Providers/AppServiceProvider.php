@@ -96,6 +96,8 @@ use App\Repositories\Kendaraan\PaymentMethod\KendaraanPaymentMethodRepository;
 use App\Repositories\Kendaraan\PaymentMethod\KendaraanPaymentMethodRepositoryImplement;
 use App\Repositories\Layanan\PaymentMethod\LayananPaymentMethodRepository;
 use App\Repositories\Layanan\PaymentMethod\LayananPaymentMethodRepositoryImplement;
+use App\Repositories\User\LogActivity\LogActivityRepository;
+use App\Repositories\User\LogActivity\LogActivityRepositoryImplement;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -169,6 +171,7 @@ class AppServiceProvider extends ServiceProvider
          */
         $this->app->bind(UserRepository::class, UserRepositoryImplement::class);
         $this->app->bind(ProfileRepository::class, ProfileRepositoryImplement::class);
+        $this->app->bind(LogActivityRepository::class, LogActivityRepositoryImplement::class);
 
         /**
          * Bind Kendaraan Service

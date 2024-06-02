@@ -11,7 +11,7 @@ class RequestDetailFotoTipeAsrama extends FormRequest
      */
     public function authorize(): bool
     {
-        return auth()->user()->level == "admin" && auth()->user()->level;
+        return (auth()->user()->level == 'admin_asrama' || auth()->user()->level == "admin") && auth()->user()->level;
     }
 
     /**

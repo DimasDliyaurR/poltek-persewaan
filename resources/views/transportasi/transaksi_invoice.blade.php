@@ -27,7 +27,6 @@
                                 <th scope="col" class="px-6 py-3">Tarif</th>
                                 <th scope="col" class="px-6 py-3">Tanggal Sewa</th>
                                 <th scope="col" class="px-6 py-3">Tanggal Kembali</th>
-                                <th scope="col" class="px-6 py-3">Durasi</th>
                                 <th scope="col" class="px-6 py-3">Total</th>
                             </tr>
                         </thead>
@@ -44,7 +43,6 @@
                                         </td>
                                         <td class="px-6 py-4">
                                             {{ \Carbon\Carbon::parse(date('d M Y', strtotime($item->tk_tanggal_kembali)))->isoFormat('D MMMM Y') }}
-                                        <td class="px-6 py-4">{{ $item->tk_durasi }}</td>
                                         </td>
                                         <td class="px-6 py-4">Rp
                                             {{ number_format(!$subItem->merkKendaraan->paymentMethod->is_dp ? $subItem->merkKendaraan->mk_tarif * $item->tk_durasi : $subItem->merkKendaraan->paymentMethod->tarif_dp * $item->tk_durasi, 0, ',', '.') }}

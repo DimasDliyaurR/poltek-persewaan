@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>{{ $title }} | PERSEWAAN ASET</title>
-    @vite('resources/css/app.css')
+    @vite(['resources/css/app.css', 'resources/js/app.js'])
     @livewireStyles
     <script type="text/javascript" src="https://unpkg.com/xlsx@0.15.1/dist/xlsx.full.min.js"></script>
 </head>
@@ -14,7 +14,7 @@
 <body class="dark:bg-gray-800 font-poppins">
 
     @include('layouts-admin.nav')
-    <div class="flex flex-col sm:flex-row">
+    <div class="flex flex-col sm:flex-row h-screen">
         @include('layouts-admin.sidebar')
 
         <div class="w-full bg-gray-100 dark:bg-red-200 p-4">

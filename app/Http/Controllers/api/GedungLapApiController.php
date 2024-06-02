@@ -30,22 +30,20 @@ class GedungLapApiController extends Controller
             ], 505);
         }
 
-        try {
-            $target = strtotime($pesanan);
-            $pesanan = strtotime($kembali);
+        // try {
 
-            if ($this->checkSchedule("tg_tanggal_pelaksanaan", "tg_tanggal_kembali", $target, $pesanan)) {
-                return response()->json([
-                    "error" => true,
-                    "message" => "Jadwal sudah ada",
-                ], 403);
-            }
-        } catch (\Exception $th) {
+        if ($this->checkScheduleGedungLap($slug, $pesanan, $kembali)) {
             return response()->json([
                 "error" => true,
-                "message" => "Internal Error",
-            ], 505);
+                "message" => "Jadwal sudah ada",
+            ], 403);
         }
+        // } catch (\Exception $th) {
+        //     return response()->json([
+        //         "error" => true,
+        //         "message" => "Internal Error",
+        //     ], 505);
+        // }
 
         return response()
             ->json([

@@ -2,6 +2,7 @@
 
 namespace App\Services\User;
 
+use App\Repositories\User\LogActivity\LogActivityRepository;
 use App\Repositories\User\Profile\ProfileRepository;
 use App\Repositories\User\UserRepository;
 use InvalidArgumentException;
@@ -10,11 +11,13 @@ class UserServiceImplement implements UserService
 {
     protected $userRepository;
     protected $profileRepository;
+    protected $logActivityRepository;
 
-    public function __construct(UserRepository $userRepository, ProfileRepository $profileRepository)
+    public function __construct(UserRepository $userRepository, ProfileRepository $profileRepository, LogActivityRepository $logActivityRepository)
     {
         $this->userRepository = $userRepository;
         $this->profileRepository = $profileRepository;
+        $this->logActivityRepository = $logActivityRepository;
     }
 
     /**
@@ -42,6 +45,38 @@ class UserServiceImplement implements UserService
     {
         try {
             $data = $this->profileRepository->getAll();
+        } catch (\Exception $th) {
+            throw new InvalidArgumentException();
+        }
+
+        return $data;
+    }
+
+    /**
+     * Get All Data Activity log
+     * @return boolean
+     * @throws InvalidArgumentException
+     */
+    public function getAllActivityLog()
+    {
+        try {
+            $data = $this->logActivityRepository->getAll();
+        } catch (\Exception $th) {
+            throw new InvalidArgumentException();
+        }
+
+        return $data;
+    }
+
+    /**
+     * Get All With User Data Activity log
+     * @return boolean
+     * @throws InvalidArgumentException
+     */
+    public function getAllActivityLogWithUser()
+    {
+        try {
+            $data = $this->logActivityRepository->getAllWithUser();
         } catch (\Exception $th) {
             throw new InvalidArgumentException();
         }

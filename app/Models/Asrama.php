@@ -2,13 +2,21 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Models\Promo;
+use App\Models\TipeAsrama;
+use App\Models\FasilitasAsrama;
+use App\Models\TransaksiAsrama;
+use Spatie\Activitylog\LogOptions;
+use App\Models\DetailKategoriPromo;
+use App\Models\DetailFasilitasAsrama;
+use App\Models\DetailTransaksiAsrama;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Database\Eloquent\Relations\BelongsToMany;
-use Illuminate\Database\Eloquent\Relations\HasMany;
-use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Database\Eloquent\Relations\HasOne;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class Asrama extends Model
 {
@@ -36,6 +44,15 @@ class Asrama extends Model
         'id' => 'integer',
     ];
 
+    public function getActivitylogOptions(): LogOptions
+    {
+        return LogOptions::defaults()
+            ->setDescriptionForEvent(fn ($e) => "This model has been {$e}")
+            ->logExcept([
+                "created_at",
+                "updated_at"
+            ]);
+    }
     public function tipeAsrama()
     {
         return $this->belongsTo(TipeAsrama::class);

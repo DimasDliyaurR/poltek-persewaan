@@ -2,11 +2,18 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Models\Promo;
+use Spatie\Activitylog\LogOptions;
+use App\Models\DetailFotoGedungLap;
+use App\Models\DetailKategoriPromo;
+use App\Models\RatingMerkKendaraan;
+use App\Models\DetailTransaksiGedung;
+use App\Models\GedungLapPaymentMethod;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\BelongsToMany;
-use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class GedungLap extends Model
 {
@@ -39,6 +46,16 @@ class GedungLap extends Model
         'id' => 'integer',
     ];
 
+    public function getActivitylogOptions(): LogOptions
+    {
+        return LogOptions::defaults()
+            ->setDescriptionForEvent(fn ($e) => "This model has been {$e}")
+            ->logExcept([
+                "created_at",
+                "updated_at"
+            ]);
+    }
+
     public function detailTransaksiGedungs(): HasMany
     {
         return $this->hasMany(DetailTransaksiGedung::class);
@@ -62,5 +79,10 @@ class GedungLap extends Model
     public function paymentMethod(): HasOne
     {
         return $this->hasOne(GedungLapPaymentMethod::class);
+    }
+
+    public function rating(): HasMany
+    {
+        return $this->hasMany(RatingMerkKendaraan::class);
     }
 }

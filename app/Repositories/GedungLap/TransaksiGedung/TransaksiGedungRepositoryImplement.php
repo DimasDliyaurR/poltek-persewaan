@@ -43,7 +43,9 @@ class TransaksiGedungRepositoryImplement implements TransaksiGedungRepository
      */
     public function getAllWithDetailTransaksiAndDetailProperty()
     {
-        $gedungData = $this->gedung::with(["property", "gedungLap"]);
+        $gedungData = $this->gedung::with(["property", "gedungLap"])
+            ->join("users", "transaksi_gedungs.user_id", "=", "users.id")
+            ->join("profiles", "users.id", "=", "profiles.user_id");
 
         return $gedungData;
     }
@@ -84,5 +86,26 @@ class TransaksiGedungRepositoryImplement implements TransaksiGedungRepository
         $gedungData->delete();
 
         return $gedungData;
+    }
+
+    /**
+     * Search data kendaraan
+     * @param string $search
+     * @return object
+     */
+    public function search($search)
+    {
+        return $this->gedung::with(["gedungLap.paymentMethod"])
+            ->join("users", "transaksi_gedungs.user_id", "=", "users.id")
+            ->join("profiles", "users.id", "=", "profiles.user_id")
+            ->orWhere(function ($q) use ($search) {
+                $q->where('code_unique', "LIKE", "%$search%")
+                    ->orWhere('profiles.nama_lengkap', "LIKE", "%$search%")
+                    ->orWhere('tg_tanggal_sewa', "LIKE", "%$search%")
+                    ->orWhere('tg_tanggal_kembali', "LIKE", "%$search%")
+                    ->orWhere('tg_tanggal_pelaksanaan', "LIKE", "%$search%")
+                    ->orWhere('status', "LIKE", "%$search%")
+                    ->orWhere('tg_sub_total', "LIKE", "%$search%");
+            });
     }
 }

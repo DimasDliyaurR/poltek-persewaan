@@ -20,7 +20,7 @@ interface TransaksiKendaraanRepository
 
     /**
      * Get All Data Transaksi Kendaraan With Detail Transaksi Kendaraan
-     * @return Mixed
+     * @return object
      */
     public function getAllWithDetailTransaksiKendaraan();
 
@@ -44,4 +44,11 @@ interface TransaksiKendaraanRepository
      * @return Mixed
      */
     public function delete($id);
+
+    /**
+     * Search data kendaraan
+     * @param string $search
+     * @return object
+     */
+    public function search($search);
 }

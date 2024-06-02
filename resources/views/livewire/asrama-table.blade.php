@@ -121,6 +121,9 @@
                         </div>
                     </th>
                     <th scope="col" class="px-6 py-3">
+                        <span class="sr-only">Status</span>
+                    </th>
+                    <th scope="col" class="px-6 py-3">
                         <span class="sr-only">Edit</span>
                     </th>
                     <th scope="col" class="px-6 py-3">
@@ -143,6 +146,15 @@
                         <td class="px-6 py-4 text-right">
                             <a href="{{ asset('admin/asrama/show/' . $row->id) }}"
                                 class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit</a>
+                        </td>
+                        <td class="px-6 py-4 text-right">
+                            @if ($row->a_status == 'tidak tersedia')
+                                <x-update-status-button href="{{ route('asrama.update.status', $row->id) }}"
+                                    :isBack="true">Ruangan terpakai</x-update-status-button>
+                            @else
+                                <x-update-status-button :isBack="false">Ruangan tidak
+                                    terpakai</x-update-status-button>
+                            @endif
                         </td>
                         <td class="px-6 py-4 text-right">
                             <x-delete-button action="admin/asrama/delete/{{ $row->id }}" id="{{ $row->id }}"

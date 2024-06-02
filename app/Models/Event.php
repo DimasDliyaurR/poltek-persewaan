@@ -4,6 +4,7 @@ namespace App\Models;
 
 use App\Models\TransaksiGedung;
 use App\Models\TransaksiKendaraan;
+use Spatie\Activitylog\LogOptions;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\MorphTo;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -19,12 +20,23 @@ class Event extends Model
     protected $casts = [
         'id' => 'integer',
     ];
+
+    public function getActivitylogOptions(): LogOptions
+    {
+        return LogOptions::defaults()
+            ->setDescriptionForEvent(fn ($e) => "This model has been {$e}")
+            ->logExcept([
+                "created_at",
+                "updated_at"
+            ]);
+    }
+
     protected static function booted()
     {
         static::creating(function ($event) {
             // Dapatkan instance dari model transaksi terkait
             $transaksi = $event->eventable;
-            
+
             // Periksa tipe model transaksi dan isi kolom tgl_mulai dan tgl_kembali sesuai
             if ($transaksi instanceof TransaksiKendaraan) {
                 $event->tgl_mulai = $transaksi->tk_tanggal_sewa;

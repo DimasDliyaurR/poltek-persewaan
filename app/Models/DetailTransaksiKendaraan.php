@@ -2,9 +2,12 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use App\Models\Kendaraan;
+use App\Models\TransaksiKendaraan;
+use Spatie\Activitylog\LogOptions;
 use Illuminate\Database\Eloquent\Relations\Pivot;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class DetailTransaksiKendaraan extends Pivot
 {
@@ -33,6 +36,16 @@ class DetailTransaksiKendaraan extends Pivot
         'transaksi_kendaraan_id' => 'integer',
         'kendaraan_id' => 'integer',
     ];
+
+    public function getActivitylogOptions(): LogOptions
+    {
+        return LogOptions::defaults()
+            ->setDescriptionForEvent(fn ($e) => "This model has been {$e}")
+            ->logExcept([
+                "created_at",
+                "updated_at"
+            ]);
+    }
 
     public function kendaraan(): BelongsTo
     {

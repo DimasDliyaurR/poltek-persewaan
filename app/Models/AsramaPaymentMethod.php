@@ -2,9 +2,11 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Models\TipeAsrama;
+use Spatie\Activitylog\LogOptions;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class AsramaPaymentMethod extends Model
 {
@@ -18,6 +20,16 @@ class AsramaPaymentMethod extends Model
         "is_dp",
         "tarif_dp",
     ];
+
+    public function getActivitylogOptions(): LogOptions
+    {
+        return LogOptions::defaults()
+            ->setDescriptionForEvent(fn ($e) => "This model has been {$e}")
+            ->logExcept([
+                "created_at",
+                "updated_at"
+            ]);
+    }
 
     public function asrama(): BelongsTo
     {

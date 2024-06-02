@@ -2,9 +2,11 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use App\Models\GedungLap;
+use Spatie\Activitylog\LogOptions;
 use Illuminate\Database\Eloquent\Relations\Pivot;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class DetailTransaksiGedung extends Pivot
 {
@@ -31,6 +33,16 @@ class DetailTransaksiGedung extends Pivot
         'transaksi_gedung_id' => 'integer',
         'gedung_lap_id' => 'integer',
     ];
+
+    public function getActivitylogOptions(): LogOptions
+    {
+        return LogOptions::defaults()
+            ->setDescriptionForEvent(fn ($e) => "This model has been {$e}")
+            ->logExcept([
+                "created_at",
+                "updated_at"
+            ]);
+    }
 
     public function gedungLap(): BelongsTo
     {

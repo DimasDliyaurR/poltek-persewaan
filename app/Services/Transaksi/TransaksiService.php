@@ -78,4 +78,44 @@ interface TransaksiService
      * @throws InvalidArgumentException
      */
     public function getDataByIdTransaksiAsrama($id);
+
+    /**
+     * Search Transaksi Kendaraan
+     * @param string $search
+     * @return object
+     * @throws InvalidArgumentException
+     */
+    public function searchTransaksiKendaraan($search);
+
+    /**
+     * Search Transaksi Kendaraan
+     * @param string $search
+     * @return object
+     * @throws InvalidArgumentException
+     */
+    public function searchTransaksiAsrama($search);
+
+    /**
+     * Search Transaksi Alat Barang
+     * @param string $search
+     * @return object
+     * @throws InvalidArgumentException
+     */
+    public function searchTransaksiAlatBarang($search);
+
+    /**
+     * Search Transaksi Alat Barang
+     * @param string $search
+     * @return array
+     * @throws InvalidArgumentException
+     */
+    public function searchTransaksiGedungLap($search);
+
+    /**
+     * Search Transaksi Alat Barang
+     * @param string $search
+     * @return array
+     * @throws InvalidArgumentException
+     */
+    public function searchTransaksiLayanan($search);
 }

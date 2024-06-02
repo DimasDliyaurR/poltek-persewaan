@@ -44,4 +44,11 @@ interface TransaksiLayananRepository
      * @return Mixed
      */
     public function delete($id);
+
+    /**
+     * Search data Transaksi Layanan
+     * @param string $search
+     * @return object
+     */
+    public function search($search);
 }

@@ -2,12 +2,20 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Models\FotoAlatBarang;
+use App\Models\SatuanAlatBarang;
+use Spatie\Activitylog\LogOptions;
+use App\Models\DetailKategoriPromo;
+use App\Models\RatingMerkKendaraan;
+use App\Models\TransaksiAlatBarang;
+use App\Models\AlatBarangPaymentMethod;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Database\Eloquent\Relations\BelongsToMany;
-use Illuminate\Database\Eloquent\Relations\HasMany;
+use App\Models\DetailTransaksiAlatBarang;
 use Illuminate\Database\Eloquent\Relations\HasOne;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class AlatBarang extends Model
 {
@@ -38,6 +46,16 @@ class AlatBarang extends Model
         'id' => 'integer',
     ];
 
+    public function getActivitylogOptions(): LogOptions
+    {
+        return LogOptions::defaults()
+            ->setDescriptionForEvent(fn ($e) => "This model has been {$e}")
+            ->logExcept([
+                "created_at",
+                "updated_at"
+            ]);
+    }
+
     public function fotoAlatBarangs(): HasMany
     {
         return $this->hasMany(FotoAlatBarang::class);
@@ -66,5 +84,10 @@ class AlatBarang extends Model
     public function paymentMethod(): HasOne
     {
         return $this->hasOne(AlatBarangPaymentMethod::class);
+    }
+
+    public function rating(): HasMany
+    {
+        return $this->hasMany(RatingMerkKendaraan::class);
     }
 }

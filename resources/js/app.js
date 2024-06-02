@@ -1,6 +1,6 @@
 import "./bootstrap";
 import "preline";
-import axios from "axios";
+import ApexCharts from "apexcharts";
 
 import "flowbite";
 

@@ -11,7 +11,7 @@ class RequestDetailFotoGedungLap extends FormRequest
      */
     public function authorize(): bool
     {
-        return auth()->user()->level == "admin" && auth()->user()->level;
+        return auth()->user()->level == 'admin_gedung_lap' || auth()->user()->level == "admin" && auth()->user()->level;
     }
 
     /**

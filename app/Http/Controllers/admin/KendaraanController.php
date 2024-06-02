@@ -243,6 +243,22 @@ class KendaraanController extends Controller
 
         return back()->with("successForm", "Berhasil Menambahkan Kendaraan");
     }
+    /**
+     * Kendaraan
+     * Update Status
+     */
+    public function updateStatusKendaraan($id)
+    {
+        try {
+            $this->kendaraanService->updateKendaraan([
+                "k_status" => "tersedia"
+            ], $id);
+        } catch (\Exception $th) {
+            throw new InvalidArgumentException();
+        }
+
+        return back()->with("successForm", "Berhasil mengubah status kendaraan");
+    }
 
     /**
      * Merk Kendaraan

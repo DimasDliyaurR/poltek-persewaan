@@ -43,4 +43,11 @@ interface TransaksiAlatBarangRepository
      * @return boolean
      */
     public function delete($id);
+
+    /**
+     * Search data kendaraan
+     * @param string $search
+     * @return object
+     */
+    public function search($search);
 }

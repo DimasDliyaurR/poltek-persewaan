@@ -151,7 +151,9 @@
                     </div>
                 </div>
             </x-layout-detail-transaksi>
-
+            <livewire:ulasan master="alat_barangs" rating="rating_alat_barangs"
+                slug="{{ explode('/', url()->current())[count(explode('/', url()->current())) - 1] }}"
+                slugColumn="ab_slug" />
 
         </div>
     </div>
