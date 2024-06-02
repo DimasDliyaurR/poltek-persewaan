@@ -93,6 +93,9 @@ Route::group(["prefix" => "admin", "middleware" => "auth"], function () {
                 // Update Kendaraan
                 Route::put("kendaraan/update/{id}", "updateKendaraan")->name("update");
 
+                // Update Status Kendaraan
+                Route::get("kendaraan/status/{id}", "updateKendaraan")->name("update.status");
+
                 // Destroy Kendaraan
                 Route::delete("kendaraan/delete/{id}", "destroyKendaraan")->name("destroy");
             });
@@ -131,10 +134,13 @@ Route::group(["prefix" => "admin", "middleware" => "auth"], function () {
                 // Show Asrama
                 Route::get("asrama/show/{id}", "showAsrama")->name("show");
 
-                // Update Fasilitas Asrama
+                // Update Asrama
                 Route::put("asrama/update/{id}", "updateAsrama")->name("update");
 
-                // Destroy Fasilitas Asrama
+                // Update Asrama
+                Route::get("asrama/status/{id}", "updateStatusAsrama")->name("update.status");
+
+                // Destroy Asrama
                 Route::delete("asrama/delete/{id}", "destroyAsrama")->name("delete");
             });
 

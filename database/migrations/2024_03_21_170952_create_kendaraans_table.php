@@ -17,7 +17,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('merk_kendaraan_id')->constrained('merk_kendaraans');
             $table->string('k_plat');
-            $table->integer('k_urutan')->nullable();
+            $table->integer('k_urutan_prioritas')->nullable();
             $table->enum('k_status', ["tersedia", "tidak"]);
             $table->string('k_slug');
             $table->timestamps();

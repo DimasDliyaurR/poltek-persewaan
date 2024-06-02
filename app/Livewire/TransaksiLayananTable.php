@@ -32,7 +32,6 @@ class TransaksiLayananTable extends Component
         if (isset($this->searchAction["search"]) and $this->searchAction["search"] != "")
             $transaksiLayanan = $transaksiService->searchTransaksiLayanan($this->searchAction["search"]);
 
-
         if (request("pdf") == 1) {
             $pdf =  Pdf::loadView("admin.laporan.gedungLap.pdf", [
                 "transaksiGedungLap" => $transaksiLayanan->get()

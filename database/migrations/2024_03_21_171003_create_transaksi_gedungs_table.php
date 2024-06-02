@@ -23,6 +23,7 @@ return new class extends Migration
             $table->dateTime('tg_tanggal_kembali');
             $table->dateTime('tg_tanggal_pelaksanaan');
             $table->bigInteger('tg_sub_total')->nullable();
+            $table->dateTime('tanggal_transaksi')->nullable();
             $table->string('tg_snap_token')->nullable();
             $table->enum('status', ["belum bayar", "terbayar", "kadaluarsa", "batal"])->default("belum bayar");
             $table->timestamps();

@@ -66,30 +66,21 @@ class ApiController extends Controller
 
                 $item = DB::table($modalTable)->where('code_unique', $codeUnique)->update([
                     'status' => "terbayar",
+                    'tanggal_transaksi' => now(),
                 ]);
-
+            } else if ($request->transaction_status == 'expire') {
+                DB::table($modalTable)->where('code_unique', $codeUnique)->update([
+                    'status' => "kadaluarsa",
+                ]);
                 if ($modalTable == "transaksi_alat_barangs") {
                     $transaksiAlatBarang = TransaksiAlatBarang::with(["alatBarangs"])->whereCodeUnique($codeUnique)->first();
 
                     foreach ($transaksiAlatBarang->alatBarangs as $alatBarang) {
                         AlatBarang::whereId($alatBarang->id)->update([
-                            "ab_qty" => $alatBarang->a_qty - 1,
+                            "ab_qty" => $alatBarang->a_qty + 1,
                         ]);
                     }
-                } else if ($modalTable == "transaksi_kendaraans") {
-                    $transaksiKendaraan = TransaksiKendaraan::with("kendaraans")->whereCodeUnique($codeUnique)->get();
-                    foreach ($transaksiKendaraan as $item) {
-                        foreach ($item->kendaraans as $kendaraan) {
-                            $this->kendaraanService->updateKendaraan([
-                                "status" => "tersedia"
-                            ], $kendaraan->id);
-                        }
-                    }
                 }
-            } else if ($request->transaction_status == 'expire') {
-                DB::table($modalTable)->where('code_unique', $codeUnique)->update([
-                    'status' => "kadaluarsa",
-                ]);
             } else if ($request->transaction_status == 'cancel') {
                 DB::table($modalTable)->where('code_unique', $codeUnique)->update([
                     'status' => "batal",
@@ -174,7 +165,7 @@ class ApiController extends Controller
 
 
         $TransaksiGedung = TransaksiGedung::select(
-            DB::raw("DATE_FORMAT(tg_tanggal_pelaksanaan, '%Y-%m') as month"),
+            DB::raw("DATE_FORMAT(tanggal_transaksi, '%Y-%m') as month"),
             DB::raw("SUM(tg_sub_total) as total")
         )
             ->whereYear('created_at', $year)->where("status", "terbayar")
@@ -182,7 +173,7 @@ class ApiController extends Controller
             ->orderBy('month')->get()->toArray();
 
         $TransaksiAsrama = TransaksiAsrama::select(
-            DB::raw("DATE_FORMAT(ta_check_out, '%Y-%m') as month"),
+            DB::raw("DATE_FORMAT(tanggal_transaksi, '%Y-%m') as month"),
             DB::raw("SUM(ta_sub_total) as total")
         )
             ->whereYear('created_at', $year)->where("status", "terbayar")
@@ -190,7 +181,7 @@ class ApiController extends Controller
             ->orderBy('month')->get()->toArray();
 
         $TransaksiLayanan = TransaksiLayanan::select(
-            DB::raw("DATE_FORMAT(tl_tanggal_pelaksanaan, '%Y-%m') as month"),
+            DB::raw("DATE_FORMAT(tanggal_transaksi, '%Y-%m') as month"),
             DB::raw("SUM(tl_sub_total) as total")
         )
             ->whereYear('created_at', $year)->where("status", "terbayar")
@@ -198,7 +189,7 @@ class ApiController extends Controller
             ->orderBy('month')->get()->toArray();
 
         $TransaksiAlatBarang = TransaksiAlatBarang::select(
-            DB::raw("DATE_FORMAT(tab_tanggal_kembali, '%Y-%m') as month"),
+            DB::raw("DATE_FORMAT(tanggal_transaksi, '%Y-%m') as month"),
             DB::raw("SUM(tab_sub_total) as total")
         )
             ->whereYear('created_at', $year)->where("status", "terbayar")
@@ -206,7 +197,7 @@ class ApiController extends Controller
             ->orderBy('month')->get()->toArray();
 
         $TransaksiKendaraan = TransaksiKendaraan::select(
-            DB::raw("DATE_FORMAT(tk_pelaksanaan, '%Y-%m') as month"),
+            DB::raw("DATE_FORMAT(tanggal_transaksi, '%Y-%m') as month"),
             DB::raw("SUM(tk_sub_total) as total")
         )
             ->whereYear('created_at', $year)->where("status", "terbayar")

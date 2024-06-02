@@ -68,11 +68,14 @@ class LaporanTransaksiTerbayarTable extends Component
                     "metode" => $item->paymentMethod->is_dp ? "DP" : "Lunas",
                     "tanggal_sewa" => $q->created_at,
                     "nominal" => $q->tg_sub_total,
+                    "tanggal_pembayaran" => $q->tanggal_transaksi
                 ];
             }
 
             return $arr;
         })->toArray();
+
+        // dd($TransaksiGedung);
 
         $TransaksiAsrama = $TransaksiAsrama->where("status", "terbayar")->get()->map(
             function ($q) {
@@ -82,6 +85,7 @@ class LaporanTransaksiTerbayarTable extends Component
                     "customer" => $q->user->profile->nama_lengkap,
                     "tanggal_sewa" => $q->created_at,
                     "nominal" => $q->ta_sub_total,
+                    "tanggal_pembayaran" => $q->tanggal_transaksi
                 ];
 
                 foreach ($q->asramas as $asrama) {
@@ -101,6 +105,7 @@ class LaporanTransaksiTerbayarTable extends Component
                         "metode" => $item->paymentMethod->is_dp ? "DP" : "Lunas",
                         "tanggal_sewa" => $q->created_at,
                         "nominal" => $q->tl_sub_total,
+                        "tanggal_pembayaran" => $q->tanggal_transaksi
                     ];
                 }
                 return $arr;
@@ -116,6 +121,7 @@ class LaporanTransaksiTerbayarTable extends Component
                     "metode" => $q->alatBarangs[0]->paymentMethod->is_dp ? "DP" : "Lunas",
                     "tanggal_sewa" => $q->created_at,
                     "nominal" => $q->tab_sub_total,
+                    "tanggal_pembayaran" => $q->tanggal_transaksi
                 ];
                 return $arr;
             }
@@ -129,6 +135,7 @@ class LaporanTransaksiTerbayarTable extends Component
                     "customer" => $q->users->profile->nama_lengkap,
                     "tanggal_sewa" => $q->created_at,
                     "nominal" => $q->tk_sub_total,
+                    "tanggal_pembayaran" => $q->tanggal_transaksi
                 ];
                 foreach ($q->kendaraans as $kendaraan) {
                     $arr["metode"] = $kendaraan->merkKendaraan->paymentMethod->is_dp ? "DP" : "Lunas";

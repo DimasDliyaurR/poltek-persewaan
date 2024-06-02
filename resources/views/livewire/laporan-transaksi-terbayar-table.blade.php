@@ -99,6 +99,11 @@
                                 Nominal
                             </div>
                         </th>
+                        <th scope="col" class="px-6 py-3">
+                            <div class="flex items-center">
+                                Tanggal Pembayaran
+                            </div>
+                        </th>
                     </tr>
                 </thead>
                 <tbody id="tbody-pemasukkan">
@@ -119,6 +124,9 @@
                             </td>
                             <td class="px-6 py-4 dark:text-white">
                                 Rp. {{ number_format($item['nominal'], 0, ',', '.') }}
+                            </td>
+                            <td class="px-6 py-4 dark:text-white">
+                                {{ \Carbon\Carbon::parse($item['tanggal_pembayaran'])->isoFormat('D MMMM Y') }}
                             </td>
                         </tr>
                     @empty

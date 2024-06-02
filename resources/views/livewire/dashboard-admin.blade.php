@@ -36,7 +36,7 @@
                         </th>
                         <th scope="col" class="px-6 py-3">
                             <div class="flex items-center">
-                                flow
+                                Status
                             </div>
                         </th>
                     </tr>
@@ -84,27 +84,7 @@
                                 {{ $item['kategori'] }}
                             </td>
                             <td class="px-6 py-4 dark:text-white">
-                                {{-- {{ $item['status'] }} --}}
-                                <div class="flex gap-3">
-                                    @if ($item['status'] == 'belum bayar')
-                                        <button class="block p-2 border border-sea w-10 rounded-md"></button>
-                                    @else
-                                        <button
-                                            class="block p-2 bg-green-400 border border-sea w-10 rounded-md"></button>
-                                    @endif
-                                    @switch($item["status"])
-                                        @case('kadaluarsa')
-                                            <button class="block p-2 bg-red-400 border border-sea w-10 rounded-md"></button>
-                                        @break
-
-                                        @case('terbayar')
-                                            <button class="block p-2 bg-green-400 border border-sea w-10 rounded-md"></button>
-                                        @break
-
-                                        @default
-                                            <button class="block p-2 border border-sea w-10 rounded-md"></button>
-                                    @endswitch
-                                </div>
+                                {{ $item['status'] }}
                             </td>
                         </tr>
                     @endforeach
@@ -132,7 +112,7 @@
                     <li class="order-4">
                         <button
                             @if (count($transaksi) < $batas) wire:click="previousStep" @else wire:click="nextStep" @endif
-                            class="flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">{{ count($transaksi) < $batas ? $next - 1 : $next + 1 }}</button>
+                            class="flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">{{ count($transaksi) < $batas ? ($next - 1 == 0 ? '...' : $next - 1) : $next + $next + 1 }}</button>
                     </li>
                     <li class="order-5">
                         <button wire:click="nextStep"
@@ -148,6 +128,7 @@
                 </ul>
             </nav>
         </div>
+
     </x-layout-detail-transaksi>
 
 
@@ -179,7 +160,7 @@
                 </div>
                 <div class="flex flex-col items-center p-2 border-b-2 border-gray-200">
                     <span class="text-2xl font-bold">{{ count($transaksiSudahBayar) }}</span>
-                    <span class="text-sm">Transaksi Sudah Transaksi</span>
+                    <span class="text-sm">Transaksi Terbayar</span>
                 </div>
                 <div class="flex flex-col items-center p-2">
                     <span class="text-4xl font-bold">{{ count($transaksiBelumBayar) }}</span>

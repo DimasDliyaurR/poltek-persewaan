@@ -4,6 +4,9 @@
     <div class="uppercase text-lg font-bold m-4 dark:text-white h-full">
         Table {{ $title }}
     </div>
+
+    <p class="text-sm ml-4">Atur prioritas pada kendaraan untuk mengatur urutan penyewaan. Urutan akan diprioritaskan yang
+        terkecil untuk setiap merk kendaraan.</p>
     <!-- TABLE START -->
     <x-inner-layout>
 

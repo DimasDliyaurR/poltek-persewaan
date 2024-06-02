@@ -114,7 +114,7 @@ class KendaraanFeController extends Controller
 
             $this->transaksi = $transaksi;
 
-            $MerkKendaraan = MerkKendaraan::with(["kendaraans" => fn ($q) => $q->where("k_status", "tersedia"), "paymentMethod"]);
+            $MerkKendaraan = MerkKendaraan::with(["kendaraans" => fn ($q) => $q->where("k_status", "tersedia")->orderBy("k_urutan", "asc"), "paymentMethod"]);
             foreach ($validation["slug"] as $row => $value) {
                 $MerkKendaraan->where("mk_slug", "=", $value);
             }
@@ -126,13 +126,14 @@ class KendaraanFeController extends Controller
 
                 $this->total_transaksi += $total_harga;
 
+                if ($item->kendaraans->first()->id == null) {
+                    return back()->with("error", "Kendaraan tidak tersedia");
+                }
+
                 $this->kendaraanService->updateKendaraan([
                     "k_status" => "tidak",
                 ], $item->kendaraans->first()->id);
 
-                if ($item->kendaraans->first()->id == null) {
-                    return back()->with("error", "Kendaraan tidak tersedia");
-                }
 
                 DetailTransaksiKendaraan::create([
                     "transaksi_kendaraan_id" => $transaksi->id,
