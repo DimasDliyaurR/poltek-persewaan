@@ -12,6 +12,18 @@ interface PromoService
     public function getAllPromo();
 
     /**
+     * Get Kategori validated Kategori Promo
+     * @throws InvalidArgumentException InvalidArgumentException
+     */
+    public function getValidatedKategoriPromo($kategori);
+
+    /**
+     * Get All Validated kategori Promo
+     * @throws InvalidArgumentException InvalidArgumentException
+     */
+    public function getAllValidatedPromo();
+
+    /**
      * Get Data Promo By Id
      * @param string $id
      * @throws InvalidArgumentException InvalidArgumentException

@@ -39,6 +39,11 @@
                                 Status
                             </div>
                         </th>
+                        <th scope="col" class="px-6 py-3">
+                            <div class="flex items-center">
+                                Tanggal Pembayaran
+                            </div>
+                        </th>
                     </tr>
                 </thead>
                 <tbody id="tbody-pemasukkan">
@@ -85,6 +90,9 @@
                             </td>
                             <td class="px-6 py-4 dark:text-white">
                                 {{ $item['status'] }}
+                            </td>
+                            <td class="px-6 py-4 dark:text-white">
+                                {{ \Carbon\Carbon::parse($item['tanggal_pembayaran'])->isoFormat('D MMMM Y') }}
                             </td>
                         </tr>
                     @endforeach
@@ -134,6 +142,37 @@
 
     <div class="flex sm:flex-row flex-col w-full gap-5">
         <x-layout-detail-transaksi class="sm:w-2/3 w-full">
+            <div class="flex items-center justify-center">
+                {{-- Previouse Step --}}
+                <div class="w-1/12 flex items-center mr-5">
+                    <div class="w-full text-right">
+                        <button class="p-3" id="previousStep">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                                <path stroke-linecap="round" stroke-linejoin="round"
+                                    d="M10.5 19.5 3 12m0 0 7.5-7.5M3 12h18" />
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="text-center font-bold text-black text-2xl uppercase">
+                    Laporan Tahun <span id="year">{{ $year }}</span>
+                </div>
+
+                {{-- Next Step --}}
+                <div class="w-1/12 flex items-center ">
+                    <div class="w-full">
+                        <button class="p-3" id="nextStep">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                                <path stroke-linecap="round" stroke-linejoin="round"
+                                    d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3" />
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+            </div>
 
             <div class="w-full bg-white rounded-lg shadow dark:bg-gray-800 p-4 md:p-6">
                 <div class="flex justify-between mb-5">
@@ -170,28 +209,98 @@
         </x-layout-detail-transaksi>
     </div>
 </div>
-
 @section('script')
     <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
     <script>
-        fetch("http://localhost:8000/api/transaksi")
-            .then(res => res.json())
-            .then((data) => {
-                let dataArray = [{
-                        name: "Developer Edition",
-                        data: [1500, 1418, 1456, 1526, 0, 1256],
-                        color: "#1A56DB",
-                    },
-                    {
-                        name: "Designer Edition",
-                        data: [643, 413, 765, 412, 1423, 1731],
-                        color: "#7E3BF2",
-                    },
-                ]
+        document.addEventListener("DOMContentLoaded", () => {
+            const date = new Date()
+            var tahun = date.getFullYear()
+            var tahunTitle = document.getElementById("year")
 
-                console.log(dataArray, data.date);
+            let next = document.getElementById("nextStep")
+            let previous = document.getElementById("previousStep")
+
+            const options = {
+                // set grid lines to improve the readability of the chart, learn more here: https://apexcharts.com/docs/grid/
+                grid: {
+                    show: true,
+                    strokeDashArray: 4,
+                    padding: {
+                        left: 2,
+                        right: 2,
+                        top: -26
+                    },
+                },
+                series: @json($transaksi_laporan['date']),
+                chart: {
+                    height: "100%",
+                    maxWidth: "100%",
+                    type: "area",
+                    fontFamily: "Inter, sans-serif",
+                    dropShadow: {
+                        enabled: false,
+                    },
+                    toolbar: {
+                        show: false,
+                    },
+                },
+                tooltip: {
+                    enabled: true,
+                    x: {
+                        show: false,
+                    },
+                },
+                legend: {
+                    show: true
+                },
+                fill: {
+                    type: "gradient",
+                    gradient: {
+                        opacityFrom: 0.55,
+                        opacityTo: 0,
+                        shade: "#1C64F2",
+                        gradientToColors: ["#1C64F2"],
+                    },
+                },
+                dataLabels: {
+                    enabled: false,
+                },
+                stroke: {
+                    width: 6,
+                },
+                xaxis: {
+                    categories: @json($transaksi_laporan['categories']),
+                    labels: {
+                        show: false,
+                    },
+                    axisBorder: {
+                        show: false,
+                    },
+                    axisTicks: {
+                        show: false,
+                    },
+                },
+                yaxis: {
+                    show: false,
+                    labels: {
+                        formatter: function(value) {
+                            return 'Rp' + value;
+                        }
+                    }
+                },
+            }
+            if (document.getElementById("grid-chart") && typeof ApexCharts !== 'undefined') {
+                var chart = new ApexCharts(document.getElementById("grid-chart"), options);
+                chart.render();
+            }
+
+            const fetchDataUpdate = async (tahun) => {
+
+                const response = await fetch("http://localhost:8000/api/transaksi/" + tahun)
+                const data = await response.json()
+                tahunTitle.innerHTML = tahun
+
                 const options = {
-                    // set grid lines to improve the readability of the chart, learn more here: https://apexcharts.com/docs/grid/
                     grid: {
                         show: true,
                         strokeDashArray: 4,
@@ -259,10 +368,23 @@
                         }
                     },
                 }
-                if (document.getElementById("grid-chart") && typeof ApexCharts !== 'undefined') {
-                    const chart = new ApexCharts(document.getElementById("grid-chart"), options);
-                    chart.render();
+                if (document.getElementById("grid-chart") && typeof ApexCharts !==
+                    'undefined') {
+                    chart.updateSeries(data.date)
+                    // chart.updateOption(data.date)
                 }
+            }
+
+            next.addEventListener("click", () => {
+                tahun += 1;
+                fetchDataUpdate(tahun)
             })
+
+            previous.addEventListener("click", () => {
+                tahun -= 1;
+                fetchDataUpdate(tahun)
+            })
+
+        });
     </script>
 @endsection

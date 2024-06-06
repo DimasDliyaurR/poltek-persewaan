@@ -11,6 +11,19 @@ interface PromoRepository
     public function getAll();
 
     /**
+     * Get Promo kategori khusus Data Detail Kategori Promo
+     * @param string $kategori
+     * @return object
+     */
+    public function getValidatedKategori(string $kategori);
+
+    /**
+     * Get All Promo Data Detail Kategori Promo
+     * @return object
+     */
+    public function getAllValidated();
+
+    /**
      * Get All data promo
      * @param string $id
      * @return array

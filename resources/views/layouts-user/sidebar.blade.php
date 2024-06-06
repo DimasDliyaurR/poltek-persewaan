@@ -1,5 +1,5 @@
-<aside id="sidebar-multi-level-sidebar"
-    class="max-[640px]:fixed h-auto left-0 z-40 w-[25rem] max-[640px]:h-screen transition-transform -translate-x-full sm:translate-x-0"
+<aside id="dashboard-user"
+    class="max-[640px]:fixed h-auto left-0 z-40 w-[22rem] max-[640px]:h-screen transition-transform -translate-x-full sm:translate-x-0"
     aria-label="Sidebar">
     <div class="h-full w-full px-3 py-4 overflow-y-auto bg-gray-50 dark:bg-gray-800 rounded-lg">
         <div class="flex flex-row items-center gap-5 cursor-pointer mb-10"
@@ -58,8 +58,8 @@
     </div>
 </aside>
 
-<button data-drawer-target="sidebar-multi-level-sidebar" data-drawer-toggle="sidebar-multi-level-sidebar"
-    aria-controls="sidebar-multi-level-sidebar" type="button"
+<button data-drawer-target="dashboard-user" data-drawer-toggle="dashboard-user" aria-controls="dashboard-user"
+    type="button"
     class="inline-flex items-center p-2 mt-2 ms-3 text-sm text-gray-500 rounded-lg sm:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600 dark:bg-gray-800">
     <span class="sr-only">Open sidebar</span>
     <svg class="w-6 h-6" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">

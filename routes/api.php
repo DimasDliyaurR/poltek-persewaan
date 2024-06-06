@@ -35,7 +35,7 @@ Route::controller(ApiController::class)->group(function () {
 
     Route::get("voucher/{promoCode}/{kategori}",  "cekPromo");
 
-    Route::get("transaksi",  "getAllTransaksi");
+    Route::get("transaksi/{year}",  "getAllTransaksi");
 });
 Route::controller(KendaraanApiController::class)->group(function () {
     Route::group(["prefix" => "transportasi"], function () {

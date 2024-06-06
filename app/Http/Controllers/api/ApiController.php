@@ -5,9 +5,7 @@ namespace App\Http\Controllers\api;
 use DatePeriod;
 use DateInterval;
 use Carbon\Carbon;
-use App\Models\Kendaraan;
 use App\Models\AlatBarang;
-use Illuminate\Support\Arr;
 use Illuminate\Http\Request;
 use App\Models\MerkKendaraan;
 use App\Models\TransaksiAsrama;
@@ -17,11 +15,8 @@ use App\Models\TransaksiKendaraan;
 use Illuminate\Support\Facades\DB;
 use App\Models\TransaksiAlatBarang;
 use App\Http\Controllers\Controller;
-use App\Services\handler\Midtrans\Callback;
 use App\Services\handler\Promo\PromoHandler;
 use App\Services\Kendaraan\KendaraanService;
-use App\Http\Controllers\Traits\HandlerPromo;
-use App\Http\Controllers\Traits\FormValidationHelper;
 
 class ApiController extends Controller
 {
@@ -147,17 +142,14 @@ class ApiController extends Controller
             ]);
     }
 
-    public function getAllTransaksi()
+    public function getAllTransaksi($year)
     {
-
-        $year = \Carbon\Carbon::now()->year;
-
         // Month
-        $currentMonth = Carbon::now();
-        $endMonth = $currentMonth->copy()->addYear();
+        $startMonth = Carbon::create(date('Y'), 1, 1);
+        $endMonth = $startMonth->copy()->addYear();
 
         $months = [];
-        $period = new DatePeriod($currentMonth, new DateInterval('P1M'), $endMonth->addMonth());
+        $period = new DatePeriod($startMonth, new DateInterval('P1M'), $endMonth->addMonth());
         foreach ($period as $date) {
             $months[$date->format('Y-m')] = 0;
         }
@@ -265,10 +257,10 @@ class ApiController extends Controller
             "color" => "#7E3BF2"
         ];
 
-        $currentMonth = Carbon::now();
+        $currentMonth = Carbon::create(date("Y"), 1, 20);
         $categories = [];
 
-        for ($i = 0; $i < 12; $i++) {
+        for ($i = 0; $i <    12; $i++) {
             $categories[] = $currentMonth->copy()->isoFormat('MMMM');
             $currentMonth->addRealMonth();
         }
@@ -283,6 +275,7 @@ class ApiController extends Controller
             ],
             "categories" => $categories
         ];
+
 
         return response()->json($transaksi);
     }

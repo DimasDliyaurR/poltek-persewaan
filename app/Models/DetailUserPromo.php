@@ -28,11 +28,11 @@ class DetailUserPromo extends Pivot
 
     public function promos(): BelongsTo
     {
-        return $this->belongsTo(Promo::class);
+        return $this->belongsTo(Promo::class, "promo_id");
     }
 
     public function user(): BelongsTo
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(User::class, "user_id");
     }
 }

@@ -1,6 +1,57 @@
 @extends('layouts-home.navbar.comp')
+@section('scriptlink')
+    <style>
+        .bgImage {
+
+            animation: bgChange 20s linear infinite;
+            background-image: url("{{ asset('img/gerbang.jpg') }}");
+        }
+
+        @keyframes bgChange {
+            0% {
+                background-image: url("{{ asset('../../img/landingpage/gerbang.jpg') }}");
+            }
+
+            20% {
+                background-image: url("{{ asset('../../img/landingpage/bad_2.jpg') }}");
+            }
+
+            25% {
+                background-image: url("{{ asset('../../img/landingpage/bus_kiri.jpg') }}");
+            }
+
+            45% {
+                background-image: url("{{ asset('../../img/landingpage/lab.jpg') }}");
+            }
+
+            50% {
+                background-image: url("{{ asset('../../img/landingpage/marchingband.jpg') }}");
+            }
+
+            70% {
+                background-image: url("{{ asset('../../img/landingpage/marchingband.jpg') }}");
+            }
+
+            75% {
+                background-image: url("{{ asset('../../img/landingpage/lab.jpg') }}");
+            }
+
+            95% {
+                background-image: url("{{ asset('../../img/landingpage/marchingband.jpg') }}");
+            }
+        }
+    </style>
+@endsection
 @section('content')
-    <div class="pt-2 pb-16 bg-slate-100 relative ">
+    <!-- Hero Section Start -->
+    <section id="home" class="pt-20 pb-48 h-2/5 relative  ">
+        <div class="bgImage absolute inset-0   h-full  bg-cover  bg-no-repeat bg-white opacity-50 bg-center">
+        </div>
+    </section>
+    <!-- Hero Section End -->
+    <x-navigasi-kategori />
+
+    <section id="kategori" class="pt-16 pb-16 bg-white ">
         <div class="container">
             <div class="w-full">
                 <div class="max-w-xl mx-auto text-center mb-16">
@@ -78,7 +129,7 @@
         </div>
         <!-- <p class="font-bold uppercase pb-20">cari dengan kata kunci lain </p> -->
 
-    </div>
+        </div>
 
     </section>
     <!-- back to top -->

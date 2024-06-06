@@ -33,6 +33,34 @@ class PromoServiceImplement implements PromoService
     }
 
     /**
+     * Get Kategori validated Kategori Promo
+     * @throws InvalidArgumentException InvalidArgumentException
+     */
+    public function getValidatedKategoriPromo($kategori)
+    {
+        try {
+            $data = $this->promoRepository->getValidatedKategori($kategori);
+        } catch (\Exception $th) {
+            throw new InvalidArgumentException();
+        }
+        return $data;
+    }
+
+    /**
+     * Get All Validated kategori Promo
+     * @throws InvalidArgumentException InvalidArgumentException
+     */
+    public function getAllValidatedPromo()
+    {
+        try {
+            $data = $this->promoRepository->getAllValidated();
+        } catch (\Exception $th) {
+            throw new InvalidArgumentException();
+        }
+        return $data;
+    }
+
+    /**
      * Get Data Promo By Id
      * @param string $id
      * @throws InvalidArgumentException InvalidArgumentException

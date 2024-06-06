@@ -63,7 +63,9 @@ class Promo extends Model
 
     public function user(): BelongsToMany
     {
-        return $this->belongsToMany(User::class, "detail_user_promos", "promo_id", "user_id")->using(DetailUserPromo::class);
+        return $this->belongsToMany(User::class, "detail_user_promos", "promo_id")
+            ->withPivot("user_id")
+            ->using(DetailUserPromo::class);
     }
 
     public function detailUserPromo(): HasMany

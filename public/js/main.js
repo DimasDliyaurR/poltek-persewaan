@@ -2,15 +2,17 @@ let sliderContainer = document.getElementById("sliderContainer");
 let slider = document.getElementById("slider");
 let cards = slider.getElementsByTagName("li");
 
-let elementsToShow = 3;
+let elementsToShow = 3
+console.log(document.body.clientWidth);
 if (document.body.clientWidth < 1000) {
-    elementsToShow = 1;
+    elementsToShow = 1
 } else if (document.body.clientWidth < 1500) {
-    elementsToShow = 2;
+    elementsToShow = 2
 }
 
-let sliderContainerWidth = sliderContainer.clientWidth;
-let cardWidth = sliderContainerWidth / elementsToShow;
+let sliderContainerWidth = sliderContainer.clientWidth
+let cardWidth = Math.ceil(sliderContainerWidth / elementsToShow);
+console.log(sliderContainerWidth)
 
 slider.style.width = cards.length * cardWidth + "px";
 slider.style.transition = "margin ";
@@ -20,15 +22,28 @@ for (let index = 0; index < cards.length; index++) {
     element.style.width = cardWidth + "px";
 }
 
+function convert_positive(a) {
+    // Check the number is negative
+    if (a < 0) {
+        // Multiply number with -1
+        // to make it positive
+        a = a * -1;
+    }
+    // Return the positive number
+    return a;
+}
+
 function prev() {
+    console.log(document.body.clientWidth)
     if (
-        +slider.style.marginLeft.slice(0, -2) !=
+        convert_positive(+slider.style.marginLeft.slice(0, -2)) !=
         -cardWidth * (cards.length - elementsToShow)
     )
         slider.style.marginLeft =
             +slider.style.marginLeft.slice(0, -2) - cardWidth + "px";
 }
 function next() {
+
     if (+slider.style.marginLeft.slice(0, -2) != 0)
         slider.style.marginLeft =
             +slider.style.marginLeft.slice(0, -2) + cardWidth + "px";

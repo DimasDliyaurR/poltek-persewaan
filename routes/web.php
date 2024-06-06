@@ -13,12 +13,14 @@ use App\Http\Controllers\admin\KendaraanController;
 use App\Http\Controllers\admin\AlatBarangController;
 use App\Http\Controllers\admin\DashboardController;
 use App\Http\Controllers\admin\LaporanController;
+use App\Http\Controllers\HomeController;
 use App\Http\Controllers\InvoiceController;
 use App\Http\Controllers\transaksi\AsramaFeController;
 use App\Http\Controllers\transaksi\GedungFeController;
 use App\Http\Controllers\transaksi\LayananFeController;
 use App\Http\Controllers\transaksi\KendaraanFeController;
 use App\Http\Controllers\transaksi\AlatBarangFeController;
+use App\Http\Controllers\user\DashboardUserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -428,10 +430,11 @@ Route::controller(InvoiceController::class)->group(function () {
 
 
 // FrontEnd
-Route::view('/', 'index', [
-    "title" => "Home",
-]);
-Route::view('/kalender', [LandingPageController::class, 'kalender']);
+Route::controller(HomeController::class)->group(function () {
+    Route::get('/', "index");
+});
+
+Route::get('/kalender', [LandingPageController::class, 'kalender']);
 Route::get('/kalender/list', [LandingPageController::class, 'listEvent'])->name('kalender.list');
 
 Route::get('/promo', [LandingPageController::class, 'promo']);
@@ -511,48 +514,56 @@ Auth::routes();
 
 Route::get('/promo', [LandingPageController::class, 'promo']);
 
+Route::controller(DashboardUserController::class)->group(function () {
+    Route::group(["middleware" => "auth", "as" => "dashboard.user."], function () {
+        Route::get("/dashboard", "index")->name("index");
+        Route::get('/invoice', "invoice");
+        Route::get('/voucher', "voucher");
+        Route::get('/riwayat', "pesanan");
+    });
+});
 
-Route::view('/gedung/detail', 'GedungLap.detail', [
-    "title" => "Detail Gedung",
-]);
-Route::view('/gedung/pesan', 'GedungLap.transaksi_pemesanan', [
-    "title" => "Pemesanan Gedung Lap",
-]);
-Route::view('/gedung/invoice', 'GedungLap.invoice', [
-    "title" => "Invoice Gedung Lap",
-]);
-Route::view('/gedung/print', 'GedungLap.invoice_print', [
-    "title" => "Print Invoice Gedung Lap",
-]);
-// TRANSAKSI
-Route::view('/invoice', 'user.invoice', [
-    "title" => "Invoice",
-]);
-Route::view('/riwayat', 'user.riwayat_pesanan', [
-    "title" =>  "Riwayat Pesanan"
-]);
-Route::view('/indexnew', 'indexnew', [
-    "title" => "Home",
-]);
-// USER
-Route::view('/user', 'layouts-user.main', [
-    "title" => "Dashboard User"
-]);
-Route::view('/edit-profile', 'user.edit-profile', [
-    "title" => "Edit Profile"
-]);
-Route::view('/profile', 'user.profile', [
-    "title" => " View Profile"
-]);
-Route::view('/voucher', 'user.riwayat_voucher', [
-    "title" => "Riwayat Voucher"
-]);
-Route::view('/dashboard', 'user.dash', [
-    "title" => "Dashboard"
-]);
-Route::view('/invoice', 'user.riwayat_invoice', [
-    "title" => "Invoice",
-]);
-Route::view('/detail_invoice', 'user.invoice', [
-    "title" => "Invoice",
-]);
+// Route::view('/gedung/detail', 'GedungLap.detail', [
+//     "title" => "Detail Gedung",
+// ]);
+// Route::view('/gedung/pesan', 'GedungLap.transaksi_pemesanan', [
+//     "title" => "Pemesanan Gedung Lap",
+// ]);
+// Route::view('/gedung/invoice', 'GedungLap.invoice', [
+//     "title" => "Invoice Gedung Lap",
+// ]);
+// Route::view('/gedung/print', 'GedungLap.invoice_print', [
+//     "title" => "Print Invoice Gedung Lap",
+// ]);
+// // TRANSAKSI
+// Route::view('/invoice', 'user.invoice', [
+//     "title" => "Invoice",
+// ]);
+// Route::view('/riwayat', 'user.riwayat_pesanan', [
+//     "title" =>  "Riwayat Pesanan"
+// ]);
+// Route::view('/indexnew', 'indexnew', [
+//     "title" => "Home",
+// ]);
+// // USER
+// Route::view('/user', 'layouts-user.main', [
+//     "title" => "Dashboard User"
+// ]);
+// Route::view('/edit-profile', 'user.edit-profile', [
+//     "title" => "Edit Profile"
+// ]);
+// Route::view('/profile', 'user.profile', [
+//     "title" => " View Profile"
+// ]);
+// Route::view('/voucher', 'user.riwayat_voucher', [
+//     "title" => "Riwayat Voucher"
+// ]);
+// Route::view('/dashboard', 'user.dash', [
+//     "title" => "Dashboard"
+// ]);
+// Route::view('/invoice', 'user.riwayat_invoice', [
+//     "title" => "Invoice",
+// ]);
+// Route::view('/detail_invoice', 'user.invoice', [
+//     "title" => "Invoice",
+// ]);

@@ -24,6 +24,32 @@ class PromoRepositoryImplement implements PromoRepository
     }
 
     /**
+     * Get Promo kategori khusus Data Detail Kategori Promo
+     * @param string $kategori
+     * @return object
+     */
+    public function getValidatedKategori(string $kategori)
+    {
+        return $this->promoRepository::where('p_is_umum', true)
+            ->where('p_is_aktif', true)
+            ->where('p_kategori', $kategori)
+            ->where('p_mulai', '<=', now())
+            ->where('p_kadaluarsa', '>=', now());;
+    }
+
+    /**
+     * Get All Promo Data Detail Kategori Promo
+     * @return object
+     */
+    public function getAllValidated()
+    {
+        return $this->promoRepository::where('p_is_umum', true)
+            ->where('p_is_aktif', true)
+            ->where('p_mulai', '<=', now())
+            ->where('p_kadaluarsa', '>=', now());;
+    }
+
+    /**
      * Get All Data Promo With All Relationship Eager Loading
      * @return array
      */

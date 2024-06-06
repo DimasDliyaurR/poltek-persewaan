@@ -73,7 +73,7 @@ class User extends Authenticatable
 
     public function promos()
     {
-        $this->belongsToMany(Promo::class);
+        $this->belongsToMany(Promo::class, "detail_user_promos", "user_id");
     }
 
     public function transaksiAlatBarang(): HasMany
