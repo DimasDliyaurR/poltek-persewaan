@@ -107,13 +107,16 @@
                                     id="{{ $row->id }}" nama="{{ $row->gl_nama }}"></x-delete-button>
                             </td>
                             <td>
-                                <x-button-dropdown-option-table targe="dropdown-{{ $row->id }}" />
+                                <x-button-dropdown-option-table target="dropdown-{{ $row->id }}" />
 
                                 <!-- Dropdown menu -->
                                 <x-dropdown-option-table id="dropdown-{{ $row->id }}">
                                     <x-list-dropdown-option-table
                                         href="{{ route('detailFotoGedungLap.index', $row->id) }}">Tambah
                                         Foto</x-list-dropdown-option-table>
+                                    <x-list-dropdown-option-table
+                                        href="{{ route('detailJadwalGedung.index', $row->id) }}">Tambah
+                                        Jadwal</x-list-dropdown-option-table>
                                 </x-dropdown-option-table>
                             </td>
                         </tr>

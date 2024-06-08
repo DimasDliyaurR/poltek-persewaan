@@ -30,6 +30,22 @@ interface GedungLapService
     public function getDataGedungLapById($id);
 
     /**
+     * Get Data Jadwal Gedung Lapangan By Id
+     * @param id integer
+     * @return object
+     * @throws InvalidArgumentException Jika terdapat Exception
+     */
+    public function getDataJadwalGedungLapById($id);
+
+    /**
+     * Get Data Detail Jadwal Gedung Lapangan By Id
+     * @param id integer
+     * @return object
+     * @throws InvalidArgumentException Jika terdapat Exception
+     */
+    public function getDataDetailJadwalGedungLapById($id);
+
+    /**
      * Get Data Property Gedung By Id
      * @param id integer
      * @return object
@@ -50,6 +66,20 @@ interface GedungLapService
      * @throws InvalidArgumentException Jika terdapat Exception
      */
     public function getAllGedungLap();
+
+    /**
+     * Get All data Jadwal Gedung Lapangan
+     * @return object
+     * @throws InvalidArgumentException Jika terdapat Exception
+     */
+    public function getAllJadwalGedungLap();
+
+    /**
+     * Get All data Detail Jadwal Gedung Lapangan
+     * @return object
+     * @throws InvalidArgumentException Jika terdapat Exception
+     */
+    public function getAllDetailJadwalGedungLap();
 
     /**
      * Store Payment Method
@@ -81,6 +111,22 @@ interface GedungLapService
      * @throws InvalidArgumentException Jika terdapat Exception
      */
     public function storeGedungLap($data);
+
+    /**
+     * Store Jadwal Gedung Lapangan
+     * @param data array
+     * @return object
+     * @throws InvalidArgumentException Jika terdapat Exception
+     */
+    public function storeJadwalGedungLap($data);
+
+    /**
+     * Store Detail Jadwal Gedung Lapangan
+     * @param data array
+     * @return object
+     * @throws InvalidArgumentException Jika terdapat Exception
+     */
+    public function storeDetailJadwalGedungLap($data);
 
     /**
      * Store Gedung Lapangan
@@ -117,6 +163,22 @@ interface GedungLapService
     public function updateGedungLap($data, $id);
 
     /**
+     * Update Jadwal Gedung Lapangan
+     * @param Data array
+     * @param id integer
+     * @return object
+     */
+    public function updateJadwalGedungLap($data, $id);
+
+    /**
+     * Update Detail Jadwal Gedung Lapangan
+     * @param Data array
+     * @param id integer
+     * @return object
+     */
+    public function updateDetailJadwalGedungLap($data, $id);
+
+    /**
      * Delete Detail Foto Gedung Lapangan
      * @param id integer
      * @return boolean
@@ -140,6 +202,22 @@ interface GedungLapService
      * @throws InvalidArgumentException Jika terdapat Exception
      */
     public function destroyGedungLap($id);
+
+    /**
+     * Delete Jadwal Gedung Lapangan
+     * @param id integer
+     * @return boolean
+     * @throws InvalidArgumentException Jika terdapat Exception
+     */
+    public function destroyJadwalGedungLap($id);
+
+    /**
+     * Delete Detail Jadwal Gedung Lapangan
+     * @param id integer
+     * @return boolean
+     * @throws InvalidArgumentException Jika terdapat Exception
+     */
+    public function destroyDetailJadwalGedungLap($id);
 
     /**
      * Delete Property Gedung

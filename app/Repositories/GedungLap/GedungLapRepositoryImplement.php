@@ -21,7 +21,7 @@ class GedungLapRepositoryImplement implements GedungLapRepository
      */
     public function getDataById($id)
     {
-        $gedungData = $this->gedung::whereId($id)->first();
+        $gedungData = $this->gedung::with(["jadwal"])->whereId($id)->first();
 
         return $gedungData;
     }
@@ -32,7 +32,7 @@ class GedungLapRepositoryImplement implements GedungLapRepository
      */
     public function getAll()
     {
-        $gedungData = $this->gedung::with("detailFotoGedungLap");
+        $gedungData = $this->gedung::with(["detailFotoGedungLap", "jadwal"]);
 
         return $gedungData;
     }

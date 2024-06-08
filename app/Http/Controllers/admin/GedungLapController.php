@@ -8,11 +8,13 @@ use Illuminate\Http\Request;
 use InvalidArgumentException;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\gedung_lap\RequestDetailJadwalGedungLap;
 use Illuminate\Support\Facades\Storage;
 use App\Services\GedungLap\GedungLapService;
 use App\Http\Requests\gedungLap\RequestGedungLap;
 use App\Http\Requests\gedungLap\propertyGedungLap\RequestPropertyGedungLap;
 use App\Http\Requests\gedungLap\detailFotoGedungLap\RequestDetailFotoGedungLap;
+use App\Http\Requests\gedungLap\RequestJadwalGedung;
 
 class GedungLapController extends Controller
 {
@@ -169,6 +171,52 @@ class GedungLapController extends Controller
     }
 
     /**
+     * Jadwal Gedung & Lapangan
+     * Index
+     */
+    public function indexJadwalGedungLap()
+    {
+        $jadwalGedungLaps = $this->gedungLapService->getAllJadwalGedungLap(); // Dapatkan semua data gedung Lapangan
+
+        return view("admin.gedungLap.jadwalGedung.lihat", [
+            "title" => "Jadwal Gedung & Lapangan",
+            "action" => "gedunglap",
+            "jadwalGedungLaps" => $jadwalGedungLaps->paginate(5),
+        ]);
+    }
+
+    /**
+     * Jadwal Gedung & Lapangan
+     * Create
+     */
+    public function createJadwalGedungLap(
+        RequestJadwalGedung $request // Request yang sudah ter-validasi
+    ) {
+        $validation = $request->validated(); // Inisiasi request yang sudah ter-validasi
+
+        $gedungLap = $this->gedungLapService->storeJadwalGedungLap($validation); // Create Jadwal Gedung lapangan
+
+        return back()->with("successForm", "Berhasil Menambahkan Jadwal");
+    }
+
+    /**
+     * Gedung Lapangan
+     * Destroy
+     */
+    public function destroyJadwalGedungLap($id)
+    {
+        $gedungLap = $this->gedungLapService->getDataJadwalGedungLapById($id); // Mendapatkan data Gedung Lapangan By Id Gedung Lapangan
+
+        try {
+            $this->gedungLapService->destroyJadwalGedungLap($id); // Hapus data
+        } catch (\Exception $th) {
+            throw new InvalidArgumentException();
+        }
+
+        return back()->with("successTable", "Berhasil Menghapus Jadwal");
+    }
+
+    /**
      * Property Gedung Lapangan
      * Index
      */
@@ -228,13 +276,11 @@ class GedungLapController extends Controller
     public function indexDetailFotoGedungLap($id)
     {
         $gedungLaps = $this->gedungLapService->getDataGedungLapById($id);
-        // $detailFotoGedungLaps = $this->gedungLapService->getDataDetailFotoGedungLapByGedungLapId($id);
 
         return view("admin.gedungLap.detailFotoGedungLap.lihat", [
             "title" => "Gedung & Lapangan",
             "action" => "gedunglap",
             "gedungLaps" => $gedungLaps,
-            // "detailFotoGedungLaps" => $detailFotoGedungLaps,
         ]);
     }
 
@@ -279,6 +325,52 @@ class GedungLapController extends Controller
         } catch (\Exception $th) {
             throw new InvalidArgumentException();
         }
+
+        return back()->with("successTable", "Berhasil Menghapus");
+    }
+
+    /**
+     * Detail Foto Gedung & Lapangan
+     * Index
+     */
+    public function indexDetailJadwalGedungLap($id)
+    {
+        $gedungLaps = $this->gedungLapService->getDataGedungLapById($id);
+        $jadwalGedungLaps = $this->gedungLapService->getAllJadwalGedungLap();
+
+        return view("admin.gedungLap.detailJadwalGedung.lihat", [
+            "title" => "Detail Jadwal Gedung & Lapangan",
+            "action" => "gedunglap",
+            "gedungLaps" => $gedungLaps,
+            "jadwalGedungLaps" => $jadwalGedungLaps->get(),
+        ]);
+    }
+
+    /**
+     * Detail Foto Gedung & Lapangan
+     * Create
+     * @param \App\Http\Requests\gedungLap\RequestDetailJadwalGedungLap $request  Request yang sudah ter-validasi
+     */
+    public function createDetailJadwalGedungLap(RequestDetailJadwalGedungLap $request, $id)
+    {
+        $validation = $request->validated(); // Inisiasi request yang sudah ter-validasi
+        $validation["gedung_lap_id"] = $id;
+        $this->gedungLapService->storeDetailJadwalGedungLap($validation); // Create Gedung lapangan
+
+        return back()->with("successForm", "Berhasil Menambahkan Gedung & Lapangan");
+    }
+
+    /**
+     * Gedung Lapangan
+     * Destroy
+     */
+    public function destroyDetailJadwalGedungLap($id)
+    {
+        // try {
+        $this->gedungLapService->destroyDetailJadwalGedungLap($id); // Hapus data
+        // } catch (\Exception $th) {
+        //     throw new InvalidArgumentException();
+        // }
 
         return back()->with("successTable", "Berhasil Menghapus");
     }

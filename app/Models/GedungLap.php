@@ -33,6 +33,8 @@ class GedungLap extends Model
         'gl_satuan_gedung',
         'gl_kapasitas_gedung',
         'gl_ukuran_gedung',
+        'gl_jam_mulai',
+        'gl_jam_akhir',
         'gl_slug',
         'status',
     ];
@@ -74,6 +76,16 @@ class GedungLap extends Model
     public function promos(): BelongsToMany
     {
         return  $this->belongsToMany(Promo::class);
+    }
+
+    public function jadwal(): BelongsToMany
+    {
+        return  $this->belongsToMany(JadwalGedung::class, "detail_jadwal_gedungs", "gedung_lap_id", "jadwal_id")->withPivot("id");
+    }
+
+    public function detailJadwalGedung()
+    {
+        return $this->hasMany(DetailJadwalGedung::class);
     }
 
     public function paymentMethod(): HasOne

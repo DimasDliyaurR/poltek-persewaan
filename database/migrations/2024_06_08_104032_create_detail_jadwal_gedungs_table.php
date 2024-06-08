@@ -13,6 +13,8 @@ return new class extends Migration
     {
         Schema::create('detail_jadwal_gedungs', function (Blueprint $table) {
             $table->id();
+            $table->foreignId("gedung_lap_id")->constrained("gedung_laps");
+            $table->foreignId("jadwal_id")->constrained("jadwal_gedungs");
             $table->timestamps();
         });
     }

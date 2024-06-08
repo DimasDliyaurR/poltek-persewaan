@@ -13,6 +13,8 @@ return new class extends Migration
     {
         Schema::create('jadwal_gedungs', function (Blueprint $table) {
             $table->id();
+            $table->time("jg_mulai");
+            $table->time("jg_akhir");
             $table->timestamps();
         });
     }
