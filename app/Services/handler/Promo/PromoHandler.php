@@ -104,11 +104,12 @@ class PromoHandler
         return $this->promo;
     }
 
-    public function total($subTotal)
+    public function total($subTotal, $tarif = null)
     {
         $tipe = $this->promo->p_tipe;
-        return ($tipe == "fixed") ?
-            $subTotal - $this->promo->p_isi : $subTotal - ($subTotal * ($this->promo->p_isi / 100));
+        return ($tarif == null) ?
+            (($tipe == "fixed") ? ($subTotal - $this->promo->p_isi) : $subTotal - ($subTotal * ($this->promo->p_isi / 100)))
+            : (($tipe == "fixed") ? ($subTotal - $this->promo->p_isi) : $subTotal - ($tarif * ($this->promo->p_isi / 100)));
     }
 
     public function decreaseStok()

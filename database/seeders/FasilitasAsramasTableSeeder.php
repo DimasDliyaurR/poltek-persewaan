@@ -24,30 +24,30 @@ class FasilitasAsramasTableSeeder extends Seeder
                 'id' => 1,
                 'fa_icon' => 'bath',
                 'fa_nama' => 'Bak Mandi',
-                'fa_tarif' => 20000,
+                'fa_tarif' => 750000,
                 'fa_status' => 'tersedia',
                 'created_at' => '2024-05-15 23:43:51',
-                'updated_at' => '2024-05-15 23:43:51',
+                'updated_at' => '2024-06-08 08:16:02',
             ),
             1 => 
             array (
                 'id' => 2,
                 'fa_icon' => 'shower',
                 'fa_nama' => 'shower',
-                'fa_tarif' => 20000,
+                'fa_tarif' => 30000,
                 'fa_status' => 'tersedia',
                 'created_at' => '2024-05-15 23:43:51',
-                'updated_at' => '2024-05-15 23:43:51',
+                'updated_at' => '2024-06-08 08:15:44',
             ),
             2 => 
             array (
                 'id' => 3,
                 'fa_icon' => 'food',
                 'fa_nama' => 'Sarpan',
-                'fa_tarif' => 20000,
+                'fa_tarif' => 75000,
                 'fa_status' => 'tersedia',
                 'created_at' => '2024-05-16 09:13:53',
-                'updated_at' => '2024-05-16 09:13:53',
+                'updated_at' => '2024-06-08 08:39:21',
             ),
         ));
         

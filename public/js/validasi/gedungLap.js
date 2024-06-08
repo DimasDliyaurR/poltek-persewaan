@@ -3,13 +3,17 @@ $(document).ready(function () {
     let pelaksanaan_error = $("#tg_tanggal_pelaksanaan_error")
     let promo = $("#promo")
     let promo_error = $("#promo_error")
-    let kembali = $("#tg_tanggal_kembali")
+    let satuan = $("#satuan")
+    let satuan_error = $("#satuan_error")
+    let kembali = $("input#tg_tanggal_kembali")
     let kembali_error = $("#tg_tanggal_kembali_error")
     let tujuan = $("#tg_tujuan")
     let tujuan_error = $("#tg_tujuan_error")
+    let tanggal_kembali_field = $("#tanggal_kembali")
 
     let isPelaksanaanValidated = true
     let isKembaliValidated = true
+    let isSatuanValidated = true
     let isPromoValidated = true
     let isTujuanValidated = true
     let timeout = null
@@ -31,7 +35,7 @@ $(document).ready(function () {
                 promo_error.text("")
             }
 
-            fetch(`http://localhost:8000/api/voucher/${val}/kendaraans`)
+            fetch(`http://localhost:8000/api/voucher/${val}/gedung_laps`)
                 .then((res) => res.json())
                 .then((data) => {
                     if (data.error == true) {
@@ -74,6 +78,18 @@ $(document).ready(function () {
         return isPelaksanaanValidated
     }
 
+    function toggleDurasi() {
+        console.log(tanggal_kembali_field);
+        tanggal_kembali_field.removeClass("hidden")
+        let satuanValue = satuan.val()
+        console.log(kembali.type);
+        if (satuanValue == "jam") {
+            kembali.attr("type", "time")
+        } else {
+            kembali.attr("type", "date")
+        }
+    }
+
     function validationKembali() {
         if (kembali.val() == "") {
             kembali_error.removeClass("hidden")
@@ -86,6 +102,20 @@ $(document).ready(function () {
         }
 
         return isKembaliValidated
+    }
+
+    function validationSatuan() {
+        if (satuan.val() == "") {
+            satuan_error.removeClass("hidden")
+            satuan_error.text("Tanggal kembali mohon diisi!")
+            isSatuanValidated = false
+        } else {
+            satuan_error.addClass("hidden")
+            satuan_error.text("")
+            isSatuanValidated = true
+        }
+
+        return isSatuanValidated
     }
 
     function validationTujuan() {
@@ -154,11 +184,13 @@ $(document).ready(function () {
     pelaksanaan.on("input", validationPelaksanaan)
     kembali.on("input", validationKembali)
     promo.on("input", ValidationPromo)
+    satuan.on("change", toggleDurasi)
+    tujuan.on("click", validationTujuan)
     pesan.on("click", toggleForm)
     submit.click(validate)
 
     setInterval(() => {
-        if (isPelaksanaanValidated && isKembaliValidated && isTujuanValidated && isPromoValidated) {
+        if (isPelaksanaanValidated && isSatuanValidated && isKembaliValidated && isTujuanValidated && isPromoValidated) {
             submit.attr("disabled", false)
         } else {
             submit.attr("disabled", true)

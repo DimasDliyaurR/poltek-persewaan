@@ -32,6 +32,7 @@ class TransaksiAlatBarang extends Model
         'status',
         "tab_snap_token",
         "tab_sub_total",
+        "tab_qty",
     ];
 
     /**

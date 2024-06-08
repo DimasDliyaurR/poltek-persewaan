@@ -165,7 +165,7 @@ class LayananFeController extends Controller
                 ]);
             }
             // Apakah Promo sudah terdeteksi
-            if ($this->checkPromo())
+            if (!$this->checkPromo())
                 back()->withErrors([
                     "promo" => "Promo Sudah Habis"
                 ]);
@@ -201,13 +201,18 @@ class LayananFeController extends Controller
 
     public function pembayaran($codeUnique)
     {
-        $detailTransaksi = TransaksiLayanan::with(["layanans.paymentMethod", "promo",])->whereCodeUnique($codeUnique)->get();
+        $detailTransaksi = TransaksiLayanan::with(["layanans.paymentMethod", "promo",])->whereCodeUnique($codeUnique);
+
+        if (!$detailTransaksi->exists()) {
+            abort(404);
+        }
+
+        $detailTransaksi = $detailTransaksi->get();
+
         if ($detailTransaksi[0]->status == "terbayar") {
             return redirect()->route("invoice.layanan", $detailTransaksi[0]->code_unique);
         }
         $sub_total = 0;
-
-        // dd($detailTransaksi);
 
         foreach ($detailTransaksi as $transaksi) {
             $promo = $transaksi->promo;

@@ -20,6 +20,7 @@ return new class extends Migration
             $table->string('code_unique');
             $table->dateTime('tab_tanggal_pesanan');
             $table->dateTime('tab_tanggal_kembali');
+            $table->integer('tab_qty');
             $table->string('tab_keterangan');
             $table->bigInteger('tab_sub_total')->nullable();
             $table->string('tab_snap_token')->nullable();

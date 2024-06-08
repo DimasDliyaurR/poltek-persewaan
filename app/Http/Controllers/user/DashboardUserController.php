@@ -288,7 +288,7 @@ class DashboardUserController extends Controller
 
         return view('user.dash', [
             "title" => "Dashboard",
-            "semuaTransaksi" => $semuaTransaksi,
+            "semuaTransaksi" => array_slice($semuaTransaksi, 0, 5),
             "pengeluaran" => $pengeluaran,
             "terbayar" => $terbayar,
             "tidak_terbayar" => $tidak_terbayar,

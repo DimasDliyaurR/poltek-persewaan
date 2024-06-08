@@ -34,8 +34,10 @@
                                 @foreach ($item->asramas as $subItem)
                                     <tr class="bg-white border-b">
                                         <td class="px-1 py-4">{{ $subItem->a_nama_ruangan }}</td>
-                                        <td class="px-6 py-4">{{ date('D M Y', strtotime($item->ta_check_in)) }}</td>
-                                        <td class="px-6 py-4">{{ date('D M Y', strtotime($item->ta_check_out)) }}</td>
+                                        <td class="px-6 py-4">
+                                            {{ \Carbon\Carbon::parse($item->ta_check_in)->isoFormat('D MMM Y') }}</td>
+                                        <td class="px-6 py-4">
+                                            {{ \Carbon\Carbon::parse($item->ta_check_out)->isoFormat('D MMM Y') }}</td>
                                         <td class="px-6 py-4">Rp
                                             {{ number_format(!$subItem->tipeAsrama->paymentMethod->is_dp ? $subItem->tipeAsrama->ta_tarif : $subItem->tipeAsrama->paymentMethod->tarif_dp, 0, ',', '.') }}
 
@@ -46,15 +48,13 @@
                             @if ($totalPromo)
                                 <tr>
                                     <td colspan="3" class="px-6 py-1">Diskon </td>
-                                    <td class="px-6 py-1">Rp {{ $totalPromo }}</td>
+                                    <td class="px-6 py-1">Rp {{ number_format($totalPromo, 0, ',', '.') }}</td>
                                 </tr>
                             @endif
                             <tr>
                                 <td colspan="3" class="px-6 py-4">Sub Total </td>
                                 <td class="px-6 py-4">Rp {{ number_format($total, 0, ',', '.') }}</td>
                             </tr>
-
-
                         </tbody>
                     </table>
                 </div>
@@ -92,33 +92,5 @@
             })
             // customer will be redirected after completing payment pop-up
         });
-
-        // var payButton = document.getElementById('pay-button');
-        // payButton.addEventListener('click', function() {
-        //     // Trigger snap popup. @TODO: Replace TRANSACTION_TOKEN_HERE with your transaction token.
-        //     // Also, use the embedId that you defined in the div above, here.
-        //     window.snap.embed('{{ $snapToken }}', {
-        //         embedId: 'snap-container',
-        //         onSuccess: function(result) {
-        //             /* You may add your own implementation here */
-        //             alert("payment success!");
-        //             console.log(result);
-        //         },
-        //         onPending: function(result) {
-        //             /* You may add your own implementation here */
-        //             alert("wating your payment!");
-        //             console.log(result);
-        //         },
-        //         onError: function(result) {
-        //             /* You may add your own implementation here */
-        //             alert("payment failed!");
-        //             console.log(result);
-        //         },
-        //         onClose: function() {
-        //             /* You may add your own implementation here */
-        //             alert('you closed the popup without finishing the payment');
-        //         }
-        //     });
-        // });
     </script>
 @endsection

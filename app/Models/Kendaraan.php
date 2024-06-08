@@ -25,6 +25,7 @@ class Kendaraan extends Model
         'k_nama',
         'k_status',
         'k_slug',
+        'k_urutan_prioritas',
     ];
 
     /**

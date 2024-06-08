@@ -221,11 +221,11 @@
                             {{ $row->k_status }}
                         </td>
                         <td class="px-6 py-4 dark:text-white">
-                            {{ $row->k_urutan }}
+                            {{ $row->k_urutan_prioritas }}
                         </td>
                         <td class="px-6 py-4 text-right">
                             @if ($row->k_status == 'tidak')
-                                <x-update-status-button href="{{ route('kendaraan.status.update', $row->id) }}"
+                                <x-update-status-button href="{{ route('kendaraan.update.status', $row->id) }}"
                                     :isBack="true">
                                     Kendaraan belum kembali
                                 </x-update-status-button>

@@ -53,12 +53,35 @@
                 @enderror
             </div>
 
-            <div class="mb-5">
+            <div class="mb-5 hidden">
                 <label for="gl_satuan_gedung"
                     class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Satuan</label>
                 <input name="gl_satuan_gedung"
                     class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-4 @error('gl_satuan_gedung') border-red-500 @enderror"
                     value="{{ $gedungLap->gl_satuan_gedung }}" type="text">
+            </div>
+
+            <div class="mb-5">
+                <label for="gl_satuan_gedung"
+                    class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Satuan</label>
+
+                <div class="flex items-center mb-4">
+                    <input id="jam" type="checkbox" value=""
+                        class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+                    <label for="jam" class="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">Jam</label>
+                </div>
+
+                <div class="flex items-center mb-4">
+                    <input id="hari" type="checkbox" value=""
+                        class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+                    <label for="hari" class="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">Hari</label>
+                </div>
+
+                <div class="flex items-center mb-4">
+                    <input id="bulan" type="checkbox" value=""
+                        class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+                    <label for="bulan" class="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">Bulan</label>
+                </div>
                 @error('gl_satuan_gedung')
                     <span class="text-red-600 text-sm">{{ $message }}</span>
                 @enderror
@@ -114,4 +137,5 @@
 
 @section('script')
     <script src="{{ asset('js/feature/dp-field-toggle-edit.js') }}"></script>
+    <script src="{{ asset('js/feature/add-satuan.js') }}"></script>
 @endsection

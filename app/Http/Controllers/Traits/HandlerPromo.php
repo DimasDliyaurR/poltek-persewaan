@@ -48,25 +48,26 @@ trait HandlerPromo
      * 
      * @return bool
      */
-    public function checkPromo()
+    public function checkPromo($tarif = 0)
     {
         if ($this->checkPromo) {
             // Apakah Promo masih tersisa
             if ($this->promo->getStok() > 0 or $this->promo->isStokUnlimited()) {
                 // Perhitungan Promo dengan Subtotal
-                $this->total_transaksi = $this->total_transaksi - $this->promo->total($this->total_transaksi);
+                if ($tarif != 0) {
+                    $this->total_transaksi = $this->promo->total($this->total_transaksi, $tarif);
+                } else {
+                    $this->total_transaksi = $this->promo->total($this->total_transaksi);
+                }
                 // Pengurangan Kapasitas Promo
                 if (!$this->promo->isStokUnlimited()) {
                     $this->promo->decreaseStok();
                 }
 
                 $this->promo->addDetailUser();
-                return true;
             } else {
                 return false;
             }
-        } else {
-            return false;
         }
     }
 

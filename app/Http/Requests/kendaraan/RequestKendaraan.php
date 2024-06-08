@@ -31,11 +31,13 @@ class RequestKendaraan extends FormRequest
                     "required",
                     Rule::unique('kendaraans', 'k_plat')->ignore($kendaraan->id),
                 ],
+                "k_urutan_prioritas" => "required|numeric",
             ];
         }
         return [
             "merk_kendaraan_id" => "required",
             "k_plat" => "required|unique:kendaraans",
+            "k_urutan_prioritas" => "required|numeric",
         ];
     }
 
@@ -45,6 +47,8 @@ class RequestKendaraan extends FormRequest
             "merk_kendaraan_id.required" => "Merk Kendaraan Belum diisi",
             "k_plat.required" => "Plat Nomor Belum diisi",
             "k_plat.unique" => "Plat Nomor Sudah digunakan",
+            "k_urutan.required" => "Urutan mohon diisi !",
+            "k_urutan.numeric" => "Urutan mohon diisi menggunakan angka !",
         ];
     }
 }

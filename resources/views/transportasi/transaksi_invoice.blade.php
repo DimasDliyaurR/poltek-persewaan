@@ -36,7 +36,14 @@
                                     <tr class="bg-white border-b">
                                         <td class="px-1 py-4">{{ $subItem->merkKendaraan->mk_merk }}</td>
                                         <td class="px-1 py-4">Rp
-                                            {{ number_format($subItem->merkKendaraan->paymentMethod->is_dp ? $subItem->merkKendaraan->mk_tarif : $subItem->merkKendaraan->paymentMethod->tarif_dp, 0, ',', '.') }}
+                                            {{ number_format(
+                                                $subItem->merkKendaraan->paymentMethod->is_dp
+                                                    ? $subItem->merkKendaraan->paymentMethod->tarif_dp
+                                                    : $subItem->merkKendaraan->mk_tarif,
+                                                0,
+                                                ',',
+                                                '.',
+                                            ) }}
                                         </td>
                                         <td class="px-6 py-4">
                                             {{ \Carbon\Carbon::parse(date('d M Y', $item->tk_tanggal_sewa))->isoFormat('D MMMM Y') }}
@@ -53,12 +60,12 @@
                             @endforeach
                             @if ($totalPromo)
                                 <tr>
-                                    <td colspan="3" class="px-6 py-1">Diskon </td>
-                                    <td class="px-6 py-1">Rp {{ $totalPromo }}</td>
+                                    <td colspan="4" class="px-6 py-1">Potongan harga </td>
+                                    <td class="px-6 py-1">Rp {{ number_format($totalPromo, 0, ',', '.') }}</td>
                                 </tr>
                             @endif
                             <tr>
-                                <td colspan="5" class="px-6 py-4">Sub Total</td>
+                                <td colspan="4" class="px-6 py-4">Sub Total</td>
                                 <td class="px-6 py-4">Rp {{ number_format($total, 0, ',', '.') }}</td>
                             </tr>
 

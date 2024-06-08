@@ -33,7 +33,7 @@ class KendaraanTable extends Component
     public function render(KendaraanService $kendaraanService)
     {
         // if (!isset($this->searchAction[0])) $kendaraans = $kendaraanService->getAllDataKendaraanWithMerkKendaraan()->join("merk_kendaraans", "merk_kendaraans.id", "=", "kendaraans.merk_kendaraan_id"); // Inisialisasi Semua Data Kendaraan
-        if (($this->searchAction[0] == "")) $kendaraans = $kendaraanService->getAllDataKendaraanWithMerkKendaraan()->join("merk_kendaraans", "merk_kendaraans.id", "=", "kendaraans.merk_kendaraan_id"); // Inisialisasi Semua Data Kendaraan
+        if (($this->searchAction[0] == "")) $kendaraans = $kendaraanService->getAllDataKendaraanWithMerkKendaraan()->select("kendaraans.*", "merk_kendaraans.mk_merk")->join("merk_kendaraans", "merk_kendaraans.id", "=", "kendaraans.merk_kendaraan_id"); // Inisialisasi Semua Data Kendaraan
 
         if ($this->searchAction[0] != "") $kendaraans = $kendaraanService->searchKendaraan($this->searchAction[0]); // Search
 

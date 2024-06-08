@@ -27,6 +27,14 @@ class AlatBarangPaymentMethodsTableSeeder extends Seeder
                 'created_at' => '2024-05-12 10:51:52',
                 'updated_at' => '2024-05-12 10:51:52',
             ),
+            1 => 
+            array (
+                'alat_barang_id' => 2,
+                'is_dp' => 0,
+                'tarif_dp' => 0,
+                'created_at' => '2024-06-08 09:57:36',
+                'updated_at' => '2024-06-08 09:57:36',
+            ),
         ));
         
         

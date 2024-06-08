@@ -61,6 +61,18 @@
                 @enderror
             </div>
 
+            <div class="mb-5">
+                <label for="k_urutan_prioritas"
+                    class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Urutan</label>
+                <input name="k_urutan_prioritas"
+                    class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-4 @error('k_urutan_prioritas') border-red-500 @enderror"
+                    value="{{ old('k_urutan_prioritas') }}" type="text">
+
+                @error('k_urutan_prioritas')
+                    <span class="text-red-600 text-sm">{{ $message }}</span>
+                @enderror
+            </div>
+
             <button class="p-2 w-80 bg-gray-900 rounded-md text-white text-sm">Submit</button>
         </form>
 

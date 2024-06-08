@@ -30,6 +30,7 @@ class GedungFeController extends Controller
             $gedung_lap->where('gl_nama', 'like', "%" . request('search') . "%")
                 ->orWhere('gl_keterangan', 'like', '%' . request('search') . '%');
         }
+
         return view('GedungLap.index', [
             "title" => "Gedung Lapangan",
             "gedung_lap" => $gedung_lap->paginate(3)
@@ -42,9 +43,12 @@ class GedungFeController extends Controller
         if (!$gedung_lap)
             abort(404);
 
+        $gedungSplit = explode(",", $gedung_lap->gl_satuan_gedung[0] == "," ? substr($gedung_lap->gl_satuan_gedung, 1, strlen($gedung_lap->gl_satuan_gedung)) : $gedung_lap->gl_satuan_gedung);
+
         return view('gedungLap.detail', [
             "title" => "Gedung",
-            "gedung_lap" => $gedung_lap
+            "gedung_lap" => $gedung_lap,
+            "gedungSplit" => $gedungSplit,
         ]);
     }
 
@@ -152,15 +156,19 @@ class GedungFeController extends Controller
         if ($transaction)
             $transaction;
 
-
-
-
         return redirect()->route("gedung.pembayaran", $this->transaksi->code_unique);
     }
 
     public function pembayaran($codeUnique)
     {
-        $detailTransaksi = TransaksiGedung::with(["gedungLap.paymentMethod", "promo",])->whereCodeUnique($codeUnique)->get();
+        $detailTransaksi = TransaksiGedung::with(["gedungLap.paymentMethod", "promo",])->whereCodeUnique($codeUnique);
+
+        if (!$detailTransaksi->exists()) {
+            abort(404);
+        }
+
+        $detailTransaksi = $detailTransaksi->get();
+
         if ($detailTransaksi[0]->status == "terbayar") {
             return redirect()->route("invoice.gedungLap", $detailTransaksi[0]->code_unique);
         }
@@ -178,16 +186,11 @@ class GedungFeController extends Controller
             $total += $transaksi->tg_sub_total;
         }
 
-        $promo = $promo != null ? ($detailTransaksi->promo->tipe == "fixed") ?
-            $sub_total - $this->promo->p_isi : $sub_total - ($sub_total * ($this->promo->p_isi / 100)) : null;
+        foreach ($detailTransaksi as $promo) {
+            $promo = $promo != null ? (($promo->promo->tipe == "fixed") ?
+                $sub_total - $promo->p_isi : $sub_total - ($sub_total * ($promo->p_isi / 100))) : null;
+        }
 
-        // dd([
-        //     "title" => "pembayaran",
-        //     "snapToken" => $snap_token,
-        //     "detailTransaksi" => $detailTransaksi,
-        //     "totalPromo" => $promo,
-        //     "total" => $total,
-        // ]);
 
         return view("gedungLap.transaksi_invoice", [
             "title" => "pembayaran",

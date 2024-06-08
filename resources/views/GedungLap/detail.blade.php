@@ -77,14 +77,6 @@
                             <p class="text-red-500 text-sm hidden" id="tg_tanggal_pelaksanaan_error"></p>
                         </div>
                         <div class=" mb-2 space-y-2">
-                            <label for="tg_tanggal_kembali"
-                                class=" block mb-2 text-sm font-medium text-gray-900 dark:text-white">Tanggal
-                                Kembali</label>
-                            <input id="tg_tanggal_kembali" name="tg_tanggal_kembali" type="date"
-                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                            <p class="text-red-500 text-sm hidden" id="tg_tanggal_kembali_error"></p>
-                        </div>
-                        <div class=" mb-2 space-y-2">
                             <label for="promo"
                                 class=" block mb-2 text-sm font-medium text-gray-900 dark:text-white">Voucher</label>
                             <input id="promo" name="promo" type="text"
@@ -92,6 +84,27 @@
                             <p class="text-red-500 text-sm hidden" id="promo_error"></p>
                         </div>
                     </div>
+                    <div class=" mb-2 space-y-2">
+                        <label for="satuan"
+                            class=" block mb-2 text-sm font-medium text-gray-900 dark:text-white">Satuan</label>
+                        <select id="satuan" name="satuan" type="text"
+                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                            <option disabled selected>-- PILIH SATUAN --</option>
+                            @foreach ($gedungSplit as $item)
+                                <option value="{{ $item }}">{{ $item }}</option>
+                            @endforeach
+                        </select>
+                        <p class="text-red-500 text-sm hidden" id="satuan_error"></p>
+                    </div>
+
+                    <div class=" mb-2 space-y-2 hidden" id="tanggal_kembali">
+                        <label for="tg_tanggal_kembali"
+                            class=" block mb-2 text-sm font-medium text-gray-900 dark:text-white">Durasi</label>
+                        <input id="tg_tanggal_kembali" name="tg_tanggal_kembali" type="date"
+                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                        <p class="text-red-500 text-sm hidden" id="tg_tanggal_kembali_error"></p>
+                    </div>
+
                     <div class=" mb-2 space-y-2">
                         <label for="tg_tujuan"
                             class=" block mb-2 text-sm font-medium text-gray-900 dark:text-white">Tujuan</label>
@@ -143,4 +156,5 @@
 @section('script')
     <script src="{{ asset('js/feature/multiple-images.js') }}"></script>
     <script src="{{ asset('js/validasi/gedungLap.js') }}"></script>
+    <script></script>
 @endsection

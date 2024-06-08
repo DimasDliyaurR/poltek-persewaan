@@ -22,10 +22,10 @@ class AsramaPaymentMethodsTableSeeder extends Seeder
             0 => 
             array (
                 'tipe_asrama_id' => 1,
-                'is_dp' => 1,
+                'is_dp' => 0,
                 'tarif_dp' => 300000,
                 'created_at' => '2024-05-15 23:43:51',
-                'updated_at' => '2024-05-15 23:43:51',
+                'updated_at' => '2024-06-08 09:08:06',
             ),
             1 => 
             array (

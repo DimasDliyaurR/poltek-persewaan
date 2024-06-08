@@ -61,7 +61,7 @@
                         {{ $title }}</h2>
                 </div>
 
-                <div class="pt-10 pb-20  relative md:max-auto">
+                <div class="pt-10 pb-20 relative md:max-auto">
                     <form action="/transportasi" class="w-56 absolute right-4">
                         <label for="default-search"
                             class="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white ">Search</label>

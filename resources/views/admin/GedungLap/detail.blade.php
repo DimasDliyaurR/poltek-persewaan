@@ -41,7 +41,8 @@
 
             <div class="flex flex-col mb-4">
                 <span class="font-semibold mb-3">Satuan</span>
-                <span class="p-4 rounded-lg bg-gray-100">{{ $gedungLap->gl_satuan_gedung }}</span>
+                <span
+                    class="p-4 rounded-lg bg-gray-100">{{ str_replace(',', ' ', substr($gedungLap->gl_satuan_gedung, 1, strlen($gedungLap->gl_satuan_gedung))) }}</span>
             </div>
         </div>
     </x-inner-layout>

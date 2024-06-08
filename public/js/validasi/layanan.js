@@ -31,7 +31,7 @@ $(document).ready(function () {
                 promo_error.text("")
             }
 
-            fetch(`http://localhost:8000/api/voucher/${val}/kendaraans`)
+            fetch(`http://localhost:8000/api/voucher/${val}/layanans`)
                 .then((res) => res.json())
                 .then((data) => {
                     if (data.error == true) {

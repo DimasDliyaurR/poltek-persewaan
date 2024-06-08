@@ -21,7 +21,6 @@ class RequestGedungLap extends FormRequest
      */
     public function rules(): array
     {
-
         if ($this->getMethod() == "PUT") {
             return [
                 "gl_foto" => "image",

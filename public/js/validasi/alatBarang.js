@@ -3,6 +3,8 @@ $(document).ready(function () {
     let tab_tanggal_pesanan_error = $("#tab_tanggal_pesanan_error")
     let tab_tanggal_kembali = $("input#tab_tanggal_kembali")
     let tab_tanggal_kembali_error = $("#tab_tanggal_kembali_error")
+    let tab_qty = $("input#tab_qty")
+    let tab_qty_error = $("#tab_qty_error")
     let promo = $("input#promo")
     let promo_error = $("#promo_error")
     let keterangan = $("input#tab_keterangan")
@@ -15,6 +17,7 @@ $(document).ready(function () {
     let isKembaliValidated = true
     let isPromoValidated = true
     let isKeteranganValidated = true
+    let isQtyValidated = true
 
     let dropdown = $("#dropdown")
     let submit = $("#submit-dropdown")
@@ -63,7 +66,6 @@ $(document).ready(function () {
     }
 
     function validationKeterangan() {
-        console.log(keterangan.val());
         if (keterangan.val() == "") {
             keterangan_error.removeClass("hidden")
             keterangan_error.text("Tanggal Durasi mohon diisi!")
@@ -76,6 +78,19 @@ $(document).ready(function () {
         return isKeteranganValidated
     }
 
+    function validationKeterangan() {
+        if (tab_qty.val() == "") {
+            tab_qty_error.removeClass("hidden")
+            tab_qty_error.text("Tanggal Durasi mohon diisi!")
+            isQtyValidated = false
+        } else {
+            tab_qty_error.addClass("hidden")
+            tab_qty_error.text("")
+            isQtyValidated = true
+        }
+        return isQtyValidated
+    }
+
     function ValidationPromo() {
         clearTimeout(timeout)
         timeout = setTimeout(() => {
@@ -86,7 +101,7 @@ $(document).ready(function () {
                 promo_error.text("")
             }
 
-            fetch(`http://localhost:8000/api/voucher/${val}/kendaraans`)
+            fetch(`http://localhost:8000/api/voucher/${val}/alat_barangs`)
                 .then((res) => res.json())
                 .then((data) => {
                     if (data.error == true) {
@@ -112,6 +127,7 @@ $(document).ready(function () {
                 data: {
                     tab_tanggal_pesanan: tab_tanggal_pesanan.val(),
                     tab_tanggal_kembali: tab_tanggal_kembali.val(),
+                    tab_qty: tab_qty.val(),
                     slug: slug,
                 },
                 header: {
@@ -159,7 +175,7 @@ $(document).ready(function () {
     submit.click(validate)
 
     setInterval(() => {
-        if (isPesananValidated && isKembaliValidated && isPromoValidated && isKeteranganValidated) {
+        if (isPesananValidated && isKembaliValidated && isPromoValidated && isQtyValidated && isKeteranganValidated) {
             submit.attr("disabled", false)
         } else {
             submit.attr("disabled", true)

@@ -17,6 +17,7 @@ class AlatBarangFeController extends Controller
     // Inisiasi Transaksi
     private $transaksi;
     private $total_transaksi = 0;
+    private $tarif = 0;
     private $inputPromo;
     private $snapToken;
 
@@ -87,6 +88,7 @@ class AlatBarangFeController extends Controller
         $validation = $request->validate([
             "tab_tanggal_pesanan" => "required",
             "tab_tanggal_kembali" => "required",
+            "tab_qty" => "required",
             "tab_keterangan" => "required",
             "slug" => "required",
         ]);
@@ -119,27 +121,34 @@ class AlatBarangFeController extends Controller
                 "code_unique" => auth()->user()->id . strtotime(now()) . "@400",
                 "tab_tanggal_pesanan" => $validation["tab_tanggal_pesanan"],
                 "tab_tanggal_kembali" => $validation["tab_tanggal_kembali"],
+                "tab_qty" => $validation["tab_qty"],
                 "tab_keterangan" => $validation["tab_keterangan"],
             ]);
 
             $this->transaksi = $transaksi;
 
             // Store Detail Transaksi
-            foreach ($validation["slug"] as $row => $value) {
-                $alatBarang = AlatBarang::with("paymentMethod")->where("ab_slug", "=", $value)->first();
-                $total_harga = $alatBarang->paymentMethod->is_dp ? $alatBarang->paymentMethod->tarif_dp : $alatBarang->ab_tarif;
+            $alatBarang = AlatBarang::with("paymentMethod");
+            foreach ($validation["slug"] as $value) {
+                $alatBarang->where("ab_slug", "=", $value);
+            }
+
+            foreach ($alatBarang->get() as $barang) {
+                $durasi = intdiv(strtotime($validation["tab_tanggal_kembali"]) - strtotime($validation["tab_tanggal_pesanan"]), (60 * 60 * 24));
+                $this->tarif = $barang->paymentMethod->is_dp ? $barang->paymentMethod->tarif_dp : $barang->ab_tarif;
+                $total_harga = ($this->tarif * $validation["tab_qty"]) * $durasi;
 
                 $this->total_transaksi += $total_harga;
 
                 DetailTransaksiAlatBarang::create([
                     "transaksi_alat_barang_id" => $transaksi->id,
-                    "alat_barang_id" => $alatBarang->id,
+                    "alat_barang_id" => $barang->id,
                     "dta_harga" => $total_harga,
                 ]);
             }
 
             // Apakah Promo sudah terdeteksi
-            if ($this->checkPromo()) {
+            if ($this->checkPromo($this->tarif)) {
                 return back()->withErrors([
                     "promo" => "Promo Sudah Habis"
                 ]);
@@ -174,7 +183,13 @@ class AlatBarangFeController extends Controller
 
     public function pembayaran($codeUnique)
     {
-        $detailTransaksi = TransaksiAlatBarang::with(["alatBarangs" => ["paymentMethod", "satuanAlatBarangs"], "promo",])->whereCodeUnique($codeUnique)->get();
+        $detailTransaksi = TransaksiAlatBarang::with(["alatBarangs" => ["paymentMethod", "satuanAlatBarangs"], "promo",])->whereCodeUnique($codeUnique);
+
+        if (!$detailTransaksi->exists()) {
+            abort(404);
+        }
+
+        $detailTransaksi = $detailTransaksi->get();
 
         if ($detailTransaksi[0]->status == "terbayar") {
             return redirect()->route("invoice.alatBarang", $detailTransaksi[0]->code_unique);
@@ -188,13 +203,13 @@ class AlatBarangFeController extends Controller
             foreach ($transaksi->alatBarangs as $alatBarang) {
                 $sub_total += $alatBarang->ab_tarif;
             }
+            $promo = $promo != null ? (($transaksi->promo->p_tipe == "fixed") ?
+                $transaksi->promo->p_isi : ($sub_total * ($transaksi->promo->p_isi / 100))) : null;
 
             $snap_token = $transaksi->tab_snap_token;
             $total += $transaksi->tab_sub_total;
         }
 
-        $promo = $promo != null ? ($detailTransaksi->promo->tipe == "fixed") ?
-            $sub_total - $this->promo->p_isi : $sub_total - ($sub_total * ($this->promo->p_isi / 100)) : null;
 
         return view("alatBarang.transaksi_invoice", [
             "title" => "pembayaran",

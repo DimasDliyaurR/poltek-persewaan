@@ -22,26 +22,18 @@ class MerkKendaraanPaymentMethodsTableSeeder extends Seeder
             0 => 
             array (
                 'merk_kendaraan_id' => 1,
-                'is_dp' => 1,
-                'tarif_dp' => 300000,
-                'created_at' => '2024-05-15 23:43:52',
-                'updated_at' => '2024-05-15 23:43:52',
+                'is_dp' => 0,
+                'tarif_dp' => 0,
+                'created_at' => '2024-06-07 21:11:59',
+                'updated_at' => '2024-06-07 21:11:59',
             ),
             1 => 
             array (
                 'merk_kendaraan_id' => 2,
                 'is_dp' => 0,
                 'tarif_dp' => 0,
-                'created_at' => '2024-05-16 04:23:39',
-                'updated_at' => '2024-05-16 04:23:39',
-            ),
-            2 => 
-            array (
-                'merk_kendaraan_id' => 3,
-                'is_dp' => 0,
-                'tarif_dp' => 0,
-                'created_at' => '2024-05-16 04:25:49',
-                'updated_at' => '2024-05-16 04:25:49',
+                'created_at' => '2024-06-07 21:12:59',
+                'updated_at' => '2024-06-07 21:12:59',
             ),
         ));
         

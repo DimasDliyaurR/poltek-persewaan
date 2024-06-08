@@ -23,6 +23,7 @@ class AsramaFeController extends Controller
     // Inisiasi Transaksi
     private $transaksi;
     private $total_transaksi = 0;
+    private $tarif = 0;
     private $inputPromo;
     private $total_transaksi_fasilitas = 0;
 
@@ -158,7 +159,9 @@ class AsramaFeController extends Controller
             // Store Detail Transaksi
             foreach ($asrama->get() as $row => $value) {
                 $durasi_check_in_to_check_out = intdiv(strtotime($validation["ta_check_out"]) - strtotime($validation["ta_check_in"]), (24 * 60 * 60));
-                $total_harga = ($value->tipeAsrama->paymentMethod->is_dp ? $value->tipeAsrama->paymentMethod->tarif_dp : $value->tipeAsrama->ta_tarif) * $durasi_check_in_to_check_out;
+
+                $this->tarif = ($value->tipeAsrama->paymentMethod->is_dp ? $value->tipeAsrama->paymentMethod->tarif_dp : $value->tipeAsrama->ta_tarif);
+                $total_harga = $this->tarif * $durasi_check_in_to_check_out;
 
                 $this->total_transaksi += $total_harga;
 
@@ -196,7 +199,8 @@ class AsramaFeController extends Controller
                 }
                 // Apakah Promo sudah terdeteksi
             }
-            if ($this->checkPromo()) {
+
+            if ($this->checkPromo($this->tarif)) {
                 return back()->withErrors([
                     "promo" => "Promo Sudah Habis"
                 ]);
@@ -229,10 +233,13 @@ class AsramaFeController extends Controller
 
     public function pembayaran($codeUnique)
     {
-        $detailTransaksi = TransaksiAsrama::with(["asramas.tipeAsrama.paymentMethod", "fasilitasAsrama", "promo"])->whereCodeUnique($codeUnique)->get();
-        if ($detailTransaksi[0]->status == "terbayar") {
-            return redirect()->route("invoice.alatBarang", $detailTransaksi[0]->code_unique);
+        $detailTransaksi = TransaksiAsrama::with(["asramas.tipeAsrama.paymentMethod", "fasilitasAsrama", "promo"])->whereCodeUnique($codeUnique);
+        if (!$detailTransaksi->exists()) {
+            abort(404);
         }
+
+        $detailTransaksi = $detailTransaksi->get();
+
         $total = 0;
         $sub_total = 0;
 
@@ -245,10 +252,11 @@ class AsramaFeController extends Controller
             }
 
             $total += $transaksi->ta_sub_total;
+
+            $promo = $promo != null ? (($transaksi->promo->p_tipe == "fixed") ?
+                $transaksi->promo->p_isi : ($sub_total * ($transaksi->promo->p_isi / 100))) : null;
         }
 
-        $promo = $promo != null ? ($detailTransaksi[0]->promo->tipe == "fixed") ?
-            $sub_total - $$detailTransaksi[0]->promo->p_isi : $sub_total - ($sub_total * ($detailTransaksi[0]->promo->p_isi / 100)) : null;
 
         // dd($total);
 

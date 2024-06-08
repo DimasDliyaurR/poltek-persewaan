@@ -2,7 +2,7 @@
 @section('content')
     <div class="w-screen h-screen flex flex-row justify-center items-center">
         <div class="container">
-            <form class="p-2 mx-auto" action="{{ route('transportasi.pesan') }}" method="POST">
+            <form class="p-2 mx-auto" action="" method="POST">
                 @csrf
                 <div class="grid md:grid-cols-2 md:gap-6">
 
@@ -57,8 +57,7 @@
 
                 {{-- Card Container --}}
                 <div id="input-slug" class="h-1 inline-block">
-                    <input type="text" name="slug[]" value="{{ $item->mk_slug }}" id="slug">
-                    {{-- <input type="text" name="slug[]" value="bus-mini" id="slug"> --}}
+                    <input type="text" name="slug[]" value="" id="slug">
                 </div>
                 <ul id="card" class="list-disc">
                     {{-- Card Start --}}

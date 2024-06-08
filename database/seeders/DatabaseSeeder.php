@@ -4,23 +4,7 @@ namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
-use App\Models\User;
-use App\Models\Event;
-use App\Models\Promo;
-use App\Models\Asrama;
-use App\Models\Profile;
-use App\Models\Kendaraan;
-use App\Models\TipeAsrama;
-use Illuminate\Support\Str;
-use App\Models\MerkKendaraan;
-use App\Models\FasilitasAsrama;
 use Illuminate\Database\Seeder;
-use Database\Seeders\EventSeeder;
-use App\Models\TransaksiKendaraan;
-use Illuminate\Support\Facades\DB;
-use App\Models\AsramaPaymentMethod;
-use App\Models\DetailFasilitasAsrama;
-use App\Models\DetailTransaksiKendaraan;
 
 class DatabaseSeeder extends Seeder
 {
@@ -70,5 +54,6 @@ class DatabaseSeeder extends Seeder
          */
         $this->call(UsersTableSeeder::class);
         $this->call(ProfilesTableSeeder::class);
+        $this->call(PromosTableSeeder::class);
     }
 }

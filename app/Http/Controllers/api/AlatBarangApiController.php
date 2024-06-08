@@ -23,6 +23,7 @@ class AlatBarangApiController extends Controller
         $slug = $request->slug;
         $pesanan = $request->tab_tanggal_pesanan;
         $kembali = $request->tab_tanggal_kembali;
+        $qty = $request->tab_qty;
         $model_with_relation =  AlatBarang::select("ab_qty as count")->get();
 
         if (!$request->isMethod("POST")) {
@@ -39,7 +40,7 @@ class AlatBarangApiController extends Controller
                     "message" => "Jadwal sudah ada",
                 ], 403);
             } else {
-                if ($this->checkCapacity($model_with_relation)) {
+                if ($this->checkCapacity($model_with_relation, $qty)) {
                     return response()->json([
                         "error" => true,
                         "message" => "Alat barang tidak tersedia",

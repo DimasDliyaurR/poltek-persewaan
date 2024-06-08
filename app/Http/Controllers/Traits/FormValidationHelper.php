@@ -79,7 +79,8 @@ trait FormValidationHelper
 
         $conflictingTransactions = $this->modal::join("detail_transaksi_kendaraans as dtk", "dtk.transaksi_kendaraan_id", "=", "transaksi_kendaraans.id")
             ->join("kendaraans", "dtk.kendaraan_id", "=", "kendaraans.id")
-            ->where('kendaraans.k_slug', $slug)
+            ->join("merk_kendaraans", "kendaraans.merk_kendaraan_id", "=", "merk_kendaraans.id")
+            ->where('merk_kendaraans.mk_slug', $slug)
             // ->where("k_status", "tersedia")
             ->where(function ($query) use ($startDate, $endDate) {
                 $query->whereBetween('tk_pelaksanaan', [$startDate, $endDate])
@@ -208,14 +209,14 @@ trait FormValidationHelper
         return $conflictingTransactions;
     }
 
-    public function checkCapacity(object $object)
+    public function checkCapacity(object $object, int $qty = 1)
     {
         $table = array_map(function ($q) {
             return (array)$q;
         }, $object->toArray());
 
         foreach ($table as $value) {
-            if ($this->isALargeThenB(($value["count"] - 1), 0)) {
+            if ($this->isALargeThenB(($value["count"] - $qty), 0)) {
                 return true;
             }
         }

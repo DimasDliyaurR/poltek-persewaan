@@ -72,7 +72,7 @@ class ApiController extends Controller
 
                     foreach ($transaksiAlatBarang->alatBarangs as $alatBarang) {
                         AlatBarang::whereId($alatBarang->id)->update([
-                            "ab_qty" => $alatBarang->a_qty + 1,
+                            "ab_qty" => $alatBarang->a_qty + $transaksiAlatBarang->tab_qty,
                         ]);
                     }
                 }
@@ -100,7 +100,6 @@ class ApiController extends Controller
     {
         $checkPromo = false;
         $promo = new PromoHandler($promoCode, $kategori, true);
-
         // Apakah promo ada dan sesuai kategori
         if ($promo->isExist() && ($promo->isCategorySame() or $promo->isAppliesForAllCategories())) {
             // Apakah Promo Tidak Kadaluarsa dan Aktif

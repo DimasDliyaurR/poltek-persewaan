@@ -39,8 +39,8 @@ class KendaraanApiController extends Controller
 
         // try {
         $target = date("Y-m-d", strtotime($pelaksanaan) + ($durasi * (60 * 60 * 24)));
-        // dd($target);
-        if ($this->checkScheduleKendaraan($slug, $pelaksanaan, $target, $pelaksanaan)) {
+
+        if ($this->checkScheduleKendaraan($slug, $pelaksanaan, $target)) {
             return response()->json([
                 "error" => true,
                 "message" => "Jadwal sudah ada",

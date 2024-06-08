@@ -51,22 +51,22 @@
                                 @switch($item["kategori"])
                                     @case('Asrama')
                                         <a href="{{ route('invoice.asrama', $item['code_unique']) }}"
-                                            class="px-6 py-4 underline">invoice.pdf</a>
+                                            class="px-6 py-4 underline">lihat invoice</a>
                                     @break
 
                                     @case('Layanan')
                                         <a href="{{ route('invoice.layanan', $item['code_unique']) }}"
-                                            class="px-6 py-4 underline">invoice.pdf</a>
+                                            class="px-6 py-4 underline">lihat invoice</a>
                                     @break
 
                                     @case('Alat Barang')
                                         <a href="{{ route('invoice.alatBarang', $item['code_unique']) }}"
-                                            class="px-6 py-4 underline">invoice.pdf</a>
+                                            class="px-6 py-4 underline">lihat invoice</a>
                                     @break
 
                                     @case('GedungLap')
                                         <a href="{{ route('invoice.gedungLap', $item['code_unique']) }}"
-                                            class="px-6 py-4 underline">invoice.pdf</a>
+                                            class="px-6 py-4 underline">lihat invoice</a>
                                     @break
 
                                     @case('Transportasi')

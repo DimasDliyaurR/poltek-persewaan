@@ -96,7 +96,7 @@ Route::group(["prefix" => "admin", "middleware" => "auth"], function () {
                 Route::put("kendaraan/update/{id}", "updateKendaraan")->name("update");
 
                 // Update Status Kendaraan
-                Route::get("kendaraan/status/{id}", "updateKendaraan")->name("update.status");
+                Route::get("kendaraan/status/{id}", "updateStatusKendaraan")->name("update.status");
 
                 // Destroy Kendaraan
                 Route::delete("kendaraan/delete/{id}", "destroyKendaraan")->name("destroy");
@@ -510,7 +510,7 @@ Route::group(["prefix" => "alat-barang", "as" => "alat-barang."], function () {
  * |
  * |
  */
-Auth::routes();
+Auth::routes(["verify" => true]);
 
 Route::get('/promo', [LandingPageController::class, 'promo']);
 

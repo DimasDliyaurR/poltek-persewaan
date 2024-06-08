@@ -81,6 +81,7 @@ class KendaraanFeController extends Controller
         $this->inputPromo = $request->promo;
         $promo = $this->handlerPromo("kendaraans");
 
+
         if ($promo == 1) {
             return back()->withInput()->withErrors([
                 "promo" => "Promo tidak valid",
@@ -94,6 +95,7 @@ class KendaraanFeController extends Controller
                 "promo" => "Promo sudah pernah digunakan",
             ]);
         }
+
 
 
         $inner = DB::transaction(function () use ($validation) {
@@ -114,7 +116,7 @@ class KendaraanFeController extends Controller
 
             $this->transaksi = $transaksi;
 
-            $MerkKendaraan = MerkKendaraan::with(["kendaraans" => fn ($q) => $q->where("k_status", "tersedia")->orderBy("k_urutan", "asc"), "paymentMethod"]);
+            $MerkKendaraan = MerkKendaraan::with(["kendaraans" => fn ($q) => $q->where("k_status", "tersedia")->orderBy("k_urutan_prioritas", "asc"), "paymentMethod"]);
             foreach ($validation["slug"] as $row => $value) {
                 $MerkKendaraan->where("mk_slug", "=", $value);
             }
@@ -141,6 +143,7 @@ class KendaraanFeController extends Controller
                     "dtk_harga" => $total_harga,
                 ]);
             }
+
 
             if ($this->checkPromo()) {
                 return back()->withErrors([
@@ -179,7 +182,13 @@ class KendaraanFeController extends Controller
 
     public function pembayaran($codeUnique)
     {
-        $detailTransaksi = TransaksiKendaraan::with(["kendaraans.merkKendaraan.paymentMethod", "promo",])->whereCodeUnique($codeUnique)->get();
+        $detailTransaksi = TransaksiKendaraan::with(["kendaraans.merkKendaraan.paymentMethod", "promo",])->whereCodeUnique($codeUnique);
+
+        if (!$detailTransaksi->exists()) {
+            abort(404);
+        }
+
+        $detailTransaksi = $detailTransaksi->get();
 
         if ($detailTransaksi[0]->status == "terbayar") {
             return redirect()->route("invoice.transportasi", $detailTransaksi[0]->code_unique);
@@ -195,8 +204,8 @@ class KendaraanFeController extends Controller
                 $sub_total += $asrama->merkKendaraan->mk_tarif * $transaksi->tk_durasi;
             }
 
-            $promo = $transaksi->promo != null ? ($transaksi->promo->p_tipe == "fixed") ?
-                $sub_total - $transaksi->promo->p_isi : $sub_total - ($sub_total * ($transaksi->promo->p_isi / 100)) : null;
+            $promo = $transaksi->promo != null ? (($transaksi->promo->p_tipe == "fixed") ?
+                $transaksi->promo->p_isi : $sub_total * ($transaksi->promo->p_isi / 100)) : null;
 
             $snap_token = $transaksi->tk_snap_token;
             $total = $transaksi->tk_sub_total;
