@@ -58,7 +58,6 @@ class GedungFeController extends Controller
         $item = GedungLap::whereGlSlug($item)->first();
         $MerkKendaraan = GedungLap::all();
 
-
         return view("gedung.transaksi_pesan", [
             "title" => "Pesan Kendaraan",
             "merkKendaraan" => $MerkKendaraan,
@@ -70,7 +69,7 @@ class GedungFeController extends Controller
     {
         $validation = $request->validate([
             "tg_tanggal_pelaksanaan" => "required",
-            "tg_tanggal_kembali" => "required",
+            "satuan" => "required",
             "tg_tujuan" => "required",
             "slug" => "required",
         ]);
@@ -96,8 +95,8 @@ class GedungFeController extends Controller
             ]);
         }
 
-        $transaction = DB::transaction(function () use ($validation) {
-            // Create Transaksi
+        $transaction = DB::transaction(function () use ($validation, $request) {
+            // // Create Transaksi
             $transaksi = TransaksiGedung::create([
                 "user_id" => auth()->user()->id,
                 "promo_id" => !($this->promo->isExist()) ? null : $this->promo->getPromo()->id,
@@ -105,24 +104,35 @@ class GedungFeController extends Controller
                 "tg_tujuan" => $validation["tg_tujuan"],
                 "tg_tanggal_sewa" => now(),
                 "tg_tanggal_pelaksanaan" => $validation["tg_tanggal_pelaksanaan"],
-                "tg_tanggal_kembali" => $validation["tg_tanggal_kembali"],
+                "tg_tanggal_kembali" => $request->tg_tanggal_kembali,
+                "tg_jam_mulai" => $request->tg_jam_mulai,
+                "tg_jam_akhir" => $request->tg_jam_akhir,
             ]);
 
             $this->transaksi = $transaksi;
 
             // Store Detail Transaksi
+            $gedungLap = GedungLap::with("paymentMethod");
             foreach ($validation["slug"] as $row => $value) {
-                $gedungLap = GedungLap::with("paymentMethod")->where("gl_slug", "=", $value)->first();
-                $total_harga = $gedungLap->paymentMethod->is_dp ? $gedungLap->paymentMethod->tarif_dp : $gedungLap->gl_tarif;
+                $gedungLap->where("gl_slug", "=", $value);
+            }
 
+            foreach ($gedungLap->get() as $gedung) {
+                if ($validation["satuan"] == "jam") {
+                    $durasi_jam = intdiv(strtotime($request->tg_jam_akhir) - strtotime($request->tg_jam_mulai), (60 * 60));
+                    dd($durasi_jam);
+                    $total_harga = $gedung->paymentMethod->is_dp ? $gedung->paymentMethod->tarif_dp : $gedung->gl_tarif;
+                }
                 $this->total_transaksi += $total_harga;
 
                 DetailTransaksiGedung::create([
                     "transaksi_gedung_id" => $transaksi->id,
-                    "gedung_lap_id" => $gedungLap->id,
+                    "gedung_lap_id" => $gedung->id,
                     "dtg_harga" => $total_harga,
                 ]);
             }
+
+
             // Apakah Promo sudah terdeteksi
             if ($this->checkPromo()) {
                 return back()->withErrors([
@@ -181,15 +191,14 @@ class GedungFeController extends Controller
             foreach ($transaksi->gedungLap as $gedung) {
                 $sub_total += $gedung->gl_tarif;
             }
+            $promo = $promo != null ? (($transaksi->promo->p_tipe == "fixed") ?
+                $sub_total - $transaksi->promo->p_isi : $sub_total - ($sub_total * ($transaksi->promo->p_isi / 100))) : null;
 
             $snap_token = $transaksi->tg_snap_token;
             $total += $transaksi->tg_sub_total;
         }
 
-        foreach ($detailTransaksi as $promo) {
-            $promo = $promo != null ? (($promo->promo->tipe == "fixed") ?
-                $sub_total - $promo->p_isi : $sub_total - ($sub_total * ($promo->p_isi / 100))) : null;
-        }
+
 
 
         return view("gedungLap.transaksi_invoice", [

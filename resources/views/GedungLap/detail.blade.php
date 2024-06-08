@@ -84,6 +84,7 @@
                             <p class="text-red-500 text-sm hidden" id="promo_error"></p>
                         </div>
                     </div>
+
                     <div class=" mb-2 space-y-2">
                         <label for="satuan"
                             class=" block mb-2 text-sm font-medium text-gray-900 dark:text-white">Satuan</label>
@@ -97,9 +98,31 @@
                         <p class="text-red-500 text-sm hidden" id="satuan_error"></p>
                     </div>
 
+                    <div id="durasi_time" class="hidden">
+                        <div
+                            class="flex flex-col xl:flex-row md:flex-row lg:flex-row xl:space-x-2 md:space-x-2 sm:space-x-2 mb-2">
+                            <div class=" mb-2 space-y-2  ">
+                                <label for="tg_jam_mulai"
+                                    class=" block mb-2 text-sm font-medium text-gray-900 dark:text-white">Mulai</label>
+                                <input id="tg_jam_mulai" name="tg_jam_mulai" type="time"
+                                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+
+                                <p class="text-red-500 text-sm hidden" id="tg_jam_mulai_error"></p>
+                            </div>
+                            <div class=" mb-2 space-y-2  ">
+                                <label for="tg_jam_akhir"
+                                    class=" block mb-2 text-sm font-medium text-gray-900 dark:text-white">Akhir</label>
+                                <input id="tg_jam_akhir" name="tg_jam_akhir" type="time"
+                                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+
+                                <p class="text-red-500 text-sm hidden" id="tg_jam_akhir_error"></p>
+                            </div>
+                        </div>
+                    </div>
+
                     <div class=" mb-2 space-y-2 hidden" id="tanggal_kembali">
                         <label for="tg_tanggal_kembali"
-                            class=" block mb-2 text-sm font-medium text-gray-900 dark:text-white">Durasi</label>
+                            class=" block mb-2 text-sm font-medium text-gray-900 dark:text-white">Tanggal Selesai</label>
                         <input id="tg_tanggal_kembali" name="tg_tanggal_kembali" type="date"
                             class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                         <p class="text-red-500 text-sm hidden" id="tg_tanggal_kembali_error"></p>
@@ -131,7 +154,8 @@
                     <p class="text-sm text-gray-400 p-2 overflow-hidden">Info lebih lanjut hubungi kontak
                         WhatsApp di bawah ini : </p>
                     <div class="flex  p-2 w-30">
-                        <a aria-label="Chat on WhatsApp" href="https://wa.me/6289529811097/?text=Hello Saya Ingin bertanya">
+                        <a aria-label="Chat on WhatsApp"
+                            href="https://wa.me/6289529811097/?text=Hello Saya Ingin bertanya">
                             <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="20" height="20"
                                 viewBox="0 0 50 50">
                                 <path
@@ -156,5 +180,4 @@
 @section('script')
     <script src="{{ asset('js/feature/multiple-images.js') }}"></script>
     <script src="{{ asset('js/validasi/gedungLap.js') }}"></script>
-    <script></script>
 @endsection

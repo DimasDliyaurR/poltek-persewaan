@@ -265,26 +265,6 @@ Route::group(["prefix" => "admin", "middleware" => "auth"], function () {
                 Route::delete("gedungLap/delete/{id}", "destroyGedungLap")->name("destroy");
             });
 
-            Route::group(["as" => "JadwalGedungLap."], function () {
-                // Index Gedung Lapangan
-                Route::get("jadwalGedungLaps", "indexJadwalGedungLap")->name("index");
-
-                // Create Gedung Lapangan
-                Route::post("jadwalGedungLaps/create", "createJadwalGedungLap")->name("create");
-
-                // store Gedung Lapangan
-                Route::get("jadwalGedungLap/store/{id}", "storeJadwalGedungLap")->name("store");
-
-                // Show Gedung Lapangan
-                Route::get("jadwalGedungLap/show/{id}", "showJadwalGedungLap")->name("show");
-
-                // Update Gedung Lapangan
-                Route::put("jadwalGedungLap/update/{id}", "updateJadwalGedungLap")->name("update");
-
-                // Destroy Gedung Lapangan
-                Route::delete("jadwalGedungLap/delete/{id}", "destroyJadwalGedungLap")->name("destroy");
-            });
-
             // Index Property Gedung Lapangan
             Route::get("propertyGedungLaps", "indexPropertyGedungLap");
 
@@ -312,26 +292,6 @@ Route::group(["prefix" => "admin", "middleware" => "auth"], function () {
 
                 // Destroy Detail Foto Tipe Asrama
                 Route::delete("/delete/{id}", "destroyDetailFotoGedungLap")->name("destroy");
-            });
-
-            Route::group(["prefix" => "detailJadwalGedung", "as" => "detailJadwalGedung."], function () {
-                // Index Detail Foto Tipe Asrama
-                Route::get("/{id}", "indexDetailJadwalGedungLap")->name("index");
-
-                // Create Detail Foto Tipe Asrama
-                Route::post("/create/{id}", "createDetailJadwalGedungLap")->name("create");
-
-                // store Detail Foto Tipe Asrama
-                Route::get("/store/{id}", "storeDetailJadwalGedungLap")->name("store");
-
-                // Show Detail Foto Tipe Asrama
-                Route::get("/show/{id}", "showDetailJadwalGedungLap")->name("show");
-
-                // Update Detail Foto Tipe Asrama
-                Route::put("/update/{id}", "updateDetailJadwalGedungLap")->name("update");
-
-                // Destroy Detail Foto Tipe Asrama
-                Route::delete("/delete/{id}", "destroyDetailJadwalGedungLap")->name("destroy");
             });
         })->middleware("admin-gedung-lap");
 

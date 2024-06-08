@@ -21,7 +21,7 @@ return new class extends Migration
             $table->string('tg_tujuan');
             $table->dateTime('tg_tanggal_sewa');
             $table->dateTime('tg_tanggal_kembali');
-            $table->dateTime('tg_tanggal_pelaksanaan');
+            $table->dateTime('tg_tanggal_pelaksanaan')->nullable();
             $table->dateTime('tg_jam_mulai')->nullable();
             $table->dateTime('tg_jam_akhir')->nullable();
             $table->bigInteger('tg_sub_total')->nullable();

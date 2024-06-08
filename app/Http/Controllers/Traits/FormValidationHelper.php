@@ -159,10 +159,10 @@ trait FormValidationHelper
      * @param string $start_end
      * @return bool
      */
-    public function checkScheduleGedungLap($slug, $start_date, $start_end)
+    public function checkScheduleBulanHariGedungLap($slug, $start_date, $end_date)
     {
         $startDate = $start_date;
-        $endDate = $start_end;
+        $endDate = $end_date;
 
         $conflictingTransactions = $this->modal::join("detail_transaksi_gedungs as dtg", "dtg.transaksi_gedung_id", "=", "transaksi_gedungs.id")
             ->join("gedung_laps", "dtg.gedung_lap_id", "=", "gedung_laps.id")
@@ -179,6 +179,40 @@ trait FormValidationHelper
             ->exists();
         return $conflictingTransactions;
     }
+
+    /**
+     * Validation Cek Jadwal Asrama
+     * @param string $slug Slug
+     * @param string $start_date
+     * @param string $start_end
+     * @return bool
+     */
+    public function checkScheduleJamGedungLap($slug, $date, $start_time, $end_time)
+    {
+        $startTime = $start_time;
+        $endTime = $end_time;
+
+        $startOfDay = Carbon::parse($date)->startOfDay();
+        $endOfDay = Carbon::parse($date)->endOfDay();
+
+        $startTime = Carbon::parse($startTime)->format('H:i:s');
+        $endTime = Carbon::parse($endTime)->format('H:i:s');
+
+        $conflictingTransactions = $this->modal::join("detail_transaksi_gedungs as dtg", "dtg.transaksi_gedung_id", "=", "transaksi_gedungs.id")
+            ->join("gedung_laps", "dtg.gedung_lap_id", "=", "gedung_laps.id")
+            ->where('gedung_laps.gl_slug', $slug)
+            ->whereBetween("tg_tanggal_pelaksanaan", [$startOfDay, $endOfDay])
+            ->where(function ($query) use ($startTime, $endTime) {
+                $query->where(function ($q) use ($startTime, $endTime) {
+                    $q->whereTime('tg_jam_mulai', '<', $endTime)
+                        ->whereTime('tg_jam_akhir', '>', $startTime);
+                });
+            })
+            ->exists();
+        // dd($conflictingTransactions);
+        return $conflictingTransactions;
+    }
+
     /**
      * Validation Cek Jadwal Asrama
      * @param string $slug Slug

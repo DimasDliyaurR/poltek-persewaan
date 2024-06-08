@@ -7,15 +7,25 @@ $(document).ready(function () {
     let satuan_error = $("#satuan_error")
     let kembali = $("input#tg_tanggal_kembali")
     let kembali_error = $("#tg_tanggal_kembali_error")
+    let jam_mulai = $("input#tg_jam_mulai")
+    let jam_mulai_error = $("#tg_jam_mulai_error")
+    let jam_akhir = $("input#tg_jam_akhir")
+    let jam_akhir_error = $("#tg_jam_akhir_error")
     let tujuan = $("#tg_tujuan")
     let tujuan_error = $("#tg_tujuan_error")
     let tanggal_kembali_field = $("#tanggal_kembali")
+    let time_field = $("#durasi_time")
 
     let isPelaksanaanValidated = true
     let isKembaliValidated = true
     let isSatuanValidated = true
+    let isJamMulaiValidated = true
+    let isJamAkhirValidated = true
     let isPromoValidated = true
     let isTujuanValidated = true
+
+    var satuanTemp = ""
+
     let timeout = null
     let currentLocation = $(location).attr('href')
     let slug = currentLocation.split('/')[currentLocation.split('/').length - 1]
@@ -24,6 +34,7 @@ $(document).ready(function () {
     let submit = $("#submit-dropdown")
     let form = $("#form_asrama")
     let pesan = $("#pesan")
+    console.log(jam_mulai_error);
 
     function ValidationPromo() {
         clearTimeout(timeout)
@@ -56,7 +67,7 @@ $(document).ready(function () {
         event.preventDefault();
         let input = $(`<input type="text" name="slug[]" class=""hidden value="${slug}" />`)
         if (dropdown.hasClass("hidden")) {
-            form.append(input);
+            form.append(input)
             dropdown.removeClass("hidden")
         } else {
             let slugObj = $("input[name=slug]")
@@ -66,134 +77,179 @@ $(document).ready(function () {
     }
 
     function validationPelaksanaan() {
-        if (pelaksanaan.val() == "") {
-            pelaksanaan_error.removeClass("hidden")
-            pelaksanaan_error.text("Tanggal Pelaksanaan mohon diisi!")
-            isPelaksanaanValidated = false
+        if (pelaksanaan.val() === "") {
+            pelaksanaan_error.removeClass("hidden").text("Tanggal Pelaksanaan mohon diisi!");
+            isPelaksanaanValidated = false;
         } else {
-            pelaksanaan_error.addClass("hidden")
-            pelaksanaan_error.text("")
-            isPelaksanaanValidated = true
+            pelaksanaan_error.addClass("hidden").text("");
+            isPelaksanaanValidated = true;
         }
-        return isPelaksanaanValidated
+        return isPelaksanaanValidated;
     }
 
     function toggleDurasi() {
-        console.log(tanggal_kembali_field);
-        tanggal_kembali_field.removeClass("hidden")
+        console.log(satuanTemp);
         let satuanValue = satuan.val()
-        console.log(kembali.type);
         if (satuanValue == "jam") {
-            kembali.attr("type", "time")
+            if (!tanggal_kembali_field.hasClass("hidden")) {
+                tanggal_kembali_field.addClass("hidden")
+            }
+            time_field.removeClass("hidden")
         } else {
-            kembali.attr("type", "date")
+            if (!time_field.hasClass("hidden")) {
+                time_field.addClass("hidden")
+            }
+            tanggal_kembali_field.removeClass("hidden")
         }
+        satuanTemp = satuanValue
     }
 
     function validationKembali() {
-        if (kembali.val() == "") {
-            kembali_error.removeClass("hidden")
-            kembali_error.text("Tanggal kembali mohon diisi!")
-            isKembaliValidated = false
+        if (kembali.val() === "") {
+            kembali_error.removeClass("hidden").text("Tanggal kembali mohon diisi!");
+            isKembaliValidated = false;
         } else {
-            kembali_error.addClass("hidden")
-            kembali_error.text("")
-            isKembaliValidated = true
+            kembali_error.addClass("hidden").text("");
+            isKembaliValidated = true;
         }
+        return isKembaliValidated;
+    }
 
-        return isKembaliValidated
+    function validationJamMulai() {
+        console.log(jam_mulai.val(), jam_mulai.val() === "");
+        if (jam_mulai.val() === "") {
+            jam_mulai_error.removeClass("hidden").text("Jam mulai mohon diisi!");
+            isJamMulaiValidated = false;
+        } else {
+            jam_mulai_error.addClass("hidden").text("");
+            isJamMulaiValidated = true;
+        }
+        return isJamMulaiValidated;
+    }
+
+    function validationJamAkhir() {
+        if (jam_akhir.val() === "") {
+            jam_akhir_error.removeClass("hidden").text("Jam akhir mohon diisi!");
+            isJamAkhirValidated = false;
+        } else {
+            jam_akhir_error.addClass("hidden").text("");
+            isJamAkhirValidated = true;
+        }
+        return isJamAkhirValidated;
     }
 
     function validationSatuan() {
-        if (satuan.val() == "") {
-            satuan_error.removeClass("hidden")
-            satuan_error.text("Tanggal kembali mohon diisi!")
-            isSatuanValidated = false
+        satuanTemp = satuan.val();
+        if (satuanTemp === "") {
+            satuan_error.removeClass("hidden").text("Satuan mohon dipilih!");
+            isSatuanValidated = false;
         } else {
-            satuan_error.addClass("hidden")
-            satuan_error.text("")
-            isSatuanValidated = true
+            satuan_error.addClass("hidden").text("");
+            isSatuanValidated = true;
         }
-
-        return isSatuanValidated
+        return isSatuanValidated;
     }
 
     function validationTujuan() {
-        if (tujuan.val() == "") {
-            tujuan_error.removeClass("hidden")
-            tujuan_error.text("Tanggal kembali mohon diisi!")
-            isTujuanValidated = false
+        if (tujuan.val() === "") {
+            tujuan_error.removeClass("hidden").text("Tujuan mohon diisi!");
+            isTujuanValidated = false;
         } else {
-            tujuan_error.addClass("hidden")
-            tujuan_error.text("")
-            isTujuanValidated = true
+            tujuan_error.addClass("hidden").text("");
+            isTujuanValidated = true;
         }
-
-        return isTujuanValidated
+        return isTujuanValidated;
     }
-
     function validate() {
         event.preventDefault()
-        if (validationPelaksanaan() && validationKembali() && validationTujuan()) {
-            let kondisi = true
-            $.ajax({
-                type: "POST",
-                url: "http://localhost:8000/api/gedung-lap/pelaksanaan",
-                data: {
-                    tg_tanggal_pelaksanaan: pelaksanaan.val(),
-                    tg_tanggal_kembali: kembali.val(),
-                    slug: slug
-                },
-                header: {
-                    "Content-Type": "application/json",
-                },
-                dataType: "json",
-                success: function (response) {
-                    $(response).each(function (indexInArray, data) {
-                        if (data.success) {
-                            form.submit()
-                        }
-                    });
-                },
-                error: (res) => {
-                    $(res).each((index, val) => {
-                        var data = val.responseJSON
-                        console.log(data);
-                        if (data.error) {
-                            let alertFloding = $(`<div id="alert-2" class="flex items-center p-4 mb-4 text-orange-600 rounded-lg bg-orange-50 dark:bg-gray-800 dark:text-red-400" role="alert">
-                            <svg class="flex-shrink-0 w-4 h-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
-                              <path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h1a1 1 0 0 1 0 2Z"/>
-                            </svg>
-                            <span class="sr-only">Info</span>
-                            <div class="ms-3 text-sm font-medium">
-                              ${data.message} <a href="#" class="font-semibold underline hover:no-underline">Jadwal Kendaraan</a>.
-                            </div>
-                          </div>`)
-                            if (dropdown.find("div#alert-2").length < 1) {
-                                form.before(alertFloding)
-                            } else {
-                                form.children().remove("div#alert-2")
+        validationSatuan();
+        if (validationPelaksanaan() && validationTujuan() && validationSatuan()) {
+            let kondisi = false
+            console.log("mulai", validationJamMulai());
+            if (satuanTemp === "jam" && validationJamMulai() && validationJamAkhir()) {
+                kondisi = true
+            } else if (satuanTemp !== "jam" && validationKembali()) {
+                kondisi = true
+            }
+
+            if (kondisi) {
+                console.log("berhasil");
+                $.ajax({
+                    type: "POST",
+                    url: "http://localhost:8000/api/gedung-lap/pelaksanaan",
+                    data: {
+                        tg_tanggal_pelaksanaan: pelaksanaan.val(),
+                        tg_tanggal_kembali: kembali.val(),
+                        satuan: satuan.val(),
+                        tg_jam_mulai: jam_mulai.val(),
+                        tg_jam_akhir: jam_akhir.val(),
+                        slug: slug,
+                    },
+                    header: {
+                        "Content-Type": "application/json",
+                    },
+                    dataType: "json",
+                    success: function (response) {
+                        $(response).each(function (indexInArray, data) {
+                            if (data.success) {
+                                form.submit()
                             }
-                        }
-                    })
-                }
-            })
+                        });
+                    },
+                    error: (res) => {
+                        $(res).each((index, val) => {
+                            var data = val.responseJSON
+                            console.log(data);
+                            if (data.error) {
+                                let alertFloding = $(`<div id="alert-2" class="flex items-center p-4 mb-4 text-orange-600 rounded-lg bg-orange-50 dark:bg-gray-800 dark:text-red-400" role="alert">
+                                <svg class="flex-shrink-0 w-4 h-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+                                  <path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h1a1 1 0 0 1 0 2Z"/>
+                                </svg>
+                                <span class="sr-only">Info</span>
+                                <div class="ms-3 text-sm font-medium">
+                                  ${data.message} <a href="#" class="font-semibold underline hover:no-underline">Jadwal Kendaraan</a>.
+                                </div>
+                              </div>`)
+                                if (dropdown.find("div#alert-2").length < 1) {
+                                    form.before(alertFloding)
+                                } else {
+                                    form.children().remove("div#alert-2")
+                                }
+                            }
+                        })
+                    }
+                })
+            }
         }
     }
 
     pelaksanaan.on("input", validationPelaksanaan)
-    kembali.on("input", validationKembali)
+    satuan.on("input", validationSatuan)
+
+    console.log(satuanTemp);
+
+    jam_mulai.on("input", validationJamMulai)
+    jam_akhir.on("input", validationJamAkhir)
     promo.on("input", ValidationPromo)
-    satuan.on("change", toggleDurasi)
-    tujuan.on("click", validationTujuan)
+    satuan.on("input", toggleDurasi)
+    tujuan.on("input", validationTujuan)
     pesan.on("click", toggleForm)
     submit.click(validate)
 
     setInterval(() => {
-        if (isPelaksanaanValidated && isSatuanValidated && isKembaliValidated && isTujuanValidated && isPromoValidated) {
-            submit.attr("disabled", false)
+        if (satuanTemp == "jam") {
+            if (isPelaksanaanValidated && isSatuanValidated && isJamMulaiValidated && isJamAkhirValidated && isTujuanValidated && isPromoValidated) {
+                submit.attr("disabled", false)
+            } else {
+                submit.attr("disabled", true)
+            }
         } else {
-            submit.attr("disabled", true)
+            if (isPelaksanaanValidated && isSatuanValidated && isKembaliValidated && isTujuanValidated && isPromoValidated) {
+                submit.attr("disabled", false)
+            } else {
+                submit.attr("disabled", true)
+            }
+
         }
     }, 100);
 

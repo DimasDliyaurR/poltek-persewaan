@@ -114,9 +114,6 @@
                                     <x-list-dropdown-option-table
                                         href="{{ route('detailFotoGedungLap.index', $row->id) }}">Tambah
                                         Foto</x-list-dropdown-option-table>
-                                    <x-list-dropdown-option-table
-                                        href="{{ route('detailJadwalGedung.index', $row->id) }}">Tambah
-                                        Jadwal</x-list-dropdown-option-table>
                                 </x-dropdown-option-table>
                             </td>
                         </tr>

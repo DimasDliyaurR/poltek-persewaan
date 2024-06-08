@@ -22,6 +22,9 @@ class GedungLapApiController extends Controller
         $slug = $request->slug;
         $pesanan = $request->tg_tanggal_pelaksanaan;
         $kembali = $request->tg_tanggal_kembali;
+        $satuan = $request->satuan;
+        $jam_mulai = $request->tg_jam_mulai;
+        $jam_akhir = $request->tg_jam_akhir;
 
         if (!$request->isMethod("POST")) {
             return response()->json([
@@ -31,12 +34,20 @@ class GedungLapApiController extends Controller
         }
 
         // try {
-
-        if ($this->checkScheduleGedungLap($slug, $pesanan, $kembali)) {
-            return response()->json([
-                "error" => true,
-                "message" => "Jadwal sudah ada",
-            ], 403);
+        if ($satuan == "jam") {
+            if ($this->checkScheduleJamGedungLap($slug, $pesanan, $jam_mulai, $jam_akhir)) {
+                return response()->json([
+                    "error" => true,
+                    "message" => "Jadwal sudah ada",
+                ], 403);
+            }
+        } else {
+            if ($this->checkScheduleBulanHariGedungLap($slug, $pesanan, $kembali)) {
+                return response()->json([
+                    "error" => true,
+                    "message" => "Jadwal sudah ada",
+                ], 403);
+            }
         }
         // } catch (\Exception $th) {
         //     return response()->json([
