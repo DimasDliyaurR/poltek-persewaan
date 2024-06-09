@@ -69,6 +69,7 @@ class GedungFeController extends Controller
 
     public function pesan(Request $request)
     {
+
         $validation = $request->validate([
             "tg_tanggal_pelaksanaan" => "required",
             "satuan" => "required",
@@ -106,12 +107,23 @@ class GedungFeController extends Controller
         }
 
         $test = TransaksiGedung::where(function ($q) {
-            $bulan = Carbon::now()->month;
+            $bulan = $this->integerToRoman(Carbon::now()->month);
             $tahun = str_replace("20", "", Carbon::now()->year);
+            // dd("/$bulan/INV-GEDUNG02/POLTEKBANG.SBY-$tahun");
             return $q->where("code_unique", "LIKE", "%/$bulan/INV-GEDUNG02/POLTEKBANG.SBY-$tahun%");
         })->count();
 
-        dd($test, $bulan = $this->integerToRoman(Carbon::now()->month), "%/$bulan/INV-GEDUNG02/POLTEKBANG.SBY-" . str_replace("20", "", Carbon::now()->year) . "%");
+        $model = "kendaraans";
+
+        $model = $this->tableNameToUpper($model);
+
+        $bulan = $this->integerToRoman(Carbon::now()->month);
+        $tahun = str_replace("20", "", Carbon::now()->year);
+
+        $increment = $this->generateIncrement($test + 99);
+        $temp = "$increment/$bulan/INV-GEDUNG02/POLTEKBANG.SBY-$tahun%";
+
+        dd($test, $temp, $model, strlen($model));
 
         $transaction = DB::transaction(function () use ($validation, $request) {
             // // Create Transaksi

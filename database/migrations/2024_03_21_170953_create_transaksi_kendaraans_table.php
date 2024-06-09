@@ -17,6 +17,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('user_id')->constrained("users");
             $table->foreignId('promo_id')->nullable()->constrained("promos");
+            $table->string('kode_invoice')->nullable();
             $table->string('code_unique');
             $table->datetime('tk_tanggal_sewa');
             $table->string('tk_durasi');

@@ -4,7 +4,13 @@ namespace App\Http\Controllers\Traits;
 
 trait InvoiceHelper
 {
-    protected function integerToRoman($integer)
+
+    /**
+     * @see https://www.hashbangcode.com/article/php-function-turn-integer-roman-numerals  Fungsi Integer Romawi
+     * @param int $integer
+     * @return string
+     */
+    private function integerToRoman($integer)
     {
         // Convert the integer into an integer (just to make sure)
         $integer = intval($integer);
@@ -40,5 +46,29 @@ trait InvoiceHelper
 
         // The Roman numeral should be built, return it
         return $result;
+    }
+
+    /**
+     * @param int $number
+     * @return string $numberTemp
+     */
+    private function generateIncrement($number)
+    {
+        $digit = (string) $number;
+        $numberTemp = "";
+        for ($i = 0; $i < 3 - strlen($digit); $i++) {
+            $numberTemp .= "0";
+        }
+        $numberTemp .= $digit;
+        return $numberTemp;
+    }
+
+    /**
+     * @param string $model
+     * @return string
+     */
+    private function tableNameToUpper($model)
+    {
+        return strtoupper(substr(str_replace("_", "", $model), 0, strlen(str_replace("_", "", $model)) - 1));
     }
 }

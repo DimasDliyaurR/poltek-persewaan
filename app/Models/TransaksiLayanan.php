@@ -24,6 +24,7 @@ class TransaksiLayanan extends Model
     protected $fillable = [
         'user_id',
         'promo_id',
+        'kode_invoice',
         'code_unique',
         'tl_tanggal_sewa',
         'tl_tanggal_pelaksanaan',

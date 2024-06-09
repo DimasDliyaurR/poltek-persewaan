@@ -25,6 +25,7 @@ class TransaksiKendaraan extends Model
     protected $fillable = [
         'user_id',
         'promo_id',
+        'kode_invoice',
         'code_unique',
         'tk_durasi',
         'tk_tanggal_sewa',

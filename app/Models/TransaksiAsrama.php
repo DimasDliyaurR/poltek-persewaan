@@ -25,6 +25,7 @@ class TransaksiAsrama extends Model
     protected $fillable = [
         'user_id',
         'promo_id',
+        'kode_invoice',
         'code_unique',
         'ta_tanggal_sewa',
         'ta_check_in',

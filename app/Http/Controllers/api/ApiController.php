@@ -15,11 +15,14 @@ use App\Models\TransaksiKendaraan;
 use Illuminate\Support\Facades\DB;
 use App\Models\TransaksiAlatBarang;
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\Traits\InvoiceHelper;
 use App\Services\handler\Promo\PromoHandler;
 use App\Services\Kendaraan\KendaraanService;
 
 class ApiController extends Controller
 {
+    use InvoiceHelper;
+
     private $kendaraanService;
 
     public function __construct(KendaraanService $kendaraanService)
@@ -59,8 +62,24 @@ class ApiController extends Controller
 
             if (($statusCode == 200 && $fraudStatus && ($transactionStatus == 'capture' || $transactionStatus == 'settlement'))) {
 
+                $category_invoice = $this->tableNameToUpper($model);
+
+                $count_invoice = DB::table($modalTable)->where(function ($q) use ($category_invoice) {
+                    $bulan = $this->integerToRoman(Carbon::now()->month);
+                    $tahun = str_replace("20", "", Carbon::now()->year);
+                    return $q->where("kode_invoice", "LIKE", "%/$bulan/INV-$category_invoice" . "02/POLTEKBANG.SBY-$tahun%");
+                })->count();
+
+                # GENERATE INVOICE
+                $bulan = $this->integerToRoman(Carbon::now()->month);
+                $tahun = str_replace("20", "", Carbon::now()->year);
+
+                $increment = $this->generateIncrement($count_invoice + 1);
+                $temp = "$increment/$bulan/INV-GEDUNG02/POLTEKBANG.SBY-$tahun%";
+
                 $item = DB::table($modalTable)->where('code_unique', $codeUnique)->update([
                     'status' => "terbayar",
+                    'kode_invoice' => $temp,
                     'tanggal_transaksi' => now(),
                 ]);
             } else if ($request->transaction_status == 'expire') {
