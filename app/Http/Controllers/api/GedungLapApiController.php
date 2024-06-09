@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\Traits\FormValidationHelper;
 use App\Models\TransaksiGedung;
+use Carbon\Carbon;
 
 class GedungLapApiController extends Controller
 {
@@ -21,7 +22,7 @@ class GedungLapApiController extends Controller
     {
         $slug = $request->slug;
         $pesanan = $request->tg_tanggal_pelaksanaan;
-        $kembali = $request->tg_tanggal_kembali;
+        $kembali = $request->tg_durasi;
         $satuan = $request->satuan;
         $jam_mulai = $request->tg_jam_mulai;
         $jam_akhir = $request->tg_jam_akhir;
@@ -42,6 +43,11 @@ class GedungLapApiController extends Controller
                 ], 403);
             }
         } else {
+            if ($satuan == "bulan") {
+                $kembali = Carbon::createFromDate($pesanan)->addMonthNoOverflow($kembali);
+            } else if ($satuan == "hari") {
+                $kembali = Carbon::createFromDate($pesanan)->addDays($kembali);
+            }
             if ($this->checkScheduleBulanHariGedungLap($slug, $pesanan, $kembali)) {
                 return response()->json([
                     "error" => true,

@@ -5,8 +5,8 @@ $(document).ready(function () {
     let promo_error = $("#promo_error")
     let satuan = $("#satuan")
     let satuan_error = $("#satuan_error")
-    let kembali = $("input#tg_tanggal_kembali")
-    let kembali_error = $("#tg_tanggal_kembali_error")
+    let durasi = $("input#tg_durasi")
+    let durasi_error = $("#tg_durasi_error")
     let jam_mulai = $("input#tg_jam_mulai")
     let jam_mulai_error = $("#tg_jam_mulai_error")
     let jam_akhir = $("input#tg_jam_akhir")
@@ -17,7 +17,7 @@ $(document).ready(function () {
     let time_field = $("#durasi_time")
 
     let isPelaksanaanValidated = true
-    let isKembaliValidated = true
+    let isDurasiValidated = true
     let isSatuanValidated = true
     let isJamMulaiValidated = true
     let isJamAkhirValidated = true
@@ -105,14 +105,14 @@ $(document).ready(function () {
     }
 
     function validationKembali() {
-        if (kembali.val() === "") {
-            kembali_error.removeClass("hidden").text("Tanggal kembali mohon diisi!");
-            isKembaliValidated = false;
+        if (durasi.val() === "") {
+            durasi_error.removeClass("hidden").text("Tanggal kembali mohon diisi!");
+            isDurasiValidated = false;
         } else {
-            kembali_error.addClass("hidden").text("");
-            isKembaliValidated = true;
+            durasi_error.addClass("hidden").text("");
+            isDurasiValidated = true;
         }
-        return isKembaliValidated;
+        return isDurasiValidated;
     }
 
     function validationJamMulai() {
@@ -179,7 +179,7 @@ $(document).ready(function () {
                     url: "http://localhost:8000/api/gedung-lap/pelaksanaan",
                     data: {
                         tg_tanggal_pelaksanaan: pelaksanaan.val(),
-                        tg_tanggal_kembali: kembali.val(),
+                        tg_durasi: durasi.val(),
                         satuan: satuan.val(),
                         tg_jam_mulai: jam_mulai.val(),
                         tg_jam_akhir: jam_akhir.val(),
@@ -244,7 +244,7 @@ $(document).ready(function () {
                 submit.attr("disabled", true)
             }
         } else {
-            if (isPelaksanaanValidated && isSatuanValidated && isKembaliValidated && isTujuanValidated && isPromoValidated) {
+            if (isPelaksanaanValidated && isSatuanValidated && isDurasiValidated && isTujuanValidated && isPromoValidated) {
                 submit.attr("disabled", false)
             } else {
                 submit.attr("disabled", true)

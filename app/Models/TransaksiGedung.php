@@ -32,6 +32,10 @@ class TransaksiGedung extends Model
         'tg_tanggal_sewa',
         'tg_tanggal_kembali',
         'tg_tanggal_pelaksanaan',
+        'tg_satuan',
+        'tg_jam_mulai',
+        'tg_jam_akhir',
+        'tg_durasi',
         'tg_snap_token',
         'tg_sub_total',
     ];

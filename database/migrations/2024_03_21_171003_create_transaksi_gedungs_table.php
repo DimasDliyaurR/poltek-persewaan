@@ -20,8 +20,10 @@ return new class extends Migration
             $table->string('code_unique')->unique();
             $table->string('tg_tujuan');
             $table->dateTime('tg_tanggal_sewa');
-            $table->dateTime('tg_tanggal_kembali');
-            $table->dateTime('tg_tanggal_pelaksanaan')->nullable();
+            $table->dateTime('tg_tanggal_pelaksanaan');
+            $table->string('tg_satuan');
+            $table->dateTime('tg_durasi')->nullable();
+            $table->dateTime('tg_tanggal_kembali')->nullable();
             $table->dateTime('tg_jam_mulai')->nullable();
             $table->dateTime('tg_jam_akhir')->nullable();
             $table->bigInteger('tg_sub_total')->nullable();
