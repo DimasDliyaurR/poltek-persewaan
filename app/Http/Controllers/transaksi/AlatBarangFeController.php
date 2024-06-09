@@ -61,7 +61,7 @@ class AlatBarangFeController extends Controller
             ->where('tab_tanggal_kembali', '<=', $end)->get()
             ->map(fn ($item) => [
                 'id' => $item->id,
-                'title' => $item->tab_title,
+                'title' => $item->tab_keterangan,
                 'start' => $item->tab_tanggal_pesanan,
                 'end' => $item->tab_tanggal_kembali,
             ]);

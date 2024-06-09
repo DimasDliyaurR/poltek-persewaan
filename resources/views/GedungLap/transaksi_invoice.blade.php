@@ -1,8 +1,5 @@
-@extends('layouts-home.navbar.nav-old')
+@extends('layouts-home.master')
 @section('content')
-    <!-- if -->
-
-    <!-- end if -->
     <div class="bg-plaster">
         <div class="container px-24 py-24 mx-auto">
             <div class="flex justify-between items-center font-bold xl:ml-36 md:ml-36 lg:ml-36  mb-2">
@@ -25,7 +22,13 @@
                             <tr>
                                 <th scope="col" class="px-1 py-3">Merk Kendaraan</th>
                                 <th scope="col" class="px-6 py-3">Tanggal Sewa</th>
-                                <th scope="col" class="px-6 py-3">Tanggal Kembali</th>
+                                <th scope="col" class="px-6 py-3">Jam Pelaksanaan</th>
+                                @if ($detailTransaksi[0]->tg_satuan == 'jam')
+                                    <th scope="col" class="px-6 py-3">Jam Mulai</th>
+                                    <th scope="col" class="px-6 py-3">Jam Akhir</th>
+                                @else
+                                    <th scope="col" class="px-6 py-3">Tanggal Kembali</th>
+                                @endif
                                 <th scope="col" class="px-6 py-3">Total</th>
                             </tr>
                         </thead>
@@ -34,8 +37,21 @@
                                 @foreach ($item->gedungLap as $subItem)
                                     <tr class="bg-white border-b">
                                         <td class="px-1 py-4">{{ $subItem->gl_nama }}</td>
-                                        <td class="px-6 py-4">{{ date('d M Y', strtotime($item->tg_tanggal_sewa)) }}</td>
-                                        <td class="px-6 py-4">{{ date('d M Y', strtotime($item->tg_tanggal_kembali)) }}</td>
+                                        <td class="px-6 py-4">
+                                            {{ \Carbon\Carbon::parse($item->tg_tanggal_sewa)->isoFormat('D MMMM Y') }}</td>
+                                        <td class="px-6 py-4">
+                                            {{ \Carbon\Carbon::parse($item->tg_tanggal_pelaksanaan)->isoFormat('D MMMM Y') }}
+                                        </td>
+                                        @if ($item->tg_satuan == 'jam')
+                                            <td class="px-6 py-4">
+                                                {{ \Carbon\Carbon::parse($item->tg_jam_mulai)->isoFormat('HH:mm') }}</td>
+                                            <td class="px-6 py-4">
+                                                {{ \Carbon\Carbon::parse($item->tg_jam_akhir)->isoFormat('HH:mm') }}</td>
+                                        @else
+                                            <td class="px-6 py-4">
+                                                {{ \Carbon\Carbon::parse($item->tg_tanggal_kembali)->isoFormat('D MMMM Y') }}
+                                            </td>
+                                        @endif
                                         <td class="px-6 py-4">Rp
                                             {{ number_format(!$subItem->paymentMethod->is_dp ? $subItem->gl_tarif : $subItem->paymentMethod->tarif_dp, 0, ',', '.') }}
 
@@ -45,12 +61,14 @@
                             @endforeach
                             @if ($totalPromo)
                                 <tr>
-                                    <td colspan="3" class="px-6 py-1">Diskon </td>
+                                    <td colspan="{{ $detailTransaksi[0]->tg_satuan == 'jam' ? 4 : 3 }}" class="px-6 py-1">
+                                        Diskon </td>
                                     <td class="px-6 py-1">Rp {{ $totalPromo }}</td>
                                 </tr>
                             @endif
                             <tr>
-                                <td colspan="3" class="px-6 py-4">Sub Total </td>
+                                <td colspan="{{ $detailTransaksi[0]->tg_satuan == 'jam' ? 4 : 3 }}" class="px-6 py-4">Sub
+                                    Total </td>
                                 <td class="px-6 py-4">Rp {{ number_format($total, 0, ',', '.') }}</td>
                             </tr>
 
@@ -89,35 +107,6 @@
                         "{{ route('invoice.gedungLap', $detailTransaksi[0]->code_unique) }}"
                 }
             });
-            // customer will be redirected after completing payment pop-up
         });
-
-        // var payButton = document.getElementById('pay-button');
-        // payButton.addEventListener('click', function() {
-        //     // Trigger snap popup. @TODO: Replace TRANSACTION_TOKEN_HERE with your transaction token.
-        //     // Also, use the embedId that you defined in the div above, here.
-        //     window.snap.embed('{{ $snapToken }}', {
-        //         embedId: 'snap-container',
-        //         onSuccess: function(result) {
-        //             /* You may add your own implementation here */
-        //             alert("payment success!");
-        //             console.log(result);
-        //         },
-        //         onPending: function(result) {
-        //             /* You may add your own implementation here */
-        //             alert("wating your payment!");
-        //             console.log(result);
-        //         },
-        //         onError: function(result) {
-        //             /* You may add your own implementation here */
-        //             alert("payment failed!");
-        //             console.log(result);
-        //         },
-        //         onClose: function() {
-        //             /* You may add your own implementation here */
-        //             alert('you closed the popup without finishing the payment');
-        //         }
-        //     });
-        // });
     </script>
 @endsection

@@ -2,54 +2,18 @@
 @section('scriptlink')
     <style>
         .bgImage {
-
-            animation: bgChange 20s linear infinite;
-            background-image: url("{{ asset('img/gerbang.jpg') }}");
-        }
-
-        @keyframes bgChange {
-            0% {
-                background-image: url("{{ asset('../../img/landingpage/gerbang.jpg') }}");
-            }
-
-            20% {
-                background-image: url("{{ asset('../../img/landingpage/bad_2.jpg') }}");
-            }
-
-            25% {
-                background-image: url("{{ asset('../../img/landingpage/bus_kiri.jpg') }}");
-            }
-
-            45% {
-                background-image: url("{{ asset('../../img/landingpage/lab.jpg') }}");
-            }
-
-            50% {
-                background-image: url("{{ asset('../../img/landingpage/marchingband.jpg') }}");
-            }
-
-            70% {
-                background-image: url("{{ asset('../../img/landingpage/marchingband.jpg') }}");
-            }
-
-            75% {
-                background-image: url("{{ asset('../../img/landingpage/lab.jpg') }}");
-            }
-
-            95% {
-                background-image: url("{{ asset('../../img/landingpage/marchingband.jpg') }}");
-            }
+            background-image: url("{{ asset('img/landingPageBackground.png') }}");
         }
     </style>
 @endsection
 @section('content')
-    <section id="home" class="pt-20 pb-48 h-2/5 relative  ">
+    <section id="home" class="pt-20 pb-20 h-2/5 relative  ">
         <div class="bgImage absolute inset-0   h-full  bg-cover  bg-no-repeat bg-white opacity-50 bg-center">
         </div>
     </section>
     <x-navigasi-kategori />
 
-    <div class="pt-40 pb-16 bg-slate-100 px-20 ">
+    <div class="pt-20 pb-16 bg-slate-100 px-20 ">
         <div class="container">
             <div class="w-full">
                 <div class="max-w-xl mx-auto text-center mb-16">
@@ -170,15 +134,12 @@
                     </div>
 
                 @empty
+                    <div class="text-center text-black">Item tidak ada</div>
+                @endforelse
             </div>
-            <div class="text-center text-black">Item tidak ada</div>
-            @endforelse
         </div>
-
-        <!-- <p class="font-bold uppercase pb-20">cari dengan kata kunci lain </p> -->
-
-
     </div>
+
     <!-- back to top -->
     <div class=" ">
         <a href="#home" class="">
@@ -222,4 +183,8 @@
         </div>
     </div>
     <!-- end call -->
+@endsection
+
+@section('script')
+    <script src="{{ asset('js/feature/transition-nav-home.js') }}"></script>
 @endsection

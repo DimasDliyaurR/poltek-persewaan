@@ -75,7 +75,7 @@ class ApiController extends Controller
                 $tahun = str_replace("20", "", Carbon::now()->year);
 
                 $increment = $this->generateIncrement($count_invoice + 1);
-                $temp = "$increment/$bulan/INV-GEDUNG02/POLTEKBANG.SBY-$tahun%";
+                $temp = "$increment/$bulan/INV-$category_invoice" . "02/POLTEKBANG.SBY-$tahun";
 
                 $item = DB::table($modalTable)->where('code_unique', $codeUnique)->update([
                     'status' => "terbayar",

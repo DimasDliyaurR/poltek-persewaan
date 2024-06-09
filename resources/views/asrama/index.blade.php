@@ -2,43 +2,7 @@
 @section('scriptlink')
     <style>
         .bgImage {
-
-            animation: bgChange 20s linear infinite;
-            background-image: url("{{ asset('img/gerbang.jpg') }}");
-        }
-
-        @keyframes bgChange {
-            0% {
-                background-image: url("{{ asset('../../img/landingpage/gerbang.jpg') }}");
-            }
-
-            20% {
-                background-image: url("{{ asset('../../img/landingpage/bad_2.jpg') }}");
-            }
-
-            25% {
-                background-image: url("{{ asset('../../img/landingpage/bus_kiri.jpg') }}");
-            }
-
-            45% {
-                background-image: url("{{ asset('../../img/landingpage/lab.jpg') }}");
-            }
-
-            50% {
-                background-image: url("{{ asset('../../img/landingpage/marchingband.jpg') }}");
-            }
-
-            70% {
-                background-image: url("{{ asset('../../img/landingpage/marchingband.jpg') }}");
-            }
-
-            75% {
-                background-image: url("{{ asset('../../img/landingpage/lab.jpg') }}");
-            }
-
-            95% {
-                background-image: url("{{ asset('../../img/landingpage/marchingband.jpg') }}");
-            }
+            background-image: url("{{ asset('img/landingPageBackground.png') }}");
         }
     </style>
 @endsection
@@ -113,11 +77,6 @@
                                         {{ $item->ta_kapasitas }}</p>
                                     <sup class="text-xs text-gray-500"> Orang / kamar </sup>
                                 </div>
-                                <!-- <div class="flex mb-2">
-                                                                                                                                                                                                <img src="{{ 'img/penginapan/bensin.png' }}" alt="bbm" class="w-5 h-5">
-                                                                                                                                                                                                <p class="text-sm font-semibold ml-2">Bensin</p>
-                                                                                                                                                                                                <sup class="text-xs text-gray-500"> Fuel </sup>
-                                                                                                                                                                                            </div> -->
                                 <p class="text-xs text-gray-500 mb-1  flex justify-between">*check out 12.00 a.m <span
                                         class=" text-black font-bold text-base">Rp
                                         {{ number_format($item->ta_tarif, 0, ',', '.') }}</span></p>
@@ -129,11 +88,11 @@
                         </div>
                     </div>
                 @empty
+                    <p class="font-bold uppercase pb-20">cari dengan kata kunci lain </p>
+                @endforelse
             </div>
-            <p class="font-bold uppercase pb-20">cari dengan kata kunci lain </p>
-            @endforelse
-            {{ $tipeAsrama->links() }}
         </div>
+        {{ $tipeAsrama->links() }}
         <!-- back to top -->
         <div class=" ">
             <a href="#home" class="">
@@ -176,5 +135,10 @@
                 </a>
             </div>
         </div>
-        <!-- end call -->
-    @endsection
+    </div>
+    <!-- end call -->
+@endsection
+
+@section('script')
+    <script src="{{ asset('js/feature/transition-nav-home.js') }}"></script>
+@endsection

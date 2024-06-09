@@ -170,10 +170,10 @@ class InvoiceController extends Controller
             }
             $snap_token = $transaksi->tk_snap_token;
             $total = $transaksi->tk_sub_total;
-        }
 
-        $promo = $promo != null ? ($detailTransaksi->promo->tipe == "fixed") ?
-            $sub_total - $this->promo->p_isi : $sub_total - ($sub_total * ($this->promo->p_isi / 100)) : null;
+            $promo = $transaksi->promo != null ? (($transaksi->promo->p_tipe == "fixed") ?
+                $transaksi->promo->p_isi : $sub_total * ($transaksi->promo->p_isi / 100)) : null;
+        }
 
         return view("transportasi.invoice", [
             "title" => "pembayaran",

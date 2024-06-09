@@ -8,25 +8,25 @@
     <p class="text-sm ml-4">Atur prioritas pada kendaraan untuk mengatur urutan penyewaan. Urutan akan diprioritaskan yang
         terkecil untuk setiap merk kendaraan.</p>
     <!-- TABLE START -->
-    <x-inner-layout>
+    <x-InnerLayout>
 
         <livewire:kendaraan-table>
 
-    </x-inner-layout>
+    </x-InnerLayout>
 
     <!-- TABLE END -->
 
     <!-- FORM START -->
-    <x-title-component>
+    <x-TitleComponent>
         Form {{ $title }}
-    </x-title-component>
+    </x-TitleComponent>
 
-    <x-inner-layout>
+    <x-InnerLayout>
 
         @session('successForm')
-            <x-alert-success>
+            <x-AlertSuccess>
                 {{ $value }}
-            </x-alert-success>
+            </x-AlertSuccess>
         @endsession
 
         <form action="{{ asset('admin/kendaraans/create') }}" method="post" enctype="multipart/form-data">
@@ -76,6 +76,6 @@
             <button class="p-2 w-80 bg-gray-900 rounded-md text-white text-sm">Submit</button>
         </form>
 
-    </x-inner-layout>
+    </x-InnerLayout>
     <!-- FORM END -->
 @endsection

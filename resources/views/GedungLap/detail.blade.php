@@ -1,13 +1,7 @@
-@extends('layouts-home.navbar.nav-old')
+@extends('layouts-home.master')
 @section('content')
-    <div class=" bg-plaster py-24 ">
-        <div class=" container  ">
-            <!-- <div class="w-10/12  "> -->
-            <!-- <div class=" flex justify-center items-center h-screen">   -->
-            <!-- <div class="flex justify-start items-center"> -->
-            {{-- <div class="justify-start ml-36 bg-white p-4 rounded-md mb-2 mt-2">
-
-            </div> --}}
+    <div class="bg-plaster py-24 ">
+        <div class="container">
 
             <x-layout-detail-transaksi class="mb-4 text-xl font-bold">
                 <a class="text-primary hover:font-bold hover:underline" href="{{ route('gedung.index') }}">{{ $title }}
@@ -20,8 +14,6 @@
 
                 <x-layout-detail-transaksi
                     class="flex xl:flex-row w-full md:items-end md:flex-row lg:flex-row flex-col-reverse justify-center gap-5 space-x-2">
-                    {{-- <img src="{{ Storage::url($gedung_lap->gl_foto) }}"
-                        class="rounded-md shadow-lg w-[40rem] h-80 object-cover" alt=""> --}}
 
                     <x-multiple-image>
                         <x-sub-multiple-image src="{{ $gedung_lap->gl_foto }}" />

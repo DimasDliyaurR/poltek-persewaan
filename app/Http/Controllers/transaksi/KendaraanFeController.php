@@ -219,4 +219,26 @@ class KendaraanFeController extends Controller
             "total" => $total,
         ]);
     }
+    public function listEventTransportasi(Request $request)
+    {
+        $start = date('Y-m-d', strtotime($request->start));
+        $end = date('Y-m-d', strtotime($request->end));
+        $events = TransaksiKendaraan::where('tk_pelaksanaan', '>=', $start)
+            ->where('tk_tanggal_kembali', '<=', $end)
+            ->get()
+            ->map(fn ($item) => [
+                'id' => $item->id,
+                'title' => $item->tk_durasi,
+                'start' => $item->tk_tanggal_pelaksanaan,
+                'end' => $item->tk_tanggal_kembali
+            ]);
+        return response()->json($events);
+    }
+
+    public function kalender()
+    {
+        return view('transportasi.kalender', [
+            "title" => "Kalender Transportasi"
+        ]);
+    }
 }

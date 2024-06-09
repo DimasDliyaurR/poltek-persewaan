@@ -263,6 +263,9 @@ Route::group(["prefix" => "admin", "middleware" => "auth"], function () {
 
                 // Destroy Gedung Lapangan
                 Route::delete("gedungLap/delete/{id}", "destroyGedungLap")->name("destroy");
+
+                // Kalender Gedung Lapangan
+                Route::get("/gedung/kalender", "listEvent");
             });
 
             // Index Property Gedung Lapangan
@@ -434,8 +437,31 @@ Route::controller(HomeController::class)->group(function () {
     Route::get('/', "index");
 });
 
-Route::get('/kalender', [LandingPageController::class, 'kalender']);
-Route::get('/kalender/list', [LandingPageController::class, 'listEvent'])->name('kalender.list');
+// Route::get('/kalender', [LandingPageController::class, 'kalender']);
+// Route::get('/kalender/list', [LandingPageController::class, 'listEvent'])->name('kalender.list');
+
+
+Route::controller(LayananFEController::class)->group(function () {
+    Route::get('/layanan/kalender', 'kalenderLayanan');
+    Route::get('layanan/list', 'listEventLayanan')->name('layanan.list');
+});
+
+Route::controller(AsramaFEController::class)->group(function () {
+    Route::get('/asrama/kalender', 'kalenderAsrama');
+    Route::get('/asrama/list', 'listEventAsrama')->name('asrama.list');
+});
+Route::controller(GedungFeController::class)->group(function () {
+    Route::get('/gedung/kalender', 'kalenderGedungLap');
+    Route::get('/gedung/list', 'listEventGedungLap')->name('gedunglap.list');
+});
+Route::controller(KendaraanFEController::class)->group(function () {
+    Route::get('/transportasi/kalender', 'kalender');
+    Route::get('/transportasi/list', 'listEventTransportasi')->name('transportasi.list');
+});
+Route::controller(AlatBarangFEController::class)->group(function () {
+    Route::get('/alatbarang/kalender', 'kalenderAlatBarang');
+    Route::get('/alatbarang/list', 'listEventAb')->name('ab.list');
+});
 
 Route::get('/promo', [LandingPageController::class, 'promo']);
 

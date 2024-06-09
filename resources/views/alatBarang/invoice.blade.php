@@ -5,10 +5,6 @@
     <!-- end if -->
     <div class="bg-plaster">
         <div class="container px-24 py-24 mx-auto">
-            <div class="flex justify-between items-center font-bold xl:ml-36 md:ml-36 lg:ml-36  mb-2">
-                <h4 class="xl:ml-6 md:ml-6 lg:ml-6 ">Congratulations!</h4>
-                <div class="bg-primary text-white w-24 p-2 rounded-l-xl xl:mr-10">INVOICE !</div>
-            </div>
             <div class="bg-white w-full xl:w-1/2 md:w-1/2 lg:w-1/2 m-auto h-full xl:p-10 p-5 py-12 ">
                 <div class="relative ">
                     <button onclick="window.print()" class=" absolute right-0 ">
@@ -45,10 +41,12 @@
                     <p class="absolute right-0 mb-2 ">To : </p><br>
                     <p class="absolute right-0 font-bold">{{ auth()->user()->profile->nama_lengkap }}</p>
                 </div>
-                <div class="flex  mb-2 mt-2 py-10">
-
+                <div class="py-5 relative">
+                    <p class="absolute right-0 mb-2 ">Kode Invoice : </p><br>
+                    <p class="absolute right-0 font-bold">{{ $detailTransaksi[0]->kode_invoice }}</p>
                 </div>
-                <div class="relative overflow-x-auto ">
+
+                <div class="mt-10 relative overflow-x-auto ">
                     <table class="w-full text-sm text-left rtl:text-right text-gray-500 ">
                         <thead class=" text-gray-700 uppercase bg-gray-50 ">
                             <tr>

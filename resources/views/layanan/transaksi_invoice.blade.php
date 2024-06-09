@@ -1,8 +1,5 @@
-@extends('layouts-home.navbar.nav-old')
+@extends('layouts-home.master')
 @section('content')
-    <!-- if -->
-
-    <!-- end if -->
     <div class="bg-plaster">
         <div class="container px-24 py-24 mx-auto">
             <div class="flex justify-between items-center font-bold xl:ml-36 md:ml-36 lg:ml-36  mb-2">

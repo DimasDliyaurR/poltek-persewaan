@@ -1,16 +1,14 @@
 @extends('layouts-home.navbar.nav-kalender')
 @section('script')
-      <script>
-
+    <script>
         document.addEventListener('DOMContentLoaded', function() {
-        var calendarEl = document.getElementById('calendar');
-        var calendar = new FullCalendar.Calendar(calendarEl, {
-            initialView: 'dayGridMonth',
-            themeSystem: 'bootstrap5',
-            events:"{{ route('transportasi.list') }}"
-        });
-        calendar.render();
+            var calendarEl = document.getElementById('calendar');
+            var calendar = new FullCalendar.Calendar(calendarEl, {
+                initialView: 'dayGridMonth',
+                themeSystem: 'bootstrap5',
+                events: "{{ route('transportasi.list') }}"
+            });
+            calendar.render();
         });
     </script>
 @endsection
-

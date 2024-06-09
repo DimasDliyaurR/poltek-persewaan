@@ -2,43 +2,7 @@
 @section('scriptlink')
     <style>
         .bgImage {
-
-            animation: bgChange 20s linear infinite;
-            background-image: url("{{ asset('img/gerbang.jpg') }}");
-        }
-
-        @keyframes bgChange {
-            0% {
-                background-image: url("{{ asset('../../img/landingpage/gerbang.jpg') }}");
-            }
-
-            20% {
-                background-image: url("{{ asset('../../img/landingpage/bad_2.jpg') }}");
-            }
-
-            25% {
-                background-image: url("{{ asset('../../img/landingpage/bus_kiri.jpg') }}");
-            }
-
-            45% {
-                background-image: url("{{ asset('../../img/landingpage/lab.jpg') }}");
-            }
-
-            50% {
-                background-image: url("{{ asset('../../img/landingpage/marchingband.jpg') }}");
-            }
-
-            70% {
-                background-image: url("{{ asset('../../img/landingpage/marchingband.jpg') }}");
-            }
-
-            75% {
-                background-image: url("{{ asset('../../img/landingpage/lab.jpg') }}");
-            }
-
-            95% {
-                background-image: url("{{ asset('../../img/landingpage/marchingband.jpg') }}");
-            }
+            background-image: url("{{ asset('img/landingPageBackground.png') }}");
         }
     </style>
 @endsection
@@ -47,6 +11,8 @@
         <div class="bgImage absolute inset-0   h-full  bg-cover  bg-no-repeat bg-white opacity-50 bg-center">
         </div>
     </section>
+
+    <!-- NAVIGASI START -->
     <x-navigasi-kategori />
 
     <div class="pt-40">
@@ -218,4 +184,8 @@
         </div>
     </div>
     <!-- end call -->
+@endsection
+
+@section('script')
+    <script src="{{ asset('js/feature/transition-nav-home.js') }}"></script>
 @endsection

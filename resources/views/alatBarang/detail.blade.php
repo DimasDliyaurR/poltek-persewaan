@@ -1,4 +1,4 @@
-@extends('layouts-home.navbar.nav-old')
+@extends('layouts-home.master')
 @section('content')
     <div class=" bg-plaster py-24 ">
         <div class=" container  ">

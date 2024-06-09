@@ -17,7 +17,7 @@ use Carbon\Carbon;
 
 class GedungFeController extends Controller
 {
-    use HandlerPromo, InvoiceHelper;
+    use HandlerPromo;
 
     private $transaksi;
     private $total_transaksi = 0;
@@ -105,25 +105,6 @@ class GedungFeController extends Controller
             $validation["tg_jam_mulai"] = Carbon::createFromFormat("Y-m-d H:i", $validation["tg_tanggal_pelaksanaan"] . " " . $request->tg_jam_mulai);
             $validation["tg_jam_akhir"] = Carbon::createFromFormat("Y-m-d H:i", $validation["tg_tanggal_pelaksanaan"] . " " . $request->tg_jam_akhir);
         }
-
-        $test = TransaksiGedung::where(function ($q) {
-            $bulan = $this->integerToRoman(Carbon::now()->month);
-            $tahun = str_replace("20", "", Carbon::now()->year);
-            // dd("/$bulan/INV-GEDUNG02/POLTEKBANG.SBY-$tahun");
-            return $q->where("code_unique", "LIKE", "%/$bulan/INV-GEDUNG02/POLTEKBANG.SBY-$tahun%");
-        })->count();
-
-        $model = "kendaraans";
-
-        $model = $this->tableNameToUpper($model);
-
-        $bulan = $this->integerToRoman(Carbon::now()->month);
-        $tahun = str_replace("20", "", Carbon::now()->year);
-
-        $increment = $this->generateIncrement($test + 99);
-        $temp = "$increment/$bulan/INV-GEDUNG02/POLTEKBANG.SBY-$tahun%";
-
-        dd($test, $temp, $model, strlen($model));
 
         $transaction = DB::transaction(function () use ($validation, $request) {
             // // Create Transaksi
@@ -247,6 +228,27 @@ class GedungFeController extends Controller
             "detailTransaksi" => $detailTransaksi,
             "totalPromo" => $promo,
             "total" => $total,
+        ]);
+    }
+    public function listEventGedungLap(Request $request)
+    {
+        $start = date('Y-m-d', strtotime($request->start));
+        $end = date('Y-m-d', strtotime($request->end));
+        $events = TransaksiGedung::where('tg_tanggal_pelaksanaan', '>=', $start)
+            ->where('tg_tanggal_kembali', '<=', $end)
+            ->get()
+            ->map(fn ($item) => [
+                'id' => $item->id,
+                'title' => $item->tg_tujuan,
+                'start' => $item->tg_tanggal_pelaksanaan,
+                'end' => $item->tg_tanggal_kembali
+            ]);
+        return response()->json($events);
+    }
+    public function kalenderGedungLap()
+    {
+        return view('GedungLap.kalender', [
+            "title" => "Kalender Gedung Lapangan"
         ]);
     }
 }

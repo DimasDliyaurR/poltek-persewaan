@@ -33,7 +33,7 @@ class GedungLapController extends Controller
     {
         $gedungLaps = $this->gedungLapService->getAllGedungLap(); // Dapatkan semua data gedung Lapangan
 
-        return view("admin.gedungLap.lihat", [
+        return view("admin.GedungLap.lihat", [
             "title" => "Gedung & Lapangan",
             "action" => "gedunglap",
             "gedungLaps" => $gedungLaps->paginate(5),

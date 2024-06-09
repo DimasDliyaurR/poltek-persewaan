@@ -1,4 +1,4 @@
-@extends('layouts-home.navbar.nav-old')
+@extends('layouts-home.master')
 @section('content')
     <!-- if -->
 

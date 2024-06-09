@@ -9,7 +9,7 @@
             href="{{ asset('admin/tipeAsramas?trashed=1') }}" class="text-blue-400 hover:underline">restore</a> pada laman
         Tipe Asrama lalu restore
         nama tipe asrama yang ingin dipilih.</p>
-    <x-inner-layout>
+    <x-inner-layout class="">
 
         <livewire:asrama-table>
 
@@ -22,7 +22,7 @@
         Form {{ $title }}
     </div>
 
-    <x-inner-layout>
+    <x-inner-layout class="">
 
         @session('successForm')
             <x-alert-success>
