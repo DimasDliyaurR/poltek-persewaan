@@ -23,7 +23,7 @@ class RequestLayanan extends FormRequest
     {
         if ($this->getMethod() == "PUT") {
             return [
-                "l_foto" => "image",
+                "l_foto" => "image|dimensions:min_width=100,min_height=200",
                 "l_nama" => "required",
                 "l_tarif" => "required|numeric",
                 "l_satuan" => "required",
@@ -32,7 +32,7 @@ class RequestLayanan extends FormRequest
             ];
         } else {
             return [
-                "l_foto" => "required|image",
+                "l_foto" => "required|image|dimensions:min_width=100,min_height=200",
                 "l_nama" => "required",
                 "l_tarif" => "required|numeric",
                 "l_satuan" => "required",

@@ -93,6 +93,21 @@ class TransaksiServiceImplement implements TransaksiService
     }
 
     /**
+     * Get All Transaksi Asrama with asrama
+     * @return array
+     * @throws InvalidArgumentException
+     */
+    public function getAllTransaksiAsramaAndUser()
+    {
+        try {
+            $data = $this->transaksiAsramaRepository->getAllWithUserAndAsrama();
+        } catch (\Exception $th) {
+            throw new InvalidArgumentException();
+        }
+        return $data;
+    }
+
+    /**
      * Get All Transaksi Alat Barang
      * @return array
      * @throws InvalidArgumentException

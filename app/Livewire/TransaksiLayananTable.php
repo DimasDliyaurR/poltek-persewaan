@@ -134,6 +134,8 @@ class TransaksiLayananTable extends Component
         }
         return view('livewire.transaksi-layanan-table', [
             "transaksiLayanan" => $transaksiLayanan->paginate(5),
+            "totalTransaksiBelumBayar" => $totalTransaksiBelumBayar,
+            "totalTransaksiSudahBayar" => $totalTransaksiSudahBayar,
         ]);
     }
 }

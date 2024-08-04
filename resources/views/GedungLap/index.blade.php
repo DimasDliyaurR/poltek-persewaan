@@ -15,7 +15,7 @@
     <!-- NAVIGASI START -->
     <x-navigasi-kategori />
 
-    <div class="pt-40">
+    <div class="pt-20">
         <div class="container px-20">
             <div class="w-full">
                 <div class="max-w-xl mx-auto text-center mb-16">

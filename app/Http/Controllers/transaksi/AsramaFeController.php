@@ -84,27 +84,6 @@ class AsramaFeController extends Controller
         ]);
     }
 
-    // public function pesanForm($slug)
-    // {
-    //     $item = $slug;
-    //     $item = Asrama::whereASlug($item)->first();
-    //     // where a_slug
-    //     if ($item == null) {
-    //         abort(404);
-    //     }
-    //     $tipeAsrama = TipeAsrama::all();
-
-    //     // $fasilitasAsrama = Asrama::with(["tipeAsrama" => ["fasilitasAsramas"]])->whereASlug($slug)->get();
-    //     $fasilitasAsrama = Asrama::join("tipe_asramas", "asramas.tipe_asrama_id", "=", "tipe_asramas.id")->join("detail_fasilitas_asramas", "detail_fasilitas_asramas.tipe_asrama_id", "=", "tipe_asramas.id")->join("fasilitas_asramas", "detail_fasilitas_asramas.fasilitas_asrama_id", "=", "fasilitas_asramas.id")->where("detail_fasilitas_asramas.dfa_status", "pilihan")->whereASlug($slug)->get();
-    //     return view("asrama.transaksi_pemesanan", [
-    //         "title" => "Pesan Kendaraan",
-    //         "tipeAsrama" => $tipeAsrama,
-    //         "item" => $item,
-    //         "fasilitasAsrama" => $fasilitasAsrama,
-    //     ]);
-    // }
-
-
     public function pesan(Request $request)
     {
         $validation = $request->validate([
@@ -112,8 +91,6 @@ class AsramaFeController extends Controller
             "ta_check_out" => "required",
             "slug" => "required",
         ]);
-
-
 
         $item = $request->slug;
         $this->inputPromo = $request->promo;
@@ -161,7 +138,7 @@ class AsramaFeController extends Controller
                 $durasi_check_in_to_check_out = intdiv(strtotime($validation["ta_check_out"]) - strtotime($validation["ta_check_in"]), (24 * 60 * 60));
 
                 $this->tarif = ($value->tipeAsrama->paymentMethod->is_dp ? $value->tipeAsrama->paymentMethod->tarif_dp : $value->tipeAsrama->ta_tarif);
-                $total_harga = $this->tarif * $durasi_check_in_to_check_out;
+                $total_harga = $value->tipeAsrama->paymentMethod->is_dp ? $this->tarif : $this->tarif * $durasi_check_in_to_check_out;
 
                 $this->total_transaksi += $total_harga;
 

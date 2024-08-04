@@ -46,8 +46,19 @@ class TransaksiAsramaRepositoryImplement implements TransaksiAsramaRepository
      */
     public function getAllWithDetailTransaksiAsrama()
     {
-        $transaksiAsramaData = $this->transaksiAsrama::with(["asramas.tipeAsrama", "fasilitasAsrama"])->join("users", "transaksi_asramas.user_id", "=", "users.id")
+        $transaksiAsramaData = $this->transaksiAsrama::with(["asramas" => ["tipeAsrama"], "fasilitasAsrama"])->join("users", "transaksi_asramas.user_id", "=", "users.id")
             ->join("profiles", "users.id", "=", "profiles.user_id");
+
+        return $transaksiAsramaData;
+    }
+
+    /**
+     * Get All data Transaksi Asrama With Asrama and User
+     * @return Object
+     */
+    public function getAllWithUserAndAsrama()
+    {
+        $transaksiAsramaData = $this->transaksiAsrama::with(["asramas", "user.profile"]);
 
         return $transaksiAsramaData;
     }

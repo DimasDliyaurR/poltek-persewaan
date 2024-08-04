@@ -41,7 +41,7 @@ trait RegisterUser
             $file_ktp = $request->file('foto_ktp');
             $foto_ktp = $file_ktp->hashName();
 
-            $foto_ktp_path = $file_ktp->storeAs("/ktp", $foto_ktp);
+            $foto_ktp_path = $file_ktp->move("/ktp", $foto_ktp);
             $foto_ktp_path = Storage::disk("public")->put("/ktp", $file_ktp);
             $validation['foto_ktp'] = $foto_ktp_path;
         }

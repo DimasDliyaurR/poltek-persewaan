@@ -36,6 +36,17 @@ class AlatBarangFeController extends Controller
 
     public function detail($slug)
     {
+
+        $check_query = TransaksiAlatBarang::with(["alatBarangs" => function ($q) use ($slug) {
+            return $q->whereAbSlug($slug);
+        }])->where(function ($q) {
+            return $q->where("user_id", auth()->user()->id)->where("status", "belum bayar");
+        });
+
+        if ($check_query->exists()) {
+            return redirect()->route("alat-barang.pembayaran", $check_query->first()->code_unique);
+        }
+
         $alatbarang = AlatBarang::with("fotoAlatBarangs")->whereAbSlug($slug)->first();
         if (!$alatbarang)
             abort(404);

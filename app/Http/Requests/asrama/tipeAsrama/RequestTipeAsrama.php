@@ -25,7 +25,7 @@ class RequestTipeAsrama extends FormRequest
         $tipeAsrama = $this->route();
         if ($this->getMethod() != "PUT") {
             return [
-                "ta_foto" => "required|image",
+                "ta_foto" => "required|image|dimensions:max_width=1800,max_height=1800",
                 "ta_nama" => "required|unique:tipe_asramas",
                 "ta_tarif" => "required|numeric",
                 "ta_kapasitas" => "required|numeric",
@@ -34,7 +34,7 @@ class RequestTipeAsrama extends FormRequest
             ];
         } else {
             return [
-                "ta_foto" => "image",
+                "ta_foto" => "image|dimensions:max_width=1800,max_height=1800",
                 "ta_nama" => ["required", Rule::unique("tipe_asramas", "ta_nama")->ignore($tipeAsrama->id)],
                 "ta_tarif" => "required|numeric",
                 "ta_kapasitas" => "required|numeric",

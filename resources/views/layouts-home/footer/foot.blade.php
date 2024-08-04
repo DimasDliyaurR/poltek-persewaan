@@ -51,7 +51,8 @@
                 <h5 class="font-semibold text-xl mb-5">Tautan Lainnya</h5>
                 <ul class="list-none mt-6 space-y-2">
                     <li>
-                        <a href="#" class="inline-block text-base text-black hover:text-primary mb-3">Diklat</a>
+                        <a href="https://shortcourses.poltekbangsby.ac.id/"
+                            class="inline-block text-base text-black hover:text-primary mb-3">Diklat</a>
                     </li>
                     <li>
                         <a href="#" class="inline-block text-base text-black hover:text-primary mb-3">Lab</a>
@@ -61,7 +62,8 @@
                             Utama</a>
                     </li>
                     <li>
-                        <a href="#" class="inline-block text-base text-black hover:text-primary mb-3">Klinik</a>
+                        <a href="https://klinik.poltekbangsby.ac.id/"
+                            class="inline-block text-base text-black hover:text-primary mb-3">Klinik</a>
                     </li>
                 </ul>
             </div>

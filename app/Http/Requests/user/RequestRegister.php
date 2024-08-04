@@ -2,7 +2,9 @@
 
 namespace App\Http\Requests\user;
 
+use Exception;
 use Illuminate\Foundation\Http\FormRequest;
+use InvalidArgumentException;
 
 class RequestRegister extends FormRequest
 {
@@ -32,7 +34,7 @@ class RequestRegister extends FormRequest
             'password' => 'required|string|min:6|confirmed',
             'nama_lengkap' => 'required',
             'alamat' => 'required',
-            'foto_ktp' => 'required|image',
+            'foto_ktp' => 'required|image|max:5120',
             'no_telp' => 'required',
         ];
     }
@@ -60,9 +62,9 @@ class RequestRegister extends FormRequest
 
             'foto_ktp.required' => 'Foto Ktp Mohon diisi !',
             'foto_ktp.image' => 'Foto KTP mohon diisi menggunakan gambar !',
+            'foto_ktp.dimensions' => 'Foto KTP melebihi dimensi 1800px 1800px !',
 
             'no_telp.required' => 'No Telepon mohon diisi !',
-            // 'no_telp.regex' => 'No Telepon tidak sah !',
         ];
     }
 }

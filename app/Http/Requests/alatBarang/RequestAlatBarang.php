@@ -23,7 +23,7 @@ class RequestAlatBarang extends FormRequest
     {
         if ($this->getMethod() == "PUT") {
             return [
-                "ab_foto" => "image",
+                "ab_foto" => "image|dimensions:max_width=1800,max_height=1800",
                 "ab_nama" => "required",
                 "ab_keterangan" => "required",
                 "ab_tarif" => "required|numeric",
@@ -33,7 +33,7 @@ class RequestAlatBarang extends FormRequest
             ];
         } else {
             return [
-                "ab_foto" => "required|image",
+                "ab_foto" => "required|image|dimensions:max_width=1800,max_height=1800",
                 "ab_nama" => "required",
                 "ab_keterangan" => "required",
                 "ab_tarif" => "required|numeric",

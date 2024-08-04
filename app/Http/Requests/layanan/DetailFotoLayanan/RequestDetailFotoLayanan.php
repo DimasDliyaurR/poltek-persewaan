@@ -22,7 +22,7 @@ class RequestDetailFotoLayanan extends FormRequest
     public function rules(): array
     {
         return [
-            "dfl_foto" => "required|image",
+            "dfl_foto" => "required|image|dimensions:max_width=1800,max_height=1800",
         ];
     }
 

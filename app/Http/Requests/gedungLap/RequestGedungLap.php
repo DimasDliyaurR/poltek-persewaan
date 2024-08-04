@@ -23,7 +23,7 @@ class RequestGedungLap extends FormRequest
     {
         if ($this->getMethod() == "PUT") {
             return [
-                "gl_foto" => "image",
+                "gl_foto" => "image|dimensions:max_width=1800,max_height=1800",
                 "gl_nama" => "required",
                 "gl_keterangan" => "required",
                 "gl_tarif" => "required|numeric",
@@ -34,7 +34,7 @@ class RequestGedungLap extends FormRequest
             ];
         } else {
             return [
-                "gl_foto" => "required|image",
+                "gl_foto" => "required|image|dimensions:max_width=1800,max_height=1800",
                 "gl_nama" => "required",
                 "gl_keterangan" => "required",
                 "gl_tarif" => "required|numeric",

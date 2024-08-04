@@ -17,14 +17,17 @@ use App\Http\Requests\asrama\tipeAsrama\RequestTipeAsrama;
 use App\Http\Requests\asrama\fasilitasAsrama\RequestFasilitasAsrama;
 use App\Http\Requests\asrama\detailFotoTipeAsrama\RequestDetailFotoTipeAsrama;
 use App\Http\Requests\asrama\detailFasilitasAsrama\RequestDetailFasilitasAsrama;
+use App\Services\Transaksi\TransaksiService;
 
 class AsramaController extends Controller
 {
     private $asramaService;
+    private $transaksiService;
 
-    public function __construct(AsramaService $asramaService)
+    public function __construct(AsramaService $asramaService, TransaksiService $transaksiService)
     {
         $this->asramaService = $asramaService;
+        $this->transaksiService = $transaksiService;
     }
 
     /**
@@ -64,7 +67,7 @@ class AsramaController extends Controller
         try {
             $FasilitasAsrama = $this->asramaService->getDataFasilitasAsramaById($id);
         } catch (\Exception $th) {
-            return abort(404);
+            abort(404);
         }
 
         return view("admin.asrama.FasilitasAsrama.edit", [
@@ -472,7 +475,7 @@ class AsramaController extends Controller
 
         return view("admin.asrama.detailFotoTipeAsrama.lihat", [
             "title" => "Detail Foto Tipe Asrama",
-            "action" => "Detail Foto Tipe Asrama",
+            "action" => "asrama",
             "tipeAsrama" => $tipeAsrama->first(),
             "detailFotoTipeAsrama" => $asramas->get(),
         ]);
@@ -516,7 +519,7 @@ class AsramaController extends Controller
 
         return view("admin.asrama.detailFotoTipeAsrama.detail", [
             "title" => "Detail",
-            "action" => "kendaraan",
+            "action" => "asrama",
             "detailFotoTipeAsrama" => $asrama,
         ]);
     }
@@ -567,5 +570,35 @@ class AsramaController extends Controller
         }
 
         return back()->with("successTable", "Berhasil Menghapus");
+    }
+
+    /**
+     * Daftar Penyewa
+     * Index
+     */
+    public function indexDaftarPenyewa()
+    {
+        $transaksi = $this->transaksiService->getAllTransaksiAsramaAndUser();
+
+        return view("admin.asrama.daftarPenyewa.lihat", [
+            "title" => "Daftar Penyewa",
+            "action" => "asrama",
+            "transaksi" => $transaksi->get(),
+        ]);
+    }
+
+    /**
+     * Reschedule
+     * Index
+     */
+    public function rescheduleTransaksiAsrama($id)
+    {
+        try {
+            $transaksi = $this->asramaService->updateAsrama(["a_status" => "tersedia"], $id);
+        } catch (\Exception $th) {
+            return back()->with("errorTable", "Ups salah");
+        }
+
+        return back()->with("successTable", "Berhasil reschedule transaksi");
     }
 }

@@ -22,7 +22,7 @@ class RequestDetailFotoTipeAsrama extends FormRequest
     public function rules(): array
     {
         return [
-            "dfta_foto" => "required|image",
+            "dfta_foto" => "required|image|dimensions:max_width=1800,max_height=1800",
         ];
     }
 

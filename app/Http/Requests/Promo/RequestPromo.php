@@ -26,7 +26,7 @@ class RequestPromo extends FormRequest
         if ($this->getMethod() == "PUT") {
             return [
                 "p_judul" => "required",
-                "p_foto" => "image",
+                "p_foto" => "image|dimensions:max_width=1800,max_height=1800",
                 "p_kode" => [
                     "required", "unique" =>
                     Rule::unique("promos", "p_kode")->ignore($promo->id)
@@ -46,7 +46,7 @@ class RequestPromo extends FormRequest
         } else {
             return [
                 "p_judul" => "required",
-                "p_foto" => "required|image",
+                "p_foto" => "required|image|dimensions:max_width=1800,max_height=1800",
                 "p_kode" => "required|unique:promos",
                 "p_isi" => "required|numeric|gt:0",
                 "p_tipe" => "required",

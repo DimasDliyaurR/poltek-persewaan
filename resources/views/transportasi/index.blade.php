@@ -12,6 +12,7 @@
         <div class="bgImage absolute inset-0   h-full  bg-cover  bg-no-repeat bg-white opacity-50 bg-center">
         </div>
     </section>
+
     <!-- Hero Section End -->
     <x-navigasi-kategori />
 

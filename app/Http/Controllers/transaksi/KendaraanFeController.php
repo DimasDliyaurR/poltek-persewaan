@@ -4,14 +4,15 @@ namespace App\Http\Controllers\transaksi;
 
 use Illuminate\Http\Request;
 use App\Models\MerkKendaraan;
+use App\Models\TransaksiGedung;
 use App\Models\TransaksiKendaraan;
 use Illuminate\Support\Facades\DB;
+use App\Models\RatingMerkKendaraan;
 use App\Http\Controllers\Controller;
 use App\Models\DetailTransaksiKendaraan;
 use App\Services\Kendaraan\KendaraanService;
 use App\Http\Controllers\Traits\HandlerPromo;
 use App\Http\Controllers\Traits\FormValidationHelper;
-use App\Models\RatingMerkKendaraan;
 use App\Services\handler\Midtrans\CreateSnapTokenService;
 
 class KendaraanFeController extends Controller
@@ -52,6 +53,7 @@ class KendaraanFeController extends Controller
 
     public function detail($slug)
     {
+
         $kendaraans = MerkKendaraan::with(["kendaraans"])->withCount([
             "kendaraans" => fn ($q) => $q->where("k_status", "=", "tersedia")->latest(), "rating"
         ])->where("mk_slug", "=", $slug)->first();

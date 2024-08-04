@@ -1,8 +1,10 @@
 import "./bootstrap";
 import "preline";
 import ApexCharts from "apexcharts";
-
+import jquery from "jquery"
 import "flowbite";
+
+window.$ = jquery
 
 window.onscroll = function () {
     const header = document.querySelector("header");

@@ -23,7 +23,7 @@ class RequestMerkKendaraan extends FormRequest
     {
         if ($this->getMethod() == "PUT") {
             return [
-                "mk_foto" => "image|extensions:jpg,png",
+                "mk_foto" => "image|extensions:jpg,png|dimensions:max_width=1800,max_height=1800",
                 "mk_merk" => "required",
                 "mk_seri" => "required|",
                 "mk_tarif" => "required|numeric|max_digits:10",
@@ -36,9 +36,9 @@ class RequestMerkKendaraan extends FormRequest
         }
 
         return [
-            "mk_foto" => "required|image|extensions:jpg,png",
+            "mk_foto" => "required|image|extensions:jpg,png|dimensions:max_width=1800,max_height=1800",
             "mk_merk" => "required",
-            "mk_seri" => "required|",
+            "mk_seri" => "required",
             "mk_tarif" => "required|numeric|max_digits:10",
             "mk_kapasitas" => "required",
             "mk_bahan_bakar" => "required",
@@ -55,6 +55,7 @@ class RequestMerkKendaraan extends FormRequest
             // Foto Kendaraan
             "mk_foto.required" => "Foto Kendaraan mohon diisi !",
             "mk_foto.image" => "Foto Kendaraan tidak berupa gambar !",
+            "mk_foto.dimensions" => "Foto Kendaraan melebihi dimensi 1800px 1800px !",
             "mk_foto.extensions" => "Foto Kendaraan gunakan extension jpg , png !",
 
             // Nama Merek

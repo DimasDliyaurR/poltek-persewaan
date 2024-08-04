@@ -347,6 +347,22 @@
                         </td>
                     </tr>
                 @endforelse
+                <tr class="border-t-2">
+                    <td colspan="4" class="px-6 py-4 text-left">
+                        Sub Total (Belum Bayar)
+                    </td>
+                    <td colspan="4" class="px-6 py-4 text-left">
+                        Rp. {{ number_format($totalTransaksiBelumBayar, 0, ',', '.') }}
+                    </td>
+                </tr>
+                <tr class="border-t-2">
+                    <td colspan="4" class="px-6 py-4 text-left">
+                        Sub Total (Sudah Bayar)
+                    </td>
+                    <td colspan="4" class="px-6 py-4 text-left">
+                        Rp. {{ number_format($totalTransaksiSudahBayar, 0, ',', '.') }}
+                    </td>
+                </tr>
             </tbody>
         </table>
 

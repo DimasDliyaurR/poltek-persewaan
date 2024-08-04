@@ -33,6 +33,13 @@ interface TransaksiService
     public function getAllTransaksiAsrama();
 
     /**
+     * Get All Transaksi Asrama with asrama
+     * @return object
+     * @throws InvalidArgumentException
+     */
+    public function getAllTransaksiAsramaAndUser();
+
+    /**
      * Get All Transaksi Alat Barang
      * @return object
      * @throws InvalidArgumentException

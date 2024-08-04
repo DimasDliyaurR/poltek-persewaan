@@ -45,6 +45,7 @@ class LayananFeController extends Controller
 
     public function detail($slug)
     {
+
         $layanan = Layanan::with("detailFotoLayanans")->whereLSlug($slug)->first();
         if (!$layanan)
             abort(404);

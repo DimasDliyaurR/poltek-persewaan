@@ -37,7 +37,7 @@
                         </li>
                         @auth
                             <li class="group">
-                                <a href="{{ route('dashboard.user.index') }}"
+                                <a href="{{ auth()->user()->level == 'customer' ? route('dashboard.user.index') : route('admin.index') }}"
                                     class="text-base py-2 mx-6 flex group-hover:text-primary">Dashboard</a>
                             </li>
                             <li class="group">

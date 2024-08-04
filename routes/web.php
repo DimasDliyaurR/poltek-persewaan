@@ -21,6 +21,7 @@ use App\Http\Controllers\transaksi\LayananFeController;
 use App\Http\Controllers\transaksi\KendaraanFeController;
 use App\Http\Controllers\transaksi\AlatBarangFeController;
 use App\Http\Controllers\user\DashboardUserController;
+use PHPUnit\Framework\Attributes\Group;
 
 /*
 |--------------------------------------------------------------------------
@@ -197,6 +198,11 @@ Route::group(["prefix" => "admin", "middleware" => "auth"], function () {
 
                 // Restore Tipe Asrama
                 Route::get("tipeAsrama/restore/{id}", "restoreTipeAsrama");
+            });
+
+            Route::group(["prefix" => "daftar-penyewa", "as" => "daftar-penyewa."], function () {
+                Route::get("", "indexDaftarPenyewa")->name("index");
+                Route::get("/reschedule/{id}", "rescheduleTransaksiAsrama")->name("penyewa");
             });
         })->middleware("admin-asrama");
 
@@ -536,7 +542,7 @@ Route::group(["prefix" => "alat-barang", "as" => "alat-barang."], function () {
  * |
  * |
  */
-Auth::routes(["verify" => true]);
+Auth::routes();
 
 Route::get('/promo', [LandingPageController::class, 'promo']);
 
@@ -548,48 +554,3 @@ Route::controller(DashboardUserController::class)->group(function () {
         Route::get('/riwayat', "pesanan");
     });
 });
-
-// Route::view('/gedung/detail', 'GedungLap.detail', [
-//     "title" => "Detail Gedung",
-// ]);
-// Route::view('/gedung/pesan', 'GedungLap.transaksi_pemesanan', [
-//     "title" => "Pemesanan Gedung Lap",
-// ]);
-// Route::view('/gedung/invoice', 'GedungLap.invoice', [
-//     "title" => "Invoice Gedung Lap",
-// ]);
-// Route::view('/gedung/print', 'GedungLap.invoice_print', [
-//     "title" => "Print Invoice Gedung Lap",
-// ]);
-// // TRANSAKSI
-// Route::view('/invoice', 'user.invoice', [
-//     "title" => "Invoice",
-// ]);
-// Route::view('/riwayat', 'user.riwayat_pesanan', [
-//     "title" =>  "Riwayat Pesanan"
-// ]);
-// Route::view('/indexnew', 'indexnew', [
-//     "title" => "Home",
-// ]);
-// // USER
-// Route::view('/user', 'layouts-user.main', [
-//     "title" => "Dashboard User"
-// ]);
-// Route::view('/edit-profile', 'user.edit-profile', [
-//     "title" => "Edit Profile"
-// ]);
-// Route::view('/profile', 'user.profile', [
-//     "title" => " View Profile"
-// ]);
-// Route::view('/voucher', 'user.riwayat_voucher', [
-//     "title" => "Riwayat Voucher"
-// ]);
-// Route::view('/dashboard', 'user.dash', [
-//     "title" => "Dashboard"
-// ]);
-// Route::view('/invoice', 'user.riwayat_invoice', [
-//     "title" => "Invoice",
-// ]);
-// Route::view('/detail_invoice', 'user.invoice', [
-//     "title" => "Invoice",
-// ]);

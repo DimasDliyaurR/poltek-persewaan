@@ -15,7 +15,9 @@
                         id="email" name="email" placeholder="masukkan alamat email" value="{{ old('email') }}"
                         autocomplete="email">
                     @error('email')
-                        {{ $message }}
+                        <span class="text-red-500">
+                            {{ $message }}
+                        </span>
                     @enderror
 
                 </div>
@@ -27,7 +29,9 @@
                         class="border w-full text-sm  mb-1 focus:outline-none focus:ring-0 focus:border-gray-600 rounded-md "
                         id="no_telp" name="no_telp" placeholder="masukkan nomor telephone" value="{{ old('no_telp') }}">
                     @error('no_telp')
-                        {{ $message }}
+                        <span class="text-red-500">
+                            {{ $message }}
+                        </span>
                     @enderror
                 </div>
                 <div class="mt-1 text-sm">
@@ -36,7 +40,9 @@
                         class="border w-full text-sm  mb-1 focus:outline-none focus:ring-0 focus:border-gray-600 rounded-md "
                         id="username" name="username" placeholder="masukkan username" value="{{ old('username') }}">
                     @error('username')
-                        {{ $message }}
+                        <span class="text-red-500">
+                            {{ $message }}
+                        </span>
                     @enderror
                 </div>
 
@@ -47,7 +53,9 @@
                         id="nama_lengkap" name="nama_lengkap" placeholder="Masukkan nama lengkap"
                         value="{{ old('nama_lengkap') }}">
                     @error('nama_lengkap')
-                        {{ $message }}
+                        <span class="text-red-500">
+                            {{ $message }}
+                        </span>
                     @enderror
                 </div>
                 <div class="mt-1 text-sm">
@@ -60,9 +68,12 @@
                             class="hidden border w-full text-sm  focus:outline-none focus:ring-0 focus:border-gray-600 rounded-md "
                             id="foto_ktp" name="foto_ktp" placeholder="No file chosen">
                         @error('foto_ktp')
-                            {{ $message }}
+                            <span class="text-red-500">
+                                {{ $message }}
+                            </span>
                         @enderror
                     </div>
+                    <span class="text-sm text-gray-500">Ratio maks 1800x1800</span>
                 </div>
                 <div class="mt-1 text-sm">
                     <label for="password">Kata sandi</label>
@@ -77,7 +88,9 @@
                         class="bg-none border w-full text-sm  mb-2 focus:outline-none focus:ring-0 focus:border-gray-600 rounded-md"
                         autocomplete="new-password">
                     @error('password')
-                        {{ $message }}
+                        <span class="text-red-500">
+                            {{ $message }}
+                        </span>
                     @enderror
                 </div>
 
@@ -86,7 +99,9 @@
                     <input type="text" id="alamat" name="alamat" placeholder="Konfirmasi Password"
                         class="bg-none border w-full text-sm  mb-2 focus:outline-none focus:ring-0 focus:border-gray-600 rounded-md">
                     @error('alamat')
-                        {{ $message }}
+                        <span class="text-red-500">
+                            {{ $message }}
+                        </span>
                     @enderror
                 </div>
                 <button

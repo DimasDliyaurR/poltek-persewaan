@@ -104,7 +104,7 @@
         </div>
     </div>
     <!-- kategori section -->
-    <section id="kategori" class="pt-36 pb-36 bg-white ">
+    <section id="kategori" class="pt-20 pb-36 bg-white ">
         <div class="container  ">
             <div class="w-full ">
                 <div class="max-w-xl mx-auto text-center mb-16">
