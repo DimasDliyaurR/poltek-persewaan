@@ -1,6 +1,7 @@
 @extends('layouts-admin.main')
 
 @section('content')
+    <x-back :link="route('tipeAsrama.index')" />
     <x-title-component>
         Form Tambah {{ $title }} Dari <span class="font-normal">{{ $tipeAsrama->ta_nama }}</span>
     </x-title-component>

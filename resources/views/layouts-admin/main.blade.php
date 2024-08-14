@@ -6,15 +6,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>{{ $title }} | PERSEWAAN ASET</title>
+    <link rel="stylesheet" href="{{ asset('js/vendor/ckeditor5.css') }}">
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     @livewireStyles
     <script type="text/javascript" src="https://unpkg.com/xlsx@0.15.1/dist/xlsx.full.min.js"></script>
 </head>
 
 <body class="dark:bg-gray-800 font-poppins">
-
     @include('layouts-admin.nav')
-    <div class="flex flex-col sm:flex-row h-screen">
+    <div class="flex flex-col sm:flex-row h-auto">
         @include('layouts-admin.sidebar')
 
         <div class="w-full bg-gray-100 dark:bg-red-200 p-4">
@@ -31,12 +31,11 @@
 
 
 
-    @vite('resources/js/app.js')
-    <script src="{{ asset('js/feature/dark-mode.js') }}"></script>
-
     {{-- CKEditor --}}
-    <script src="https://cdn.ckeditor.com/ckeditor5/41.2.1/super-build/ckeditor.js"></script>
-    <script src="{{ asset('js/feature/editor.js') }}"></script>
+    <script type="module" src="{{ asset('js/feature/editor.js') }}"></script>
+    @vite('resources/js/app.js')
+    {{-- <script src="{{ asset('js/feature/dark-mode.js') }}"></script> --}}
+
     {{-- boxicons --}}
     <script src="https://unpkg.com/boxicons@2.1.4/dist/boxicons.js"></script>
     @livewireScripts

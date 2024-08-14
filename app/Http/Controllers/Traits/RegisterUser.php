@@ -8,7 +8,9 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Support\Facades\Storage;
 use App\Http\Requests\user\RequestRegister;
+use Exception;
 use Illuminate\Foundation\Auth\RedirectsUsers;
+use InvalidArgumentException;
 
 trait RegisterUser
 {
@@ -36,22 +38,25 @@ trait RegisterUser
     {
         $validation = $request->validated();
 
+        try {
+            if ($request->hasFile('foto_ktp')) {
+                $file_ktp = $request->file('foto_ktp');
+                $foto_ktp = $file_ktp->hashName();
 
-        if ($request->hasFile('foto_ktp')) {
-            $file_ktp = $request->file('foto_ktp');
-            $foto_ktp = $file_ktp->hashName();
+                $foto_ktp_path = $file_ktp->storeAs("/ktp", $foto_ktp);
+                $foto_ktp_path = Storage::disk("public")->put("/ktp", $file_ktp);
+                $validation['foto_ktp'] = $foto_ktp_path;
+            }
 
-            $foto_ktp_path = $file_ktp->move("/ktp", $foto_ktp);
-            $foto_ktp_path = Storage::disk("public")->put("/ktp", $file_ktp);
-            $validation['foto_ktp'] = $foto_ktp_path;
-        }
+            event(new Registered($user = $this->create($validation)));
 
-        event(new Registered($user = $this->create($validation)));
+            $this->guard()->login($user);
 
-        $this->guard()->login($user);
-
-        if ($response = $this->registered($request, $user)) {
-            return $response;
+            if ($response = $this->registered($request, $user)) {
+                return $response;
+            }
+        } catch (\Exception $th) {
+            throw new Exception($th);
         }
 
         return $request->wantsJson()

@@ -15,7 +15,8 @@ class AdminMiddleware
      */
     public function handle(Request $request, Closure $next): Response
     {
-        if (auth()->user()->level != "admin") {
+        $a = ['admin', 'admin_dpupk', 'admin_keuangan', "admin_kendaraan", "admin_asrama", "admin_alat_barang", "admin_gedung_lap", "admin_layanan"];
+        if (!in_array(auth()->user()->level, $a)) {
             abort(401);
         }
 

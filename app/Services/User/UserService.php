@@ -28,8 +28,8 @@ interface UserService
 
     /**
      * Get All With User Data Activity log
-     * @return boolean
      * @throws InvalidArgumentException
+     * @return object
      */
     public function getAllActivityLogWithUser();
 

@@ -15,7 +15,7 @@ class AdminAlatBarang
      */
     public function handle(Request $request, Closure $next): Response
     {
-        if (auth()->user()->level != "admin_alat_barang" or auth()->user()->level != "admin") {
+        if (auth()->user()->level != "admin_alat_barang" and auth()->user()->level != "admin") {
             return abort(401);
         }
         return $next($request);

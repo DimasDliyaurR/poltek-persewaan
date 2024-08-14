@@ -1,6 +1,8 @@
 @extends('layouts-admin.main')
 
 @section('content')
+    <x-back :link="route('alatBarang.satuanAlatBarang.index')" />
+
     <!-- FORM START -->
     <div class="uppercase text-lg font-bold m-4">
         Form {{ $title }}

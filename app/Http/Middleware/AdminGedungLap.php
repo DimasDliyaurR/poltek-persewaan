@@ -15,7 +15,7 @@ class AdminGedungLap
      */
     public function handle(Request $request, Closure $next): Response
     {
-        if (auth()->user()->level != "admin_gedung_lap" or auth()->user()->level != "admin") {
+        if (auth()->user()->level != "admin_gedung_lap" and auth()->user()->level != "admin") {
             return abort(401);
         }
         return $next($request);

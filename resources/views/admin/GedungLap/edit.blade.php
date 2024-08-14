@@ -1,6 +1,8 @@
 @extends('layouts-admin.main')
 
 @section('content')
+    <x-back :link="route('gedungLap.index')" />
+
     <x-title-component>
         Form Update {{ $title }}
     </x-title-component>

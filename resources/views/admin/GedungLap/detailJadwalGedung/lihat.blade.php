@@ -1,6 +1,8 @@
 @extends('layouts-admin.main')
 
 @section('content')
+    <x-back :link="route('gedungLap.index')" />
+
     <x-title-component>
         Form Tambah {{ $title }} Dari <span class="font-normal">{{ $gedungLaps->gl_nama }}</span>
     </x-title-component>

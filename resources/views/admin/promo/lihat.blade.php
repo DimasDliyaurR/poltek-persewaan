@@ -341,23 +341,32 @@
             <div class="mb-5">
                 <label for="p_kategori" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Kategori
                     Promo</label>
-                <select name="p_kategori"
+                <select name="p_kategori" {{ auth()->user()->level != 'admin' ? 'disabled' : '' }}
                     class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-4 @error('p_kategori') border-red-500 @enderror">
                     <option disabled selected>-- Pilih Kategori --</option>
                     <optgroup label="Kategori">
-                        <option value="asramas" {{ old('p_kategori') == 'asramas' ? 'selected' : '' }}>Asrama</option>
-                        <option value="layanans" {{ old('p_kategori') == 'layanans' ? 'selected' : '' }}>Layanan</option>
-                        <option value="gedung_laps" {{ old('p_kategori') == 'gedung_laps' ? 'selected' : '' }}>Gedung
+                        <option value="asramas"
+                            {{ (old('p_kategori') == 'asramas' ? 'selected' : auth()->user()->level == 'admin_asrama') ? 'selected' : '' }}>
+                            Asrama</option>
+                        <option value="layanans"
+                            {{ (old('p_kategori') == 'layanans' ? 'selected' : auth()->user()->level == 'admin_layanan') ? 'selected' : '' }}>
+                            Layanan</option>
+                        <option value="gedung_laps"
+                            {{ (old('p_kategori') == 'gedung_laps' ? 'selected' : auth()->user()->level == 'admin_gedung_lap') ? 'selected' : '' }}>
+                            Gedung
                             Lapangan
                         </option>
-                        <option value="kendaraans" {{ old('p_kategori') == 'kendaraans' ? 'selected' : '' }}>Kendaraan
+                        <option value="kendaraans"
+                            {{ (old('p_kategori') == 'kendaraans' ? 'selected' : auth()->user()->level == 'admin_kendaraan') ? 'selected' : '' }}>
+                            Kendaraan
                         </option>
-                        <option value="alat_barangs" {{ old('p_kategori') == 'alat_barangs' ? 'selected' : '' }}>Barang
+                        <option value="alat_barangs"
+                            {{ (old('p_kategori') == 'alat_barangs' ? 'selected' : auth()->user()->level == 'admin_alat_barang') ? 'selected' : '' }}>
+                            Barang
                         </option>
                     </optgroup>
                     <optgroup label="Opsi lain">
-                        <option value="All" {{ old('p_kategori') == 'All' ? 'selected' : '' }}>Semua Kategori
-                        </option>
+                        <option value="All" {{ old('p_kategori') == 'All' ? 'selected' : '' }}>Semua Kategori</option>
                     </optgroup>
                 </select>
                 @error('p_kategori')

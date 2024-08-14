@@ -28,6 +28,6 @@ class LogActivityRepositoryImplement implements LogActivityRepository
      */
     public function getAllWithUser()
     {
-        return $this->activityLog::join("users", "causer_id", "=", "users.id")->get(["activity_log.*", "users.username"]);
+        return $this->activityLog::select("activity_log.*", "users.username")->join("users", "causer_id", "=", "users.id");
     }
 }

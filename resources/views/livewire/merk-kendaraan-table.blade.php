@@ -48,6 +48,11 @@
                 {{ $value }}
             </x-alert-success>
         @endsession
+        @session('errorTable')
+            <x-alert-error>
+                {{ $value }}
+            </x-alert-error>
+        @endsession
         {{ $merkKendaraans->links() }}
 
         <table class="w-full text-sm text-left rtl:text-right text-gray-800 dark:text-gray-400 border-solid">
@@ -171,6 +176,9 @@
                     </th>
                     <th scope="col" class="px-6 py-3">
                         <span class="sr-only">Edit</span>
+                    </th>
+                    <th scope="col" class="px-6 py-3">
+                        <span class="sr-only">Hapus</span>
                     </th>
                 </tr>
             </thead>

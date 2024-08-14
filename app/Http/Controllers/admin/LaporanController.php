@@ -256,6 +256,10 @@ class LaporanController extends Controller
             throw new InvalidArgumentException();
         }
 
+        if ($transaksiAsrama->first() == null) {
+            return back()->with("errorTable", "Ups ada kesalahan nih");
+        }
+
         return view("admin.laporan.asrama.detail", [
             "title" => "Transaksi Asrama",
             "action" => "laporan",

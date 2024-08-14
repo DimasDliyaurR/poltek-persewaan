@@ -159,11 +159,19 @@ class KendaraanController extends Controller
     {
         $merkKendaraan = $this->kendaraanService->getDataMerkKendaraanById($id);
 
+        // dd($merkKendaraan);
+
         try {
-            Storage::disk("public")->delete($merkKendaraan['mk_foto']);
-            $this->kendaraanService->destroyMerkKendaraan($id);
+            if ($merkKendaraan) {
+                DB::transaction(function () use ($id, $merkKendaraan) {
+                    $this->kendaraanService->destroyMerkKendaraan($id);
+                    Storage::disk("public")->delete($merkKendaraan['mk_foto']);
+                });
+            } else {
+                return back()->with("errorTable", "Ups ada yang salah ni!");
+            }
         } catch (\Exception $th) {
-            throw new InvalidArgumentException();
+            return back()->with("errorTable", "Ups ada yang salah ni!");
         }
 
         return back()->with("successTable", "Berhasil Menghapus " . $merkKendaraan['mk_merk']);
@@ -286,7 +294,7 @@ class KendaraanController extends Controller
         $events = TransaksiKendaraan::where('tk_pelaksanaan', '>=', $start)
             ->where('tk_tanggal_kembali', '<=', $end)
             ->get()
-            ->map(fn ($item) => [
+            ->map(fn($item) => [
                 'id' => $item->id,
                 'title' => $item->tk_title,
                 'start' => $item->tk_pelaksanaan,

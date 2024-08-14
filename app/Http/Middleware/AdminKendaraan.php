@@ -15,7 +15,7 @@ class AdminKendaraan
      */
     public function handle(Request $request, Closure $next): Response
     {
-        if (auth()->user()->level != "admin_kendaraan" or auth()->user()->level != "admin") {
+        if (auth()->user()->level != "admin_kendaraan" and auth()->user()->level != "admin") {
             return abort(401);
         }
         return $next($request);

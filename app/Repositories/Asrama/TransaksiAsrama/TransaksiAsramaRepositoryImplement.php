@@ -19,7 +19,7 @@ class TransaksiAsramaRepositoryImplement implements TransaksiAsramaRepository
 
     /**
      * Get Data Transaksi Asrama by Id 
-     * @param id
+     * @param $id
      * @return Array
      */
     public function getDataById($id)
@@ -46,8 +46,7 @@ class TransaksiAsramaRepositoryImplement implements TransaksiAsramaRepository
      */
     public function getAllWithDetailTransaksiAsrama()
     {
-        $transaksiAsramaData = $this->transaksiAsrama::with(["asramas" => ["tipeAsrama"], "fasilitasAsrama"])->join("users", "transaksi_asramas.user_id", "=", "users.id")
-            ->join("profiles", "users.id", "=", "profiles.user_id");
+        $transaksiAsramaData = $this->transaksiAsrama::with(["asramas" => ["tipeAsrama"], "fasilitasAsrama", "user.profile"]);
 
         return $transaksiAsramaData;
     }
@@ -58,7 +57,7 @@ class TransaksiAsramaRepositoryImplement implements TransaksiAsramaRepository
      */
     public function getAllWithUserAndAsrama()
     {
-        $transaksiAsramaData = $this->transaksiAsrama::with(["asramas", "user.profile"]);
+        $transaksiAsramaData = $this->transaksiAsrama::with(["asramas.tipeAsrama", "user.profile"]);
 
         return $transaksiAsramaData;
     }

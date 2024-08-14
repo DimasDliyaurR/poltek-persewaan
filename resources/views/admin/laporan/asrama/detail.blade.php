@@ -16,30 +16,25 @@
                 <div class="flex flex-col mb-4">
                     <span class="mb-3">Tanggal Sewa</span>
                     <span
-                        class="p-4 rounded-lg bg-gray-100">{{ \Carbon\Carbon::parse($transaksiAsrama->ta_tanggal_sewa)->isoFormat('d MMMM Y') }}</span>
+                        class="p-4 rounded-lg bg-gray-100">{{ \Carbon\Carbon::parse($transaksiAsrama->ta_tanggal_sewa)->isoFormat('D MMMM Y') }}</span>
                 </div>
 
                 <div class="flex flex-col mb-4">
                     <span class="mb-3">Check In</span>
                     <span
-                        class="p-4 rounded-lg bg-gray-100">{{ \Carbon\Carbon::parse($transaksiAsrama->ta_check_in)->isoFormat('d MMMM Y') }}</span>
+                        class="p-4 rounded-lg bg-gray-100">{{ \Carbon\Carbon::parse($transaksiAsrama->ta_check_in)->isoFormat('D MMMM Y') }}</span>
                 </div>
 
                 <div class="flex flex-col mb-4">
                     <span class="mb-3">Check Out</span>
                     <span
-                        class="p-4 rounded-lg bg-gray-100">{{ \Carbon\Carbon::parse(date('Y-m-d', strtotime($transaksiAsrama->ta_check_out)))->isoFormat('d MMMM Y') }}</span>
+                        class="p-4 rounded-lg bg-gray-100">{{ \Carbon\Carbon::parse(date('Y-m-d', strtotime($transaksiAsrama->ta_check_out)))->isoFormat('D MMMM Y') }}</span>
                 </div>
 
                 <div class="flex flex-col mb-4">
                     <span class="mb-3">Sub Total</span>
                     <span class="p-4 rounded-lg bg-gray-100">Rp.
                         {{ number_format($transaksiAsrama->ta_sub_total, 0, ',', '.') }}</span>
-                </div>
-
-                <div class="flex flex-col mb-4">
-                    <span class="mb-3">Snap Token Midtrans</span>
-                    <span class="p-4 rounded-lg bg-gray-100">{{ $transaksiAsrama->ta_snap_token }}</span>
                 </div>
 
                 <div class="flex flex-col mb-4">
@@ -89,7 +84,7 @@
             @forelse ($transaksiAsrama->asramas as $row)
                 <li>
                     <a class="text-blue-500 hover:underline"
-                        href="{{ route('asrama.store', $row->id) }}">{{ $row->tipeAsrama->ta_nama }}</a>
+                        href="{{ route('tipeAsrama.store', $row->id) }}">{{ $row->tipeAsrama->ta_nama }}</a>
                 </li>
             @empty
                 <p class="text-sm text-center">Tidak ada item</p>

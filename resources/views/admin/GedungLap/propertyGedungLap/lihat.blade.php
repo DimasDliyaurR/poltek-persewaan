@@ -1,6 +1,8 @@
 @extends('layouts-admin.main')
 
 @section('content')
+    <x-back :link="route('gedungLap.index')" />
+
     <div class="uppercase text-lg font-bold m-4 dark:text-white h-full">
         Table {{ $title }}
     </div>

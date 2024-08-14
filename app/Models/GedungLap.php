@@ -10,6 +10,7 @@ use App\Models\RatingMerkKendaraan;
 use App\Models\DetailTransaksiGedung;
 use App\Models\GedungLapPaymentMethod;
 use Illuminate\Database\Eloquent\Model;
+use Spatie\Activitylog\Traits\LogsActivity;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -17,7 +18,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class GedungLap extends Model
 {
-    use HasFactory;
+    use HasFactory, LogsActivity;
 
     /**
      * The attributes that are mass assignable.
@@ -51,7 +52,7 @@ class GedungLap extends Model
     public function getActivitylogOptions(): LogOptions
     {
         return LogOptions::defaults()
-            ->setDescriptionForEvent(fn ($e) => "This model has been {$e}")
+            ->setDescriptionForEvent(fn($e) => "This model has been {$e}")
             ->logExcept([
                 "created_at",
                 "updated_at"

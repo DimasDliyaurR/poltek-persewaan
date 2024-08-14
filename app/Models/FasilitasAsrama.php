@@ -8,13 +8,14 @@ use Spatie\Activitylog\LogOptions;
 use App\Models\DetailFasilitasAsrama;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\DetailTransaksiFasilitas;
+use Spatie\Activitylog\Traits\LogsActivity;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class FasilitasAsrama extends Model
 {
-    use HasFactory;
+    use HasFactory, LogsActivity;
 
     /**
      * The attributes that are mass assignable.
@@ -41,7 +42,7 @@ class FasilitasAsrama extends Model
     public function getActivitylogOptions(): LogOptions
     {
         return LogOptions::defaults()
-            ->setDescriptionForEvent(fn ($e) => "This model has been {$e}")
+            ->setDescriptionForEvent(fn($e) => "This model has been {$e}")
             ->logExcept([
                 "created_at",
                 "updated_at"

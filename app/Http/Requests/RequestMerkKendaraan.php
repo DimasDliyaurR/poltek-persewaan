@@ -43,7 +43,7 @@ class RequestMerkKendaraan extends FormRequest
             "mk_kapasitas" => "required",
             "mk_bahan_bakar" => "required",
             "mk_deskripsi" => "required",
-            "is_dp" => "boolean",
+            "is_dp" => "required|boolean",
         ];
     }
 
@@ -73,6 +73,7 @@ class RequestMerkKendaraan extends FormRequest
             "mk_bahanbakar.required" => "Bahan bakar mohon diisi!",
             "mk_deskripsi.required" => "Deskripsi mohon diisi !",
 
+            "is_dp.required" => "Mohon isi!",
             "is_dp.boolean" => "Mohon isi dengan valid !",
 
             "tarif_dp.required" => "tarif dp mohon diisi !",

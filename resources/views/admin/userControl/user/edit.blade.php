@@ -1,6 +1,9 @@
 @extends('layouts-admin.main')
 
 @section('content')
+
+    <x-back />
+
     <x-title-component>
         Form Update {{ $title }}
     </x-title-component>
@@ -11,10 +14,6 @@
                 {{ $value }}
             </x-alert-success>
         @endsession
-
-        {{-- @php
-            dd($user->p_tipe_stok == 'unlimited');
-        @endphp --}}
 
         <form action="{{ route('user.update', $user->id) }}" method="post">
             @csrf

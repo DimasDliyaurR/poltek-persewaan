@@ -17,7 +17,7 @@ class DetailFotoTipeAsrama extends Model
     public function getActivitylogOptions(): LogOptions
     {
         return LogOptions::defaults()
-            ->setDescriptionForEvent(fn ($e) => "This model has been {$e}")
+            ->setDescriptionForEvent(fn($e) => "This model has been {$e}")
             ->logExcept([
                 "created_at",
                 "updated_at"

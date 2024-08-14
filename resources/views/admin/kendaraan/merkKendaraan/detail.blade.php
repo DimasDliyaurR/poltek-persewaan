@@ -1,8 +1,9 @@
 @extends('layouts-admin.main')
 
 @section('content')
-    <x-inner-layout>
+    <x-back link="{{ route('merkKendaraan.index') }}" />
 
+    <x-inner-layout>
         <x-title-component>
             Foto Merk Kendaraan
         </x-title-component>
@@ -42,6 +43,11 @@
             <div class="flex flex-col mb-4">
                 <span class="font-semibold mb-3">Bahan Bakar</span>
                 <span class="p-4 rounded-lg bg-gray-100">{{ $merkKendaraan->mk_bahan_bakar }}</span>
+            </div>
+
+            <div class="flex flex-col mb-4">
+                <span class="font-semibold mb-3">Bahan Bakar</span>
+                <span class="p-4 rounded-lg bg-gray-100">{!! $merkKendaraan->mk_deskripsi !!}</span>
             </div>
         </div>
     </x-inner-layout>

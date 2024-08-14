@@ -5,18 +5,19 @@ namespace App\Models;
 use App\Models\AlatBarang;
 use Spatie\Activitylog\LogOptions;
 use Illuminate\Database\Eloquent\Model;
+use Spatie\Activitylog\Traits\LogsActivity;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class SatuanAlatBarang extends Model
 {
-    use HasFactory;
+    use HasFactory, LogsActivity;
 
     protected $guarded = ["id"];
 
     public function getActivitylogOptions(): LogOptions
     {
         return LogOptions::defaults()
-            ->setDescriptionForEvent(fn ($e) => "This model has been {$e}")
+            ->setDescriptionForEvent(fn($e) => "This model has been {$e}")
             ->logExcept([
                 "created_at",
                 "updated_at"

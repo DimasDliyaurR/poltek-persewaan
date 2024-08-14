@@ -91,7 +91,7 @@
                                 {{ $row->username }}
                             </td>
                             <td class="px-6 py-4 dark:text-white">
-                                {{ $row->subject_type }}
+                                {{ explode('\\', $row->subject_type)[count(explode('\\', $row->subject_type)) - 1] }}
                             </td>
                             <td class="px-6 py-4 dark:text-white">
                                 {{ $row->event }}
@@ -109,6 +109,7 @@
                     @endforelse
                 </tbody>
             </table>
+            {{ $activityLog->links() }}
         </div>
 
     </x-inner-layout>

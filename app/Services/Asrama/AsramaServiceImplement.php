@@ -239,11 +239,11 @@ class AsramaServiceImplement implements AsramaService
      */
     public function storePaymentMethod($data)
     {
-        // try {
-        $data = $this->paymentMethodRepository->store($data);
-        // } catch (\Exception $th) {
-        //     throw new InvalidArgumentException();
-        // }
+        try {
+            $data = $this->paymentMethodRepository->store($data);
+        } catch (\Exception $th) {
+            throw new InvalidArgumentException();
+        }
 
         return $data;
     }

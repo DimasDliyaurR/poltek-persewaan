@@ -50,7 +50,7 @@ class RequestRegister extends FormRequest
             'email.required' => 'Email mohon diisi !',
             'email.email' => 'Format email tidak sah !',
             'email.max' => 'Email terlalu panjang !',
-            'email.unique' => 'Email mu sudah terdaftar',
+            'email.unique' => 'Email sudah terdaftar',
 
             'password.required' => 'Password mohon diisi !',
             'password.min' => 'Password minimal 6 karakter',

@@ -1,5 +1,14 @@
 <x-inner-layout>
-
+    @session('successTable')
+        <x-alert-success>
+            {{ $value }}
+        </x-alert-success>
+    @endsession
+    @session('errorTable')
+        <x-alert-error>
+            {{ $value }}
+        </x-alert-error>
+    @endsession
     <div class="flex flex-col md:flex-row gap-5 mb-5 w-full">
 
         <!-- SEARCH START-->
@@ -47,7 +56,6 @@
 
         <!-- SEARCH END-->
     </div>
-
     <div class="flex gap-3">
         <button id="export" onclick="ExportToExcel('tabel-laporan','xlsx')"
             class="p-2 mb-2 bg-black text-white rounded-md text-sm">Export
@@ -58,11 +66,6 @@
         </form>
     </div>
     <div class="relative overflow-x-auto sm:rounded-lg">
-        @session('successTable')
-            <x-alert-success>
-                {{ $value }}
-            </x-alert-success>
-        @endsession
 
         <table id="tabel-laporan"
             class="w-full text-sm text-left rtl:text-right text-gray-800 dark:text-gray-400 border-solid">
@@ -268,7 +271,7 @@
                             </svg>
                         </td>
                         <td class="px-6 py-4 dark:text-white">
-                            {{ $row->nama_lengkap }}
+                            {{ $row->user->profile->nama_lengkap }}
                         </td>
                         <td class="px-6 py-4 dark:text-white">
                             {{ \Carbon\Carbon::parse($row->ta_tanggal_sewa)->isoFormat('D MMMM Y') }}

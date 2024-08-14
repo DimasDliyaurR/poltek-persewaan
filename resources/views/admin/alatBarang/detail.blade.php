@@ -1,6 +1,8 @@
 @extends('layouts-admin.main')
 
 @section('content')
+    <x-back :link="route('alatBarang.index')" />
+
     <x-inner-layout>
 
         <x-title-component>

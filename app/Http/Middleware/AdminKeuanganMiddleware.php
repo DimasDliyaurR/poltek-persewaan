@@ -15,7 +15,7 @@ class AdminKeuanganMiddleware
      */
     public function handle(Request $request, Closure $next): Response
     {
-        if (auth()->user()->level != "admin_keuangan" or auth()->user()->level != "admin") {
+        if (auth()->user()->level != "admin_keuangan" and auth()->user()->level != "admin") {
             return abort(401);
         }
 

@@ -11,6 +11,7 @@ use App\Models\TransaksiAlatBarang;
 use App\Models\AlatBarangPaymentMethod;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\DetailTransaksiAlatBarang;
+use Spatie\Activitylog\Traits\LogsActivity;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -19,7 +20,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class AlatBarang extends Model
 {
-    use HasFactory;
+    use HasFactory, LogsActivity;
 
     /**
      * The attributes that are mass assignable.
@@ -49,7 +50,7 @@ class AlatBarang extends Model
     public function getActivitylogOptions(): LogOptions
     {
         return LogOptions::defaults()
-            ->setDescriptionForEvent(fn ($e) => "This model has been {$e}")
+            ->setDescriptionForEvent(fn($e) => "This model has been {$e}")
             ->logExcept([
                 "created_at",
                 "updated_at"

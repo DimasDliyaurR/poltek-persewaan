@@ -15,6 +15,9 @@ class AdminAsrama
      */
     public function handle(Request $request, Closure $next): Response
     {
+        if (auth()->user()->level != "admin_asrama" and auth()->user()->level != "admin") {
+            return abort(401);
+        }
         return $next($request);
     }
 }

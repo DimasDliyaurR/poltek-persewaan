@@ -1,6 +1,8 @@
 @extends('layouts-admin.main')
 
 @section('content')
+    <x-back />
+
     <x-title-component>
         Detail User
     </x-title-component>

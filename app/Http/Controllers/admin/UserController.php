@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers\admin;
 
-use App\Http\Controllers\Controller;
-use App\Http\Requests\user\RequestRegister;
 use App\Services\User\UserService;
-use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use App\Http\Requests\user\changePassword\RequestChangePassword;
+use Illuminate\Support\Facades\Hash;
+use App\Http\Requests\user\RequestRegister;
 
 class UserController extends Controller
 {
@@ -62,17 +63,39 @@ class UserController extends Controller
         return redirect()->route("user.index")->with("successForm", "Berhasil mengubah " . $user->email);
     }
 
+    public function changePasswordUserIndex()
+    {
+
+        return view("admin.userControl.ubahPassword.lihat", [
+            "title" => "Ubah password user",
+            "action" => "user",
+        ]);
+    }
+
+    public function changePasswordUser(RequestChangePassword $request)
+    {
+        $validation = $request->validated();
+
+        if (!Hash::check($validation["password_lama"], auth()->user()->password)) {
+            return back()->with("error", "Password lama tidak cocok !");
+        }
+
+        $this->userService->updateUser([
+            "password" => Hash::make($validation["password"]),
+        ], auth()->user()->id);
+
+        return back()->with("success", "Berhasil mengubah password");
+    }
+
     public function indexLogActiviy()
     {
 
         $activityLog = $this->userService->getAllActivityLogWithUser();
 
-        // dd($activityLog);
-
         return view("admin.userControl.logActivity.lihat", [
             "title" => "User",
             "action" => "user",
-            "activityLog" => $activityLog,
+            "activityLog" => $activityLog->paginate(5),
         ]);
     }
 }

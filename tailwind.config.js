@@ -29,6 +29,6 @@ export default {
         require("flowbite/plugin")({
             charts: true
         }),
-        require("tailwindcss-plugins/pagination"),
+        // require("tailwindcss-plugins/pagination"),
     ],
 };

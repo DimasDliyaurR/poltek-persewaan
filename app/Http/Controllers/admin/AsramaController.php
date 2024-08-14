@@ -583,13 +583,27 @@ class AsramaController extends Controller
         return view("admin.asrama.daftarPenyewa.lihat", [
             "title" => "Daftar Penyewa",
             "action" => "asrama",
-            "transaksi" => $transaksi->get(),
+            "transaksi" => $transaksi->paginate(10),
+        ]);
+    }
+
+    /**
+     * Daftar Penyewa
+     * Store
+     */
+    public function detailDaftarPenyewa($id)
+    {
+        $transaksi = $this->transaksiService->getDataByIdTransaksiAsrama($id);
+
+        return view("admin.asrama.daftarPenyewa.detail", [
+            "title" => "Daftar Penyewa",
+            "action" => "asrama",
+            "transaksiAsrama" => $transaksi->first(),
         ]);
     }
 
     /**
      * Reschedule
-     * Index
      */
     public function rescheduleTransaksiAsrama($id)
     {

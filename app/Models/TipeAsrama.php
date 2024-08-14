@@ -10,6 +10,7 @@ use App\Models\AsramaPaymentMethod;
 use App\Models\DetailFotoTipeAsrama;
 use App\Models\DetailFasilitasAsrama;
 use Illuminate\Database\Eloquent\Model;
+use Spatie\Activitylog\Traits\LogsActivity;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -18,14 +19,14 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class TipeAsrama extends Model
 {
-    use HasFactory, SoftDeletes;
+    use HasFactory, SoftDeletes, LogsActivity;
 
     protected $guarded = ["id"];
 
     public function getActivitylogOptions(): LogOptions
     {
         return LogOptions::defaults()
-            ->setDescriptionForEvent(fn ($e) => "This model has been {$e}")
+            ->setDescriptionForEvent(fn($e) => "This model has been {$e}")
             ->logExcept([
                 "created_at",
                 "updated_at"

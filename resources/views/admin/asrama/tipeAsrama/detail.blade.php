@@ -1,6 +1,8 @@
 @extends('layouts-admin.main')
 
 @section('content')
+    <x-back :link="route('tipeAsrama.index')" />
+
     <x-inner-layout>
 
         <x-title-component>
